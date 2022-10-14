@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 function Survey() {
   return (
     <>
-      <Navbar />
       <div className="container">
         <div className="container_quiz">
           <h2 className="survey_title">[Survey name]</h2>

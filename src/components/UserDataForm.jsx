@@ -2,9 +2,17 @@ import "../App.css";
 import React from "react";
 import {Formik } from "formik";
 
+
+
+
+export default function UserDataForm({user, handleSubmit }) {
 const initialValues = {
-  email: "",
-  password: "",
+  email: user.email ,
+  nom: user.nom,
+  age:user.age,
+  sexe:user.sexe,
+  poids:user.poids,
+  taille:user.taille
 };
 
 const validate = (values) => {
@@ -24,10 +32,6 @@ const validate = (values) => {
 
   return errors;
 };
-
-
-export default function LoginForm({ handleSubmit }) {
-
   return (
     <Formik
     initialValues= { initialValues }

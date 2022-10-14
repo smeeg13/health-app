@@ -2,7 +2,7 @@ export class User {
   id_user;
   nom ="";
   age = 0;
-  sexe = 0;
+  sexe = 0; //1 si masculin, 0 si feminin
   poids = 0;
   taille = 0;
 
