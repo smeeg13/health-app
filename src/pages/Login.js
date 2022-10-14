@@ -45,7 +45,7 @@ export default function Login() {
 
   return (
     <>
-      <div>
+    
         <div className="container left">
           <img className="docs_pics" src={docs}></img>
         </div>
@@ -60,7 +60,7 @@ export default function Login() {
           <LoginForm handleSubmit={handleLogin} />
           </>
           </div>
-      </div>
+    
     </>
   );
 }
