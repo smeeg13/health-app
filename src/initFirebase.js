@@ -34,7 +34,6 @@ export const refUser = collection(db, 'User').withConverter(userConverter);
 export const refDocteur = collection(db, 'Docteur').withConverter(docteurConverter);
 export const refRoles = collection(db, 'Roles').withConverter(roleConverter);
 export const refVariables = collection(db, 'Variables').withConverter(variableConverter);
-//export const refResultats = collection(db, "Resultat", auth.currentUser, "Resultats").withConverter(resultatsConverter);
 export const refQuestionnaire = collection(db, 'Questionnaires').withConverter(variableConverter);
 export const refMaladies = collection(db, 'Maladies').withConverter(maladieConverter);
 

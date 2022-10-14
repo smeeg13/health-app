@@ -16,7 +16,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./initFirebase";
 import { useContext, useEffect, useState } from "react";
 import Logout from "./pages/Logout";
-import { getUserById } from "./objects_managers/UserManager";
+import { GetUserById } from "./objects_managers/UserManager";
 
 export default function App() {
   /* Current user state */
@@ -29,7 +29,7 @@ export default function App() {
       setCurrentAuthUser(user);
       if (user != null) {
         console.log("User is", currentUser);
-        setCurrentUser(await getUserById(user.uid));
+        setCurrentUser(await GetUserById(user.uid));
       } else {
         setCurrentUser(null);
       }

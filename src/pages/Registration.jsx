@@ -25,7 +25,7 @@ function Registration() {
 
     return (
         <Container2>
-            <NavbarNotLogged/>
+            {/* <NavbarNotLogged/> */}
             <div className="container left">
                 <h1 className="choose_avatar">Enter your personnal information</h1>
                 <form>

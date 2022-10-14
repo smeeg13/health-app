@@ -2,8 +2,11 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../initFirebase";
 import { useNavigate } from "react-router-dom";
 import { User, setId } from "../objects/User";
-import { CreateDocUser } from "../objects_managers/UserManager";
-import { NavbarNotLogged } from "./Navbar";
+import {
+  CreateDocUser,
+  CreateDocUserInResultat,
+} from "../objects_managers/UserManager";
+import { CreateDocResultats } from "../objects_managers/ResultatsManager";
 import "@fontsource/lexend-deca";
 import "./pages.css";
 import "../App.css";
@@ -11,22 +14,26 @@ import { Link } from "react-router-dom";
 import docs from "./img/docs.jpg";
 import RegisterForm from "../components/RegisterForm";
 import { useState } from "react";
+import { Resultats } from "../objects/Resultats";
 
 export default function Register() {
   const navigate = useNavigate();
-  const [generalEror, setGeneralError] = useState('');
+  const [generalEror, setGeneralError] = useState("");
 
   const handleRegister = async (e, email, password) => {
     // e.preventDefault();
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      let user = new User(auth.currentUser.uid, email, "", 0, 0, 0, 0);
       //To create the user document in Firestore with the id created by Auth
-      let user = new User(auth.currentUser.uid, email, '',0,0,0,0);
       await CreateDocUser(user);
+
+      await CreateDocUserInResultat(user);
       navigate("/Registration");
+
     } catch (e) {
-      setGeneralError(e);
+      setGeneralError(e.name);
       console.error(e);
     }
   };
@@ -43,9 +50,9 @@ export default function Register() {
             Register yourself to keep track on your health{" "}
           </p>
           <RegisterForm handleSubmit={handleRegister} />
-          {generalEror!='' ? <div className="error">
-            {generalEror}
-          </div>: null}
+          {generalEror != "" ? (
+            <div className="error">{generalEror}</div>
+          ) : null}
           <p className="click_here" style={{ fontSize: 14 }}>
             Already Have an Account ? <Link to="/Login">Go to Login</Link>{" "}
           </p>

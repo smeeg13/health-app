@@ -1,7 +1,8 @@
 import moment from "moment/moment";
+import { Timestamp } from "firebase/firestore";
 
 export class Resultats {
-        todayDate = moment().format('L'); 
+        todayDate = moment().format("DD/MM/YY"); 
         id_resultats;
 
     constructor (id,diabete, cancer, infarctus, nonInfarctus) {
@@ -14,7 +15,7 @@ export class Resultats {
     }
     setIdResultats(id){
         if(id === null){
-            id = this.todayDate;
+            id = Timestamp.fromDate(new Date());
         }else{
             this.id_resultats = id;
         }

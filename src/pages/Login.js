@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import "@fontsource/lexend-deca";
 import { getRoleById } from "../objects_managers/RoleManager";
 import { getDocteurById } from "../objects_managers/DocteurManager";
-import { getUserById } from "../objects_managers/UserManager";
+import { GetUserById } from "../objects_managers/UserManager";
 import LoginForm from "../components/LoginForm";
 import docs from "./img/docs.jpg";
+import moment from "moment";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ export default function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-
       let roleOfUser = await CheckRole();
       console.log("Role of the User Returned :  ", roleOfUser);
 
@@ -67,7 +67,7 @@ export default function Login() {
 export async function CheckRole() {
   const userid = await getAuthCurrentUserId();
   //Get the user
-  let user = await getUserById(userid);
+  let user = await GetUserById(userid);
 
   if (user === null) {
     user = getDocteurById();

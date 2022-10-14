@@ -1,26 +1,31 @@
 import { db, auth } from "../initFirebase";
-import { doc, setDoc, getDoc,getDocs,deleteDoc, updateDoc,query,where } from "firebase/firestore";
-import { refUser } from "../initFirebase";
-
+import { Timestamp ,doc, setDoc, getDoc,getDocs,deleteDoc, updateDoc,query,where } from "firebase/firestore";
+import { refUser} from "../initFirebase";
+import moment, { now } from "moment";
 
 export async function CreateDocUser(user) {
   //By default : the constructor put the patient id as the id_role
   // Add a new document with the id of the auth user created.
-  const docRef = await setDoc(doc(refUser, user.id_user), user);
-  console.log("Auth User ID: ", auth.currentUser.uid);
-  console.log("Doc User ID: ", user.id_user);
+ await setDoc(doc(refUser, user.id_user), user);
+}
+
+export async function CreateDocUserInResultat(user) {
+  let todayDate = moment().format("DD/MM/YY"); 
+  await setDoc(doc(db, "Resultat", user.id_user), {
+    CreatedDate: Timestamp.fromDate(new Date()),
+  });
 }
 
 //Get data once
 //Get all users
-export async function getUsers() {
+export async function GetUsers() {
   const userSnapshot = await getDocs(refUser);
   const userList = userSnapshot.docs.map((doc) => doc.data());
   return userList;
 }
 
 //Get one user by id
-export async function getUserById(userId) {
+export async function GetUserById(userId) {
 
   const ref = doc(refUser, userId);
   const docSnap = await getDoc(ref);
@@ -34,7 +39,7 @@ export async function getUserById(userId) {
 }
 
 //Get one user by id
-export async function getUserByEmail(userEmail) {
+export async function GetUserByEmail(userEmail) {
   const q = query(refUser, where("email", "==", userEmail));
 let user;
   const querySnapshot = await getDocs(q);
@@ -50,7 +55,7 @@ let user;
 }
 
 //Update information for the user
-export async function updateUserData(user){
+export async function UpdateUserData(user){
   const ref = doc(refUser, user.id_user);
   await updateDoc(ref,{
     nom: user.nom,
