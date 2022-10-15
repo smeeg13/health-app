@@ -63,7 +63,7 @@ function DataBox(props){
 
 
 
-function Results() {
+export default function Results() {
   return (
     <>
       <Navbar />
@@ -82,7 +82,6 @@ function Results() {
   );
 }
 
-export default Results;
 
 // const Container2 = styled.div`
 
