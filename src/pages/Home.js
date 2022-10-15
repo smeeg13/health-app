@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 import results from "./img/results.png";
 import my_avatar from "./img/avatar5.png";
 
-
+//TODO :: Modify the display of home page according to currentUser.nom_role
 export default function Home({ currentUser }) {
   return (
     <React.Fragment>
@@ -37,7 +37,7 @@ export default function Home({ currentUser }) {
           </>
         ) : (
           <div>
-            <h2 className="center hi">Hi, welcome back {currentUser.email}</h2>
+            <h2 className="center hi">Hi, welcome back {currentUser.nom!='' ? currentUser.nom : currentUser.email}</h2>
             <Link to="/survey">
               <button className="btn survey_btn">Take a survey</button>
             </Link>

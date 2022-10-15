@@ -1,18 +1,16 @@
 import { db } from "../initFirebase";
 import {
+  Timestamp,
   collection,
   doc,
   setDoc,
   getDoc,
   getDocs,
   updateDoc,
-  query,
-  where,
 } from "firebase/firestore";
-import { resultatsConverter, Resultats } from "../objects/Resultats";
-import { async } from "@firebase/util";
+import { resultatsConverter } from "../objects/Resultats";
 
-export async function CreateDocResultats(id_user, resultat) {
+export async function CreateDocResultatsForUser(id_user, resultat) {
   const refDoc = doc(
     db,
     "Resultat",
@@ -25,6 +23,33 @@ export async function CreateDocResultats(id_user, resultat) {
   await setDoc(refDoc, resultat);
   console.log("Auth User ID: ", id_user);
   console.log("Document Resultat written with ID: ", resultat.id_resultats);
+}
+
+export async function CreateDocGuestInResultat() {
+  // Add a new document with a generated id
+  const refDoc = doc(collection(db, "Resultat"));
+
+  await setDoc(refDoc, {
+    CreatedDate: Timestamp.fromDate(new Date()),
+  });
+
+  console.log("New Doc For Guest in Resultat : ", refDoc.id);
+  return refDoc.id;
+}
+
+export async function CreateDocResultatsForGuest(id_doc, resultat) {
+  const refDoc = doc(
+    db,
+    "Resultat",
+    id_doc,
+    "Resultats",
+    resultat.id_resultats
+  ).withConverter(resultatsConverter);
+
+  // Add a new document with today's date as the id
+  await setDoc(refDoc, resultat);
+  console.log("Guest Doc in Resultat : ", id_doc);
+  console.log("Document Resultats written with ID: ", resultat.id_resultats);
 }
 
 //Get all resultats of one user

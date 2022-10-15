@@ -4,7 +4,7 @@ import { refQuestionnaire } from "../initFirebase";
 
 
 //Get one user by id
-export async function getQuestionnaireById(quesId) {
+export async function GetQuestionnaireById(quesId) {
     const ref = doc(db, "Questionnaires", quesId).withConverter(userConverter);
     const docSnap = await getDoc(ref);
     if (docSnap.exists()) {
@@ -19,7 +19,7 @@ export async function getQuestionnaireById(quesId) {
     }
   }
 
-  console.log(getQuestionnaireById(1))
+  console.log(GetQuestionnaireById(1))
 
 
 //Get all three questionnaires

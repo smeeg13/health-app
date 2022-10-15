@@ -1,7 +1,6 @@
-import { db, auth } from "../initFirebase";
+import { db } from "../initFirebase";
 import { Timestamp ,doc, setDoc, getDoc,getDocs,deleteDoc, updateDoc,query,where } from "firebase/firestore";
 import { refUser} from "../initFirebase";
-import moment, { now } from "moment";
 
 export async function CreateDocUser(user) {
   //By default : the constructor put the patient id as the id_role
@@ -10,7 +9,6 @@ export async function CreateDocUser(user) {
 }
 
 export async function CreateDocUserInResultat(user) {
-  let todayDate = moment().format("DD/MM/YY"); 
   await setDoc(doc(db, "Resultat", user.id_user), {
     CreatedDate: Timestamp.fromDate(new Date()),
   });

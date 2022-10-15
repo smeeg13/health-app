@@ -1,0 +1,20 @@
+export class QReponse {
+    id_question;
+    val_reponse;
+    constructor ( id_question,val_reponse) {
+        this.id_question = id_question;
+        this.val_reponse= val_reponse;
+    }
+
+    setIdQuestion(id) {
+        this.id_question = id;
+      }
+
+      setValResponse(val) {
+        this.val_reponse = val;
+      }
+
+    toString() {
+        return this.nom_role;
+    }
+}

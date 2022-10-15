@@ -1,12 +1,8 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../initFirebase";
 import { useNavigate } from "react-router-dom";
-import { User, setId } from "../objects/User";
-import {
-  CreateDocUser,
-  CreateDocUserInResultat,
-} from "../objects_managers/UserManager";
-import { CreateDocResultats } from "../objects_managers/ResultatsManager";
+import { User } from "../objects/User";
+import { CreateDocUser, CreateDocUserInResultat} from "../objects_managers/UserManager";
 import "@fontsource/lexend-deca";
 import "./pages.css";
 import "../App.css";
@@ -14,7 +10,6 @@ import { Link } from "react-router-dom";
 import docs from "./img/docs.jpg";
 import RegisterForm from "../components/RegisterForm";
 import { useState } from "react";
-import { Resultats } from "../objects/Resultats";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -41,7 +36,7 @@ export default function Register() {
   return (
     <>
       <div className="container left">
-        <img className="docs_pics" src={docs}></img>
+        <img className="docs_pics" src={docs} alt=''></img>
       </div>
       <div className="container right">
         <>
@@ -50,7 +45,7 @@ export default function Register() {
             Register yourself to keep track on your health{" "}
           </p>
           <RegisterForm handleSubmit={handleRegister} />
-          {generalEror != "" ? (
+          {generalEror !== "" ? (
             <div className="error">{generalEror}</div>
           ) : null}
           <p className="click_here" style={{ fontSize: 14 }}>

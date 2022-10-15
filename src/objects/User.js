@@ -5,6 +5,7 @@ export class User {
   sexe = 0; //1 si masculin, 0 si feminin
   poids = 0;
   taille = 0;
+  nom_role='';
 
 
   constructor(id_user,mail, nom, age, sexe, poids, taille) {
@@ -29,6 +30,10 @@ export class User {
 
   setNom(nom) {
     this.nom = nom;
+  }
+
+  setNomRole(nom_role) {
+    this.nom_role = nom_role;
   }
 
   setAge(age) {

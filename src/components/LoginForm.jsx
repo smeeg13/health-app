@@ -56,8 +56,7 @@ export default function LoginForm({ handleSubmit }) {
           errors,
           touched,
           handleBlur,
-          isValid,
-          dirty
+          isValid
         } = formik;
         return (
             

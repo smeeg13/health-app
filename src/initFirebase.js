@@ -1,11 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, updateProfile } from "firebase/auth";
-import {getFirestore, collection, getDocs} from "@firebase/firestore";
+import {getFirestore, collection} from "@firebase/firestore";
 import { userConverter } from "./objects/User";
 import { docteurConverter } from "./objects/Docteur";
 import { roleConverter } from "./objects/Role";
 import { variableConverter } from "./objects/Variables";
-import { resultatsConverter } from "./objects/Resultats";
 import { questionnaireConverter } from "./objects/Variables";
 import { maladieConverter } from "./objects/Maladie";
 

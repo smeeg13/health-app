@@ -8,7 +8,6 @@ import { getDocteurById } from "../objects_managers/DocteurManager";
 import { GetUserById } from "../objects_managers/UserManager";
 import LoginForm from "../components/LoginForm";
 import docs from "./img/docs.jpg";
-import moment from "moment";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ export default function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      let roleOfUser = await CheckRole();
+      let roleOfUser = await CheckRole(null);
       console.log("Role of the User Returned :  ", roleOfUser);
 
       if (roleOfUser === "Admin") {
@@ -46,7 +45,7 @@ export default function Login() {
     <>
     
         <div className="container left">
-          <img className="docs_pics" src={docs}></img>
+          <img className="docs_pics" src={docs} alt="docs"></img>
         </div>
         <div className="container right">
           <>
@@ -64,19 +63,19 @@ export default function Login() {
   );
 }
 
-export async function CheckRole() {
-  const userid = await getAuthCurrentUserId();
-  //Get the user
-  let user = await GetUserById(userid);
-
-  if (user === null) {
-    user = getDocteurById();
+export async function CheckRole(myUser) {
+  if(myUser === null){
+    const userid = await getAuthCurrentUserId();
+    //Get the user
+    myUser = await GetUserById(userid);
   }
-  if (user === null) {
-    //By Default it is a Guest if no user nor doctor was found
+  if (myUser === null) {
+    myUser = getDocteurById();
+  }
+  if (myUser === null) {//By Default it is a Guest if no user nor doctor was found
     return "Invite";
   }
   //Get all role existing
-  let role = await getRoleById(user.id_role);
+  let role = await getRoleById(myUser.id_role);
   return role.nom_role;
 }
