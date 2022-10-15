@@ -17,6 +17,7 @@ import { auth } from "./initFirebase";
 import { useContext, useEffect, useState } from "react";
 import Logout from "./pages/Logout";
 import { GetUserById } from "./objects_managers/UserManager";
+import Settings from "./pages/Settings";
 
 export default function App() {
   /* Current user state */
@@ -66,6 +67,7 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/settings" element={<Settings/>} />
         <Route path="/survey" element={<Survey />} />
         <Route path="/results" element={<Results />} />
         <Route path="/registration" element={<Registration />} />

@@ -12,7 +12,9 @@ export class Variable {
     toString() {
         return this.nom + ', limites = ' + this.limites + ', val_normale = ' + this.val_normale+ ', val_predefinie1 = ' + this.val_predefinie1+ ', val_predefinie2 = ' + this.val_predefinie2;
     }
+
 }
+
 
 // Firestore data converter
 export const variableConverter = {

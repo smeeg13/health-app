@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import styled from "styled-components";
 import my_avatar from "./img/avatar5.png";
 
-function Results() {
+export default function Results() {
   return (
     <>
       <Navbar />
@@ -23,7 +23,6 @@ function Results() {
   );
 }
 
-export default Results;
 
 // const Container2 = styled.div`
 
