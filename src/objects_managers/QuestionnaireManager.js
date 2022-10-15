@@ -5,7 +5,7 @@ import { refQuestionnaire } from "../initFirebase";
 
 //Get one user by id
 export async function GetQuestionnaireById(quesId) {
-    const ref = doc(db, "Questionnaires", quesId).withConverter(userConverter);
+    const ref = doc(db, "Questionnaires", quesId);
     const docSnap = await getDoc(ref);
     if (docSnap.exists()) {
       // Convert to User object
@@ -19,21 +19,21 @@ export async function GetQuestionnaireById(quesId) {
     }
   }
 
-  console.log(GetQuestionnaireById(1))
+  // console.log(GetQuestionnaireById(1))
 
 
 //Get all three questionnaires
-export async function getQuestionnaires() {
-    const ref = doc(db, "Questionnaires", quesId).withConverter(userConverter);
-    const docSnap = await getDoc(ref);
-    if (docSnap.exists()) {
-      // Convert to User object
-      const user = docSnap.data();
-      // Use a User instance method
-      console.log(user.toString());
-      return user;
-    } else {
-      console.log("No such document!");
-      return null;
-    }
-  }
+// export async function getQuestionnaires() {
+//     const ref = doc(db, "Questionnaires", quesId);
+//     const docSnap = await getDoc(ref);
+//     if (docSnap.exists()) {
+//       // Convert to User object
+//       const user = docSnap.data();
+//       // Use a User instance method
+//       console.log(user.toString());
+//       return user;
+//     } else {
+//       console.log("No such document!");
+//       return null;
+//     }
+//   }

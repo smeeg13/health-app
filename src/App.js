@@ -49,13 +49,13 @@ export default function App() {
     };
   }, []);
 
-  useEffect(function effectFunction() {
-    async function fetchQuestionnaire1() {
-        const questionnaire = await GetQuestionnaireById(1);
-        setQuestionnaire1(questionnaire);
-    }
-    fetchQuestionnaire1();
-}, []);
+//   useEffect(function effectFunction() {
+//     async function fetchQuestionnaire1() {
+//         const questionnaire = await GetQuestionnaireById(1);
+//         setQuestionnaire1(questionnaire);
+//     }
+//     fetchQuestionnaire1();
+// }, []);
 
 
 
