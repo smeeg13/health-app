@@ -1,6 +1,7 @@
 import { db } from "../initFirebase";
-import { doc, updateDoc } from "firebase/firestore";
-import { refVariables } from "../initFirebase";
+import { auth } from "../initFirebase";
+import { doc, setDoc, getDoc,getDocs,query,where, updateDoc, addDoc } from "firebase/firestore";
+import { refVariables, } from "../initFirebase";
 import { variableConverter } from "../objects/Variables";
 
 export async function CreateDocVariable(variable) {
@@ -60,14 +61,14 @@ export async function updateVariableData(varId,limits,name,normalVal,predefinedV
 //Set multiples variables
 //Don't work for the moment
 export function writeVariablesData(listVariable){
-  listVariable.forEach(v => 
+ /* listVariable.forEach(v =>
     set(ref(db,"Variables", v.varId),{
     limites: v.limits,
     nom: v.name,
     val_normale: v.val_normal,
     val_predefinie: v.val_predefined,
   })
-  );
+  );*/
 }
 
 

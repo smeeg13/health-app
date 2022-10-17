@@ -10,7 +10,6 @@ import Slider from "../components/Slider";
 export default function Home({ currentUser }) {
   return (
     <React.Fragment>
-      {!currentUser ? <NavbarNotLogged /> : <Navbar />}
       <div className="container">
         {!currentUser ? (
           <>
@@ -38,7 +37,7 @@ export default function Home({ currentUser }) {
           </>
         ) : (
           <div>
-            <h2 className="center hi">Hi, welcome back {currentUser.email}</h2>
+            <h2 className="center hi">Hi, welcome back {currentUser.nom!='' ? currentUser.nom : currentUser.email}</h2>
             <Link to="/survey">
               <button className="btn survey_btn">Take a survey</button>
             </Link>

@@ -3,8 +3,67 @@ import docs from "./img/docs.jpg";
 import Navbar from "./Navbar";
 import styled from "styled-components";
 import my_avatar from "./img/avatar5.png";
+import { useContext, useEffect, useState } from "react";
 
-function Results() {
+function Resultats(props){
+  //Need user data and avatar existant
+  //need user response of the 3 questionnaires
+
+  const [responseQ1, setResponseQ1] = useState(undefined);
+  const [responseQ2, setResponseQ2] = useState(undefined);
+  const [resultat, setResultat] = useState(undefined);
+
+  let handleChangesQ1 = (e)=> {
+    e.preventDefault();
+    setResponseQ1(e.target.value);
+  };
+  let handleChangesQ2 = (e)=> {
+    e.preventDefault();
+    setResponseQ2(e.target.value);
+  };
+  let handleChangesRes = (e)=> {
+    e.preventDefault();
+    setResultat(e.target.value);
+  };
+
+  return(
+    <>
+    {/**Box for Title and Avatar */}
+
+    {/* Box for data questionnaire  */}
+    {/* <BoxQuestionnaire handleChanges={handleChangesQ1} data={responseQ1}/> */}
+    
+    {/* Box for data questionnaire  */}
+    {/* <BoxQuestionnaire handleChanges={handleChangesQ2} data={responseQ2}/> */}
+
+    {/* Box for Resultat  */}
+    {/* <BoxResultat handleChanges={handleChangesRes} data={resultat}/> */}
+
+
+
+    {/* Button for saving into db changes */}
+
+
+    </>
+  );
+}
+
+function TitleBox(props){
+  <div>
+      {/* 
+    Need the title of the questionnaire
+    Need the avatar of the user */}
+  </div>
+}
+
+function DataBox(props){
+  // Need the response of questionnaire 
+  //Inserted into a form, to be able to transform them
+}
+
+
+
+export default function Results() {
   return (
     <>
       <Navbar />
@@ -23,7 +82,6 @@ function Results() {
   );
 }
 
-export default Results;
 
 // const Container2 = styled.div`
 

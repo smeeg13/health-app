@@ -6,18 +6,16 @@ import {ThemeContext} from "./ThemeContext";
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
   constructor() {
-      super();
-      this.state = { theme: "light" };
+    super();
+    this.state = { theme: "light" };
   }
-
-
 
   /* Toggle theme method */
   toggleTheme = () => {
-      this.setState((prevState) => ({
-          theme: prevState.theme === "dark" ? "light" : "dark",
-      }));
-      console.log("Current Theme : ", this.state.theme);
+    this.setState((prevState) => ({
+      theme: prevState.theme === "dark" ? "light" : "dark",
+    }));
+    console.log("Current Theme : ", this.state.theme);
   };
 
   /*
@@ -27,16 +25,15 @@ class AppWrapper extends React.Component {
   update the current theme.
    */
   render() {
-      return (
-          <ThemeContext.Provider
-              value={{ theme: this.state.theme,
-                  toggleTheme: this.toggleTheme }}
-          >
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </ThemeContext.Provider>
-      );
+    return (
+      <ThemeContext.Provider
+        value={{ theme: this.state.theme, toggleTheme: this.toggleTheme }}
+      >
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeContext.Provider>
+    );
   }
 }
 
