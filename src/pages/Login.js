@@ -47,6 +47,7 @@ export default function Login() {
         <div className="container left">
           <img className="docs_pics" src={docs} alt="docs"></img>
         </div>
+        
         <div className="container right">
           <>
           <h2 className="page_name">Login</h2>

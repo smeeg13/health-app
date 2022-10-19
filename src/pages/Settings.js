@@ -20,8 +20,8 @@ export default function Settings() {
 
     return (
 
-        <div>
-            <h1>Settings</h1>
+        <div className="settings_page">
+            <h1 className="settings_title">Settings</h1>
             {variables.map((variable) => {
                 return <div>
                     <li style={{listStyleType: "none", padding: 0}} key={variable.id}>
@@ -55,8 +55,8 @@ function VariablesForm({data}) {
 
 
     return (
-        <div style={{background: "lightskyblue", backgroundSize: "cover"}}>
-            <h4>
+        <div className="settings_container">
+            <h4 className="variable_text">
                 {data.nom}
             </h4>
                 Valeur normale {data.val_normale}
@@ -65,7 +65,7 @@ function VariablesForm({data}) {
                     {data.val_predefinie !== null && data.val_predefinie !== undefined ? (
                             <div>
                                 Valeur prédifinies {data.val_predefinie} =>
-                                <input
+                                <input 
                                     type="text"
                                     name="val_predifinie"
                                     value={variable_predifinie}
