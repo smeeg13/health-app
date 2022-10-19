@@ -9,7 +9,9 @@ import day from "./img/day.png";
 import { ThemeContext } from "../ThemeContext";
 
 export default class Navbar extends React.Component {
+
   render() {
+    console.log('User into navbar',this.props.currentUser);
     return (
       <Container>
         <div className="navbar">
@@ -17,42 +19,79 @@ export default class Navbar extends React.Component {
             <img className="logo_app" src={logo} />
           </Link>
           <ul>
+            {/* if user.nom_role != invite : USER CONNECTED */}
+            {this.props.currentUser.nom_role !== "Invite" && (
               <Link to="/logout" style={{ textDecoration: "none" }}>
                 <button className="btn btn_logout" title="Logout">
                   <img className="logo_logout" src={exit} />
                 </button>
               </Link>
-              <button
-                className="btn btn_switch"
-                title="Switch Theme"
-                onClick={this.context.toggleTheme}
-              >
-                {this.context.theme === "dark" ? (
-                  <img className="logo_theme" src={night} />
-                ) : (
-                  <img className="logo_theme" src={day} />
-                )}
-              </button>
-            <li>
-              <Link to="/" style={{ textDecoration: "none" }}>
-                My Account
-              </Link>
-            </li>
-            <li>
-              <Link to="/registration" style={{ textDecoration: "none" }}>
-                Documents
-              </Link>
-            </li>
-            <li>
-              <Link to="/survey" style={{ textDecoration: "none" }}>
-                Survey
-              </Link>
-            </li>
-            <li>
-              <Link to="/" style={{ textDecoration: "none" }}>
-                Home
-              </Link>
-            </li>
+            )}
+
+            <button
+              className="btn btn_switch"
+              title="Switch Theme"
+              onClick={this.context.toggleTheme}
+            >
+           {this.context.theme === "dark" ? (
+                <img className="logo_theme" src={night} />
+              ) : (
+                <img className="logo_theme" src={day} />
+              )}   
+            </button>
+
+            {/* if user.nom_role = Patient  */}
+            {this.props.currentUser.nom_role === "Patient" && (
+              <>
+                <li>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    My Account
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/registration" style={{ textDecoration: "none" }}>
+                    Historic
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/survey" style={{ textDecoration: "none" }}>
+                    Survey
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    Home
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {/* if user.nom_role = Admin  */}
+            {this.props.currentUser.nom_role === "Admin" && (
+              <>
+                <li>
+                  <Link to="/settings" style={{ textDecoration: "none" }}>
+                    Settings
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    Home
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {/* if user.nom_role = Docteur  */}
+            {this.props.currentUser.nom_role === "Docteur" && (
+              <>
+                <li>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    My Account
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </Container>
@@ -61,35 +100,6 @@ export default class Navbar extends React.Component {
 }
 Navbar.contextType = ThemeContext;
 
-export class NavbarNotLogged extends React.Component {
-  render() {
-    return (
-      <Container>
-        <div className="navbar">
-          <Link to="/">
-            <img className="logo_app" src={logo} />
-          </Link>
-          <h1 className="app_title">HealthApp Prevention</h1>
-          <ul>
-          <button style={{marginTop:"5px"}}
-                className="btn btn_switch"
-                title="Switch Theme"
-                onClick={this.context.toggleTheme}
-              >
-                {this.context.theme === "dark" ? (
-                  <img className="logo_theme" src={night} />
-                ) : (
-                  <img className="logo_theme" src={day} />
-                )}
-              </button>
-          </ul>
-        </div>
-      </Container>
-    );
-  }
-}
-/* Set the contextType to ThemeContext*/
-NavbarNotLogged.contextType = ThemeContext;
 
 const Container = styled.div`
   padding: 0;
