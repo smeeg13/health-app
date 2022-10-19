@@ -51,7 +51,9 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/homeApp" element={<HomeApp />} />
-          <Route path="/survey" element={<Survey />} />
+          <Route path="/survey1" element={<Survey quesId="1"/>} />
+          <Route path="/survey2" element={<Survey quesId="2"/>} />
+          <Route path="/survey3" element={<Survey quesId="3"/>} />
         </Routes>
       {/* </header> */}
     </div>
