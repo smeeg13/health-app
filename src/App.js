@@ -88,6 +88,7 @@ export default function App() {
         <Route path="/survey" element={<Survey />} />
         <Route path="/results" element={<Results />} />
         <Route path="/registration" element={<Registration />} />
+        <Route path="/settings" element={<Settings/>}/>
       </Routes>
     </div>
   );

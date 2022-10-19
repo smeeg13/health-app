@@ -5,8 +5,7 @@ import logo from "./img/logo.png";
 import exit from "./img/exit.png";
 import night from "./img/night.png";
 import day from "./img/day.png";
-
-import { ThemeContext } from "../ThemeContext";
+import { ThemeContext, themes } from "../ThemeContext";
 
 export default class Navbar extends React.Component {
   render() {

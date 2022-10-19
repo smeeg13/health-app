@@ -157,6 +157,10 @@ input{
   background-color: white;
 }
 
+
+
+
+
 .category{
   margin-top: 70px;
   float: left;
@@ -174,6 +178,22 @@ input{
   font-size: 0.7em;
 }
 
+.category2{
+  margin-top: 55px;
+  float: left;
+  text-align: left;
+  margin-left: 30px;
+  font-family: "Lexend Deca";
+  font-size: 0.7em;
+}
+
+.response2{
+  margin-top: 70px;
+  margin-right: 160px;
+  float: right;
+  font-family: "Lexend Deca";
+  font-size: 0.7em;
+}
 
 .category3{
   margin-top: 55px;
@@ -185,43 +205,21 @@ input{
 }
 
 .response3{
-  margin-top: 55px;
-  margin-right: 100px;
-  max-width: fit-content;
+  margin-top: 60px;
+  margin-right: 40px;
   float: right;
   font-family: "Lexend Deca";
   font-size: 0.7em;
 }
 
-:root {
-  --main-color: rgb(104, 117, 217);
-  --main-color-hover: rgb(104, 117, 217, 0.2);
-  --track-color: #ddd;
+
+/* Style the custom slider */
+.custom-slider {
+  color:"success";
+  width: 100px;
+  height: 20px;
+  float: right;
 }
-
-
-.customSlider {
-  /* max width of your slider */
-  max-width: 300px;
-  /* Optional: Only If you want to center your slider in the page */
-  margin: auto;
-}
-
-.customSlider-track {
-  /* Top value to align your track to the center of your thumb */
-  top: 8px;
-  /* thickness of the track */
-  height: 4px;
- /* default color of your track */
-  background: var(--track-color);
-}
-
-.customSlider-track.customSlider-track-0 {
-  /* color of the track before the thumb */
-  background: var(--main-color);
-}
-
-
 
 .my_avatar{
   margin-left: 10px;
@@ -250,22 +248,39 @@ input{
     color:#1A523C;
   }
 
-  /* .text{
-    font-family: "Lexend Deca";
-    font-size: 1em;
-  }  */
+/* ------ SETTINGS PAGE --------- */
 
-  /* .left {
-  width: 40%;
-  left: 0;
-  background-color: #fff;
+.settings_page{
+  margin-top: -30px;
+  background-color: #a9cce3;
+  font-family: "Lexend Deca";
 }
 
-.right {
-  width: 60%;
-  right: -15px;
-  border-radius: 20px;
-  background-color: #BBF3DD;
-  transform: translateZ(0);
-  z-index: -1;
+.settings_title{
+  padding-top: 40px;
+}
+
+.variable_text{
+  color: #1A523C;
+}
+
+/* .settings_btn {
+  float: right;
+  margin-top: 50px;
+  margin-right: 50px;
+  position: relative;
+  width: 80px;
+  height: 40px;
+  overflow: hidden;
+  border: none;
+  border-radius: 30px;
+  background: #e8e8e8;
+  font-family: "Lexend Deca";
+  color: #3C3C3D;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  outline: none;
+  cursor: pointer;
+  
 } */

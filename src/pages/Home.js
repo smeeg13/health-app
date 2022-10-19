@@ -1,13 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
-import { NavbarNotLogged } from "./Navbar";
-import Navbar from "./Navbar";
-import results from "./img/results.png";
 import my_avatar from "./img/avatar5.png";
-import Slider from "../components/Slider";
+import { useState } from "react";
 
 export default function Home({ currentUser }) {
+  // the width of the box
+  const [smoke, setSmoke] = useState(10);
+  const [weight, setWeight] = useState(10);
+
+  // This function is called when the first range slider changes
+  const changeSmoke = (event) => {
+    setSmoke(event.target.value);
+  };
+
+  const changeWeight = (event) => {
+    setWeight(event.target.value);
+  };
+
   return (
     <React.Fragment>
       <div className="container">
@@ -15,11 +25,13 @@ export default function Home({ currentUser }) {
           <>
             <h2 className="center welcome">Welcome in HealthApp</h2>
             <p className="center text">
-              Lorem ipsum fjdskfjsdkfjdskfjsdfjdskfjfjdksfjdskfjsdkfjsdk{" "}
+              Health Prevention is an application developed by {" "}
               <br></br>
-              fjdsskfjdskfjdskfjdskfjdskfjdsklfjdskfjdskfjdkfljdkfjdklfjdsl
+              Mégane, Emilie, Thomas and Abdullah. 
               <br></br>
-              fjkdfjdksfjdksfjdksfjdksfj
+              You must take an health survey and regarding your answers it will 
+              <br></br>
+              provide you the result of your health condition. 
             </p>
             <Link to="/survey">
               <button className="btn survey_btn">Take a survey</button>
@@ -37,7 +49,10 @@ export default function Home({ currentUser }) {
           </>
         ) : (
           <div>
-            <h2 className="center hi">Hi, welcome back {currentUser.nom!='' ? currentUser.nom : currentUser.email}</h2>
+            <h2 className="center hi">
+              Hi, welcome back{" "}
+              {currentUser.nom != "" ? currentUser.nom : currentUser.email}
+            </h2>
             <Link to="/survey">
               <button className="btn survey_btn">Take a survey</button>
             </Link>
@@ -69,7 +84,7 @@ export default function Home({ currentUser }) {
                 <h3>Height:</h3>
                 <h3>Weight:</h3>
               </div>
-              <div className="response">
+              <div className="response2">
                 <h3>xx</h3>
                 <h3>xx</h3>
                 <h3>xx</h3>
@@ -80,21 +95,62 @@ export default function Home({ currentUser }) {
               <h2 className="quiz_title">[insert quiz title]</h2>
               <img className="my_avatar" src={my_avatar} />
               <div className="category3">
-                <span>
-                  <h3>Fumeur:</h3>
-                  <Slider />
-                </span>
+                <h3>Fumeur:</h3>
                 <h3>Alimentation:</h3>
                 <h3>Activité physique:</h3>
-                <h3>Poids:</h3>
-                <h3>Alcool:</h3>
+                <h3>Poids: {weight}kg</h3>
+                <h3>Alcools:</h3>
               </div>
               <div className="response3">
-                <Slider />
-                <h3>xxxxxx</h3>
-                <h3>xx</h3>
-                <h3>xx</h3>
-                <h3>xx</h3>
+                <input
+                  type="range"
+                  onChange={changeSmoke}
+                  min={1}
+                  max={10}
+                  step={1}
+                  value={smoke}
+                  className="custom-slider"
+                ></input>
+                <br></br>
+                <input style={{backgroundColor:"blueviolet"}}
+                  type="range"
+                  onChange={changeWeight}
+                  min={1}
+                  max={10}
+                  step={1}
+                  value={weight}
+                  className="custom-slider"
+                ></input>
+                 <br></br>
+                <input
+                  type="range"
+                  onChange={changeSmoke}
+                  min={1}
+                  max={10}
+                  step={1}
+                  value={smoke}
+                  className="custom-slider"
+                ></input>
+                 <br></br>
+                <input
+                  type="range"
+                  onChange={changeSmoke}
+                  min={1}
+                  max={10}
+                  step={1}
+                  value={smoke}
+                  className="custom-slider"
+                ></input>
+                 <br></br>
+                <input
+                  type="range"
+                  onChange={changeSmoke}
+                  min={1}
+                  max={10}
+                  step={1}
+                  value={smoke}
+                  className="custom-slider"
+                ></input>
               </div>
             </div>
           </div>

@@ -127,8 +127,8 @@ h1{
 
 
 .page_name{
-  padding-top: 150px;
-  margin-top: 150px;
+  padding-top: 50px;
+  margin-top: 50px;
   padding-bottom: 10px;
   color: #054A2F;
   font-size: 2em;
@@ -144,6 +144,12 @@ h1{
 .welcome{
   font-family: "Lexend Deca";
   font-size: 1.7em;
+}
+
+.text {
+  font-family: "Lexend Deca";
+  font-size: 1em;
+  padding-bottom: 20px;
 }
 
 .app_title{
