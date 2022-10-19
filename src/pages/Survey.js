@@ -1,15 +1,11 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
-import { ThemeContext, themes } from "../ThemeContext";
 
 function Survey() {
   return (
     <>
-      <div className="container"  style={{
-          backgroundColor: themes[this.context.theme].bookBackground,
-          color: themes[this.context.theme].foreground,
-        }}>
+      <div className="container">
         <div className="container_quiz">
           <h2 className="survey_title">[Survey name]</h2>
           <div className="container_left">
@@ -151,6 +147,5 @@ function Survey() {
     </>
   );
 }
-
 
 export default Survey;
