@@ -46,12 +46,16 @@ function VariablesForm({data}) {
 
     let [api_variable_predifinie, setApi_variable_predifinie] = useState("");
     let [api_variable_limites, setApi_variable_limites] = useState("");
+    let [api_variable_normale, setApi_variable_normale] = useState("");
+
+    let [variable_normale, setVariable_normale] = useState("");
     let [variable_predifinie, setVariable_predifinie] = useState("");
     let [variable_limites, setVariable_limites] = useState("");
 
     useEffect(() => {
         setApi_variable_predifinie(data.val_predefinie);
         setApi_variable_limites(data.limites);
+        setApi_variable_normale(data.val_normale)
     }, []);
 
     const handleFormSubmit = async (event) => {
@@ -63,11 +67,19 @@ function VariablesForm({data}) {
             setApi_variable_limites(variable_limites)
         } else if (api_variable_predifinie != variable_predifinie && variable_predifinie != "") {
             const variableRef = doc(db, 'Variables', data.id);
-           setDoc(variableRef, {val_predefinie: variable_predifinie}, {merge: true}).then(r => console.log("Update val predifinie done"));
+            setDoc(variableRef, {val_predefinie: variable_predifinie}, {merge: true}).then(r => console.log("Update val predifinie done"));
             setApi_variable_predifinie(variable_predifinie)
+        } else if (api_variable_normale != variable_normale && variable_normale != "") {
+            const variableRef = doc(db, 'Variables', data.id);
+            setDoc(variableRef, {val_normale: variable_normale}, {merge: true}).then(r => console.log("Update val predifinie done"));
+            setApi_variable_normale(variable_normale)
         } else {
             console.log("Settings info : Nothing to update.. ")
         }
+
+        setVariable_normale("");
+        setVariable_limites("");
+        setVariable_predifinie("");
     }
 
     return (
@@ -75,10 +87,9 @@ function VariablesForm({data}) {
             <h4 className="variable_text">
                 {data.nom}
             </h4>
-            Valeur normale {data.val_normale}
             <form onSubmit={handleFormSubmit}>
                 <div>
-                    {data.val_predefinie !== null && data.val_predefinie !== undefined ? (
+                  {/*  {data.val_predefinie !== null && data.val_predefinie !== undefined ? (
                             <div>
                                 Valeur prédifinies {api_variable_predifinie} =>
                                 <input
@@ -91,7 +102,27 @@ function VariablesForm({data}) {
                             </div>)
                         :
                         ("")
-                    }
+                    }*/}
+                    <div>
+                        Valeur normale {api_variable_normale} =>
+                        <input
+                            type="text"
+                            name="val_normale"
+                            value={variable_normale}
+                            onChange={(e) => setVariable_normale(e.target.value)}
+                            placeholder="type your new value.."/>
+                        <button type="submit">save</button>
+                    </div>
+                    <div>
+                        Valeur prédifinies {api_variable_predifinie} =>
+                        <input
+                            type="text"
+                            name="val_predifinie"
+                            value={variable_predifinie}
+                            onChange={(e) => setVariable_predifinie(e.target.value)}
+                            placeholder="type your new value.."/>
+                        <button type="submit">save</button>
+                    </div>
                     <div>
                         Valeur limites ({api_variable_limites}) =>
                         <input
