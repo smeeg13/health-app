@@ -176,25 +176,4 @@ const Container = styled.div`
     margin-below: 20px;
   }
 
-  .ri-linkedin-circle-line {
-    animation-delay: 1s;
-  }
-
-  .ri-outlook-line {
-    animation-delay: 2s;
-  }
-
-  @keyframes float {
-    0% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-15px);
-    }
-
-    100% {
-      transform: translateY(0);
-    }
-  }
 `;
