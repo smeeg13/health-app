@@ -36,6 +36,10 @@ export class User {
     this.nom_role = nom_role;
   }
 
+  setIdRole(id_role) {
+    this.id_role = id_role;
+  }
+
   setAge(age) {
     this.age = age;
   }

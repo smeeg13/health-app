@@ -7,7 +7,7 @@ import ReactSwitch from "react-switch";
 import home_pic from "./img/home.png"
 
 
-export default function Home({ currentUser }) {
+export default function Home(props) {
   // the width of the box
   const [smoke, setSmoke] = useState(10);
   const [weight, setWeight] = useState(10);
@@ -31,10 +31,20 @@ export default function Home({ currentUser }) {
   return (
     <React.Fragment>
       <div className="container" id={theme}>
-        {!currentUser ? (
-          <>
-            <h2 className="center welcome">Welcome in HealthApp</h2>
-            <p className="center text">
+        {props.currentUser.nom_role === "Invite" && <HomeGuest />}
+        {props.currentUser.nom_role === "Patient" && <HomeUser currentUser={props.currentUser}/>}
+        {props.currentUser.nom_role === "Admin" && <HomeAdmin />}
+        {props.currentUser.nom_role === "Docteur" && <HomeDocteur />}
+      </div>
+    </React.Fragment>
+  );
+}
+
+function HomeGuest() {
+  return (
+    <>
+      <h2 className="center welcome">Welcome in HealthApp</h2>
+      <p className="center text">
               Health Prevention is an application developed by <br></br>
               Mégane, Emilie, Thomas and Abdullah.
               <br></br>
@@ -45,64 +55,68 @@ export default function Home({ currentUser }) {
             <div className="switch_mode">
               <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
             </div>
-            <Link to="/survey">
-              <button className="btn survey_btn">Take a survey</button>
-            </Link>
-            <br />
-            <br />
-            <Link to="/register" className="App-link">
-              <button className="btn register_btn">Register</button>
-            </Link>
-            <span> </span>
-            <Link to="/login" className="App-link">
-              <button className=" btn login_btn">Login</button>
-            </Link>
-            <br />
+      <Link to="/survey">
+        <button className="btn survey_btn">Take a survey</button>
+      </Link>
+      <br />
+      <br />
+      <Link to="/register" className="App-link">
+        <button className="btn register_btn">Register</button>
+      </Link>
+      <span> </span>
+      <Link to="/login" className="App-link">
+        <button className=" btn login_btn">Login</button>
+      </Link>
+      <br />
             <img src={home_pic} style={{height:"300px", marginTop:"-100px", float:"right"}}></img>
-          </>
-        ) : (
-          <div>
-            <h2 className="center hi">
-              Hi, welcome back{" "}
-              {currentUser.nom != "" ? currentUser.nom : currentUser.email}
-            </h2>
-            <Link to="/survey">
-              <button className="btn survey_btn">Take a survey</button>
-            </Link>
-            <br />
-            <br />
-            <div className="container result1">
-              <h2 className="quiz_title">[insert quiz title]</h2>
-              <img className="my_avatar" src={my_avatar} />
-              <div className="category">
-                <h3>Age:</h3>
-                <h3>Sexe:</h3>
-                <h3>Taille:</h3>
-                <h3>Poids:</h3>
-              </div>
-              <div className="response">
-                <h3>xx</h3>
-                <h3>xx</h3>
-                <h3>xx</h3>
-                <h3>xx</h3>
-              </div>
-            </div>
+    </>
+  );
+}
 
-            <div className="container result2">
-              <h2 className="quiz_title">[insert quiz title]</h2>
-              <img className="my_avatar" src={my_avatar} />
-              <div className="category2">
-                <h3>Age:</h3>
-                <h3>Sex:</h3>
-                <h3>Height:</h3>
-                <h3>Weight:</h3>
-              </div>
-              <div className="response2">
-                <h3>xx</h3>
-                <h3>xx</h3>
-                <h3>xx</h3>
-              </div>
-            </div>
+function HomeUser(props) {
+  return (
+    <>
+        <h2 className="center hi">
+          Hi, welcome back{" "}
+          {props.currentUser.nom != "" ? props.currentUser.nom : props.currentUser.email}
+        </h2>
+        <Link to="/survey">
+          <button className="btn survey_btn">Take a survey</button>
+        </Link>
+        <br />
+        <br />
+        <div className="container result1">
+          <h2 className="quiz_title">[insert quiz title]</h2>
+          <img className="my_avatar" src={my_avatar} />
+          <div className="category">
+            <h3>Age:</h3>
+            <h3>Sexe:</h3>
+            <h3>Taille:</h3>
+            <h3>Poids:</h3>
+          </div>
+          <div className="response">
+            <h3>xx</h3>
+            <h3>xx</h3>
+            <h3>xx</h3>
+            <h3>xx</h3>
+          </div>
+        </div>
+
+        <div className="container result2">
+          <h2 className="quiz_title">[insert quiz title]</h2>
+          <img className="my_avatar" src={my_avatar} />
+          <div className="category2">
+          <h3>Age:</h3>
+          <h3>Sex:</h3>
+          <h3>Height:</h3>
+          <h3>Weight:</h3>
+          </div>
+          <div className="response">    
+          <h3>xx</h3>
+          <h3>xx</h3>
+          <h3>xx</h3>
+          </div>
+        </div>
 
             <div className="container result3">
               <h2 className="quiz_title">[insert quiz title]</h2>
@@ -168,8 +182,15 @@ export default function Home({ currentUser }) {
               </div>
             </div>
           </div>
-        )}
-      </div>
-    </React.Fragment>
+        
+    </>
   );
+}
+
+function HomeAdmin() {
+  return <></>;
+}
+
+function HomeDocteur() {
+  return <></>;
 }
