@@ -7,8 +7,6 @@ import { getRoleById } from "../objects_managers/RoleManager";
 import { getDocteurById } from "../objects_managers/DocteurManager";
 import { GetUserById } from "../objects_managers/UserManager";
 import LoginForm from "../components/LoginForm";
-import login from "./img/login.png";
-
 
 export default function Login() {
   const navigate = useNavigate();

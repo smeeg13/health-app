@@ -1,20 +1,21 @@
 import React, { useEffect, useState, useContext } from "react";
 import { db } from "../initFirebase";
-import {  ResultatContext } from "../Context";
+import { ResultatContext } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
 import { QuestionList } from "../components/QuestionForm";
 
 function Survey(props) {
-
   let resultatContext = useContext(ResultatContext);
 
   let [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
-
-      const refQuestionnaire = collection(db, "Questionnaires/" + quesId + "/Questions").withConverter(questionConverter);
+      const refQuestionnaire = collection(
+        db,
+        "Questionnaires/" + quesId + "/Questions"
+      ).withConverter(questionConverter);
 
       const roleSnapshot = await getDocs(refQuestionnaire);
 
@@ -38,7 +39,7 @@ function Survey(props) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default Survey;
@@ -189,5 +190,3 @@ export default Survey;
 //   );
 // }
 // export default Survey;
-
-

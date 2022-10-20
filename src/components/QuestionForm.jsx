@@ -1,17 +1,22 @@
 import React from "react";
 
-
 export default class QuestionForm extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       newQuestion: this.emptyQuestion,
-    }
+    };
     this.myRef = React.createRef();
   }
 
-  emptyQuestion = { max: "", min: "", question: "", unites: "", val_predefined: "", val_predefined2: "" }
+  emptyQuestion = {
+    max: "",
+    min: "",
+    question: "",
+    unites: "",
+    val_predefined: "",
+    val_predefined2: "",
+  };
 
   render() {
     return (
@@ -22,7 +27,7 @@ export default class QuestionForm extends React.Component {
           name="max"
           placeholder="Max"
           value={this.state.newQuestion.max}
-        //onChange={this.handleInputChange}
+          //onChange={this.handleInputChange}
         />
         <FormInput
           fieldRef={this.myRef}
@@ -30,7 +35,7 @@ export default class QuestionForm extends React.Component {
           name="min"
           placeholder="min"
           value={this.state.newQuestion.min}
-        //onChange={this.handleInputChange}
+          //onChange={this.handleInputChange}
         />
         <FormInput
           fieldRef={this.myRef}
@@ -38,14 +43,21 @@ export default class QuestionForm extends React.Component {
           name="question"
           placeholder="question"
           value={this.state.newQuestion.question}
-        //onChange={this.handleInputChange}
+          //onChange={this.handleInputChange}
         />
       </>
     );
   }
 }
 
-export function FormInput({ type, name, value, onChange, placeholder, fieldRef }) {
+export function FormInput({
+  type,
+  name,
+  value,
+  onChange,
+  placeholder,
+  fieldRef,
+}) {
   /*
    Il est important de changer le nom ref en fieldRef lorsque l'on passe
    des informations dans une function, le nom "ref" est réservé
@@ -65,11 +77,10 @@ export function FormInput({ type, name, value, onChange, placeholder, fieldRef }
   );
 }
 
-
 export function QuestionList({ questions }) {
   return (
     <ul>
-      {questions((q) =>
+      {questions((q) => (
         <li key={q.id}>
           <div>
             <p>
@@ -77,7 +88,7 @@ export function QuestionList({ questions }) {
             </p>
           </div>
         </li>
-      )}
+      ))}
     </ul>
   );
 }

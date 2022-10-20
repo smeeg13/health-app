@@ -1,12 +1,11 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../initFirebase";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { User } from "../objects/User";
 import { CreateDocUser, CreateDocUserInResultat} from "../objects_managers/UserManager";
 import "@fontsource/lexend-deca";
 import "./pages.css";
 import "../App.css";
-import { Link } from "react-router-dom";
 import docs from "./img/docs.jpg";
 import RegisterForm from "../components/RegisterForm";
 import { useState } from "react";

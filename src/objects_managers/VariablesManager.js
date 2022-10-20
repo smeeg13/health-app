@@ -1,11 +1,19 @@
 import { db } from "../initFirebase";
 import { auth } from "../initFirebase";
-import { doc, setDoc, getDoc,getDocs,query,where, updateDoc, addDoc } from "firebase/firestore";
-import { refVariables, } from "../initFirebase";
+import {
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+  updateDoc,
+  addDoc,
+} from "firebase/firestore";
+import { refVariables } from "../initFirebase";
 import { variableConverter } from "../objects/Variables";
 
 export async function CreateDocVariable(variable) {
-  // Add a new document with a new id 
+  // Add a new document with a new id
   const docRef = await addDoc(doc(refVariables), variable);
   console.log("Document User written with ID: ", docRef.id);
 }
@@ -34,7 +42,7 @@ export async function getVariableById(varId) {
   }
 }
 
-console.log('getvariable',getVariableById('0wLBCWipfVrOeV3anxPE'));
+console.log("getvariable", getVariableById("0wLBCWipfVrOeV3anxPE"));
 
 //Get one Variable by name
 export async function getVariableByName(varName) {
@@ -48,9 +56,15 @@ export async function getVariableByName(varName) {
 }
 
 //Update one variable
-export async function updateVariableData(varId,limits,name,normalVal,predefinedVal){
-  let refV = doc(refVariables,varId);  
-  await updateDoc(refV,{
+export async function updateVariableData(
+  varId,
+  limits,
+  name,
+  normalVal,
+  predefinedVal
+) {
+  let refV = doc(refVariables, varId);
+  await updateDoc(refV, {
     limites: limits,
     nom: name,
     val_normale: normalVal,
@@ -60,8 +74,8 @@ export async function updateVariableData(varId,limits,name,normalVal,predefinedV
 
 //Set multiples variables
 //Don't work for the moment
-export function writeVariablesData(listVariable){
- /* listVariable.forEach(v =>
+export function writeVariablesData(listVariable) {
+  /* listVariable.forEach(v =>
     set(ref(db,"Variables", v.varId),{
     limites: v.limits,
     nom: v.name,
@@ -70,8 +84,3 @@ export function writeVariablesData(listVariable){
   })
   );*/
 }
-
-
-
-
-
