@@ -1,12 +1,10 @@
   .container {
-    align-items: center;
-    justify-content: center;
     text-align: center;
     height: 100%;
     width: 100%;
     position: fixed;
-    /* z-index: 1;
-    overflow-x: hidden; */
+    z-index: 1;
+    overflow-x: hidden;
   }
 
   .container_login{
@@ -137,33 +135,36 @@ input{
 }
 
 .result1 {
-  margin-left: 25px;
+  position: relative;
+  margin-right: 20px;
+  display: inline-block;
   margin-top: 30px;
   max-width: 450px;
   border: 1px solid grey;
   max-height: 400px;
-  left: 30px;
-  background-color: white;
+  background-color: #eafaf1;
 }
 
 .result2 {
-  margin-left: 25px;
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
   margin-top: 30px;
   max-width: 450px;
   border: 1px solid grey;
   max-height: 400px;
-  left: 515px;
-  background-color: white;
+  background-color: #eafaf1;
 }
 
 .result3 {
-  margin-left: 25px;
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
   margin-top: 30px;
   max-width: 450px;
   border: 1px solid grey;
   max-height: 400px;
-  left: 1000px;
-  background-color: white;
+  background-color: #eafaf1;
 }
 
 
@@ -256,8 +257,12 @@ input{
 
 /* ------ SETTINGS PAGE --------- */
 
+
 .settings_page{
+  height: 100%;
+  width: 100%;
   margin-top: -30px;
+  scroll-behavior: auto;
   background-color: #a9cce3;
   font-family: "Lexend Deca";
 }

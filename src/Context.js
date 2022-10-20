@@ -17,11 +17,14 @@ export const ResultatContext = React.createContext({
 export const themes = {
     light: {
         background: "#fefefe",
-        foreground: "#333333",
         
     },
     dark: {
         background: "#030f27",
-        foreground: "white",
+        background_right:"#030f27",
+        textcolor:"#fff",
+        textcolorbtn:"black",
+        button:"#fff",
+        backgroundresult:"white"
     },
 };

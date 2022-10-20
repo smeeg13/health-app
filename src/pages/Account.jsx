@@ -1,19 +1,24 @@
-import React from "react";
-import styled from "styled-components";
-import avatar1 from "./img/avatar1.png";
-import avatar2 from "./img/avatar2.png";
-import avatar3 from "./img/avatar3.png";
-import avatar4 from "./img/avatar4.png";
-import avatar5 from "./img/avatar5.png";
-import avatar6 from "./img/avatar6.png";
-import logo from "./img/logo.png";
-import { Link } from "react-router-dom";
-import background from "./img/background.png";
+
+import styled from 'styled-components';
+import avatar1 from './img/avatar1.png';
+import avatar2 from './img/avatar2.png';
+import avatar3 from './img/avatar3.png';
+import avatar4 from './img/avatar4.png';
+import avatar5 from './img/avatar5.png';
+import avatar6 from './img/avatar6.png';
+import logo from './img/logo.png';
+import { Link } from 'react-router-dom'
+import background from './img/background.png';
+import { ThemeContext, themes } from "../Context";
+import React, { useContext } from "react";
 
 function Registration() {
-  const handleClick = () => {
-    alert("Image clicked");
-  };
+
+    let themeContext = useContext(ThemeContext);
+
+    const handleClick = () => {
+        alert("Image clicked");
+    }
 
   const [value, setValue] = React.useState("homme");
 
@@ -21,42 +26,48 @@ function Registration() {
     setValue(event.target.value);
   };
 
-  return (
-    <Container2>
-      <div className="container left">
-        <h1 className="choose_avatar">Enter your personnal information</h1>
-        <form>
-          <label className="label" style={{ marginBottom: "-5px" }}>
-            Name
-          </label>
-          <br />
-          <input
-            className="text_input"
-            type="text"
-            maxLength={30}
-            // value={email}
-            // onChange={handleEmailChange}
-            required
-          />
+    return (
+        <Container2>
+            <div className="container left" style={{
+                backgroundColor: themes[themeContext.theme].background,
+                color: themes[themeContext.theme].foreground,
+            }}>
+                <h1 className="choose_avatar" style={{
+                    color: themes[themeContext.theme].textcolor,
+                }}>Enter your personnal information</h1>
+                <form>
+                    <label className="label" style={{
+                        color: themes[themeContext.theme].textcolor,
+                    }}>Name</label>
+                    <br />
+                    <input
+                        className="text_input"
+                        type="text"
+                        maxLength={30}
+                        // value={email}
+                        // onChange={handleEmailChange}
+                        required
+                    />
 
           <br></br>
 
-          <label className="label" style={{ marginBottom: "-5px" }}>
-            Firstname
-          </label>
-          <br />
-          <input
-            style={{ marginTop: "-15px" }}
-            className="text_input"
-            type="text"
-            maxLength={30}
-            // value={email}
-            // onChange={handleEmailChange}
-            required
-          />
-          <br></br>
+                    <label className="label" style={{
+                        color: themes[themeContext.theme].textcolor,
+                    }}>Firstname</label>
+                    <br />
+                    <input
+                        style={{ marginTop: "-15px" }}
+                        className="text_input"
+                        type="text"
+                        maxLength={30}
+                        // value={email}
+                        // onChange={handleEmailChange}
+                        required
+                    />
+                    <br></br>
 
-          {/* <label className="label">Age</label>
+
+                    <label className="label">Age</label>
                     <br />
                     <input
                         className="nb_input"
@@ -68,7 +79,7 @@ function Registration() {
                     />
                     <br></br>
 
-                    <label className="label">Weight</label>
+                    {/* <label className="label">Weight</label>
                     <br />
                     <input
                         className="nb_input"
@@ -88,37 +99,45 @@ function Registration() {
                         // value={email}
                         // onChange={handleEmailChange}
                         required
-                    />
+                    /> */}
                     <br></br>
                     <label className="label">Sex</label>
                     <br />
                     <select value={value} onChange={handleChange}>
                         <option value="woman">Woman</option>
                         <option value="man">Man</option>
-                    </select> */}
-        </form>
-      </div>
+                    </select>
+                </form>
+            </div>
 
-      <div className="container rightt">
-        <div className="flex-container">
-          <h1 className="choose_avatar">Choose an avatar </h1>
-          <div className="avatar">
-            <img className="avatar1" src={avatar1} onClick={handleClick}></img>
-            <img className="avatar2" src={avatar2} onClick={handleClick}></img>
-            <img className="avatar1" src={avatar3} onClick={handleClick}></img>
-          </div>
-          <div className="avatar">
-            <img className="avatar1" src={avatar4} onClick={handleClick}></img>
-            <img className="avatar1" src={avatar5} onClick={handleClick}></img>
-            <img className="avatar1" src={avatar6} onClick={handleClick}></img>
-          </div>
-        </div>
-        <Link to="/">
-          <button className="btn">Submit</button>
-        </Link>
-      </div>
-    </Container2>
-  );
+            <div className="container rightt" style={{
+                backgroundColor: themes[themeContext.theme].background_right,
+                color: themes[themeContext.theme].foreground,
+            }}>
+                <div className="flex-container">
+                    <h1 className="choose_avatar" style={{
+                        color: themes[themeContext.theme].textcolor,
+                    }}>Choose an avatar </h1>
+                    <div className="avatar">
+                        <img className="avatar1" src={avatar1} onClick={handleClick}></img>
+                        <img className="avatar2" src={avatar2} onClick={handleClick}></img>
+                        <img className="avatar1" src={avatar3} onClick={handleClick}></img>
+                    </div>
+                    <div className="avatar">
+                        <img className="avatar1" src={avatar4} onClick={handleClick}></img>
+                        <img className="avatar1" src={avatar5} onClick={handleClick}></img>
+                        <img className="avatar1" src={avatar6} onClick={handleClick}></img>
+                    </div>
+                </div>
+                <Link to="/">
+                    <button className="btn" style={{
+                        backgroundColor: themes[themeContext.theme].button,
+                        color: themes[themeContext.theme].textcolorbtn,
+                    }}>Submit</button>
+                </Link>
+            </div>
+        </Container2>
+    )
 }
 
 export default Registration;

@@ -14,7 +14,7 @@ export default class Navbar extends React.Component {
   render() {
     return (
       <Container>
-        <div className="navbar" id={Home.theme}>
+        <div className="navbar" style={{backgroundColor: themes[this.context.theme].background, color: themes[this.context.theme].textcolor}}>
           <Link to="/">
             <img className="logo_app" src={logo} />
           </Link>
@@ -33,11 +33,12 @@ export default class Navbar extends React.Component {
               title="Switch Theme"
               onClick={this.context.toggleTheme}
             >
-           {this.context.theme === "dark" ? (
+           {/* {this.context.theme === "dark" ? (
                 <img className="logo_theme" src={night} />
               ) : (
                 <img className="logo_theme" src={day} />
-              )}   
+              )}    */}
+               <span>💡</span>
             </button>
 
             {/* if user.nom_role = Patient  */}
@@ -54,7 +55,7 @@ export default class Navbar extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/survey" style={{ textDecoration: "none" }}>
+                  <Link to="/survey1" style={{ textDecoration: "none" }}>
                     Survey
                   </Link>
                 </li>
@@ -173,25 +174,5 @@ const Container = styled.div`
     margin-below: 20px;
   }
 
-  .ri-linkedin-circle-line {
-    animation-delay: 1s;
-  }
 
-  .ri-outlook-line {
-    animation-delay: 2s;
-  }
-
-  @keyframes float {
-    0% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-15px);
-    }
-
-    100% {
-      transform: translateY(0);
-    }
-  }
 `;

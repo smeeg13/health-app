@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export default class QuestionForm extends React.Component {
   constructor(props) {
     super(props);
@@ -8,7 +9,7 @@ export default class QuestionForm extends React.Component {
     };
     this.myRef = React.createRef();
   }
-
+  resultatContext = useContext(ResultatContext);
   emptyQuestion = {
     max: "",
     min: "",
@@ -16,6 +17,7 @@ export default class QuestionForm extends React.Component {
     unites: "",
     val_predefined: "",
     val_predefined2: "",
+    valeurs_possibles: '',
   };
 
   render() {
@@ -77,33 +79,135 @@ export function FormInput({
   );
 }
 
-export function QuestionList({ questions }) {
+
+
+
+export function QuestionList({ questionList }) {
   return (
-    <ul>
-      {questions((q) => (
-        <li key={q.id}>
-          <div>
+    <>
+      <ul>
+        {questionList.map(q =>
+          <li key={q.id}>
             <p>
-              <Question question={q} />
+              {q.question}
+              {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
+              {q.typeAnswer === 'slider' && <Range q={q}/>}
+              {q.typeAnswer === 'dropdown' && <Dropdown q={q}/>}
             </p>
-          </div>
-        </li>
-      ))}
-    </ul>
+          </li>
+        )}
+      </ul>
+    </>
   );
 }
 
-class Question extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function Dropdown (props) {
+  const [value, setValue] = React.useState('homme');
 
-  render() {
-    return (
-      <div>
-        <p>{this.props.question}</p>
-      </div>
-    );
-  }
-  //... comme pour la classe Book
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  }   
+
+  return (
+    <div>
+    <label className="label">Sex</label>
+              <br />
+              <select value={value} onChange={handleChange}>
+                  <option value="woman">Woman</option>
+                  <option value="man">Man</option>
+              </select>
+    </div>
+    
+  );
+};
+
+function Range (props) {
+  const [weight, setWeight] = useState(10);
+  
+  const changeWeight = (event) => {
+    setWeight(event.target.value);
+  };
+
+  return (
+    <div>
+      <h1>poids : {weight}</h1>
+      <input
+        style={{ backgroundColor: "blueviolet" }}
+        type="range"
+        onChange={changeWeight}
+        min={props.min}
+        max={props.max}
+        step={1}
+        value={props}
+        className="custom-slider"
+      />
+    </div>
+  );
+};
+
+function toggleCheckBox(value) {
+  return !value;
 }
+
+function CheckBoxForm() {
+  const [checked, setChecked] = useState(false);
+  return (
+    <div>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={() => setChecked(toggleCheckBox)}
+      />
+    </div>
+  )
+}
+
+
+export function Loader() {
+  return (
+    <p>
+      ...
+    </p>
+  );
+}
+
+
+// class Question extends React.Component {
+//   constructor(props) {
+//     super(props);
+//   }
+  
+
+//   render() {
+//     console.log('min',this.props.min);
+//     console.log('typeAnswer', this.props.typeAnswer);
+//     return (
+//       <>
+//         <p>
+//           {this.props.question}
+//           {this.props.typeAnswer === 'checkbox' && <CheckBoxForm />}
+//           {/* {this.props.typeAnswer === 'slider' &&
+//             //https://retool.com/blog/building-a-react-slider/
+//             <ReactSlider />
+//           } */}
+//         </p>
+//       </>
+//     );
+//   }
+// }
+
+// export function QuestionList({ questionList }) {
+//   return (
+//     <>
+//       <ul>
+//         {questionList.map(q =>
+//           <li key={q.id}>
+//             <p>
+//               <Question question={q.question} />
+//             </p>
+//           </li>
+//         )}
+//       </ul>
+//     </>
+//   );
+// }

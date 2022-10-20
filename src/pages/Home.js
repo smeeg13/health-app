@@ -5,7 +5,7 @@ import my_avatar from "./img/avatar5.png";
 import { useContext } from "react";
 import home_pic from "./img/home.png";
 import { ResultatContext } from "../Context";
-import Resultats from "./Resultats";
+import { ThemeContext, themes } from "../Context";
 
 export default function Home(props) {
   return (
@@ -58,6 +58,7 @@ function HomeGuest() {
 }
 
 function HomeUser(props) {
+  let themeContext = useContext(ThemeContext);
   let resultatContext = useContext(ResultatContext);
 
   // // the width of the box
@@ -72,15 +73,27 @@ function HomeUser(props) {
   // };
 
   return (
-    <div className="container">
-      <h2 className="center hi">
+    <div className="container" 
+      style={{
+        backgroundColor: themes[themeContext.theme].background,
+        color: themes[themeContext.theme].foreground,
+      }}
+    >
+      <h2 className="center hi"
+          style={{
+            color: themes[themeContext.theme].textcolor,
+          }}
+      >
         Hi, welcome back{" "}
         {props.currentUser.nom !== ""
           ? props.currentUser.nom
           : props.currentUser.email}
       </h2>
       <Link to="/survey1">
-        <button className="btn">Take a survey</button>
+        <button className="btn" style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}>Take a survey</button>
       </Link>
       <br />
       <br />
@@ -92,43 +105,12 @@ function HomeUser(props) {
             <h4> Please complete a survey to see some results</h4>
             </div>
         }
-      
       </div>
 
-      {/* <div className="container result1">
-        <h2 className="quiz_title">[insert quiz title]</h2>
-        <img className="my_avatar" src={my_avatar} />
-        <div className="category">
-          <h3>Age:</h3>
-          <h3>Sexe:</h3>
-          <h3>Taille:</h3>
-          <h3>Poids:</h3>
-        </div>
-        <div className="response">
-          <h3>xx</h3>
-          <h3>xx</h3>
-          <h3>xx</h3>
-          <h3>xx</h3>
-        </div>
-      </div>
-
-      <div className="container result2">
-        <h2 className="quiz_title">[insert quiz title]</h2>
-        <img className="my_avatar" src={my_avatar} />
-        <div className="category2">
-          <h3>Age:</h3>
-          <h3>Sex:</h3>
-          <h3>Height:</h3>
-          <h3>Weight:</h3>
-        </div>
-        <div className="response">
-          <h3>xx</h3>
-          <h3>xx</h3>
-          <h3>xx</h3>
-        </div>
-      </div>
-
-      <div className="container result3">
+      {/* <div className="container result3"   style={{
+          backgroundColor: themes[themeContext.theme].backgroundresult,
+          color: themes[themeContext.theme].foreground,
+        }}>
         <h2 className="quiz_title">[insert quiz title]</h2>
         <img className="my_avatar" src={my_avatar} />
         <div className="category3">

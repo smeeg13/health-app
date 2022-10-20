@@ -6,6 +6,7 @@ export class Question {
     this.val_predefined = val_predefined;
     this.val_predefined2 = val_predefined2;
     this.valeurs_possibles = valeurs_possibles;
+    this.typeAnswer = typeAnswer;
   }
 }
 
@@ -19,7 +20,8 @@ export const questionConverter = {
       question: question.question,
       val_predefined: question.val_predefined,
       val_predefined2: question.val_predefined2,
-      valeurs_possibles: question.valeurs_possibles
+      valeurs_possibles: question.valeurs_possibles,
+      typeAnswer: question.typeAnswer,
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -32,6 +34,6 @@ export const questionConverter = {
       data.val_predefined,
       data.val_predefined2,
       data.valeurs_possibles
-    );
+      ,data.typeAnswer);
   },
 };

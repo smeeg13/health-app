@@ -3,12 +3,13 @@ import { db } from "../initFirebase";
 import { ResultatContext } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
-import { QuestionList } from "../components/QuestionForm";
+import { QuestionList, Loader } from "../components/QuestionForm";
 
 function Survey(props) {
   let resultatContext = useContext(ResultatContext);
 
-  let [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState([]);
+  const [isBusy, setBusy] = useState(true)
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
@@ -20,21 +21,21 @@ function Survey(props) {
       const roleSnapshot = await getDocs(refQuestionnaire);
 
       const questionList = roleSnapshot.docs.map((doc) => doc.data());
-
       setQuestions(questionList);
+      setBusy(false);
     }
 
     getQuestionnaireById(props.quesId);
   }, []);
 
   return (
+    
     <>
       <h1>hi</h1>
       <div className="container center">
         <div className="container quiz">
           <h2 className="survey_title">[Survey name]</h2>
-          <div>
-            <QuestionList questions={questions} answers={props.setAnswers} />
+          <div> {isBusy ? <Loader /> : <QuestionList questionList={questions} />}
           </div>
         </div>
       </div>
