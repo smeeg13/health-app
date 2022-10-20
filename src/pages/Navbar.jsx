@@ -10,7 +10,6 @@ import { ThemeContext, themes } from "../ThemeContext";
 export default class Navbar extends React.Component {
 
   render() {
-    console.log('User into navbar',this.props.currentUser);
     return (
       <Container>
         <div className="navbar">

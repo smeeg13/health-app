@@ -5,18 +5,7 @@ import my_avatar from "./img/avatar5.png";
 import { useState } from "react";
 
 export default function Home(props) {
-  // the width of the box
-  const [smoke, setSmoke] = useState(10);
-  const [weight, setWeight] = useState(10);
 
-  // This function is called when the first range slider changes
-  const changeSmoke = (event) => {
-    setSmoke(event.target.value);
-  };
-
-  const changeWeight = (event) => {
-    setWeight(event.target.value);
-  };
 
   return (
     <React.Fragment>
@@ -30,7 +19,7 @@ export default function Home(props) {
   );
 }
 
-function HomeGuest() {
+function HomeGuest() {//OK
   return (
     <>
       <h2 className="center welcome">Welcome in HealthApp</h2>
@@ -61,18 +50,33 @@ function HomeGuest() {
 }
 
 function HomeUser(props) {
+
+    // the width of the box
+    const [smoke, setSmoke] = useState(10);
+    const [weight, setWeight] = useState(10);
+  
+    // This function is called when the first range slider changes
+    const changeSmoke = (event) => {
+      setSmoke(event.target.value);
+    };
+  
+    const changeWeight = (event) => {
+      setWeight(event.target.value);
+    };
+
   return (
     <>
-      <div>
         <h2 className="center hi">
           Hi, welcome back{" "}
           {props.currentUser.nom != "" ? props.currentUser.nom : props.currentUser.email}
         </h2>
         <Link to="/survey">
-          <button className="btn survey_btn">Take a survey</button>
+          <button className="btn survey_btn">Take a New Survey</button>
         </Link>
         <br />
         <br />
+        
+
         <div className="container result1">
           <h2 className="quiz_title">[insert quiz title]</h2>
           <img className="my_avatar" src={my_avatar} />
@@ -168,8 +172,6 @@ function HomeUser(props) {
                 ></input>
               </div>
             </div>
-          </div>
-        
     </>
   );
 }

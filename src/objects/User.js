@@ -6,6 +6,7 @@ export class User {
   poids = 0;
   taille = 0;
   nom_role='';
+  avatar='';
 
 
   constructor(id_user,mail, nom, age, sexe, poids, taille) {
@@ -20,10 +21,15 @@ export class User {
     //+ collections Questionnaires
   }
 
+  setAvatar(avatar){
+    //TODO:: manage default avatar
+    this.avatar= avatar;
+  }
 
   setId(id) {
     this.id_user = id;
   }
+
   setEmail(mail) {
     this.email = mail;
   }
@@ -82,6 +88,7 @@ export const userConverter = {
       sexe: user.sexe,
       poids: user.poids,
       taille: user.taille,
+      avatar: user.avatar
     };
   },
   fromFirestore: (snapshot, options) => {
