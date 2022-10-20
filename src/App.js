@@ -7,18 +7,23 @@ import Home from "./pages/Home";
 import Navbar from "./pages/Navbar";
 import Layout from "./pages/Layout";
 import Survey from "./pages/Survey";
-import Registration from "./pages/Registration";
+import Account from "./pages/Account";
 import Results from "./pages/Results";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ThemeContext, themes } from "./ThemeContext";
 import { NavbarNotLogged } from "./pages/Navbar";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./initFirebase";
-import { useContext, useEffect, useState } from "react";
 import Logout from "./pages/Logout";
 import { GetUserById } from "./objects_managers/UserManager";
 import { User } from "./objects/User";
 import {GetQuestionnaireById} from "./objects_managers/QuestionnaireManager";
 import Settings from "./pages/Settings";
+import { ThemeProvider } from "styled-components";
+import ReactSwitch from "react-switch";
+import ToggleSwitch from "./components/ToggleSwitch";
+
+// export const ThemeContext = createContext(null);
 
 export default function App() {
   /* Current user state */
@@ -27,7 +32,9 @@ export default function App() {
   const [questionnaire1, setQuestionnaire1] = useState([]);
   const [questionnaire2, setQuestionnaire2] = useState([]);
   const [questionnaire3, setQuestionnaire3] = useState([]);
-  let themeContext = useContext(ThemeContext);
+  const [theme, setTheme] = useState("dark");
+
+  // let themeContext = useContext(ThemeContext);
   /* Watch for authentication state changes */
 
 
@@ -64,10 +71,10 @@ export default function App() {
       <div className="App">
         <header
           className="App-header"
-          style={{
-            backgroundColor: themes[themeContext.theme].background,
-            color: themes[themeContext.theme].foreground,
-          }}
+          // style={{
+          //   backgroundColor: themes[themeContext.theme].background,
+          //   color: themes[themeContext.theme].foreground,
+          // }}
         >
           <h1>Loading...</h1>
         </header>
@@ -75,8 +82,13 @@ export default function App() {
     );
   }
 
+  const toggleTheme = () =>{
+    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
+  }
+
   return (
-    <div className="App">
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <div className="container">
       <header>{!currentAuthUser ? <NavbarNotLogged /> : <Navbar />}</header>
       <Routes>
         <Route path="/" element={<Home currentUser={currentUser} />} />
@@ -87,9 +99,10 @@ export default function App() {
         <Route path="/settings" element={<Settings/>} />
         <Route path="/survey" element={<Survey />} />
         <Route path="/results" element={<Results />} />
-        <Route path="/registration" element={<Registration />} />
+        <Route path="/account" element={<Account />} />
         <Route path="/settings" element={<Settings/>}/>
       </Routes>
     </div>
+    </ThemeContext.Provider>
   );
 }

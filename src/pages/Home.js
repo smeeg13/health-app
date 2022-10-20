@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
 import my_avatar from "./img/avatar5.png";
 import { useState } from "react";
+import ReactSwitch from "react-switch";
+import home_pic from "./img/home.png"
+
 
 export default function Home({ currentUser }) {
   // the width of the box
@@ -18,21 +21,30 @@ export default function Home({ currentUser }) {
     setWeight(event.target.value);
   };
 
+  const toggleTheme = () =>{
+    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
+    console.log("oui oui")
+  }
+
+  const [theme, setTheme] = useState("dark");
+
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="container" id={theme}>
         {!currentUser ? (
           <>
             <h2 className="center welcome">Welcome in HealthApp</h2>
             <p className="center text">
-              Health Prevention is an application developed by {" "}
+              Health Prevention is an application developed by <br></br>
+              Mégane, Emilie, Thomas and Abdullah.
               <br></br>
-              Mégane, Emilie, Thomas and Abdullah. 
+              You must take an health survey and regarding your answers it will
               <br></br>
-              You must take an health survey and regarding your answers it will 
-              <br></br>
-              provide you the result of your health condition. 
+              provide you the result of your health condition.
             </p>
+            <div className="switch_mode">
+              <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
+            </div>
             <Link to="/survey">
               <button className="btn survey_btn">Take a survey</button>
             </Link>
@@ -46,6 +58,7 @@ export default function Home({ currentUser }) {
               <button className=" btn login_btn">Login</button>
             </Link>
             <br />
+            <img src={home_pic} style={{height:"300px", marginTop:"-100px", float:"right"}}></img>
           </>
         ) : (
           <div>
@@ -112,7 +125,8 @@ export default function Home({ currentUser }) {
                   className="custom-slider"
                 ></input>
                 <br></br>
-                <input style={{backgroundColor:"blueviolet"}}
+                <input
+                  style={{ backgroundColor: "blueviolet" }}
                   type="range"
                   onChange={changeWeight}
                   min={1}
@@ -121,7 +135,7 @@ export default function Home({ currentUser }) {
                   value={weight}
                   className="custom-slider"
                 ></input>
-                 <br></br>
+                <br></br>
                 <input
                   type="range"
                   onChange={changeSmoke}
@@ -131,7 +145,7 @@ export default function Home({ currentUser }) {
                   value={smoke}
                   className="custom-slider"
                 ></input>
-                 <br></br>
+                <br></br>
                 <input
                   type="range"
                   onChange={changeSmoke}
@@ -141,7 +155,7 @@ export default function Home({ currentUser }) {
                   value={smoke}
                   className="custom-slider"
                 ></input>
-                 <br></br>
+                <br></br>
                 <input
                   type="range"
                   onChange={changeSmoke}

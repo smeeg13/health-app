@@ -1,17 +1,68 @@
 
-.App {
+/* DARK N LIGHT THEME */
+.switch_mode{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.survey_btn{
+  margin-left: 680px;
+}
+
+#light{
+  background-color: #eafaf1;;
+}
+
+#dark{
+  background-color: #030f27;
+  color: white;
+}
+
+#dark .survey_btn{
+  background-color:  #34495e;
+  box-shadow: 3px 3px 6px #5d6d7e,
+  -3px -3px 6px #5d6d7e;
+}
+
+#dark .register_btn{
+  background-color:  #34495e;
+  box-shadow: 3px 3px 6px #5d6d7e,
+  -3px -3px 6px #5d6d7e;
+}
+
+#dark .login_btn{
+  background-color:  #34495e;
+  box-shadow: 3px 3px 6px #5d6d7e,
+  -3px -3px 6px #5d6d7e;
+}
+
+#dark .welcome{
+  color: white;
+}
+
+#dark .container_quiz{
   text-align: center;
+  background-color:  #34495e ;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+
+#dark .navbar{
+  height: 50px;
+  width: 100%;
+  text-decoration: none !important;
+  margin-bottom: 20px;
+  background-color: #030f27;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#dark .container_navbar{
+  background-color: #030f27;
+}
+
+#dark .navbar ul li{
+  color: white;
 }
 
 /* .App-header {
@@ -34,27 +85,28 @@
 
 
 .btn {
-  margin-top: -5px;
+  /* margin-top: -5px; */
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;
   overflow: hidden;
   z-index: 1;
+  text-align: center;
   font-weight: bold;
   color: #ffff;
   padding: 0.7em 1.7em;
   font-size: 18px;
   border-radius: 0.5em; 
   background: #77C5A6;
-  border: 1px solid #77C5A6;
-  box-shadow: 6px 6px 12px #c5c5c5,
-             -6px -6px 12px #ffffff;
+  border: 1px solid transparent;
+  box-shadow: 3px 3px 6px #c5c5c5,
+             -3px -3px 6px #fff;
 }
 
 .btn:active {
   color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5,
-             inset -4px -4px 12px #ffffff;
+  /* box-shadow: inset 4px 4px 12px #c5c5c5,
+             inset -4px -4px 12px #ffffff; */
 }
 
 .btn:before {
@@ -105,12 +157,13 @@
 }
 
 .btn_switch, .btn_logout{
+  margin-top: 8px;
   margin-right: 10px;
   float: right;
 }
 
 .register_btn{
-  margin-right: 50px;
+ margin-left: 650px;
 }
 
 .App-link {
@@ -125,6 +178,19 @@ h1{
   font-family: "Lexend Deca";
 }
 
+.login_page{
+  margin-top: -50px;
+  height: 89.7%;
+}
+
+.container_login{
+  background-color: #e0eaf5;
+  width: 500px;
+  height: 400px;
+  margin: auto;
+  text-align: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
 
 .page_name{
   padding-top: 50px;

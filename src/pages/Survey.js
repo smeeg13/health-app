@@ -1,11 +1,22 @@
 import React from "react";
-import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import ReactSwitch from "react-switch";
+import ToggleSwitch from "../components/ToggleSwitch";
 
 function Survey() {
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark" : "light"));
+  };
+
+  const [theme, setTheme] = useState("dark");
+
   return (
     <>
-      <div className="container">
+      <div className="container" id={theme}>
+        <div className="switch_mode">
+          <ReactSwitch className="toggle" onChange={toggleTheme} checked={theme === "dark"}/>
+        </div>
         <div className="container_quiz">
           <h2 className="survey_title">[Survey name]</h2>
           <div className="container_left">
@@ -62,7 +73,7 @@ function Survey() {
               // onChange={handleEmailChange}
               required
             />
-            <br></br>
+            {/* <br></br>
             <input
               className="radio_btn"
               type="radio"
@@ -77,7 +88,7 @@ function Survey() {
               name="gender"
             />{" "}
             No
-            <br></br>
+            <br></br> */}
             <input
               className="radio_btn"
               type="radio"
@@ -143,6 +154,8 @@ function Survey() {
             </Link>
           </div>
         </div>
+        <ToggleSwitch label="Notifications" />
+            <ToggleSwitch label="Subscribe" />
       </div>
     </>
   );

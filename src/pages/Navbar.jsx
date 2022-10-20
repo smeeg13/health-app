@@ -6,42 +6,47 @@ import exit from "./img/exit.png";
 import night from "./img/night.png";
 import day from "./img/day.png";
 import { ThemeContext, themes } from "../ThemeContext";
+import { useState } from "react";
+import Home from "./Home";
+import ReactSwitch from "react-switch";
+
 
 export default class Navbar extends React.Component {
+
   render() {
     return (
       <Container>
-        <div className="navbar">
+        <div className="navbar" id={Home.theme}>
           <Link to="/">
             <img className="logo_app" src={logo} />
           </Link>
           <ul>
-              <Link to="/logout" style={{ textDecoration: "none" }}>
-                <button className="btn btn_logout" title="Logout">
-                  <img className="logo_logout" src={exit} />
-                </button>
-              </Link>
-              <button
-                className="btn btn_switch"
-                title="Switch Theme"
-                onClick={this.context.toggleTheme}
-              >
-                {this.context.theme === "dark" ? (
-                  <img className="logo_theme" src={night} />
-                ) : (
-                  <img className="logo_theme" src={day} />
-                )}
+            <Link to="/logout" style={{ textDecoration: "none" }}>
+              <button className="btn btn_logout" title="Logout">
+                <img className="logo_logout" src={exit} />
               </button>
+            </Link>
+            <button
+              className="btn btn_switch"
+              title="Switch Theme"
+              onClick={Home.toggleTheme}
+            >
+              {this.context.theme === "dark" ? (
+                <img className="logo_theme" src={night} />
+              ) : (
+                <img className="logo_theme" src={day} />
+              )}
+            </button>
             <li>
               <Link to="/" style={{ textDecoration: "none" }}>
                 My Account
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/registration" style={{ textDecoration: "none" }}>
                 Documents
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/survey" style={{ textDecoration: "none" }}>
                 Survey
@@ -53,6 +58,10 @@ export default class Navbar extends React.Component {
               </Link>
             </li>
           </ul>
+          {/* <div className="switch_mode">
+            <h1>yoooo</h1>
+            <ReactSwitch onChange={Home.toggleTheme} checked={Home.theme === "dark"} />
+          </div> */}
         </div>
       </Container>
     );
@@ -70,17 +79,20 @@ export class NavbarNotLogged extends React.Component {
           </Link>
           <h1 className="app_title">HealthApp Prevention</h1>
           <ul>
-          <button style={{marginTop:"5px"}}
-                className="btn btn_switch"
-                title="Switch Theme"
-                onClick={this.context.toggleTheme}
-              >
-                {this.context.theme === "dark" ? (
-                  <img className="logo_theme" src={night} />
-                ) : (
-                  <img className="logo_theme" src={day} />
-                )}
-              </button>
+          {/* <div className="switch_mode">
+            <ReactSwitch className="navbar_toggle_theme" onChange={Home.toggleTheme} checked={Home.theme === "dark"} />
+          </div> */}
+            <button style={{ marginTop: "8px" }}
+              className="btn btn_switch"
+              title="Switch Theme"
+              onClick={Home.toggleTheme}
+            >
+              {this.context.theme === "dark" ? (
+                <img className="logo_theme" src={night} />
+              ) : (
+                <img className="logo_theme" src={day} />
+              )}
+            </button>
           </ul>
         </div>
       </Container>
@@ -97,9 +109,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  /* background-color:pink; */
+
 
   .navbar {
-    height: 60px;
+    height: 50px;
     width: 100%;
     text-decoration: none !important;
     background-color: #fff;
