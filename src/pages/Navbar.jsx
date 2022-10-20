@@ -6,13 +6,17 @@ import exit from "./img/exit.png";
 import night from "./img/night.png";
 import day from "./img/day.png";
 import { ThemeContext, themes } from "../ThemeContext";
+import { useState } from "react";
+import Home from "./Home";
+import ReactSwitch from "react-switch";
+
 
 export default class Navbar extends React.Component {
 
   render() {
     return (
       <Container>
-        <div className="navbar">
+        <div className="navbar" id={Home.theme}>
           <Link to="/">
             <img className="logo_app" src={logo} />
           </Link>
@@ -42,7 +46,7 @@ export default class Navbar extends React.Component {
             {this.props.currentUser.nom_role === "Patient" && (
               <>
                 <li>
-                  <Link to="/" style={{ textDecoration: "none" }}>
+                  <Link to="/account" style={{ textDecoration: "none" }}>
                     My Account
                   </Link>
                 </li>
@@ -84,7 +88,7 @@ export default class Navbar extends React.Component {
             {this.props.currentUser.nom_role === "Docteur" && (
               <>
                 <li>
-                  <Link to="/" style={{ textDecoration: "none" }}>
+                  <Link to="/account" style={{ textDecoration: "none" }}>
                     My Account
                   </Link>
                 </li>
@@ -103,16 +107,14 @@ const Container = styled.div`
   padding: 0;
   margin: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
+
 
   .navbar {
-    height: 60px;
+    height: 70px;
     width: 100%;
     text-decoration: none !important;
-    background-color: #fff;
-    margin-bottom: 20px;
+    background-color: white;
+    /*margin-bottom: 20px;*/
   }
 
   .navbar ul li {

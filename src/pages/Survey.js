@@ -1,19 +1,22 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 import { db } from "../initFirebase";
-import { getDocs,collection, doc } from "firebase/firestore";
+import { getDocs, collection, doc } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
 import { QuestionList } from "../components/QuestionForm";
+import Resultats from "./Results";
 
 
-function Survey (props){
-  
+function Survey(props) {
+
   let [questions, setQuestions] = useState([]);
+  const empytAnswer = new Resultats();
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
 
-      const refQuestionnaire = collection(db,"Questionnaires/"+quesId+"/Questions").withConverter(questionConverter);
+      const refQuestionnaire = collection(db, "Questionnaires/" + quesId + "/Questions").withConverter(questionConverter);
 
       const roleSnapshot = await getDocs(refQuestionnaire);
 
@@ -23,30 +26,28 @@ function Survey (props){
     }
 
     getQuestionnaireById(props.quesId);
-}, []);
+  }, []);
 
-  
   return (
-      <>
-        <Navbar/>
-    <div className="container center">
-      <div className="container quiz">
-      <h2 className="survey_title">[Survey name]</h2>
-      <div>
-        <QuestionList questions={questions}/>
+    <>
+      <h1>hi</h1>
+      <div className="container center">
+        <div className="container quiz">
+          <h2 className="survey_title">[Survey name]</h2>
+          <div>
+            <QuestionList questions={questions} answers={props.setAnswers} />
+          </div>
+        </div>
       </div>
-      </div>
-    </div>
-  </>
+    </>
   )
 }
 
-// export default Survey;
+export default Survey;
 
 // function Survey() {
 //   return (
 //     <>
-//       <Navbar />
 //       <div className="container">
 //         <div className="container_quiz">
 //           <h2 className="survey_title">[Survey name]</h2>
@@ -189,6 +190,6 @@ function Survey (props){
 //     </>
 //   );
 // }
-export default Survey;
+// export default Survey;
 
 

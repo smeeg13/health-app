@@ -7,15 +7,21 @@ import Home from "./pages/Home";
 import Navbar from "./pages/Navbar";
 import Layout from "./pages/Layout";
 import Survey from "./pages/Survey";
-import Registration from "./pages/Registration";
+import Account from "./pages/Account";
+import Results from "./pages/Results";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ThemeContext, themes } from "./ThemeContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./initFirebase";
-import { useContext, useEffect, useState } from "react";
 import Logout from "./pages/Logout";
 import { GetUserById } from "./objects_managers/UserManager";
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
+import { ThemeProvider } from "styled-components";
+import ReactSwitch from "react-switch";
+import ToggleSwitch from "./components/ToggleSwitch";
+
+// export const ThemeContext = createContext(null);
 
 export default function App() {
   /* Base Invite User */
@@ -27,7 +33,10 @@ export default function App() {
   /* Current user state */
   const [currentAuthUser, setCurrentAuthUser] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(guestUser);
+  const [theme, setTheme] = useState("dark");
+  const [answers, setAnswers] = useState(undefined);
 
+  // let themeContext = useContext(ThemeContext);
   /* Watch for authentication state changes */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -53,10 +62,10 @@ export default function App() {
       <div className="App">
         <header
           className="App-header"
-          style={{
-            backgroundColor: themes[themeContext.theme].background,
-            color: themes[themeContext.theme].foreground,
-          }}
+          // style={{
+          //   backgroundColor: themes[themeContext.theme].background,
+          //   color: themes[themeContext.theme].foreground,
+          // }}
         >
           <h1>Loading...</h1>
         </header>
@@ -64,26 +73,29 @@ export default function App() {
     );
   }
 
+  const toggleTheme = () =>{
+    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
+  }
+
   return (
-    <div className="App">
-      <header>
-        <Navbar currentUser={currentUser} />
-      </header>
+    <ThemeContext.Provider value={{theme, toggleTheme}}>
+    <div className="container">
+      <Navbar currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<Home currentUser={currentUser} />} />
         <Route path="/layout" element={<Layout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        {/* <Route path="/settings" element={<Settings currentUser={currentUser}/>} /> */}
-        {/* <Route path="/survey" element={<Survey />} /> */}
+        <Route path="/settings" element={<Settings currentUser={currentUser}/>} />
+        {/* <Route path="/survey" element={<Survey/>} /> */}
         {/* <Route path="/results" element={<Results />} /> */}
-        <Route path="/registration" element={<Registration />} />
-        {/* <Route path="/settings" element={<Settings/>}/> */}
-        <Route path="/survey1" element={<Survey quesId="1"/>} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/survey1" element={<Survey quesId="1" answers={setAnswers}/>} />
         <Route path="/survey2" element={<Survey quesId="2"/>} />
         <Route path="/survey3" element={<Survey quesId="3"/>} />
       </Routes>
     </div>
+    </ThemeContext.Provider>
   );
 }

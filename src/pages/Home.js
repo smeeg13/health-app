@@ -3,13 +3,23 @@ import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
 import my_avatar from "./img/avatar5.png";
 import { useState } from "react";
+import ReactSwitch from "react-switch";
+import home_pic from "./img/home.png"
+
 
 export default function Home(props) {
 
 
+  const toggleTheme = () =>{
+    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
+    console.log("oui oui")
+  }
+
+  const [theme, setTheme] = useState("light");
+
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="container" id={theme}>
         {props.currentUser.nom_role === "Invite" && <HomeGuest />}
         {props.currentUser.nom_role === "Patient" && <HomeUser currentUser={props.currentUser}/>}
         {props.currentUser.nom_role === "Admin" && <HomeAdmin />}
@@ -21,17 +31,19 @@ export default function Home(props) {
 
 function HomeGuest() {//OK
   return (
-    <>
+    <div className="container" id={theme}>
       <h2 className="center welcome">Welcome in HealthApp</h2>
       <p className="center text">
-              Health Prevention is an application developed by {" "}
+              Health Prevention is an application developed by <br></br>
+              Mégane, Emilie, Thomas and Abdullah.
               <br></br>
-              Mégane, Emilie, Thomas and Abdullah. 
+              You must take an health survey and regarding your answers it will
               <br></br>
-              You must take an health survey and regarding your answers it will 
-              <br></br>
-              provide you the result of your health condition. 
+              provide you the result of your health condition.
             </p>
+            <div className="switch_mode">
+              <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
+            </div>
       <Link to="/survey">
         <button className="btn survey_btn">Take a survey</button>
       </Link>
@@ -45,7 +57,8 @@ function HomeGuest() {//OK
         <button className=" btn login_btn">Login</button>
       </Link>
       <br />
-    </>
+            <img src={home_pic} style={{height:"300px", marginTop:"-100px", float:"right"}}></img>
+    </div>
   );
 }
 
@@ -65,13 +78,13 @@ function HomeUser(props) {
     };
 
   return (
-    <>
+    <div className="container">
         <h2 className="center hi">
           Hi, welcome back{" "}
           {props.currentUser.nom != "" ? props.currentUser.nom : props.currentUser.email}
         </h2>
         <Link to="/survey">
-          <button className="btn survey_btn">Take a New Survey</button>
+          <button className="btn">Take a survey</button>
         </Link>
         <br />
         <br />
@@ -131,7 +144,8 @@ function HomeUser(props) {
                   className="custom-slider"
                 ></input>
                 <br></br>
-                <input style={{backgroundColor:"blueviolet"}}
+                <input
+                  style={{ backgroundColor: "blueviolet" }}
                   type="range"
                   onChange={changeWeight}
                   min={1}
@@ -140,7 +154,7 @@ function HomeUser(props) {
                   value={weight}
                   className="custom-slider"
                 ></input>
-                 <br></br>
+                <br></br>
                 <input
                   type="range"
                   onChange={changeSmoke}
@@ -150,7 +164,7 @@ function HomeUser(props) {
                   value={smoke}
                   className="custom-slider"
                 ></input>
-                 <br></br>
+                <br></br>
                 <input
                   type="range"
                   onChange={changeSmoke}
@@ -160,7 +174,7 @@ function HomeUser(props) {
                   value={smoke}
                   className="custom-slider"
                 ></input>
-                 <br></br>
+                <br></br>
                 <input
                   type="range"
                   onChange={changeSmoke}
@@ -171,8 +185,8 @@ function HomeUser(props) {
                   className="custom-slider"
                 ></input>
               </div>
-            </div>
-    </>
+            </div>      
+    </div>
   );
 }
 
