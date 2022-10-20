@@ -66,19 +66,19 @@ export function FormInput({ type, name, value, onChange, placeholder, fieldRef }
 }
 
 
-export function QuestionList({ questions }) {
+export function QuestionList({ questionList }) {
   return (
-    <ul>
-      {questions((q) =>
-        <li key={q.id}>
-          <div>
+    <>
+      <ul>
+        {questionList.map(q =>
+          <li key={q.id}>
             <p>
-              <Question question={q} />
+              <Question question={q.question} />
             </p>
-          </div>
-        </li>
-      )}
-    </ul>
+          </li>
+        )}
+      </ul>
+    </>
   );
 }
 
@@ -87,7 +87,9 @@ class Question extends React.Component {
     super(props);
   }
 
+
   render() {
+    console.log(this.props.question);
     return (
       <div>
         <p>{this.props.question}</p>
@@ -95,4 +97,13 @@ class Question extends React.Component {
     );
   }
   //... comme pour la classe Book
+}
+
+
+export function Loader() {
+  return (
+    <p>
+      ...
+    </p>
+  );
 }
