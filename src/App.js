@@ -32,10 +32,8 @@ export default function App() {
   guestUser.setIdRole('wfprGThk63ZrRRjRh1np');  
   const [currentAuthUser, setCurrentAuthUser] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(guestUser);
-  const [questionnaire1, setQuestionnaire1] = useState([]);
-  const [questionnaire2, setQuestionnaire2] = useState([]);
-  const [questionnaire3, setQuestionnaire3] = useState([]);
   const [theme, setTheme] = useState("dark");
+  const [answers, setAnswers] = useState(undefined);
 
   // let themeContext = useContext(ThemeContext);
   /* Watch for authentication state changes */
@@ -99,11 +97,11 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/settings" element={<Settings currentUser={currentUser}/>} />
-        <Route path="/survey" element={<Survey/>} />
+        {/* <Route path="/survey" element={<Survey/>} /> */}
         {/* <Route path="/results" element={<Results />} /> */}
         <Route path="/account" element={<Account />} />
+        <Route path="/survey1" element={<Survey quesId="1" answers={setAnswers}/>} />
         <Route path="/settings" element={<Settings/>}/>
-        <Route path="/survey1" element={<Survey quesId="1"/>} />
         <Route path="/survey2" element={<Survey quesId="2"/>} />
         <Route path="/survey3" element={<Survey quesId="3"/>} />
       </Routes>
