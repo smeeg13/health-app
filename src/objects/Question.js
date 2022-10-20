@@ -1,5 +1,5 @@
 export class Question {
-  constructor(quId, min, max, question, val_predefined, val_predefined2, valeurs_possibles) {
+  constructor(quId, min, max, question, val_predefined, val_predefined2, valeurs_possibles, typeAnswer) {
     this.min = min;
     this.max = max;
     this.question = question;
