@@ -89,28 +89,27 @@
 
 
 .btn {
-  /* margin-top: -5px; */
+  margin-top: 20px;
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;
   overflow: hidden;
   z-index: 1;
-  text-align: center;
   font-weight: bold;
   color: #ffff;
   padding: 0.7em 1.7em;
   font-size: 18px;
-  border-radius: 0.5em; 
+  border-radius: 0.5em; /*to round the corner of the shape */
   background: #77C5A6;
-  border: 1px solid transparent;
-  box-shadow: 3px 3px 6px #c5c5c5,
-             -3px -3px 6px #fff;
+  border: 1px solid #77C5A6;
+  /* box-shadow: 6px 6px 12px #c5c5c5,
+             -6px -6px 12px #ffffff; */
 }
 
 .btn:active {
   color: #666;
-  /* box-shadow: inset 4px 4px 12px #c5c5c5,
-             inset -4px -4px 12px #ffffff; */
+  box-shadow: inset 4px 4px 12px #c5c5c5,
+             inset -4px -4px 12px #ffffff;
 }
 
 .btn:before {
@@ -144,7 +143,7 @@
 }
 
 .btn:hover {
-  color: #3C3C3D;
+  color: #093545;
   border: 1px solid #e8e8e8;
 }
 
@@ -294,3 +293,4 @@ h1{
   margin-bottom: -10px;
   margin-left: 10px;
 }
+

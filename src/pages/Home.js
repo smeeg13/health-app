@@ -103,13 +103,13 @@ function HomeUser(props) {
       setWeight(event.target.value);
     };
   return (
-    <>
+    <div className="container">
         <h2 className="center hi">
           Hi, welcome back{" "}
           {props.currentUser.nom != "" ? props.currentUser.nom : props.currentUser.email}
         </h2>
         <Link to="/survey">
-          <button className="btn survey_btn">Take a survey</button>
+          <button className="btn">Take a survey</button>
         </Link>
         <br />
         <br />
@@ -209,7 +209,7 @@ function HomeUser(props) {
                 ></input>
               </div>
             </div>      
-    </>
+    </div>
   );
 }
 

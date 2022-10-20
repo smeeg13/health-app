@@ -105,17 +105,16 @@ Navbar.contextType = ThemeContext;
 
 
 const Container = styled.div`
-  /* padding: 0;
+  padding: 0;
   margin: 0;
   display: flex;
-  background-color:pink; */
 
 
   .navbar {
-    height: 50px;
+    height: 70px;
     width: 100%;
     text-decoration: none !important;
-    background-color: blue;
+    background-color: white;
     /*margin-bottom: 20px;*/
   }
 
