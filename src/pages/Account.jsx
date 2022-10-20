@@ -27,7 +27,7 @@ function Registration() {
             <div className="container left">
                 <h1 className="choose_avatar">Enter your personnal information</h1>
                 <form>
-                    <label className="label">Name</label>
+                    <label className="label" style={{marginBottom:"-5px"}}>Name</label>
                     <br />
                     <input
                         className="text_input"
@@ -40,9 +40,10 @@ function Registration() {
 
                     <br></br>
 
-                    <label className="label">Firstname</label>
+                    <label className="label" style={{marginBottom:"-5px"}}>Firstname</label>
                     <br />
                     <input
+                        style={{marginTop:"-15px"}}
                         className="text_input"
                         type="text"
                         maxLength={30}
@@ -136,12 +137,18 @@ body{
 }
 
 .left {
+    align-items:center;
+    justify-content:center;
+    text-align:center;
     width: 50%;
     left: 0;
 
 }
 
 .rightt{
+    align-items:center;
+    justify-content:center;
+    text-align:center;
     width:50%;
     right:0;
     background-color: #eafaf1 ;
@@ -189,8 +196,6 @@ select{
 
 input {
     text-align:left;
-    margin-top: 5px;
-    margin-bottom: 10px;
     box-sizing: border-box;
     border-radius: 4px;
     outline: none;
@@ -219,6 +224,7 @@ input {
 
 .choose_avatar{
     margin-top:60px;
+    margin-bottom:20px;
     text-align:center;
     color: #224957;
     font-size: 1.2em;

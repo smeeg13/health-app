@@ -26,7 +26,7 @@ export default function Home(props) {
     console.log("oui oui")
   }
 
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   return (
     <React.Fragment>
@@ -41,8 +41,16 @@ export default function Home(props) {
 }
 
 function HomeGuest() {
+
+  const toggleTheme = () =>{
+    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
+    console.log("oui oui")
+  }
+
+  const [theme, setTheme] = useState("light");
+
   return (
-    <>
+    <div className="container" id={theme}>
       <h2 className="center welcome">Welcome in HealthApp</h2>
       <p className="center text">
               Health Prevention is an application developed by <br></br>
@@ -69,11 +77,31 @@ function HomeGuest() {
       </Link>
       <br />
             <img src={home_pic} style={{height:"300px", marginTop:"-100px", float:"right"}}></img>
-    </>
+    </div>
   );
 }
 
 function HomeUser(props) {
+
+  const toggleTheme = () =>{
+    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
+    console.log("oui oui")
+  }
+
+  const [theme, setTheme] = useState("dark");
+
+    // the width of the box
+    const [smoke, setSmoke] = useState(10);
+    const [weight, setWeight] = useState(10);
+  
+    // This function is called when the first range slider changes
+    const changeSmoke = (event) => {
+      setSmoke(event.target.value);
+    };
+  
+    const changeWeight = (event) => {
+      setWeight(event.target.value);
+    };
   return (
     <>
         <h2 className="center hi">
@@ -180,9 +208,7 @@ function HomeUser(props) {
                   className="custom-slider"
                 ></input>
               </div>
-            </div>
-          </div>
-        
+            </div>      
     </>
   );
 }

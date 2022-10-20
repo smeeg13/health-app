@@ -47,7 +47,7 @@ export default class Navbar extends React.Component {
             {this.props.currentUser.nom_role === "Patient" && (
               <>
                 <li>
-                  <Link to="/" style={{ textDecoration: "none" }}>
+                  <Link to="/account" style={{ textDecoration: "none" }}>
                     My Account
                   </Link>
                 </li>
@@ -89,7 +89,7 @@ export default class Navbar extends React.Component {
             {this.props.currentUser.nom_role === "Docteur" && (
               <>
                 <li>
-                  <Link to="/" style={{ textDecoration: "none" }}>
+                  <Link to="/account" style={{ textDecoration: "none" }}>
                     My Account
                   </Link>
                 </li>
@@ -105,21 +105,18 @@ Navbar.contextType = ThemeContext;
 
 
 const Container = styled.div`
-  padding: 0;
+  /* padding: 0;
   margin: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  /* background-color:pink; */
+  background-color:pink; */
 
 
   .navbar {
     height: 50px;
     width: 100%;
     text-decoration: none !important;
-    background-color: #fff;
-    margin-bottom: 20px;
+    background-color: blue;
+    /*margin-bottom: 20px;*/
   }
 
   .navbar ul li {

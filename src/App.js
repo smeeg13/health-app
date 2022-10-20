@@ -91,9 +91,7 @@ export default function App() {
   return (
     <ThemeContext.Provider value={{theme, toggleTheme}}>
     <div className="container">
-      <header>
-        <Navbar currentUser={currentUser} />
-      </header>
+      <Navbar currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<Home currentUser={currentUser} />} />
         <Route path="/layout" element={<Layout />} />
@@ -101,8 +99,8 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/settings" element={<Settings currentUser={currentUser}/>} />
-        <Route path="/survey" element={<Survey />} />
-        <Route path="/results" element={<Results />} />
+        <Route path="/survey" element={<Survey/>} />
+        {/* <Route path="/results" element={<Results />} /> */}
         <Route path="/account" element={<Account />} />
         <Route path="/settings" element={<Settings/>}/>
         <Route path="/survey1" element={<Survey quesId="1"/>} />

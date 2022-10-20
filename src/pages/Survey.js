@@ -25,10 +25,10 @@ function Survey (props){
     getQuestionnaireById(props.quesId);
 }, []);
 
-  
   return (
       <>
         <Navbar/>
+        <h1>hi</h1>
     <div className="container center">
       <div className="container quiz">
       <h2 className="survey_title">[Survey name]</h2>
