@@ -5,7 +5,7 @@ import logo from "./img/logo.png";
 import exit from "./img/exit.png";
 import night from "./img/night.png";
 import day from "./img/day.png";
-import { ThemeContext, themes } from "../ThemeContext";
+import { ThemeContext, themes } from "../Context";
 import { useState } from "react";
 import Home from "./Home";
 import ReactSwitch from "react-switch";
@@ -14,7 +14,6 @@ import ReactSwitch from "react-switch";
 export default class Navbar extends React.Component {
 
   render() {
-    console.log('User into navbar',this.props.currentUser);
     return (
       <Container>
         <div className="navbar" style={{backgroundColor: themes[this.context.theme].background, color: themes[this.context.theme].textcolor}}>

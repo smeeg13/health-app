@@ -1,10 +1,14 @@
 import React from "react";
-
+import {Resultats} from "./objects/Resultats";
 export const ThemeContext = React.createContext({
     theme: null,
     toggleTheme: () => {}}
 );
 
+export const ResultatContext = React.createContext({
+    resultat: new Resultats(),
+    updateResultatField: () => {}}
+);
 
 /* Themes to use in the App */
 export const themes = {

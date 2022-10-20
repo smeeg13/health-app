@@ -1,19 +1,33 @@
-import moment from "moment/moment";
 import { Timestamp } from "firebase/firestore";
-import { QReponse } from "./QReponse";
 
 export class Resultats {
         id_resultats;
         list_reponses;
 
-    constructor (id,diabete, cancer, infarctus, nonInfarctus, list_reponses) {
+
+
+    constructor (id,diabete, cancer, infarctus, nonInfarctus,age,sexe,avc,afinf,afcancer,syst,glyc,chol,hdl,fume,alim,sport,alcool,bmi,taille,poids) {
         this.setIdResultats(id);
         this.diabete = diabete;
         this.cancer = cancer;
         this.infarctus = infarctus;
         this.nonInfarctus = nonInfarctus;
-        this.list_reponses = list_reponses;
-                
+        this.age = age;
+        this.sexe = sexe;
+        this.avc = avc;
+        this.afinf = afinf;
+        this.afcancer = afcancer;
+        this.syst = syst;
+        this.glyc = glyc;
+        this.chol = chol;
+        this.hdl = hdl;
+        this.fume = fume;
+        this.alim = alim;
+        this.sport = sport;
+        this.alcool = alcool; 
+        this.bmi = bmi;
+        this.taille = taille;
+        this.poids = poids;
     }
     setIdResultats(id){
         if(id === null){
@@ -22,13 +36,14 @@ export class Resultats {
             this.id_resultats = id;
         }
     }
-    setListReponses(list){
-        if(list === null){
-            list = [];
-        }else{
-            this.list_reponses = list;
-        }
-    }
+    
+    // setListReponses(list){
+    //     if(list === null){
+    //         list = [];
+    //     }else{
+    //         this.list_reponses = list;
+    //     }
+    // }
 
 
     toString() {

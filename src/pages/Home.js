@@ -2,35 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
 import my_avatar from "./img/avatar5.png";
-import { useState } from "react";
-import ReactSwitch from "react-switch";
+import { useState, useContext } from "react";
 import home_pic from "./img/home.png"
+import { ResultatContext } from "../Context";
 
 
 export default function Home(props) {
-  // the width of the box
-  const [smoke, setSmoke] = useState(10);
-  const [weight, setWeight] = useState(10);
-
-  // This function is called when the first range slider changes
-  const changeSmoke = (event) => {
-    setSmoke(event.target.value);
-  };
-
-  const changeWeight = (event) => {
-    setWeight(event.target.value);
-  };
-
-  const toggleTheme = () =>{
-    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
-    console.log("oui oui")
-  }
-
-  const [theme, setTheme] = useState("light");
 
   return (
     <React.Fragment>
-      <div className="container" id={theme}>
+      <div className="container" >
         {props.currentUser.nom_role === "Invite" && <HomeGuest />}
         {props.currentUser.nom_role === "Patient" && <HomeUser currentUser={props.currentUser}/>}
         {props.currentUser.nom_role === "Admin" && <HomeAdmin />}
@@ -40,17 +21,9 @@ export default function Home(props) {
   );
 }
 
-function HomeGuest() {
-
-  const toggleTheme = () =>{
-    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
-    console.log("oui oui")
-  }
-
-  const [theme, setTheme] = useState("light");
-
+function HomeGuest() {//OK
   return (
-    <div className="container" id={theme}>
+    <div className="container" >
       <h2 className="center welcome">Welcome in HealthApp</h2>
       <p className="center text">
               Health Prevention is an application developed by <br></br>
@@ -60,9 +33,7 @@ function HomeGuest() {
               <br></br>
               provide you the result of your health condition.
             </p>
-            <div className="switch_mode">
-              <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
-            </div>
+           
       <Link to="/survey">
         <button className="btn survey_btn">Take a survey</button>
       </Link>
@@ -82,13 +53,7 @@ function HomeGuest() {
 }
 
 function HomeUser(props) {
-
-  const toggleTheme = () =>{
-    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
-    console.log("oui oui")
-  }
-
-  const [theme, setTheme] = useState("dark");
+  let resultatContext = useContext(ResultatContext);
 
     // the width of the box
     const [smoke, setSmoke] = useState(10);
@@ -102,6 +67,7 @@ function HomeUser(props) {
     const changeWeight = (event) => {
       setWeight(event.target.value);
     };
+
   return (
     <div className="container">
         <h2 className="center hi">
@@ -113,8 +79,8 @@ function HomeUser(props) {
         </Link>
         <br />
         <br />
-
         
+
         <div className="container result1">
           <h2 className="quiz_title">[insert quiz title]</h2>
           <img className="my_avatar" src={my_avatar} />
