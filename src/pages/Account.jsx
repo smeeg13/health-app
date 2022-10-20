@@ -1,4 +1,4 @@
-import React from "react";
+
 import styled from 'styled-components';
 import avatar1 from './img/avatar1.png';
 import avatar2 from './img/avatar2.png';
@@ -7,10 +7,14 @@ import avatar4 from './img/avatar4.png';
 import avatar5 from './img/avatar5.png';
 import avatar6 from './img/avatar6.png';
 import logo from './img/logo.png';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import background from './img/background.png';
+import { ThemeContext, themes } from "../ThemeContext";
+import React, { useContext } from "react";
 
 function Registration() {
+
+    let themeContext = useContext(ThemeContext);
 
     const handleClick = () => {
         alert("Image clicked");
@@ -24,10 +28,17 @@ function Registration() {
 
     return (
         <Container2>
-            <div className="container left">
-                <h1 className="choose_avatar">Enter your personnal information</h1>
+            <div className="container left" style={{
+                backgroundColor: themes[themeContext.theme].background,
+                color: themes[themeContext.theme].foreground,
+            }}>
+                <h1 className="choose_avatar" style={{
+                    color: themes[themeContext.theme].textcolor,
+                }}>Enter your personnal information</h1>
                 <form>
-                    <label className="label" style={{marginBottom:"-5px"}}>Name</label>
+                    <label className="label" style={{
+                        color: themes[themeContext.theme].textcolor,
+                    }}>Name</label>
                     <br />
                     <input
                         className="text_input"
@@ -40,10 +51,12 @@ function Registration() {
 
                     <br></br>
 
-                    <label className="label" style={{marginBottom:"-5px"}}>Firstname</label>
+                    <label className="label" style={{
+                        color: themes[themeContext.theme].textcolor,
+                    }}>Firstname</label>
                     <br />
                     <input
-                        style={{marginTop:"-15px"}}
+                        style={{ marginTop: "-15px" }}
                         className="text_input"
                         type="text"
                         maxLength={30}
@@ -97,9 +110,14 @@ function Registration() {
                 </form>
             </div>
 
-            <div className="container rightt">
+            <div className="container rightt" style={{
+                backgroundColor: themes[themeContext.theme].background_right,
+                color: themes[themeContext.theme].foreground,
+            }}>
                 <div className="flex-container">
-                    <h1 className="choose_avatar">Choose an avatar </h1>
+                    <h1 className="choose_avatar" style={{
+                        color: themes[themeContext.theme].textcolor,
+                    }}>Choose an avatar </h1>
                     <div className="avatar">
                         <img className="avatar1" src={avatar1} onClick={handleClick}></img>
                         <img className="avatar2" src={avatar2} onClick={handleClick}></img>
@@ -112,7 +130,10 @@ function Registration() {
                     </div>
                 </div>
                 <Link to="/">
-                <button className="btn">Submit</button>
+                    <button className="btn" style={{
+                        backgroundColor: themes[themeContext.theme].button,
+                        color: themes[themeContext.theme].textcolorbtn,
+                    }}>Submit</button>
                 </Link>
             </div>
         </Container2>

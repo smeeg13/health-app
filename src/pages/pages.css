@@ -256,8 +256,12 @@ input{
 
 /* ------ SETTINGS PAGE --------- */
 
+
 .settings_page{
+  height: 100%;
+  width: 100%;
   margin-top: -30px;
+  scroll-behavior: auto;
   background-color: #a9cce3;
   font-family: "Lexend Deca";
 }
