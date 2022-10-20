@@ -1,18 +1,22 @@
   .container {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     height: 100%;
     width: 100%;
     position: fixed;
-    z-index: 1;
-    overflow-x: hidden;
+    /* z-index: 1;
+    overflow-x: hidden; */
   }
 
   .container_login{
-    height: 400px;
+    height: 400px;  
     margin-bottom: 5px;
     text-align: center;
   }
 
   .container_quiz{
+    position: relative;
     text-align: center;
     margin: auto;
     margin-top: -20px;
@@ -67,7 +71,7 @@ input{
   float: right;
   margin-top: 50px;
   margin-right: 50px;
-  position: relative;
+  position: fixed;
   width: 80px;
   height: 40px;
   overflow: hidden;
@@ -135,35 +139,32 @@ input{
 .result1 {
   margin-left: 25px;
   margin-top: 30px;
+  max-width: 450px;
   border: 1px solid grey;
-  height: 55%;
-  width: 30%;
-  left: 0;
+  max-height: 400px;
+  left: 30px;
   background-color: white;
 }
 
 .result2 {
+  margin-left: 25px;
   margin-top: 30px;
-  margin-right: 25px;
+  max-width: 450px;
   border: 1px solid grey;
-  height: 55%;
-  width: 30%;
-  right: 0;
+  max-height: 400px;
+  left: 515px;
   background-color: white;
 }
 
 .result3 {
+  margin-left: 25px;
   margin-top: 30px;
-  height: 55%;
+  max-width: 450px;
   border: 1px solid grey;
-  margin-left: 35%;
-  margin-right: 33%;
-  width: 30%;
+  max-height: 400px;
+  left: 1000px;
   background-color: white;
 }
-
-
-
 
 
 .category{
