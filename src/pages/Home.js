@@ -23,13 +23,9 @@ export default function Home(props) {
 }
 
 function HomeGuest() {
-  let themeContext = useContext(ThemeContext);
   //OK
   return (
-    <div className="container" style={{
-      backgroundColor: themes[themeContext.theme].background,
-      color: themes[themeContext.theme].foreground,
-  }}>
+    <div className="container">
       <h2 className="center welcome">Welcome in HealthApp</h2>
       <p className="center text">
         Health Prevention is an application developed by <br></br>
@@ -62,6 +58,7 @@ function HomeGuest() {
 }
 
 function HomeUser(props) {
+  let themeContext = useContext(ThemeContext);
   let resultatContext = useContext(ResultatContext);
 
   // the width of the box
@@ -78,20 +75,45 @@ function HomeUser(props) {
   };
 
   return (
-    <div className="container">
-      <h2 className="center hi">
+    <div
+      className="container"
+      style={{
+        backgroundColor: themes[themeContext.theme].background,
+        color: themes[themeContext.theme].foreground,
+      }}
+    >
+      <h2
+        className="center hi"
+        style={{
+          color: themes[themeContext.theme].textcolor,
+        }}
+      >
         Hi, welcome back{" "}
         {props.currentUser.nom != ""
           ? props.currentUser.nom
           : props.currentUser.email}
       </h2>
       <Link to="/survey">
-        <button className="btn">Take a survey</button>
+        <button
+          className="btn"
+          style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}
+        >
+          Take a survey
+        </button>
       </Link>
       <br />
       <br />
 
-      <div className="container result1">
+      <div
+        className="container result1"
+        style={{
+          backgroundColor: themes[themeContext.theme].backgroundresult,
+          color: themes[themeContext.theme].foreground,
+        }}
+      >
         <h2 className="quiz_title">[insert quiz title]</h2>
         <img className="my_avatar" src={my_avatar} />
         <div className="category">
@@ -108,7 +130,10 @@ function HomeUser(props) {
         </div>
       </div>
 
-      <div className="container result2">
+      <div className="container result2"   style={{
+          backgroundColor: themes[themeContext.theme].backgroundresult,
+          color: themes[themeContext.theme].foreground,
+        }}>
         <h2 className="quiz_title">[insert quiz title]</h2>
         <img className="my_avatar" src={my_avatar} />
         <div className="category2">
@@ -124,7 +149,10 @@ function HomeUser(props) {
         </div>
       </div>
 
-      <div className="container result3">
+      <div className="container result3"   style={{
+          backgroundColor: themes[themeContext.theme].backgroundresult,
+          color: themes[themeContext.theme].foreground,
+        }}>
         <h2 className="quiz_title">[insert quiz title]</h2>
         <img className="my_avatar" src={my_avatar} />
         <div className="category3">

@@ -31,7 +31,7 @@ export default class Navbar extends React.Component {
             )}
 
             <button
-              className="btn_switch"
+              className="btn btn_switch"
               title="Switch Theme"
               onClick={this.context.toggleTheme}
             >
@@ -57,7 +57,7 @@ export default class Navbar extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/survey" style={{ textDecoration: "none" }}>
+                  <Link to="/survey1" style={{ textDecoration: "none" }}>
                     Survey
                   </Link>
                 </li>
@@ -175,5 +175,6 @@ const Container = styled.div`
     float: left;
     margin-below: 20px;
   }
+
 
 `;

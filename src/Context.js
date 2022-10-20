@@ -22,5 +22,6 @@ export const themes = {
         textcolor:"#fff",
         textcolorbtn:"black",
         button:"#fff",
+        backgroundresult:"white"
     },
 };
