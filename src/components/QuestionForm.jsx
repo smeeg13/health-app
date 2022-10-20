@@ -1,6 +1,6 @@
 import React from "react";
-import { useState } from "react";
-import ReactSlider from "react-slider";
+import { useState, useContext } from "react";
+import { Context } from "react";
 
 
 export default class QuestionForm extends React.Component {
@@ -12,7 +12,7 @@ export default class QuestionForm extends React.Component {
     }
     this.myRef = React.createRef();
   }
-
+  resultatContext = useContext(ResultatContext);
   emptyQuestion = { max: "", min: "", question: "", unites: "", val_predefined: "", val_predefined2: "" }
 
   render() {
