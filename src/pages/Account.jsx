@@ -67,7 +67,7 @@ function Registration() {
                     <br></br>
 
 
-                    {/* <label className="label">Age</label>
+                    <label className="label">Age</label>
                     <br />
                     <input
                         className="nb_input"
@@ -79,7 +79,7 @@ function Registration() {
                     />
                     <br></br>
 
-                    <label className="label">Weight</label>
+                    {/* <label className="label">Weight</label>
                     <br />
                     <input
                         className="nb_input"
@@ -99,14 +99,14 @@ function Registration() {
                         // value={email}
                         // onChange={handleEmailChange}
                         required
-                    />
+                    /> */}
                     <br></br>
                     <label className="label">Sex</label>
                     <br />
                     <select value={value} onChange={handleChange}>
                         <option value="woman">Woman</option>
                         <option value="man">Man</option>
-                    </select> */}
+                    </select>
                 </form>
             </div>
 
