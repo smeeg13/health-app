@@ -17,7 +17,7 @@ export default class Navbar extends React.Component {
     console.log('User into navbar',this.props.currentUser);
     return (
       <Container>
-        <div className="navbar" id={Home.theme}>
+        <div className="navbar" style={{backgroundColor: themes[this.context.theme].background, color: themes[this.context.theme].textcolor}}>
           <Link to="/">
             <img className="logo_app" src={logo} />
           </Link>
@@ -32,15 +32,16 @@ export default class Navbar extends React.Component {
             )}
 
             <button
-              className="btn btn_switch"
+              className="btn_switch"
               title="Switch Theme"
               onClick={this.context.toggleTheme}
             >
-           {this.context.theme === "dark" ? (
+           {/* {this.context.theme === "dark" ? (
                 <img className="logo_theme" src={night} />
               ) : (
                 <img className="logo_theme" src={day} />
-              )}   
+              )}    */}
+               <span>💡</span>
             </button>
 
             {/* if user.nom_role = Patient  */}

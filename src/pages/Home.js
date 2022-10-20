@@ -113,6 +113,8 @@ function HomeUser(props) {
         </Link>
         <br />
         <br />
+
+        
         <div className="container result1">
           <h2 className="quiz_title">[insert quiz title]</h2>
           <img className="my_avatar" src={my_avatar} />
