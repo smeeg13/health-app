@@ -5,7 +5,7 @@ import styled from "styled-components";
 import my_avatar from "./img/avatar5.png";
 import { useContext, useEffect, useState } from "react";
 
-function Resultats(props){
+export default function Resultats(props){
   //Need user data and avatar existant
   //need user response of the 3 questionnaires
 
