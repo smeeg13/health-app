@@ -5,21 +5,18 @@ import Register from "./pages/Register";
 import Login, { CheckRole } from "./pages/Login";
 import Home from "./pages/Home";
 import Navbar from "./pages/Navbar";
-import Layout from "./pages/Layout";
 import Survey from "./pages/Survey";
 import Account from "./pages/Account";
 import Results from "./pages/Results";
 import { createContext, useContext, useEffect, useState } from "react";
-import { ThemeContext, themes } from "./ThemeContext";
+import { ThemeContext, ResultatContext } from "./Context";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./initFirebase";
 import Logout from "./pages/Logout";
 import { GetUserById } from "./objects_managers/UserManager";
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
-import { ThemeProvider } from "styled-components";
-import ReactSwitch from "react-switch";
-import ToggleSwitch from "./components/ToggleSwitch";
+
 
 // export const ThemeContext = createContext(null);
 
@@ -30,11 +27,11 @@ export default function App() {
   guestUser.setIdRole('wfprGThk63ZrRRjRh1np');  
 
   let themeContext = useContext(ThemeContext);
+
+
   /* Current user state */
   const [currentAuthUser, setCurrentAuthUser] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(guestUser);
-  const [theme, setTheme] = useState("dark");
-  const [answers, setAnswers] = useState(undefined);
 
   // let themeContext = useContext(ThemeContext);
   /* Watch for authentication state changes */
@@ -73,17 +70,13 @@ export default function App() {
     );
   }
 
-  const toggleTheme = () =>{
-    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
-  }
-
   return (
-    <ThemeContext.Provider value={{theme, toggleTheme}}>
+
+    
     <div className="container">
       <Navbar currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<Home currentUser={currentUser} />} />
-        <Route path="/layout" element={<Layout />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
@@ -91,11 +84,10 @@ export default function App() {
         {/* <Route path="/survey" element={<Survey/>} /> */}
         {/* <Route path="/results" element={<Results />} /> */}
         <Route path="/account" element={<Account />} />
-        <Route path="/survey1" element={<Survey quesId="1" answers={setAnswers}/>} />
+        <Route path="/survey1" element={<Survey quesId="1" />} />
         <Route path="/survey2" element={<Survey quesId="2"/>} />
         <Route path="/survey3" element={<Survey quesId="3"/>} />
       </Routes>
     </div>
-    </ThemeContext.Provider>
   );
 }

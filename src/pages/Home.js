@@ -2,24 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
 import my_avatar from "./img/avatar5.png";
-import { useState } from "react";
-import ReactSwitch from "react-switch";
+import { useState, useContext } from "react";
 import home_pic from "./img/home.png"
+import { ResultatContext } from "../Context";
 
 
 export default function Home(props) {
 
-
-  const toggleTheme = () =>{
-    setTheme((curr)=> (curr==="light" ? "dark" : "light"));
-    console.log("oui oui")
-  }
-
-  const [theme, setTheme] = useState("light");
-
   return (
     <React.Fragment>
-      <div className="container" id={theme}>
+      <div className="container" >
         {props.currentUser.nom_role === "Invite" && <HomeGuest />}
         {props.currentUser.nom_role === "Patient" && <HomeUser currentUser={props.currentUser}/>}
         {props.currentUser.nom_role === "Admin" && <HomeAdmin />}
@@ -31,7 +23,7 @@ export default function Home(props) {
 
 function HomeGuest() {//OK
   return (
-    <div className="container" id={theme}>
+    <div className="container" >
       <h2 className="center welcome">Welcome in HealthApp</h2>
       <p className="center text">
               Health Prevention is an application developed by <br></br>
@@ -41,9 +33,7 @@ function HomeGuest() {//OK
               <br></br>
               provide you the result of your health condition.
             </p>
-            <div className="switch_mode">
-              <ReactSwitch onChange={toggleTheme} checked={theme === "dark"} />
-            </div>
+           
       <Link to="/survey">
         <button className="btn survey_btn">Take a survey</button>
       </Link>
@@ -63,6 +53,7 @@ function HomeGuest() {//OK
 }
 
 function HomeUser(props) {
+  let resultatContext = useContext(ResultatContext);
 
     // the width of the box
     const [smoke, setSmoke] = useState(10);

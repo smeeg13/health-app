@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
 import { db } from "../initFirebase";
-import { getDocs, collection, doc } from "firebase/firestore";
+import {  ResultatContext } from "../Context";
+import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
 import { QuestionList } from "../components/QuestionForm";
-import Resultats from "./Results";
-
 
 function Survey(props) {
 
+  let resultatContext = useContext(ResultatContext);
+
   let [questions, setQuestions] = useState([]);
-  const empytAnswer = new Resultats();
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {

@@ -1,10 +1,7 @@
-// import React, {useEffect} from "react";
-
-// import {collection, setDoc, doc, getDocs} from "firebase/firestore";
-
-// import {db} from "../initFirebase";
-// import {useState} from "react";
-// import {useCollectionData} from "react-firebase-hooks/firestore";
+import React, {useEffect} from "react";
+import {collection, setDoc, doc, getDocs} from "firebase/firestore";
+import {db} from "../initFirebase";
+import {useState} from "react";
 
 export default function Settings() {
     //get the collection of variables
@@ -61,15 +58,15 @@ function VariablesForm({data}) {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        if (api_variable_limites != variable_limites && variable_limites != "") {
+        if (api_variable_limites !== variable_limites && variable_limites !== "") {
             const variableRef = doc(db, 'Variables', data.id);
             setDoc(variableRef, {limites: variable_limites}, {merge: true}).then(r => console.log("Update limites done"));
             setApi_variable_limites(variable_limites)
-        } else if (api_variable_predifinie != variable_predifinie && variable_predifinie != "") {
+        } else if (api_variable_predifinie !== variable_predifinie && variable_predifinie !== "") {
             const variableRef = doc(db, 'Variables', data.id);
             setDoc(variableRef, {val_predefinie: variable_predifinie}, {merge: true}).then(r => console.log("Update val predifinie done"));
             setApi_variable_predifinie(variable_predifinie)
-        } else if (api_variable_normale != variable_normale && variable_normale != "") {
+        } else if (api_variable_normale !== variable_normale && variable_normale !== "") {
             const variableRef = doc(db, 'Variables', data.id);
             setDoc(variableRef, {val_normale: variable_normale}, {merge: true}).then(r => console.log("Update val predifinie done"));
             setApi_variable_normale(variable_normale)
@@ -104,7 +101,7 @@ function VariablesForm({data}) {
                         ("")
                     }*/}
                     <div>
-                        Valeur normale {api_variable_normale} =>
+                        Valeur normale {api_variable_normale}
                         <input
                             type="text"
                             name="val_normale"
@@ -114,7 +111,7 @@ function VariablesForm({data}) {
                         <button type="submit">save</button>
                     </div>
                     <div>
-                        Valeur prédifinies {api_variable_predifinie} =>
+                        Valeur prédifinies {api_variable_predifinie} 
                         <input
                             type="text"
                             name="val_predifinie"
@@ -124,7 +121,7 @@ function VariablesForm({data}) {
                         <button type="submit">save</button>
                     </div>
                     <div>
-                        Valeur limites ({api_variable_limites}) =>
+                        Valeur limites ({api_variable_limites}) 
                         <input
                             type="text"
                             name="limites"

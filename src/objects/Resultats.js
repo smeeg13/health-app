@@ -1,6 +1,4 @@
-import moment from "moment/moment";
 import { Timestamp } from "firebase/firestore";
-import { QReponse } from "./QReponse";
 
 export class Resultats {
         id_resultats;

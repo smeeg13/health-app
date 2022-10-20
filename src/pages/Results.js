@@ -1,9 +1,5 @@
 import React from "react";
-import docs from "./img/docs.jpg";
-import Navbar from "./Navbar";
-import styled from "styled-components";
-import my_avatar from "./img/avatar5.png";
-import { useContext, useEffect, useState } from "react";
+import {  useState } from "react";
 
 function Resultats(props) {
   //The Resultat object coming from the survey
