@@ -9,7 +9,7 @@ import avatar6 from './img/avatar6.png';
 import logo from './img/logo.png';
 import { Link } from 'react-router-dom'
 import background from './img/background.png';
-import { ThemeContext, themes } from "../ThemeContext";
+import { ThemeContext, themes } from "../Context";
 import React, { useContext } from "react";
 
 function Registration() {
