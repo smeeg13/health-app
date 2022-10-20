@@ -1,4 +1,6 @@
 import React from "react";
+import { useState } from "react";
+import ReactSlider from "react-slider";
 
 
 export default class QuestionForm extends React.Component {
@@ -66,6 +68,8 @@ export function FormInput({ type, name, value, onChange, placeholder, fieldRef }
 }
 
 
+
+
 export function QuestionList({ questionList }) {
   return (
     <>
@@ -73,7 +77,10 @@ export function QuestionList({ questionList }) {
         {questionList.map(q =>
           <li key={q.id}>
             <p>
-              <Question question={q.question} />
+              {q.question}
+              {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
+              {q.typeAnswer === 'slider' && <Range q={q}/>}
+              {q.typeAnswer === 'dropdown' && <Dropdown q={q}/>}
             </p>
           </li>
         )}
@@ -82,21 +89,65 @@ export function QuestionList({ questionList }) {
   );
 }
 
-class Question extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function Dropdown (props) {
+  const [value, setValue] = React.useState('homme');
 
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  }   
 
-  render() {
-    console.log(this.props.question);
-    return (
-      <div>
-        <p>{this.props.question}</p>
-      </div>
-    );
-  }
-  //... comme pour la classe Book
+  return (
+    <div>
+    <label className="label">Sex</label>
+              <br />
+              <select value={value} onChange={handleChange}>
+                  <option value="woman">Woman</option>
+                  <option value="man">Man</option>
+              </select>
+    </div>
+    
+  );
+};
+
+function Range (props) {
+  const [weight, setWeight] = useState(10);
+  
+  const changeWeight = (event) => {
+    setWeight(event.target.value);
+  };
+
+  return (
+    <div>
+      <h1>poids : {weight}</h1>
+      <input
+        style={{ backgroundColor: "blueviolet" }}
+        type="range"
+        onChange={changeWeight}
+        min={props.min}
+        max={props.max}
+        step={1}
+        value={props}
+        className="custom-slider"
+      />
+    </div>
+  );
+};
+
+function toggleCheckBox(value) {
+  return !value;
+}
+
+function CheckBoxForm() {
+  const [checked, setChecked] = useState(false);
+  return (
+    <div>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={() => setChecked(toggleCheckBox)}
+      />
+    </div>
+  )
 }
 
 
@@ -107,3 +158,44 @@ export function Loader() {
     </p>
   );
 }
+
+
+// class Question extends React.Component {
+//   constructor(props) {
+//     super(props);
+//   }
+  
+
+//   render() {
+//     console.log('min',this.props.min);
+//     console.log('typeAnswer', this.props.typeAnswer);
+//     return (
+//       <>
+//         <p>
+//           {this.props.question}
+//           {this.props.typeAnswer === 'checkbox' && <CheckBoxForm />}
+//           {/* {this.props.typeAnswer === 'slider' &&
+//             //https://retool.com/blog/building-a-react-slider/
+//             <ReactSlider />
+//           } */}
+//         </p>
+//       </>
+//     );
+//   }
+// }
+
+// export function QuestionList({ questionList }) {
+//   return (
+//     <>
+//       <ul>
+//         {questionList.map(q =>
+//           <li key={q.id}>
+//             <p>
+//               <Question question={q.question} />
+//             </p>
+//           </li>
+//         )}
+//       </ul>
+//     </>
+//   );
+// }
