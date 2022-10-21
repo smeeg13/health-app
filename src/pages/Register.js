@@ -19,12 +19,12 @@ export default function Register() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      let user = new User(auth.currentUser.uid, email, "", 0, 0, 0, 0);
+      let user = new User(auth.currentUser.uid, email, "", 0, 0, 0, 0,null, false);
       //To create the user document in Firestore with the id created by Auth
       await CreateDocUser(user);
 
       await CreateDocUserInResultat(user);
-      navigate("/Registration");
+      navigate("/");
 
     } catch (e) {
       setGeneralError(e.name);
