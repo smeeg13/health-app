@@ -198,11 +198,7 @@ input{
   background-color: #eafaf1;
 }
 
-.settings_label{
-  display: inline;
-  font-family: "Lexend Deca";
-  font-size: 0.9em;
-}
+
 
 .category{
   margin-top: 70px;
@@ -295,6 +291,8 @@ input{
 
 
 .settings_page{
+  text-align: left;
+  padding-left: 40px;
   height: 100%;
   width: 100%;
   top: 10px;
@@ -332,6 +330,13 @@ input{
 
 .settings_title{
   padding-top: 40px;
+}
+
+.settings_label{
+  padding: 70px 0;
+  display: inline;
+  font-family: "Lexend Deca";
+  font-size: 0.9em;
 }
 
 .variable_text{

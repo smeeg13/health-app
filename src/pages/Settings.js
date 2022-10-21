@@ -37,7 +37,7 @@ export default function Settings() {
       <h1
         className="settings_title"
         style={{
-          color: themes[themeContext.theme].textcolor,
+          color: themes[themeContext.theme].textcolor, textAlign:"center"
         }}
       >
         Settings
@@ -117,7 +117,7 @@ function VariablesForm({ data }) {
   };
 
   return (
-    <div className="settings_container">
+    <div className="settings_container" style={{alignItems:"center"}}>
       <h4
         className="variable_text"
         style={{
