@@ -1,15 +1,14 @@
 export class User {
   id_user;
-  nom ="";
+  nom = "";
   age = 0;
   sexe = 0; //1 si masculin, 0 si feminin
   poids = 0;
   taille = 0;
-  nom_role='';
-  avatar='';
+  nom_role = "";
+  avatar = "avatar1.png";
 
-
-  constructor(id_user,mail, nom, age, sexe, poids, taille) {
+  constructor(id_user, mail, nom, age, sexe, poids, taille) {
     this.setId(id_user);
     this.setEmail(mail);
     this.setNom(nom);
@@ -21,9 +20,9 @@ export class User {
     //+ collections Questionnaires
   }
 
-  setAvatar(avatar){
+  setAvatar(avatar) {
     //TODO:: manage default avatar
-    this.avatar= avatar;
+    this.avatar = avatar;
   }
 
   setId(id) {
@@ -88,11 +87,19 @@ export const userConverter = {
       sexe: user.sexe,
       poids: user.poids,
       taille: user.taille,
-      avatar: user.avatar
+      avatar: user.avatar,
     };
   },
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
-    return new User(snapshot.id,data.email,data.nom, data.age, data.sexe, data.poids, data.taille); 
+    return new User(
+      snapshot.id,
+      data.email,
+      data.nom,
+      data.age,
+      data.sexe,
+      data.poids,
+      data.taille
+    );
   },
 };

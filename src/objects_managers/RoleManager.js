@@ -1,5 +1,11 @@
 import { db } from "../initFirebase";
-import { doc, getDoc,getDocs,deleteDoc,query,where } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { refRoles } from "../initFirebase";
 import { roleConverter } from "../objects/Role";
 

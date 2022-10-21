@@ -6,10 +6,8 @@ import exit from "./img/exit.png";
 import night from "./img/night.png";
 import day from "./img/day.png";
 import { ThemeContext, themes } from "../Context";
-import { useState } from "react";
 import Home from "./Home";
 import ReactSwitch from "react-switch";
-
 
 export default class Navbar extends React.Component {
 
