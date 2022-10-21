@@ -1,6 +1,6 @@
 import "../App.css";
 import React from "react";
-import {  withFormik, Form, Field, Formik } from "formik";
+import { Formik } from "formik";
 
 const initialValues = {
   email: "",

@@ -8,7 +8,7 @@ class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
   constructor() {
     super();
-    this.state = { theme: "light", resultat: new Resultats() };
+    this.state = { theme: "light", resultat: new Resultats('',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ) };
   }
 
   /* Toggle theme method */
@@ -25,17 +25,21 @@ class AppWrapper extends React.Component {
     const value = target.value;
     const name = target.name;
 
+    console.log('event inside updateResultatField : ',event);
+
     this.setState((prevState) => ({
       resultat: { ...prevState.resultat, [name]: value },
     }));
   };
 
-  /*
-  Render our App component, + wrapped by a ThemeContext Provider:
-  The value contains the theme (coming from state) and the
-  toggleTheme method allowing consumers of the context to
-  update the current theme.
-   */
+  updateResultatAll = (event) => {
+console.log('event inside updateResultatAll : ',event);
+    this.setState((prevState) => ({
+      resultat: { ...prevState.resultat, ...event.value },
+    }));
+  };
+
+
   render() {
     return (
       <ThemeContext.Provider
@@ -44,7 +48,8 @@ class AppWrapper extends React.Component {
         <ResultatContext.Provider
           value={{
             resultat: this.state.resultat,
-            updateResultatField: this.state.updateResultatField,
+            updateResultatField: this.updateResultatField,
+            updateResultatAll: this.updateResultatAll,
           }}
         >
           <BrowserRouter>

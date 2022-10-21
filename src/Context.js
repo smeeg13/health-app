@@ -1,5 +1,7 @@
 import React from "react";
 import {Resultats} from "./objects/Resultats";
+
+
 export const ThemeContext = React.createContext({
     theme: null,
     toggleTheme: () => {}}
@@ -7,7 +9,8 @@ export const ThemeContext = React.createContext({
 
 export const ResultatContext = React.createContext({
     resultat: new Resultats(),
-    updateResultatField: () => {}}
+    updateResultatField: () => {},
+    updateResultatAll: () => {}}
 );
 
 /* Themes to use in the App */
@@ -18,9 +21,11 @@ export const themes = {
     },
     dark: {
         background: "#030f27",
-        background_right:"#030f27",
+        background_right:" #34495e",
+        background_left:"#0e6655",
         textcolor:"#fff",
         textcolorbtn:"black",
         button:"#fff",
+        backgroundresult:"white"
     },
 };

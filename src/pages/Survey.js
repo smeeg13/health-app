@@ -7,14 +7,17 @@ import QuestionForm, { QuestionList, Loader } from "../components/QuestionForm";
 
 function Survey(props) {
 
+  let resultatContext = useContext(ResultatContext);
+
   const [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true)
 
   useEffect(() => {
-
-    async function getQuestionnaireById() {
-
-      const refQuestionnaire = collection(db, "Questionnaires/" + props.quesId + "/Questions").withConverter(questionConverter);
+    async function getQuestionnaireById(quesId) {
+      const refQuestionnaire = collection(
+        db,
+        "Questionnaires/" + quesId + "/Questions"
+      ).withConverter(questionConverter);
 
       const roleSnapshot = await getDocs(refQuestionnaire);
 
@@ -38,7 +41,7 @@ function Survey(props) {
         </div>
       </div>
     </>
-  );
+  )
 }
 
 export default Survey;
@@ -189,5 +192,3 @@ export default Survey;
 //   );
 // }
 // export default Survey;
-
-

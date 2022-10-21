@@ -6,10 +6,8 @@ import exit from "./img/exit.png";
 import night from "./img/night.png";
 import day from "./img/day.png";
 import { ThemeContext, themes } from "../Context";
-import { useState } from "react";
 import Home from "./Home";
 import ReactSwitch from "react-switch";
-
 
 export default class Navbar extends React.Component {
 
@@ -31,7 +29,7 @@ export default class Navbar extends React.Component {
             )}
 
             <button
-              className="btn_switch"
+              className="btn btn_switch"
               title="Switch Theme"
               onClick={this.context.toggleTheme}
             >
@@ -57,7 +55,7 @@ export default class Navbar extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/survey" style={{ textDecoration: "none" }}>
+                  <Link to="/survey1" style={{ textDecoration: "none" }}>
                     Survey
                   </Link>
                 </li>
@@ -175,5 +173,6 @@ const Container = styled.div`
     float: left;
     margin-below: 20px;
   }
+
 
 `;

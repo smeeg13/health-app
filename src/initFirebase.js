@@ -5,13 +5,7 @@ import { userConverter } from "./objects/User";
 import { docteurConverter } from "./objects/Docteur";
 import { roleConverter } from "./objects/Role";
 import { variableConverter } from "./objects/Variables";
-import { questionnaireConverter } from "./objects/Variables";
 import { maladieConverter } from "./objects/Maladie";
-import firebase from 'firebase/compat/app';
-
-// Import the functions you need from the SDKs you need
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Firebase configuration
 const firebaseConfig = {
@@ -33,10 +27,8 @@ export const refUser = collection(db, 'User').withConverter(userConverter);
 export const refDocteur = collection(db, 'Docteur').withConverter(docteurConverter);
 export const refRoles = collection(db, 'Roles').withConverter(roleConverter);
 export const refVariables = collection(db, 'Variables').withConverter(variableConverter);
-export const refQuestionnaire = collection(db, 'Questionnaires').withConverter(variableConverter);
+export const refQuestionnaire = collection(db, 'Questionnaires');
 export const refMaladies = collection(db, 'Maladies').withConverter(maladieConverter);
-
-
 
 export async function getAuthCurrentUser(){
   if(auth.currentUser !== null){

@@ -1,15 +1,14 @@
 export class User {
   id_user;
-  nom ="";
+  nom = "";
   age = 0;
   sexe = 0; //1 si masculin, 0 si feminin
   poids = 0;
   taille = 0;
-  nom_role='';
-  avatar='';
+  nom_role = "";
+  avatar = "avatar1.png";
 
-
-  constructor(id_user,mail, nom, age, sexe, poids, taille) {
+  constructor(id_user, mail, nom, age, sexe, poids, taille,id_role, isAdmin) {
     this.setId(id_user);
     this.setEmail(mail);
     this.setNom(nom);
@@ -17,13 +16,12 @@ export class User {
     this.setSexe(sexe);
     this.setPoids(poids);
     this.setTaille(taille);
-    this.id_role = "n5Gejr1pLJrcMagawHqp";
-    //+ collections Questionnaires
+    this.setIdRole(id_role, isAdmin);    //+ collections Questionnaires
   }
 
-  setAvatar(avatar){
+  setAvatar(avatar) {
     //TODO:: manage default avatar
-    this.avatar= avatar;
+    this.avatar = avatar;
   }
 
   setId(id) {
@@ -42,8 +40,14 @@ export class User {
     this.nom_role = nom_role;
   }
 
-  setIdRole(id_role) {
-    this.id_role = id_role;
+  setIdRole(id_role, isAdmin) {
+    if(id_role !== null){
+      this.id_role = id_role;
+    }else if(isAdmin===true && isAdmin!== null){
+      this.id_role = "Rok7J6Y8zqnKCAJf4U85";
+    }else{
+    this.id_role = "n5Gejr1pLJrcMagawHqp";
+    }
   }
 
   setAge(age) {
@@ -88,11 +92,20 @@ export const userConverter = {
       sexe: user.sexe,
       poids: user.poids,
       taille: user.taille,
-      avatar: user.avatar
+      avatar: user.avatar,
     };
   },
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
-    return new User(snapshot.id,data.email,data.nom, data.age, data.sexe, data.poids, data.taille); 
+    return new User(
+      snapshot.id,
+      data.email,
+      data.nom,
+      data.age,
+      data.sexe,
+      data.poids,
+      data.taille,
+      data.id_role, null
+    );
   },
 };

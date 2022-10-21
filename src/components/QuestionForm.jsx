@@ -1,39 +1,73 @@
 import React from "react";
 import { useState, useContext } from "react";
-import  {ResultatContext}  from "../Context";
+import { Context } from "react";
 
 
 export default class QuestionForm extends React.Component {
 
-    constructor(props) {
-      super(props);
-      this.myRef = React.createRef();
+  constructor(props) {
+    super(props);
+    this.state = {
+      newQuestion: this.emptyQuestion,
     }
-    
-    resultatContext = useContext(ResultatContext);
-  
-    render() {
-      console.log('here',this.props.questionList);
-      return (
-
-        <>
-      <ul>
-      <p>{this.props.question}</p>
-        {this.props.questionList.map(q =>
-          <li key={q.id}>
-            <p>
-              {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
-              {q.typeAnswer === 'slider' && <Range q={q}/>}
-              {q.typeAnswer === 'dropdown' && <Dropdown q={q}/>}
-            </p>
-          </li>
-        )}
-      </ul>
-    </>
-
-      );
-    }
+    this.myRef = React.createRef();
   }
+  resultatContext = useContext(ResultatContext);
+  emptyQuestion = { max: "", min: "", question: "", unites: "", val_predefined: "", val_predefined2: "" }
+
+  render() {
+    return (
+      <>
+        <FormInput
+          fieldRef={this.myRef}
+          type="text"
+          name="max"
+          placeholder="Max"
+          value={this.state.newQuestion.max}
+        //onChange={this.handleInputChange}
+        />
+        <FormInput
+          fieldRef={this.myRef}
+          type="text"
+          name="min"
+          placeholder="min"
+          value={this.state.newQuestion.min}
+        //onChange={this.handleInputChange}
+        />
+        <FormInput
+          fieldRef={this.myRef}
+          type="text"
+          name="question"
+          placeholder="question"
+          value={this.state.newQuestion.question}
+        //onChange={this.handleInputChange}
+        />
+      </>
+    );
+  }
+}
+
+export function FormInput({ type, name, value, onChange, placeholder, fieldRef }) {
+  /*
+   Il est important de changer le nom ref en fieldRef lorsque l'on passe
+   des informations dans une function, le nom "ref" est réservé
+  */
+  return (
+    <>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        ref={fieldRef ? fieldRef : null}
+      />
+      <br />
+    </>
+  );
+}
+
+
 
 
 export function QuestionList( {ques} ) {

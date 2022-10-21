@@ -8,11 +8,11 @@
   align-items: center;
 }
 
-.survey_btn{
+/* .survey_btn{
   margin-left: 680px;
-}
+} */
 
-#light{
+/* #light{
   background-color: #eafaf1;
 }
 
@@ -67,7 +67,7 @@
 
 #dark .navbar ul li{
   color: white;
-}
+} */
 
 /* .App-header {
   background-color:#61dafb ;
@@ -159,10 +159,24 @@
   transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
-.btn_switch, .btn_logout{
+.btn_switch{
   margin-top: 8px;
   margin-right: 10px;
   float: right;
+  padding-left: 0.4em;
+ padding-right: 0.4em;
+ padding-top: 0.1em;
+ padding-bottom: 0.1em;
+}
+
+ .btn_logout{
+  margin-top: 8px;
+  margin-right: 10px;
+  float: right;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
 
 .register_btn{
@@ -294,3 +308,22 @@ h1{
   margin-left: 10px;
 }
 
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 100px;
+}
+
+.box1 {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 6;
+}
+
+.box2 {
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 6;
+  grid-row-end: 7;
+}

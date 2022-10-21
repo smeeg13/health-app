@@ -1,11 +1,46 @@
   .container {
     text-align: center;
+    align-items: center;
     height: 100%;
     width: 100%;
     position: fixed;
     z-index: 1;
     overflow-x: hidden;
   }
+
+  .login_left{
+    align-items: center;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    margin-left: 100px;
+    margin-top: 30px;
+    max-width: 450px;
+    max-height: 500px;
+    background-color: #a9cce3;
+    /* border: 2px solid white; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  .login_right{
+    align-items: center;
+    text-align: center;
+    position: relative;
+    margin-right: 100px;
+    display: inline-block;
+    margin-top: 30px;
+    max-width: 450px;
+    max-height: 500px;
+    background-color: #eafaf1;
+    /* border: 2px solid #eafaf1; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  /* @media screen and (max-width: 300px){
+    .login_right{
+      display: none;
+    }
+  } */
 
   .container_login{
     height: 400px;  
@@ -56,10 +91,6 @@
   width: 50px;
 }
 
-.text_input{
-  align-items:center;
-  width: 200px;
-}
 
 input{
   margin-bottom: 16px;
@@ -142,7 +173,7 @@ input{
   max-width: 450px;
   border: 1px solid grey;
   max-height: 400px;
-  background-color: white;
+  background-color: #eafaf1;
 }
 
 .result2 {
@@ -153,7 +184,7 @@ input{
   max-width: 450px;
   border: 1px solid grey;
   max-height: 400px;
-  background-color: white;
+  background-color: #eafaf1;
 }
 
 .result3 {
@@ -164,9 +195,14 @@ input{
   max-width: 450px;
   border: 1px solid grey;
   max-height: 400px;
-  background-color: white;
+  background-color: #eafaf1;
 }
 
+.settings_label{
+  display: inline;
+  font-family: "Lexend Deca";
+  font-size: 0.9em;
+}
 
 .category{
   margin-top: 70px;
@@ -261,10 +297,37 @@ input{
 .settings_page{
   height: 100%;
   width: 100%;
-  margin-top: -30px;
+  top: 10px;
   scroll-behavior: auto;
-  background-color: #a9cce3;
+  background-color: #eafaf1;
   font-family: "Lexend Deca";
+  z-index: 1;
+  overflow-x: hidden;
+
+}
+
+.settings_input{
+  font-family: "Lexend Deca";
+  font-size: 18px;
+  text-align: left;
+  margin-left:10px;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: transparent;
+  border-radius: 1em;
+  border: 2px solid #054A2F;
+  align-items:center;
+  width: 50px;
+}
+
+.settings_save_btn{
+  font-size: 0.8em;
+  margin-top: 8px;
+  margin-left: 5px;
+  padding-left: 0.4em;
+ padding-right: 0.4em;
+ padding-top: 0.1em;
+ padding-bottom: 0.1em;
 }
 
 .settings_title{
