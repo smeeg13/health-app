@@ -64,10 +64,9 @@ function Registration() {
                         // onChange={handleEmailChange}
                         required
                     />
-                    <br></br>
 
 
-                    <label className="label">Age</label>
+                    {/* <label className="label">Age</label>
                     <br />
                     <input
                         className="nb_input"
@@ -77,7 +76,7 @@ function Registration() {
                         // onChange={handleEmailChange}
                         required
                     />
-                    <br></br>
+                    <br></br> */}
 
                     {/* <label className="label">Weight</label>
                     <br />
@@ -101,12 +100,12 @@ function Registration() {
                         required
                     /> */}
                     <br></br>
-                    <label className="label">Sex</label>
+                    {/* <label className="label">Sex</label>
                     <br />
                     <select value={value} onChange={handleChange}>
                         <option value="woman">Woman</option>
                         <option value="man">Man</option>
-                    </select>
+                    </select> */}
                 </form>
             </div>
 

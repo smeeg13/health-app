@@ -23,11 +23,30 @@ export default function Home(props) {
 }
 
 function HomeGuest() {
-  //OK
+  let themeContext = useContext(ThemeContext);
+
   return (
-    <div className="container">
-      <h2 className="center welcome">Welcome in HealthApp</h2>
-      <p className="center text">
+    <div
+      className="container"
+      style={{
+        backgroundColor: themes[themeContext.theme].background,
+        color: themes[themeContext.theme].foreground,
+      }}
+    >
+      <h2
+        className="center welcome"
+        style={{
+          color: themes[themeContext.theme].textcolor,
+        }}
+      >
+        Welcome in HealthApp
+      </h2>
+      <p
+        className="center text"
+        style={{
+          color: themes[themeContext.theme].textcolor,
+        }}
+      >
         Health Prevention is an application developed by <br></br>
         Mégane, Emilie, Thomas and Abdullah.
         <br></br>
@@ -37,16 +56,40 @@ function HomeGuest() {
       </p>
 
       <Link to="/survey">
-        <button className="btn survey_btn">Take a survey</button>
+        <button
+          className="btn"
+          style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}
+        >
+          Take a survey
+        </button>
       </Link>
       <br />
       <br />
       <Link to="/register" className="App-link">
-        <button className="btn register_btn">Register</button>
+        <button
+          className="btn"
+          style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}
+        >
+          Register
+        </button>
       </Link>
       <span> </span>
       <Link to="/login" className="App-link">
-        <button className=" btn login_btn">Login</button>
+        <button
+          className=" btn"
+          style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}
+        >
+          Login
+        </button>
       </Link>
       <br />
       <img
@@ -130,10 +173,13 @@ function HomeUser(props) {
         </div>
       </div>
 
-      <div className="container result2"   style={{
+      <div
+        className="container result2"
+        style={{
           backgroundColor: themes[themeContext.theme].backgroundresult,
           color: themes[themeContext.theme].foreground,
-        }}>
+        }}
+      >
         <h2 className="quiz_title">[insert quiz title]</h2>
         <img className="my_avatar" src={my_avatar} />
         <div className="category2">
@@ -149,10 +195,13 @@ function HomeUser(props) {
         </div>
       </div>
 
-      <div className="container result3"   style={{
+      <div
+        className="container result3"
+        style={{
           backgroundColor: themes[themeContext.theme].backgroundresult,
           color: themes[themeContext.theme].foreground,
-        }}>
+        }}
+      >
         <h2 className="quiz_title">[insert quiz title]</h2>
         <img className="my_avatar" src={my_avatar} />
         <div className="category3">
