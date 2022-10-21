@@ -47,6 +47,7 @@ export default function App() {
       unsubscribe();
     };
   }, []);
+  console.log("auth User Connected : ", currentAuthUser);
 
   console.log("User Connected : ", currentUser);
 
