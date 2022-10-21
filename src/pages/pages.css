@@ -8,6 +8,24 @@
     overflow-x: hidden;
   }
 
+    .login_left{
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 50%;
+      left: 0;
+      background-color: #a9cce3;
+  }
+
+  .login_right{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 50%;
+    right: 0;
+    background-color: #eafaf1;
+  }
+
   .container_login{
     height: 400px;  
     margin-bottom: 5px;
@@ -57,10 +75,6 @@
   width: 50px;
 }
 
-.text_input{
-  align-items:center;
-  width: 200px;
-}
 
 input{
   margin-bottom: 16px;
@@ -168,6 +182,11 @@ input{
   background-color: #eafaf1;
 }
 
+.settings_label{
+  display: inline;
+  font-family: "Lexend Deca";
+  font-size: 0.9em;
+}
 
 .category{
   margin-top: 70px;
@@ -262,10 +281,37 @@ input{
 .settings_page{
   height: 100%;
   width: 100%;
-  margin-top: -30px;
+  top: 10px;
   scroll-behavior: auto;
-  background-color: #a9cce3;
+  background-color: #eafaf1;
   font-family: "Lexend Deca";
+  z-index: 1;
+  overflow-x: hidden;
+
+}
+
+.settings_input{
+  font-family: "Lexend Deca";
+  font-size: 18px;
+  text-align: left;
+  margin-left:10px;
+  padding: 5px;
+  margin-bottom: 15px;
+  border: transparent;
+  border-radius: 1em;
+  border: 2px solid #054A2F;
+  align-items:center;
+  width: 50px;
+}
+
+.settings_save_btn{
+  font-size: 0.8em;
+  margin-top: 8px;
+  margin-left: 5px;
+  padding-left: 0.4em;
+ padding-right: 0.4em;
+ padding-top: 0.1em;
+ padding-bottom: 0.1em;
 }
 
 .settings_title{
