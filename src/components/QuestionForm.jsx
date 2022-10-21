@@ -1,83 +1,27 @@
 import React from "react";
 import { useState, useContext } from "react";
-import { Context } from "react";
+import  {ResultatContext}  from "../Context";
 
 
 export default class QuestionForm extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      newQuestion: this.emptyQuestion,
+    constructor(props) {
+      super(props);
+      this.myRef = React.createRef();
     }
-    this.myRef = React.createRef();
-  }
-  resultatContext = useContext(ResultatContext);
-  emptyQuestion = { max: "", min: "", question: "", unites: "", val_predefined: "", val_predefined2: "" }
+    
+    resultatContext = useContext(ResultatContext);
+  
+    render() {
+      console.log('here',this.props.questionList);
+      return (
 
-  render() {
-    return (
-      <>
-        <FormInput
-          fieldRef={this.myRef}
-          type="text"
-          name="max"
-          placeholder="Max"
-          value={this.state.newQuestion.max}
-        //onChange={this.handleInputChange}
-        />
-        <FormInput
-          fieldRef={this.myRef}
-          type="text"
-          name="min"
-          placeholder="min"
-          value={this.state.newQuestion.min}
-        //onChange={this.handleInputChange}
-        />
-        <FormInput
-          fieldRef={this.myRef}
-          type="text"
-          name="question"
-          placeholder="question"
-          value={this.state.newQuestion.question}
-        //onChange={this.handleInputChange}
-        />
-      </>
-    );
-  }
-}
-
-export function FormInput({ type, name, value, onChange, placeholder, fieldRef }) {
-  /*
-   Il est important de changer le nom ref en fieldRef lorsque l'on passe
-   des informations dans une function, le nom "ref" est réservé
-  */
-  return (
-    <>
-      <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        ref={fieldRef ? fieldRef : null}
-      />
-      <br />
-    </>
-  );
-}
-
-
-
-
-export function QuestionList({ questionList }) {
-  return (
-    <>
+        <>
       <ul>
-        {questionList.map(q =>
+      <p>{this.props.question}</p>
+        {this.props.questionList.map(q =>
           <li key={q.id}>
             <p>
-              {q.question}
               {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
               {q.typeAnswer === 'slider' && <Range q={q}/>}
               {q.typeAnswer === 'dropdown' && <Dropdown q={q}/>}
@@ -86,10 +30,33 @@ export function QuestionList({ questionList }) {
         )}
       </ul>
     </>
+
+      );
+    }
+  }
+
+
+export function QuestionList( {ques} ) {
+  console.log(ques);
+  return (
+    <>
+      <ul>
+        {ques.map(q =>
+          <li key={q.id}>
+            <p>
+              {q.question}
+              {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
+              {q.typeAnswer === 'slider' && <Range q={q.min}/>}
+              {q.typeAnswer === 'dropdown' && <Dropdown />}
+            </p>
+          </li>
+        )}
+      </ul>
+    </>
   );
 }
 
-function Dropdown (props) {
+function Dropdown () {
   const [value, setValue] = React.useState('homme');
 
   const handleChange = (event) => {
@@ -146,6 +113,11 @@ function CheckBoxForm() {
         checked={checked}
         onChange={() => setChecked(toggleCheckBox)}
       />
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={() => setChecked(toggleCheckBox)}
+      />
     </div>
   )
 }
@@ -158,6 +130,8 @@ export function Loader() {
     </p>
   );
 }
+
+
 
 
 // class Question extends React.Component {
