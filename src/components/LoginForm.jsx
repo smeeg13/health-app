@@ -1,6 +1,8 @@
 import "../App.css";
 import React from "react";
 import { Formik } from "formik";
+import { ThemeContext, themes } from "../Context";
+import { useContext } from "react";
 
 const initialValues = {
   email: "",
@@ -26,6 +28,9 @@ const validate = (values) => {
 };
 
 export default function LoginForm({ handleSubmit }) {
+
+  let themeContext = useContext(ThemeContext);
+
   return (
     <Formik
       initialValues={initialValues}
@@ -98,7 +103,10 @@ export default function LoginForm({ handleSubmit }) {
               )}
             </div>
 
-            <button
+            <button style={{
+                        backgroundColor: themes[themeContext.theme].button,
+                        color: themes[themeContext.theme].textcolorbtn,
+                    }}
               type="submit"
               className="btn btn_submit"
               disabled={!isValid}

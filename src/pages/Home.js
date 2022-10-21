@@ -6,7 +6,7 @@ import { useContext } from "react";
 import home_pic from "./img/home.png";
 import { ThemeContext, ResultatContext, themes } from "../Context";
 import Resultats from "./Resultats";
-import Resultats from "./Resultats";
+
 
 export default function Home(props) {
   return (

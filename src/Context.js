@@ -21,7 +21,8 @@ export const themes = {
     },
     dark: {
         background: "#030f27",
-        background_right:"#030f27",
+        background_right:" #34495e",
+        background_left:"#0e6655",
         textcolor:"#fff",
         textcolorbtn:"black",
         button:"#fff",

@@ -8,23 +8,39 @@
     overflow-x: hidden;
   }
 
-    .login_left{
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      width: 50%;
-      left: 0;
-      background-color: #a9cce3;
+  .login_left{
+    align-items: center;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    margin-left: 100px;
+    margin-top: 30px;
+    max-width: 450px;
+    max-height: 500px;
+    background-color: #a9cce3;
+    /* border: 2px solid white; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 
   .login_right{
     align-items: center;
-    justify-content: center;
     text-align: center;
-    width: 50%;
-    right: 0;
+    position: relative;
+    margin-right: 100px;
+    display: inline-block;
+    margin-top: 30px;
+    max-width: 450px;
+    max-height: 500px;
     background-color: #eafaf1;
+    /* border: 2px solid #eafaf1; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
+
+  /* @media screen and (max-width: 300px){
+    .login_right{
+      display: none;
+    }
+  } */
 
   .container_login{
     height: 400px;  

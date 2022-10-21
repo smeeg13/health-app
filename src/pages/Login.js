@@ -7,10 +7,13 @@ import { getRoleById } from "../objects_managers/RoleManager";
 import { getDocteurById } from "../objects_managers/DocteurManager";
 import { GetUserById } from "../objects_managers/UserManager";
 import LoginForm from "../components/LoginForm";
-import login from "./img/login.png";
+import login from "./img/login2.png";
+import { ThemeContext, themes } from "../Context";
+import { useContext } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
+  let themeContext = useContext(ThemeContext);
 
   const handleLogin = async (e, email, password) => {
     //e.preventDefault();
@@ -42,22 +45,67 @@ export default function Login() {
   };
 
   return (
-    <>
-      <div className="container login_left">
-        <h2 className="page_name">Login</h2>
+    <div
+      className="container"
+      style={{
+        backgroundColor: themes[themeContext.theme].background,
+        color: themes[themeContext.theme].foreground,
+      }}
+    >
+      <div
+        className="container login_left"
+        style={{
+          backgroundColor: themes[themeContext.theme].background_right,
+          color: themes[themeContext.theme].foreground,
+        }}
+      >
+        <h2
+          className="page_name"
+          style={{
+            color: themes[themeContext.theme].textcolor,
+          }}
+        >
+          Login
+        </h2>
         <span>
-          <p className="click_here">
-            You're new here ? <Link to="/Register">Click here to register</Link>{" "}
+          <p
+            className="click_here"
+            style={{
+              color: themes[themeContext.theme].textcolor,
+            }}
+          >
+            You're new here ?{" "}
+            <Link
+              to="/Register"
+              style={{
+                color: themes[themeContext.theme].textcolor,
+              }}
+            >
+              Click here to register
+            </Link>{" "}
           </p>
         </span>
         <LoginForm handleSubmit={handleLogin} />
       </div>
 
-      <div className="container login_right">
-        <h2 className="page_name">DSHDJASHDASJ</h2>
-        <img src={login} style={{ width: "300px" }}></img>
+      <div
+        className="container login_right"
+        style={{
+          backgroundColor: themes[themeContext.theme].background_left,
+          color: themes[themeContext.theme].foreground,
+        }}
+      >
+        <h2
+          className="page_name"
+          style={{
+            color: themes[themeContext.theme].textcolor,
+          }}
+        >
+          Welcome
+        </h2>
+        <img src={login} style={{ width: "250px" }}></img>
       </div>
-    </>
+    </div>
   );
 }
 
