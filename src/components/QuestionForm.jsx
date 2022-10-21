@@ -1,24 +1,19 @@
 import React from "react";
+import { useState, useContext } from "react";
+import { Context } from "react";
 
 
 export default class QuestionForm extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
       newQuestion: this.emptyQuestion,
-    };
+    }
     this.myRef = React.createRef();
   }
   resultatContext = useContext(ResultatContext);
-  emptyQuestion = {
-    max: "",
-    min: "",
-    question: "",
-    unites: "",
-    val_predefined: "",
-    val_predefined2: "",
-    valeurs_possibles: '',
-  };
+  emptyQuestion = { max: "", min: "", question: "", unites: "", val_predefined: "", val_predefined2: "" }
 
   render() {
     return (
@@ -29,7 +24,7 @@ export default class QuestionForm extends React.Component {
           name="max"
           placeholder="Max"
           value={this.state.newQuestion.max}
-          //onChange={this.handleInputChange}
+        //onChange={this.handleInputChange}
         />
         <FormInput
           fieldRef={this.myRef}
@@ -37,7 +32,7 @@ export default class QuestionForm extends React.Component {
           name="min"
           placeholder="min"
           value={this.state.newQuestion.min}
-          //onChange={this.handleInputChange}
+        //onChange={this.handleInputChange}
         />
         <FormInput
           fieldRef={this.myRef}
@@ -45,21 +40,14 @@ export default class QuestionForm extends React.Component {
           name="question"
           placeholder="question"
           value={this.state.newQuestion.question}
-          //onChange={this.handleInputChange}
+        //onChange={this.handleInputChange}
         />
       </>
     );
   }
 }
 
-export function FormInput({
-  type,
-  name,
-  value,
-  onChange,
-  placeholder,
-  fieldRef,
-}) {
+export function FormInput({ type, name, value, onChange, placeholder, fieldRef }) {
   /*
    Il est important de changer le nom ref en fieldRef lorsque l'on passe
    des informations dans une function, le nom "ref" est réservé
@@ -82,17 +70,18 @@ export function FormInput({
 
 
 
-export function QuestionList({ questionList }) {
+export function QuestionList( {ques} ) {
+  console.log(ques);
   return (
     <>
       <ul>
-        {questionList.map(q =>
+        {ques.map(q =>
           <li key={q.id}>
             <p>
               {q.question}
               {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
-              {q.typeAnswer === 'slider' && <Range q={q}/>}
-              {q.typeAnswer === 'dropdown' && <Dropdown q={q}/>}
+              {q.typeAnswer === 'slider' && <Range q={q.min}/>}
+              {q.typeAnswer === 'dropdown' && <Dropdown />}
             </p>
           </li>
         )}
@@ -101,7 +90,7 @@ export function QuestionList({ questionList }) {
   );
 }
 
-function Dropdown (props) {
+function Dropdown () {
   const [value, setValue] = React.useState('homme');
 
   const handleChange = (event) => {
@@ -158,6 +147,11 @@ function CheckBoxForm() {
         checked={checked}
         onChange={() => setChecked(toggleCheckBox)}
       />
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={() => setChecked(toggleCheckBox)}
+      />
     </div>
   )
 }
@@ -170,6 +164,8 @@ export function Loader() {
     </p>
   );
 }
+
+
 
 
 // class Question extends React.Component {
