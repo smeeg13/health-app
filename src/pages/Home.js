@@ -24,6 +24,7 @@ export default function Home(props) {
 }
 
 function HomeGuest() {
+
   let themeContext = useContext(ThemeContext);
 
   return (
