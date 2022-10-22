@@ -2,13 +2,13 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import React from "react";
 import { ThemeContext, ResultatContext } from "./Context";
-import { Resultats } from "./objects/Resultats";
+import { Resultats, calculate } from "./objects/Resultats";
 
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
   constructor() {
     super();
-    this.state = { theme: "light", resultat: new Resultats('',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ) };
+    this.state = { theme: "light", resultat: new Resultats('', 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ) };
   }
 
   /* Toggle theme method */
@@ -25,18 +25,24 @@ class AppWrapper extends React.Component {
     const value = target.value;
     const name = target.name;
 
-    console.log('event inside updateResultatField : ',event);
 
     this.setState((prevState) => ({
-      resultat: { ...prevState.resultat, [name]: value },
+      resultat: { ...prevState.resultat, [name]: parseInt(value) },
     }));
+  //  let newResult =calculate(this.state.resultat);
+  //   this.setState(this.state.resultat);
+
   };
 
-  updateResultatAll = (event) => {
-console.log('event inside updateResultatAll : ',event);
-    this.setState((prevState) => ({
-      resultat: { ...prevState.resultat, ...event.value },
-    }));
+  calculateRes = (resultat) =>{
+    let newResult = calculate(resultat);
+    this.setState(newResult);
+         console.log('Resultat:', this.state.resultat); 
+  }
+
+  updateResultatAll = (resultat) => {
+    this.setState(resultat);
+    
   };
 
 
@@ -50,6 +56,7 @@ console.log('event inside updateResultatAll : ',event);
             resultat: this.state.resultat,
             updateResultatField: this.updateResultatField,
             updateResultatAll: this.updateResultatAll,
+            calculateRes: this.calculateRes,
           }}
         >
           <BrowserRouter>

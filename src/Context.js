@@ -10,7 +10,8 @@ export const ThemeContext = React.createContext({
 export const ResultatContext = React.createContext({
     resultat: new Resultats(),
     updateResultatField: () => {},
-    updateResultatAll: () => {}}
+    updateResultatAll: () => {},
+    calculateRes: () => {}}
 );
 
 /* Themes to use in the App */

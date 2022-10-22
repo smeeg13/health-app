@@ -3,11 +3,9 @@ import { db } from "../initFirebase";
 import { ResultatContext } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
-import QuestionForm, { QuestionList, Loader } from "../components/QuestionForm";
+import { QuestionList, Loader } from "../components/QuestionForm";
 
 function Survey(props) {
-
-  let resultatContext = useContext(ResultatContext);
 
   const [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true)

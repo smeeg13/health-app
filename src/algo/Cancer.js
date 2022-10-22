@@ -7,10 +7,8 @@ const sumCoef = coefCancer.reduce(
   (previousValue, currentValue) => previousValue + currentValue
 );
 
-class Cancer {
-  static riskCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) {
-    return sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) + baseRisk;
-  }
+export default function riskCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) {
+  return sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) + baseRisk;
 }
 
 // console.log(Cancer.riskCancer(0, 0, 28, 3, 3, 2));

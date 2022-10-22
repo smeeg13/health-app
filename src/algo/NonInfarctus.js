@@ -28,13 +28,11 @@ let [
   coefHdlCholAgeTransWmn,
 ] = coefWmn;
 
-class NonInfarctus {
-  static correctionAFINF(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE, AFINF) {
-    return (
-      (AFINF < 1 ? 1 : 1.3) *
-      riskNonInfarctus(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE)
-    );
-  }
+export default function  correctionAFINF(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE, AFINF) {
+  return (
+    (AFINF < 1 ? 1 : 1.3) *
+    riskNonInfarctus(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE)
+  );
 }
 
 function riskNonInfarctus(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE) {
@@ -136,7 +134,7 @@ function totalCholAgeTransformed(AGE, SEXE, NCHOL) {
 function hdlCholAgeTransformed(AGE, SEXE, NHDL) {
   return SEXE === 0
     ? calculHDL(NHDL) * ageTransformed(AGE) * coefHdlCholAgeTrans
-    : alculHDL(NHDL) * ageTransformed(AGE) * coefHdlCholAgeTransWmn;
+    : calculHDL(NHDL) * ageTransformed(AGE) * coefHdlCholAgeTransWmn;
 }
 
 // console.log(

@@ -5,50 +5,42 @@ import { ResultatContext } from "../Context";
 import my_avatar from "./img/avatar5.png";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
+import { Loader } from "../components/QuestionForm";
+import { calculate } from "../objects/Resultats";
 export default function Resultats(props) {
   //User data and avatar  from props
   //Resultat object coming from the context
   let resultatContext = useContext(ResultatContext);
   let [questions, setQuestions] = useState([]);
-
+  const [isBusy, setBusy] = useState(true)
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
       const refQuestionnaire = collection(
         db,
         "Questionnaires/" + quesId + "/Questions"
       ).withConverter(questionConverter);
-
       const roleSnapshot = await getDocs(refQuestionnaire);
-
       const questionList = roleSnapshot.docs.map((doc) => doc.data());
-      if(questions.length<16){
-              setQuestions((prevQuestions) => [...prevQuestions, ...questionList]);
-      }
+      if (questions.length < 16)
+        setQuestions((prevQuestions) => [...prevQuestions, ...questionList]);
+      setBusy(false);
     }
-
-    
     getQuestionnaireById(1);
     getQuestionnaireById(2);
     getQuestionnaireById(3);
   }, []);
-
   const handleFormInputChange = (event) => {
-    resultatContext.updateResultatField(event);
+    resultatContext.updateResultatField(event, resultatContext.resultat);
+    resultatContext.calculateRes(resultatContext.resultat);
   };
-
   const handleFormSubmit = (event) => {
     event.preventDefault();
-
     //TODO :: Calcul for Diabete, cancer, infarctus, non-infarctus
     //For each updateResultatField
-
     resultatContext.updateResultatAll(event);
   };
-
-  console.log("Resultat", resultatContext.resultat);
   return (
     //TODO :: DISPLAY is moreless ok, Doesn't save the state into context when leave */
-
     <div className="wrapper">
       <div className="box1">
         {/* Box for data questionnaire 1-2  */}
@@ -59,9 +51,9 @@ export default function Resultats(props) {
             handleFormInputChange={handleFormInputChange}
             handleFormSubmit={handleFormSubmit}
             questions={questions}
+            isBusy={isBusy}
           />
         </div>
-
         {/* Box for data questionnaire 3 */}
         <div className="container result2">
           <TitleBox
@@ -73,16 +65,15 @@ export default function Resultats(props) {
             handleFormInputChange={handleFormInputChange}
             handleFormSubmit={handleFormSubmit}
             questions={questions}
+            isBusy={isBusy}
           />
         </div>
-
         {/* Box for Resultat  */}
         <div className="container result3">
           <TitleBox title="Resultats" my_avatar={props.currentUser.avatar} />
           <BoxResultat resultat={resultatContext.resultat} />
         </div>
       </div>
-
       <br />
       <div className="box2">
         {/* Button for saving into db changes */}
@@ -93,7 +84,6 @@ export default function Resultats(props) {
     </div>
   );
 }
-
 function TitleBox(props) {
   return (
     <div>
@@ -111,159 +101,157 @@ function BoxQuestionnaire1_2(props) {
   //Need type - min - max from Questionnaire into props.questions
   //for each input, take back the type corresponding to the question characteristics
   console.log('QuestionList in resultat : ', props.questions);
-
   return (
     <div>
-      <form onSubmit={props.handleFormSubmit}>
-        <div>
-          <label>Age : </label>
-          <FormInput
-            type="number"
-            name="age"
-            placeholder="Age"
-            value={props.resultat.age}
-            onChange={props.handleFormInputChange}
-          />
-        </div>
-        <div>
-          <label>Sexe : </label>
-          <FormInput
-            type="text" //TODO:: Should be a toggle
-            name="sexe"
-            placeholder="Sexe"
-            value={props.resultat.sexe}
-            onChange={props.handleFormInputChange}
-          />
-        </div>
-
-        <div>
-          <label>Poids : </label>
-          <FormInput
-            type="number"
-            name="poids"
-            placeholder="Poids"
-            value={props.resultat.poids}
-            onChange={props.handleFormInputChange}
-          />
-        </div>
-
-        <div>
-          <label>Taille : </label>
-          <FormInput
-            type="number"
-            name="taille"
-            placeholder="Taille"
-            value={props.resultat.taille}
-            onChange={props.handleFormInputChange}
-          />
-        </div>
-        <div>
-          <label>Tension Elevée : </label>
-          <FormInput
-            type="number" //TODO:: Should be a toggle ; if yes put the predefined value
-            name="tension"
-            placeholder="Tension"
-            value={props.resultat.syst}
-            onChange={props.handleFormInputChange}
-          />
-        </div>
-        <div>
-          <label>Sucre Sanguin Elevée : </label>
-          <FormInput
-            type="number" //TODO:: Should be a toggle ; if yes put the predefined value
-            name="glyc"
-            placeholder="Glycolyc"
-            value={props.resultat.glyc}
-            onChange={props.handleFormInputChange}
-          />
-        </div>
-        <div>
-          <label>Cholesterol Elevée : </label>
-          <FormInput
-            type="number" //TODO:: Should be a toggle ; if yes put the 2 predefined value
-            name="chol"
-            placeholder="Cholesterol"
-            value={props.resultat.chol}
-            onChange={props.handleFormInputChange}
-          />
-        </div>
-        <div>
-          <label>Diabétique : </label>
-          <FormInput
-            type="number" //TODO:: Should be a toggle ; if yes put the predefined value
-            name="diab"
-            placeholder="Diabète"
-            value={props.resultat.diab}
-            onChange={props.handleFormInputChange}
-          />
-        </div>
-      </form>
+      {props.isBusy ? <Loader /> :
+        <form onSubmit={props.handleFormSubmit}>
+          <div>
+            <label>Age : </label>
+            <FormInput
+              type="number"
+              name="age"
+              min={props.questions[2].min}
+              placeholder="Age"
+              value={props.resultat.age}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label>Sexe : </label>
+            <FormInput
+              type="text" //TODO:: Should be a toggle
+              name="sexe"
+              placeholder="Sexe"
+              value={props.resultat.sexe}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label>Poids : </label>
+            <FormInput
+              type="number"
+              name="poids"
+              placeholder="Poids"
+              value={props.resultat.poids}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label>Taille : </label>
+            <FormInput
+              type="number"
+              name="taille"
+              placeholder="Taille"
+              value={props.resultat.taille}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label>Tension Elevée : </label>
+            <FormInput
+              type="number" //TODO:: Should be a toggle ; if yes put the predefined value
+              name="tension"
+              placeholder="Tension"
+              value={props.resultat.yesSyst}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label>Sucre Sanguin Elevée : </label>
+            <FormInput
+              type="number" //TODO:: Should be a toggle ; if yes put the predefined value
+              name="glyc"
+              placeholder="Glycolyc"
+              value={props.resultat.yesGlyc}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label>Cholesterol Elevée : </label>
+            <FormInput
+              type="number" //TODO:: Should be a toggle ; if yes put the 2 predefined value
+              name="chol"
+              placeholder="Cholesterol"
+              value={props.resultat.yesChol}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label>Diabétique : </label>
+            <FormInput
+              type="number" //TODO:: Should be a toggle ; if yes put the predefined value
+              name="diab"
+              placeholder="Diabète"
+              value={props.resultat.diab}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+        </form>}
     </div>
   );
 }
-
 function BoxQuestionnaire3(props) {
   //Need type - min - max from Questionnaire into props.questions
   //for each input, take back the type corresponding to the question characteristics
-
   return (
     <>
-      <form onSubmit={props.handleFormSubmit}>
-        <label>Parent ayant eu un Cancer : </label>
-        <FormInput
-          type="text" //TODO:: Should be a toggle
-          name="afcancer"
-          placeholder="AfCancer"
-          value={props.resultat.afcancer}
-          onChange={props.handleFormInputChange}
-        />
-        <label>Parent ayant eu un Infarctus : </label>
-        <FormInput
-          type="text" //TODO:: Should be a toggle
-          name="afinf"
-          placeholder="AfInf"
-          value={props.resultat.afinf}
-          onChange={props.handleFormInputChange}
-        />
-        <hr />
-        <br />
-        <label>Fumeur : </label>
-        <FormInput
-          type="number" //TODO:: Should be a toggle
-          name="fume"
-          placeholder="Fumeur"
-          value={props.resultat.fume}
-          onChange={props.handleFormInputChange}
-        />
-        <label>Alimentation : </label>
-        <FormInput
-          type="text" //TODO:: Should be a drop down list
-          name="alim"
-          placeholder="Alimentation"
-          value={props.resultat.alim}
-          onChange={props.handleFormInputChange}
-        />
-        <label>Sport : </label>
-        <FormInput
-          type="number"
-          name="sport"
-          placeholder="Sport"
-          value={props.resultat.sport}
-          onChange={props.handleFormInputChange}
-        />
-        <label>Alcool : </label>
-        <FormInput
-          type="number" //TODO:: Should be a drop down list
-          name="alcool"
-          placeholder="Alcool"
-          value={props.resultat.alcool}
-          onChange={props.handleFormInputChange}
-        />
-      </form>
+      {props.isBusy ? <Loader /> :
+        <form onSubmit={props.handleFormSubmit}>
+          <label>Parent ayant eu un Cancer : </label>
+          <FormInput
+            type="text" //TODO:: Should be a toggle
+            name="afcancer"
+            placeholder="AfCancer"
+            value={props.resultat.afcancer}
+            onChange={props.handleFormInputChange}
+          />
+          <label>Parent ayant eu un Infarctus : </label>
+          <FormInput
+            type="text" //TODO:: Should be a toggle
+            name="afinf"
+            placeholder="AfInf"
+            value={props.resultat.afinf}
+            onChange={props.handleFormInputChange}
+          />
+          <hr />
+          <br />
+          <label>Fumeur : </label>
+          <FormInput
+            type="number" //TODO:: Should be a toggle
+            name="fume"
+            min={props.questions[1].min}
+            placeholder="Fumeur"
+            value={props.resultat.fume}
+            onChange={props.handleFormInputChange}
+          />
+          <label>Alimentation : </label>
+          <FormInput
+            type="text" //TODO:: Should be a drop down list
+            name="alim"
+            placeholder="Alimentation"
+            value={props.resultat.alim}
+            onChange={props.handleFormInputChange}
+          />
+          <label>Sport : </label>
+          <FormInput
+            type="number"
+            name="sport"
+            placeholder="Sport"
+            value={props.resultat.sport}
+            onChange={props.handleFormInputChange}
+          />
+          <label>Alcool : </label>
+          <FormInput
+            type="number" //TODO:: Should be a drop down list
+            name="alcool"
+            placeholder="Alcool"
+            value={props.resultat.alcool}
+            onChange={props.handleFormInputChange}
+          />
+        </form>}
     </>
   );
 }
-
 function BoxResultat(props) {
   return (
     <>
@@ -292,7 +280,6 @@ function BoxResultat(props) {
           className="custom-slider"
         />
       </div>
-
       <br />
       <div>
         <label>Infarctus : </label>
@@ -322,7 +309,6 @@ function BoxResultat(props) {
     </>
   );
 }
-
 function FormInput({
   label,
   type,
@@ -350,7 +336,6 @@ function FormInput({
     </>
   );
 }
-
 // const Container2 = styled.div`
 
 // .container {
