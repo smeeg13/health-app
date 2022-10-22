@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import { collection, setDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../initFirebase";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ThemeContext, themes } from "../Context";
 
 export default function Settings() {
+  let themeContext = useContext(ThemeContext);
+
   //get the collection of variables
   const [variables, setVariables] = useState([]);
 
@@ -24,12 +27,29 @@ export default function Settings() {
   }, []);
 
   return (
-    <div className="settings_page">
-      <h1 className="settings_title">Settings</h1>
+    <div
+      className="settings_page"
+      style={{
+        backgroundColor: themes[themeContext.theme].background_right,
+        color: themes[themeContext.theme].foreground,
+      }}
+    >
+      <h1
+        className="settings_title"
+        style={{
+          color: themes[themeContext.theme].textcolor, textAlign:"center"
+        }}
+      >
+        Settings
+      </h1>
       {variables.map((variable) => {
         return (
           <div key={variable.id}>
-            <li style={{ listStyleType: "none", padding: 0 }}>
+            <li
+              style={{
+                color: themes[themeContext.theme].textcolor,
+              }}
+            >
               <VariablesForm data={variable}></VariablesForm>
             </li>
           </div>
@@ -47,6 +67,8 @@ function VariablesForm({ data }) {
   let [variable_normale, setVariable_normale] = useState("");
   let [variable_predifinie, setVariable_predifinie] = useState("");
   let [variable_limites, setVariable_limites] = useState("");
+
+  let themeContext = useContext(ThemeContext);
 
   useEffect(() => {
     setApi_variable_predifinie(data.val_predefinie);
@@ -95,8 +117,15 @@ function VariablesForm({ data }) {
   };
 
   return (
-    <div className="settings_container">
-      <h4 className="variable_text">{data.nom}</h4>
+    <div className="settings_container" style={{alignItems:"center"}}>
+      <h4
+        className="variable_text"
+        style={{
+          color: themes[themeContext.theme].textcolor,
+        }}
+      >
+        {data.nom}{" "}
+      </h4>
       <form onSubmit={handleFormSubmit}>
         <div>
           {/*  {data.val_predefinie !== null && data.val_predefinie !== undefined ? (
@@ -114,37 +143,78 @@ function VariablesForm({ data }) {
                         ("")
                     }*/}
           <div>
-            Valeur normale {api_variable_normale}
+            <h3 className="settings_label">
+              {" "}
+              Valeur normale {api_variable_normale}
+            </h3>
             <input
-              type="text"
+              className="settings_input"
+              type="number"
+              maxLength={3}
               name="val_normale"
               value={variable_normale}
               onChange={(e) => setVariable_normale(e.target.value)}
-              placeholder="type your new value.."
+              // placeholder="type your new value.."
             />
-            <button type="submit">save</button>
+            <button
+              className=" btn settings_save_btn"
+              type="submit"
+              style={{
+                backgroundColor: themes[themeContext.theme].button,
+                color: themes[themeContext.theme].textcolorbtn,
+              }}
+            >
+              save
+            </button>
           </div>
           <div>
-            Valeur prédifinies {api_variable_predifinie}
+            <h3 className="settings_label">
+              {" "}
+              Valeur prédifinies {api_variable_predifinie}
+            </h3>
             <input
-              type="text"
+              className="settings_input"
+              type="number"
+              maxLength={3}
               name="val_predifinie"
               value={variable_predifinie}
               onChange={(e) => setVariable_predifinie(e.target.value)}
-              placeholder="type your new value.."
+              // placeholder="type your new value.."
             />
-            <button type="submit">save</button>
+            <button
+              className=" btn settings_save_btn"
+              type="submit"
+              style={{
+                backgroundColor: themes[themeContext.theme].button,
+                color: themes[themeContext.theme].textcolorbtn,
+              }}
+            >
+              save
+            </button>
           </div>
           <div>
-            Valeur limites ({api_variable_limites})
+            <h3 className="settings_label">
+              Valeur limites ({api_variable_limites})
+            </h3>
             <input
-              type="text"
+              className="settings_input"
+              type="number"
+              maxLength={3}
               name="limites"
               value={variable_limites}
               onChange={(e) => setVariable_limites(e.target.value)}
-              placeholder="type your new value.."
+              // placeholder="type your new value.."
             />
-            <button type="submit">save</button>
+            <button
+              className=" btn settings_save_btn"
+              type="submit"
+              style={{
+                backgroundColor: themes[themeContext.theme].button,
+                color: themes[themeContext.theme].textcolorbtn,
+              }}
+            >
+              save
+            </button>
           </div>
         </div>
       </form>
