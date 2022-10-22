@@ -9,6 +9,9 @@ class Diabete {
     return risk(sumDiabete, SEXE);
   }
 }
+export default function riskDiabete(sumDiabete, SEXE) {
+  return risk(sumDiabete, SEXE);
+}
 
 function risk(sumDiabete, SEXE) {
   // si 0 pour un homme

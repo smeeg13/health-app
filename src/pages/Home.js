@@ -1,19 +1,23 @@
 import React from "react";
+
 import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
 import my_avatar from "./img/avatar5.png";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import home_pic from "./img/home.png";
 import { ThemeContext, ResultatContext, themes } from "../Context";
 import Resultats from "./Resultats";
 
 export default function Home(props) {
+
+  
+
   return (
     <React.Fragment>
       <div className="container">
         {props.currentUser.nom_role === "Invite" && <HomeGuest />}
         {props.currentUser.nom_role === "Patient" && (
-          <HomeUser currentUser={props.currentUser} />
+          <HomeUser currentUser={props.currentUser}/>
         )}
         {props.currentUser.nom_role === "Admin" && <HomeAdmin />}
         {props.currentUser.nom_role === "Docteur" && <HomeDocteur />}
@@ -103,6 +107,7 @@ function HomeGuest() {
 function HomeUser(props) {
   let themeContext = useContext(ThemeContext);
   let resultatContext = useContext(ResultatContext);
+  
 
   return (
     <div
@@ -188,6 +193,19 @@ function HomeAdmin() {
       Modify Variables
     </button>
   </Link>
+
+{/* Button to Add a New doctor */}
+  {/* <Link to="/settings">
+    <button
+      className="btn"
+      style={{
+        backgroundColor: themes[themeContext.theme].button,
+        color: themes[themeContext.theme].textcolorbtn,
+      }}
+    >
+      Modify Variables
+    </button>
+  </Link> */}
   <br />
   <br />
 </div>;

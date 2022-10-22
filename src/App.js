@@ -1,4 +1,7 @@
 import "./App.css";
+import { db } from "./initFirebase";
+import { getDocs, collection } from "firebase/firestore";
+import { questionConverter } from "./objects/Question";
 import { Route, Routes } from "react-router-dom";
 import Register from "./pages/Register";
 import Login, { CheckRole } from "./pages/Login";
@@ -7,8 +10,8 @@ import Navbar from "./pages/Navbar";
 import Survey from "./pages/Survey";
 import Account from "./pages/Account";
 import Resultats from "./pages/Resultats";
-import {  useContext, useEffect, useState } from "react";
-import { ThemeContext} from "./Context";
+import { useContext, useEffect, useState } from "react";
+import { ThemeContext } from "./Context";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./initFirebase";
 import Logout from "./pages/Logout";
@@ -18,18 +21,15 @@ import Settings from "./pages/Settings";
 
 export default function App() {
   /* Base Invite User */
-  const guestUser = new User(null,'','',0,0,0,0);
-  guestUser.setNomRole('Invite');
-  guestUser.setIdRole('wfprGThk63ZrRRjRh1np');  
+  const guestUser = new User(null, "", "", 0, 0, 0, 0);
+  guestUser.setNomRole("Invite");
+  guestUser.setIdRole("wfprGThk63ZrRRjRh1np");
 
   let themeContext = useContext(ThemeContext);
-
 
   /* Current user state */
   const [currentAuthUser, setCurrentAuthUser] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(guestUser);
-
-  // let themeContext = useContext(ThemeContext);
   /* Watch for authentication state changes */
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -51,7 +51,9 @@ export default function App() {
 
   console.log("User Connected : ", currentUser);
 
-  if (currentAuthUser === undefined) {
+
+
+  if (currentAuthUser === undefined ) {
     return (
       <div className="App">
         <header
@@ -68,8 +70,6 @@ export default function App() {
   }
 
   return (
-
-    
     <div className="container">
       <Navbar currentUser={currentUser} />
       <Routes>
@@ -77,12 +77,19 @@ export default function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/settings" element={<Settings currentUser={currentUser}/>} />
-        <Route path="/resultats" element={<Resultats currentUser={currentUser} />} />
+        <Route
+          path="/settings"
+          element={<Settings currentUser={currentUser} />}
+        />
+        <Route
+          path="/resultats"
+          element={<Resultats currentUser={currentUser} 
+          />}
+        />
         <Route path="/account" element={<Account />} />
         <Route path="/survey1" element={<Survey quesId="1" />} />
-        <Route path="/survey2" element={<Survey quesId="2"/>} />
-        <Route path="/survey3" element={<Survey quesId="3"/>} />
+        <Route path="/survey2" element={<Survey quesId="2" />} />
+        <Route path="/survey3" element={<Survey quesId="3" />} />
       </Routes>
     </div>
   );

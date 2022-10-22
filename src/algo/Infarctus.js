@@ -16,22 +16,20 @@ let [
   coefCRP,
 ] = coef;
 
-class Infarctus {
-  static riskInfarctus(AGE, SEXE, FUME, SYST, DM, INF, CHOL, HDL) {
-    let res =
-      AGE * coefAge +
-      SEXE * coefSex +
-      FUME * coefFUME +
-      SYST * coefSyst +
-      DM * coefDM +
-      INF * coefINF +
-      CHOL * coefCHOL +
-      HDL * coefHDL +
-      0 * coefTotalCHOL +
-      120 * coefeGRF +
-      Math.log10(0.1) * coefCRP;
+export default function riskInfarctus(AGE, SEXE, FUME, SYST, DM, INF, CHOL, HDL) {
+  let res =
+    AGE * coefAge +
+    SEXE * coefSex +
+    FUME * coefFume +
+    SYST * coefSyst +
+    DM * coefDM +
+    INF * coefINF +
+    CHOL * coefCHOL +
+    HDL * coefHDL +
+    0 * coefTotalCHOL +
+    120 * coefeGRF +
+    Math.log10(0.1) * coefCRP;
 
-    return 1 - Math.pow(0.61785, Math.exp(res - 2.0869));
-  }
+  return 1 - Math.pow(0.61785, Math.exp(res - 2.0869));
 }
 // console.log(Infarctus.riskInfarctus(70, 0, 0, 110, 0, 0, 3.5, 1.9));

@@ -1,24 +1,78 @@
 import { Timestamp } from "firebase/firestore";
-import diabete from "../algo/Diabete";
+import riskDiabete from "../algo/Diabete";
+import riskCancer from "../algo/Cancer"
+import riskInfarctus from "../algo/Infarctus"
+import correctionAFINF from "../algo/NonInfarctus"
+import { ResultatContext } from "../Context";
+
+export function calculate(props) {//Arondir *100
+  //% returned risk
+  let sumDiab = sumPointDiabete(props);
+  props.diabete = riskDiabete(sumDiab, props.sexe);
+
+  props.cancer = riskCancer(props.afcancer, props.fume, props.bmi, props.sport, props.alcool, props.alim);
+  props.infarctus = 100* riskInfarctus(props.age, props.sexe,props.fume, props.syst, props.diab, props.inf, props.chol, props.hdl);
+  props.nonInfarctus = correctionAFINF(props.age, props.fume, props.syst, props.chol, props.hdl, props.sexe, props.afinf);
+  console.log( 'RISK INFARCTUS : ',riskInfarctus(70, 0,0, 110, 0, 0, 3, 2))
+
+  return props;
+}
+
+
+function sumPointDiabete(props) {
+  let pts = 0;
+  if (props.age < 45) {
+    pts = pts + 1;
+  } else if (props.age > 55) {
+    pts = pts + 3;
+  } else {
+    pts = pts + 2;
+  }
+
+  if (props.bmi > 20 && props.bmi < 27) {
+    pts = pts + 1;
+  } else if (props.bmi < 30) {
+    pts = pts + 2;
+  } else if (props.bmi > 30) {
+    pts = pts + 3;
+  }
+
+  if (props.syst === 1) {
+    pts = pts + 2;
+  }
+
+  if (props.glyc === 1) {
+    pts = pts + 5;
+  }
+
+  pts = pts + props.sport;
+  pts = pts + props.alim;
+
+  return pts;
+}
 
 export class Resultats {
   id_resultats;
+  syst =0;
+  chol= 0;
+  hdl= 0;
+  glyc =0;
+  diabete=0;
+  cancer=0;
+  infarctus=0;
+  nonInfarctus=0;
 
   constructor(
     id,
-    diabete,
-    cancer,
-    infarctus,
-    nonInfarctus,
     age,
     sexe,
+    inf,
     avc,
     afinf,
     afcancer,
-    syst,
-    glyc,
-    chol,
-    hdl,
+    yesSyst,
+    yesGlyc,
+    yesChol,
     diab,
     fume,
     alim,
@@ -28,36 +82,101 @@ export class Resultats {
     poids
   ) {
     this.setIdResultats(id);
-    this.diabete = diabete;
-    this.cancer = cancer;
-    this.infarctus = infarctus;
-    this.nonInfarctus = nonInfarctus;
     this.age = age;
     this.sexe = sexe;
+    this.inf = inf;
     this.avc = avc;
     this.afinf = afinf;
     this.afcancer = afcancer;
-    this.syst = syst;
-    this.glyc = glyc;
-    this.chol = chol;
-    this.hdl = hdl;
-    this.diab = diab;
+    this.setSyst(yesSyst);
+    this.setGlyc(yesGlyc);
+    this.setChol(yesChol);
+    this.diab = diab; //DM dans excel
     this.fume = fume;
-    this.alim = alim;
-    this.sport = sport;
-    this.alcool = alcool;
+    this.alim = alim; //score
+    this.sport = sport; //score
+    this.alcool = alcool; //score
     this.taille = taille;
     this.poids = poids;
-    this.bmi = this.poids / ((this.taille / 100) * (this.taille / 100));
+    this.setBmi(this.poids, this.taille);
+    //this.calculate();
   }
 
   calculate() {
-    //TODO:: Check where there's ??
-    //this.diabete = Diabete.riskDiabete(??sumDiabete??, this.sexe);
-    //this.cancer = Cancer.riskCancer(this.afcancer, this.fume, this.bmi, this.sport, this.alcool, this.alim);
-    //this.infarctus = Infarctus.riskInfarctus(this.age, this.sexe,this.fume,this.syst, ??this.dm??, ??this.inf??, this.chol, this.hdl);
-    //this.nonInfarctus = NonInfarctus.correctionAFINF(this.age, ??this.nfume??, ??this.nsyst??, ??this.nchol??, ??this.nhdl??, this.sexe, this.afinf);
+    //% returned risk
+    let sumDiab = this.sumPointDiabete();
+    this.diabete = riskDiabete(sumDiab, this.sexe);
+
+    this.cancer = riskCancer(this.afcancer, this.fume, this.bmi, this.sport, this.alcool, this.alim);
+    this.infarctus = riskInfarctus(this.age, this.sexe,this.fume, this.syst, this.diab, this.inf, this.chol, this.hdl);
+    this.nonInfarctus = correctionAFINF(this.age, this.fume, this.syst, this.chol, this.hdl, this.sexe, this.afinf);
   }
+
+  sumPointDiabete() {
+    let pts = 0;
+    if (this.age < 45) {
+      pts = pts + 1;
+    } else if (this.age > 55) {
+      pts = pts + 3;
+    } else {
+      pts = pts + 2;
+    }
+
+    if (this.bmi > 20 && this.bmi < 27) {
+      pts = pts + 1;
+    } else if (this.bmi < 30) {
+      pts = pts + 2;
+    } else if (this.bmi > 30) {
+      pts = pts + 3;
+    }
+
+    if (this.syst === 1) {
+      pts = pts + 2;
+    }
+
+    if (this.glyc === 1) {
+      pts = pts + 5;
+    }
+
+    pts = pts + this.sport;
+    pts = pts + this.alim;
+
+    return pts;
+  }
+
+  setBmi() {
+    if (this.poids !== 0 && this.taille !== 0) {
+      this.bmi = this.poids / ((this.taille / 100) * (this.taille / 100));
+    }else{
+    this.bmi = 0;
+    }
+  }
+
+  setSyst(yesSyst) {
+    if (yesSyst===1) {
+      this.syst = 150 ;
+    }else{
+      this.syst = 110; //TODO : check si c'est val normale si pas de tension elevée
+    }
+  }
+
+  setGlyc(yesGlyc) {
+    if (yesGlyc===1) {
+      this.glyc = 5.6 ;
+    }else{
+      this.glyc = 5;
+    }
+  }
+  setChol(yesChol) {
+    if (yesChol===1) {
+      this.chol = 5.9 ;
+      this.hdl = 0.9 ;
+    }else{
+      this.chol = 3;
+      this.hdl = 2 ;
+    }
+  }
+
   setIdResultats(id) {
     if (id === null || id === "") {
       id = Timestamp.fromDate(new Date());
