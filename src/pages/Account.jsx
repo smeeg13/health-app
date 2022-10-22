@@ -1,6 +1,7 @@
 
 import styled from 'styled-components';
 import avatar1 from './img/avatar1.png';
+import avatarr from './img/avatar_roux.png';
 import avatar2 from './img/avatar2.png';
 import avatar3 from './img/avatar3.png';
 import avatar4 from './img/avatar4.png';
@@ -119,7 +120,7 @@ function Registration() {
                     }}>Choose an avatar </h1>
                     <div className="avatar">
                         <img className="avatar1" src={avatar1} onClick={handleClick}></img>
-                        <img className="avatar2" src={avatar2} onClick={handleClick}></img>
+                        <img className="avatar2" src={avatarr} onClick={handleClick}></img>
                         <img className="avatar1" src={avatar3} onClick={handleClick}></img>
                     </div>
                     <div className="avatar">

@@ -3,6 +3,7 @@ import { collection, setDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../initFirebase";
 import { useState, useContext } from "react";
 import { ThemeContext, themes } from "../Context";
+import settings from "./img/settings.png";
 
 export default function Settings() {
   let themeContext = useContext(ThemeContext);
@@ -42,6 +43,8 @@ export default function Settings() {
       >
         Settings
       </h1>
+
+      <img src={settings} style={{height:"350px", float:"right", paddingRight:"100px", position:"relative"}}></img>
       {variables.map((variable) => {
         return (
           <div key={variable.id}>
