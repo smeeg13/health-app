@@ -57,7 +57,7 @@ function HomeGuest() {
         provide you the result of your health condition.
       </p>
 
-      <Link to="/survey">
+      <Link to="/survey1">
         <button
           className="btn"
           style={{
