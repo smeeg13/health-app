@@ -32,6 +32,7 @@ export default function Resultats(props) {
   const handleFormInputChange = (event) => {
     resultatContext.updateResultatField(event, resultatContext.resultat);
     resultatContext.calculateRes(resultatContext.resultat);
+    console.log('ResHandleForm', resultatContext.resultat)
   };
   const handleFormSubmit = (event) => {
     event.preventDefault();
@@ -100,7 +101,7 @@ function TitleBox(props) {
 function BoxQuestionnaire1_2(props) {
   //Need type - min - max from Questionnaire into props.questions
   //for each input, take back the type corresponding to the question characteristics
-  console.log('QuestionList in resultat : ', props.questions);
+  console.log('ResBoxQuest1_2', props.resultat)
   return (
     <div>
       {props.isBusy ? <Loader /> :

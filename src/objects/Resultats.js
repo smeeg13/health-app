@@ -8,12 +8,13 @@ import { ResultatContext } from "../Context";
 export function calculate(props) {//Arondir *100
   //% returned risk
   let sumDiab = sumPointDiabete(props);
-  props.diabete = riskDiabete(sumDiab, props.sexe);
+  //console.log('sumDiab',sumDiab);
+  props.diabete = 100*riskDiabete(sumDiab, props.sexe);
 
-  props.cancer = riskCancer(props.afcancer, props.fume, props.bmi, props.sport, props.alcool, props.alim);
+  props.cancer = 100*riskCancer(props.afcancer, props.fume, props.bmi, props.sport, props.alcool, props.alim);
   props.infarctus = 100* riskInfarctus(props.age, props.sexe,props.fume, props.syst, props.diab, props.inf, props.chol, props.hdl);
-  props.nonInfarctus = correctionAFINF(props.age, props.fume, props.syst, props.chol, props.hdl, props.sexe, props.afinf);
-  console.log( 'RISK INFARCTUS : ',riskInfarctus(70, 0,0, 110, 0, 0, 3, 2))
+  props.nonInfarctus = 100*correctionAFINF(props.age, props.fume, props.syst, props.chol, props.hdl, props.sexe, props.afinf);
+  //console.log( 'RISK INFARCTUS : ',riskInfarctus(70, 0,0, 110, 0, 0, 3, 2))
 
   return props;
 }

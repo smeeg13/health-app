@@ -37,12 +37,12 @@ class AppWrapper extends React.Component {
   calculateRes = (resultat) =>{
     let newResult = calculate(resultat);
     this.setState(newResult);
-         console.log('Resultat:', this.state.resultat); 
+    //console.log('Resultat:', this.state.resultat); 
+    //console.log('New Resultat:', newResult); 
   }
 
   updateResultatAll = (resultat) => {
     this.setState(resultat);
-    
   };
 
 
