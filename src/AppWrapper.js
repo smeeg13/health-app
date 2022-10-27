@@ -2,7 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import React from "react";
 import { ThemeContext, ResultatContext } from "./Context";
-import { Resultats, calculate } from "./objects/Resultats";
+import {Resultats,calculate,setBmi, setChol, setGlyc, setSyst} from "./objects/Resultats"
 
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
@@ -35,10 +35,12 @@ class AppWrapper extends React.Component {
   };
 
   calculateRes = (resultat) =>{
-    let newResult = calculate(resultat);
-    this.setState(newResult);
-    //console.log('Resultat:', this.state.resultat); 
-    //console.log('New Resultat:', newResult); 
+    let newResult =  setBmi(resultat);
+    newResult =  setSyst(newResult);
+    newResult =  setGlyc(newResult);
+    newResult =  setChol(newResult);
+    let finalRes = calculate(newResult);
+    this.setState(finalRes);
   }
 
   updateResultatAll = (resultat) => {

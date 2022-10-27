@@ -3,22 +3,18 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
 import my_avatar from "./img/avatar5.png";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import home_pic from "./img/home.png";
 import { ThemeContext, ResultatContext, themes } from "../Context";
 import Resultats from "./Resultats";
 
-
 export default function Home(props) {
-
-  
-
   return (
     <React.Fragment>
       <div className="container">
         {props.currentUser.nom_role === "Invite" && <HomeGuest />}
         {props.currentUser.nom_role === "Patient" && (
-          <HomeUser currentUser={props.currentUser}/>
+          <HomeUser currentUser={props.currentUser} />
         )}
         {props.currentUser.nom_role === "Admin" && <HomeAdmin />}
         {props.currentUser.nom_role === "Docteur" && <HomeDocteur />}
@@ -28,6 +24,7 @@ export default function Home(props) {
 }
 
 function HomeGuest() {
+
   let themeContext = useContext(ThemeContext);
 
   return (
@@ -60,7 +57,7 @@ function HomeGuest() {
         provide you the result of your health condition.
       </p>
 
-      <Link to="/survey">
+      <Link to="/survey1">
         <button
           className="btn"
           style={{
@@ -108,7 +105,6 @@ function HomeGuest() {
 function HomeUser(props) {
   let themeContext = useContext(ThemeContext);
   let resultatContext = useContext(ResultatContext);
-  
 
   return (
     <div
@@ -144,8 +140,8 @@ function HomeUser(props) {
       <br />
       <div className="center">
         {/* Show nothing if the result in context is "null" */}
-        {resultatContext.resultat.poids !== 0 ||
-        resultatContext.resultat.taille !== 0 ? (
+        {resultatContext.resultat.diabete !== 0 ||
+        resultatContext.resultat.cancer !== 0 ? (
           <Resultats currentUser={props.currentUser} />
         ) : (
           <div>
@@ -167,36 +163,36 @@ function HomeUser(props) {
 function HomeAdmin() {
   let themeContext = useContext(ThemeContext);
 
-  return <div
-  className="container"
-  style={{
-    backgroundColor: themes[themeContext.theme].background,
-    color: themes[themeContext.theme].foreground,
-  }}
->
-  <h2
-    className="center hi"
-    style={{
-      color: themes[themeContext.theme].textcolor,
-    }}
-  >
-    Hi, welcome back{" "}
-    Admin
-  </h2>
-  <Link to="/settings">
-    <button
-      className="btn"
+  return (
+    <div
+      className="container"
       style={{
-        backgroundColor: themes[themeContext.theme].button,
-        color: themes[themeContext.theme].textcolorbtn,
+        backgroundColor: themes[themeContext.theme].background,
+        color: themes[themeContext.theme].foreground,
       }}
     >
-      Modify Variables
-    </button>
-  </Link>
+      <h2
+        className="center hi"
+        style={{
+          color: themes[themeContext.theme].textcolor,
+        }}
+      >
+        Hi, welcome back Admin
+      </h2>
+      <Link to="/settings">
+        <button
+          className="btn"
+          style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}
+        >
+          Modify Variables
+        </button>
+      </Link>
 
-{/* Button to Add a New doctor */}
-  {/* <Link to="/settings">
+      {/* Button to Add a New doctor */}
+      {/* <Link to="/settings">
     <button
       className="btn"
       style={{
@@ -207,9 +203,10 @@ function HomeAdmin() {
       Modify Variables
     </button>
   </Link> */}
-  <br />
-  <br />
-</div>;
+      <br />
+      <br />
+    </div>
+  );
 }
 
 function HomeDocteur() {
