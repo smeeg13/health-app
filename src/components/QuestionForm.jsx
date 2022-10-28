@@ -1,95 +1,146 @@
 import React from "react";
-import { useState, useContext } from "react";
-import { Context } from "react";
-import { ResultatContext } from "../Context";
+import { useState } from "react";
 
 
-export default class QuestionForm extends React.Component {
+export function BoxQuestion(props) {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      newQuestion: this.emptyQuestion,
-    }
-    this.myRef = React.createRef();
-  }
-  resultatContext = useContext(ResultatContext);
-  emptyQuestion = { max: "", min: "", question: "", unites: "", val_predefined: "", val_predefined2: "" }
-
-  render() {
-    return (
-      <>
-        <FormInput
-          fieldRef={this.myRef}
-          type="text"
-          name="max"
-          placeholder="Max"
-          value={this.state.newQuestion.max}
-        //onChange={this.handleInputChange}
-        />
-        <FormInput
-          fieldRef={this.myRef}
-          type="text"
-          name="min"
-          placeholder="min"
-          value={this.state.newQuestion.min}
-        //onChange={this.handleInputChange}
-        />
-        <FormInput
-          fieldRef={this.myRef}
-          type="text"
-          name="question"
-          placeholder="question"
-          value={this.state.newQuestion.question}
-        //onChange={this.handleInputChange}
-        />
-      </>
-    );
-  }
+  return (
+    <div>
+      <form onSubmit={props.handleFormSubmit}>
+        <div>
+          <ul></ul>
+          {props.questions.map(q =>
+            <li key={q.id}>
+              <label> {q.question} </label>
+              <FormInput
+                id={q.id}
+                value={props.resultat[q.resName]}
+                onChange={props.handleFormInputChangeQues}
+              />
+              {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
+              {q.typeAnswer === 'slider' && <Range q={q.min} />}
+              {q.typeAnswer === 'dropdown' && <Dropdown />}
+            </li>
+          )}
+        </div>
+      </form>
+    </div>
+  );
 }
 
-export function FormInput({ type, name, value, onChange, placeholder, fieldRef }) {
-  /*
-   Il est important de changer le nom ref en fieldRef lorsque l'on passe
-   des informations dans une function, le nom "ref" est réservé
-  */
+function FormInput({
+  id,
+  label,
+  name,
+  value,
+  onChange,
+  placeholder,
+  min,
+  max,
+  range,
+}) {
   return (
     <>
       <input
-        type={type}
+        id={id}
         name={name}
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
-        placeholder={placeholder}
-        ref={fieldRef ? fieldRef : null}
+        min={min}
+        max={max}
       />
       <br />
     </>
   );
 }
 
+// export default class QuestionForm extends React.Component {
+
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       newQuestion: this.emptyQuestion,
+//     }
+//     this.myRef = React.createRef();
+//   }
+//   resultatContext = useContext(ResultatContext);
+//   emptyQuestion = { max: "", min: "", question: "", unites: "", val_predefined: "", val_predefined2: "" }
+
+//   render() {
+//     return (
+//       <>
+//         <FormInput
+//           fieldRef={this.myRef}
+//           type="text"
+//           name="max"
+//           placeholder="Max"
+//           value={this.state.newQuestion.max}
+//         //onChange={this.handleInputChange}
+//         />
+//         <FormInput
+//           fieldRef={this.myRef}
+//           type="text"
+//           name="min"
+//           placeholder="min"
+//           value={this.state.newQuestion.min}
+//         //onChange={this.handleInputChange}
+//         />
+//         <FormInput
+//           fieldRef={this.myRef}
+//           type="text"
+//           name="question"
+//           placeholder="question"
+//           value={this.state.newQuestion.question}
+//         //onChange={this.handleInputChange}
+//         />
+//       </>
+//     );
+//   }
+// }
+
+// export function FormInput({type, name, value, onChange, placeholder, fieldRef }) {
+//   /*
+//    Il est important de changer le nom ref en fieldRef lorsque l'on passe
+//    des informations dans une function, le nom "ref" est réservé
+//   */
+//   return (
+//     <>
+//       <input
+//         type={type}
+//         name={name}
+//         value={value}
+//         onChange={onChange}
+//         placeholder={placeholder}
+//         ref={fieldRef ? fieldRef : null}
+//       />
+//       <br />
+//     </>
+//   );
+// }
 
 
 
-export function QuestionList( {ques} ) {
-  console.log(ques);
-  return (
-    <>
-      <ul>
-        {ques.map(q =>
-          <li key={q.id}>
-            <p>
-              {q.question}
-              {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
-              {q.typeAnswer === 'slider' && <Range q={q.min}/>}
-              {q.typeAnswer === 'dropdown' && <Dropdown />}
-            </p>
-          </li>
-        )}
-      </ul>
-    </>
-  );
-}
+
+// export function QuestionList( {ques} ) {
+//   console.log(ques);
+//   return (
+//     <>
+//       <ul>
+//         {ques.map(q =>
+//           <li key={q.id}>
+//             <p>
+//               {q.question}
+//               {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
+//               {q.typeAnswer === 'slider' && <Range q={q.min}/>}
+//               {q.typeAnswer === 'dropdown' && <Dropdown />}
+//             </p>
+//           </li>
+//         )}
+//       </ul>
+//     </>
+//   );
+// }
 
 function Dropdown () {
   const [value, setValue] = React.useState('homme');
@@ -143,11 +194,6 @@ function CheckBoxForm() {
   const [checked, setChecked] = useState(false);
   return (
     <div>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={() => setChecked(toggleCheckBox)}
-      />
       <input
         type="checkbox"
         checked={checked}

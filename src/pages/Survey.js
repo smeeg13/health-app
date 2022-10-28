@@ -3,12 +3,13 @@ import { db } from "../initFirebase";
 import { ResultatContext } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
-import { QuestionList, Loader } from "../components/QuestionForm";
+import { BoxQuestion, Loader } from "../components/QuestionForm";
 
 function Survey(props) {
-
   const [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true)
+  const resultatContext = useContext(ResultatContext);
+
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
@@ -25,168 +26,34 @@ function Survey(props) {
     }
     
     getQuestionnaireById(props.quesId);
-
   }, []);
 
+  const handleFormInputChangeQues = (event) => {
+    resultatContext.updateResultatField(event, resultatContext.resultat);
+    console.log("Survey",resultatContext.resultat);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
-    <>
-      <h1>hi</h1>
-      <div className="container center">
-        <div className="container quiz">
-          <h2 className="survey_title">[Survey name]</h2>
-          <div> {isBusy ? <Loader /> : <QuestionList ques={questions}/>}
-          </div>
-        </div>
+    <div className="box1">
+      {/* Box for data questionnaire 1-2  */}
+      <div className="container result1" >
+        {/* <TitleBox title="Vous" my_avatar={props.currentUser.avatar} /> */}
+        {isBusy ? <Loader /> : 
+        <BoxQuestion
+          resultat={resultatContext.resultat}
+          handleFormInputChangeQues={handleFormInputChangeQues}
+          handleFormSubmit={handleSubmit}
+          questions={questions}
+          isBusy={isBusy}
+        />
+        }
       </div>
-    </>
+  </div>
   )
 }
 
 export default Survey;
-
-// function Survey() {
-//   return (
-//     <>
-//       <div className="container">
-//         <div className="container_quiz">
-//           <h2 className="survey_title">[Survey name]</h2>
-//           <div className="container_left">
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Question side</h3>
-//             <h3 className="question">Avez-vous déjà fait un infarctus?</h3>
-//           </div>
-//           <div className="container_right">
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Male"
-//               name="gender"
-//             />{" "}
-//             Male
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Female"
-//               name="gender"
-//             />{" "}
-//             Female
-//             <br></br>
-//             <input
-//               className="nb_input"
-//               type="text"
-//               maxLength={3}
-//               // value={email}
-//               // onChange={handleEmailChange}
-//               required
-//             />
-//             <br></br>
-//             <input
-//               className="nb_input"
-//               type="text"
-//               maxLength={3}
-//               // value={email}
-//               // onChange={handleEmailChange}
-//               required
-//             />
-//             <br></br>
-//             <input
-//               className="nb_input"
-//               type="text"
-//               maxLength={3}
-//               // value={email}
-//               // onChange={handleEmailChange}
-//               required
-//             />
-//             <br></br>
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Male"
-//               name="gender"
-//             />{" "}
-//             Yes
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Female"
-//               name="gender"
-//             />{" "}
-//             No
-//             <br></br>
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Male"
-//               name="gender"
-//             />{" "}
-//             Yes
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Female"
-//               name="gender"
-//             />{" "}
-//             No
-//             <br></br>
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Male"
-//               name="gender"
-//             />{" "}
-//             Yes
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Female"
-//               name="gender"
-//             />{" "}
-//             No
-//             <br></br>
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Male"
-//               name="gender"
-//             />{" "}
-//             Yes
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Female"
-//               name="gender"
-//             />{" "}
-//             No
-//             <br></br>
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Male"
-//               name="gender"
-//             />{" "}
-//             Yes
-//             <input
-//               className="radio_btn"
-//               type="radio"
-//               value="Female"
-//               name="gender"
-//             />{" "}
-//             No
-//             <br></br>
-//             <Link>
-//               <button className="next_btn"></button>
-//             </Link>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-// export default Survey;

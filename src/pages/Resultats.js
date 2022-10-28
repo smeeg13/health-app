@@ -105,7 +105,8 @@ function TitleBox(props) {
 function BoxQuestionnaire1_2(props) {
   //Need type - min - max from Questionnaire into props.questions
   //TODO :: for each input, take back the type corresponding to the question characteristics
-  console.log("QuestionList in resultat : ", props.questions);
+  //console.log("QuestionList in resultat : ", props.questions);
+  console.log('boxquestionnaire1_2',props.resultat)
   return (
     <div>
       {props.isBusy ? (

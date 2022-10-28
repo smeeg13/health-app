@@ -40,14 +40,6 @@ export default function LoginForm({ handleSubmit }) {
           console.log("Value : ", values);
           handleSubmit(values, values.email, values.password);
         } catch (e) {
-          // setTimeout(() => {
-          //   if (values.email === "arnaud@test.io") {
-          //     setErrors({ email: "That email is already taken" });
-          //   } else {
-          //     resetForm();
-          //   }
-          //   setSubmitting(false);
-          // }, 2000);
         }
       }}
     >
