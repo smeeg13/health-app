@@ -6,7 +6,8 @@ export class User {
   poids = 0;
   taille = 0;
   nom_role = "";
-  avatar = "avatar1.png";
+  avatarM = "avatar1.png";
+  avatarF = "avatar2.png";
 
   constructor(id_user, mail, nom, age, sexe, poids, taille,id_role, isAdmin) {
     this.setId(id_user);
@@ -20,8 +21,11 @@ export class User {
   }
 
   setAvatar(avatar) {
-    //TODO:: manage default avatar
-    this.avatar = avatar;
+    if (this.sexe=0){
+      this.avatar = this.avatarM;
+    } else {
+      this.avatar = this.avatarF;
+    }
   }
 
   setId(id) {

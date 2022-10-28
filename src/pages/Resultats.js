@@ -2,15 +2,17 @@ import "../App.css";
 import { db } from "../initFirebase";
 import React, { useContext, useState, useEffect } from "react";
 import { ResultatContext } from "../Context";
-import my_avatar from "./img/avatar5.png";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
+import Account from './Account';
 import { Loader } from "../components/QuestionForm";
 
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
   let [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true);
+
+  {props.currentUser.avatar === "avatar" && <Account />}
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
@@ -72,7 +74,7 @@ export default function Resultats(props) {
         </div>
         {/* Box for Resultat  */}
         <div className="container result3">
-          <TitleBox title="Vos Risques" my_avatar={props.currentUser.avatar} />
+          <TitleBox title="Vos Risques" my_avatar={props.avatar} />
           <BoxResultat resultat={resultatContext.resultat} />
         </div>
       </div>
@@ -95,7 +97,7 @@ function TitleBox(props) {
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
-        <img className="my_avatar" src={my_avatar} />
+        <img className="my_avatar" src={props.avatar} />
       </div>
     </div>
   );
