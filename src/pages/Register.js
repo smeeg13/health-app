@@ -32,7 +32,7 @@ export default function Register() {
             await CreateDocUser(user);
 
             await CreateDocUserInResultat(user);
-            navigate("/");
+            navigate("/account");
 
         } catch (e) {
             console.error(e);
