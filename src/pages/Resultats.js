@@ -1,4 +1,6 @@
 import "../App.css";
+import my_avatar from './img/avatar1.png';
+
 import { db } from "../initFirebase";
 import React, { useContext, useState, useEffect } from "react";
 import { ResultatContext } from "../Context";
@@ -6,14 +8,13 @@ import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
 import Account from './Account';
 import { Loader } from "../components/QuestionForm";
+import { ToggleButton } from "../components/ToggleButton";
 
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
 
   let [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true);
-
-  {props.currentUser.avatar === "avatar" && <Account />}
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
@@ -118,7 +119,7 @@ function BoxRes1(props) {
   //Need type - min - max from Questionnaire into props.questions
   //TODO :: for each input, take back the type corresponding to the question characteristics
   //console.log("QuestionList in resultat : ", props.questions);
-  console.log('boxquestionnaire1_2',props.resultat)
+  console.log('boxquestionnaire1_2',props.questions)
   return (
     <div>
       {props.isBusy ? (
@@ -129,15 +130,15 @@ function BoxRes1(props) {
             <label htmlFor="sexe">Sexe : </label>
             <select
             disabled
-              name="sexe"
-              id="sexe"
+              name={props.questions[0].resName}
+              id={props.questions[0].resName}
               value={resultatContext.resultat.sexe}
               onChange={props.handleFormInputChange}
             >
-              <option value="0">
+              <option value={getObjKey(props.questions[0].valeurs_possibles,props.questions[0].valeurs_possibles[0])}>
                 {props.questions[0].valeurs_possibles[0]}
               </option>
-              <option value="1">
+              <option value={getObjKey(props.questions[0].valeurs_possibles,props.questions[0].valeurs_possibles[1])}>
                 {props.questions[0].valeurs_possibles[1]}
               </option>
             </select>
@@ -145,10 +146,10 @@ function BoxRes1(props) {
           <div>
             <label htmlFor="age">Age : </label>
             <FormInput
-            disabled = {true}
-              id="age"
+            disabled
+              id={props.questions[2].resName}
               type="number"
-              name="age"
+              name={props.questions[2].resName}
               min={props.questions[2].min}
               max={props.questions[2].max}
               placeholder="Age"
@@ -160,14 +161,18 @@ function BoxRes1(props) {
           <div>
             <label htmlFor="taille">Taille : </label>
             <FormInput
-              disabled
-              id="taille"
+              disabled 
+              id={props.questions[4].resName}
               type="number"
-              name="taille"
+              name={props.questions[4].resName}
               placeholder="Taille"
               value={resultatContext.resultat.taille}
               onChange={props.handleFormInputChange}
             />
+          </div>
+          <div>
+            <ToggleButton name="yesSyst" checked={resultatContext.resultat.yesSyst} onChange={props.handleFormInputChange}
+/>
           </div>
           <div>
             <label htmlFor="yesSyst">Tension Elevée : </label>
@@ -221,6 +226,7 @@ function BoxRes1(props) {
           <div>
             <label htmlFor="inf">Déjà eu un Infarctus : </label>
             <FormInput
+            disabled
               id="inf"
               type="text" //TODO:: Should be a toggle
               name="inf"
@@ -232,6 +238,7 @@ function BoxRes1(props) {
           <div>
             <label htmlFor="avc">Déjà eu une Attaque cérébrale : </label>
             <FormInput
+            disabled
               id="avc"
               type="text" //TODO:: Should be a toggle
               name="avc"
@@ -245,6 +252,7 @@ function BoxRes1(props) {
           <div>
             <label htmlFor="afinf">Parent ayant eu un Infarctus : </label>
             <FormInput
+            disabled
               id="afinf"
               type="text" //TODO:: Should be a toggle
               name="afinf"
@@ -256,6 +264,7 @@ function BoxRes1(props) {
           <div>
             <label htmlFor="afcancer">Parent ayant eu un Cancer : </label>
             <FormInput
+            disabled
               id="afcancer"
               type="text" //TODO:: Should be a toggle
               name="afcancer"
@@ -309,21 +318,21 @@ function BoxRes2(props) {
           <div>
             <label htmlFor="alim">Alimentation : </label>
             <select
-              name="alim"
-              id="alim"
+              name={props.questions[13].resName}
+              id={props.questions[13].resName}
               value={resultatContext.resultat.alim}
               onChange={props.handleFormInputChange}
             >
-              <option value={0}>
+              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[0])}>
                 {props.questions[13].valeurs_possibles[0]}
               </option>
-              <option value={1}>
+              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[1])}>
                 {props.questions[13].valeurs_possibles[1]}
               </option>
-              <option value={2}>
+              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[2])}>
                 {props.questions[13].valeurs_possibles[2]}
               </option>
-              <option value={3}>
+              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[3])}>
                 {props.questions[13].valeurs_possibles[3]}
               </option>
             </select>
@@ -331,8 +340,8 @@ function BoxRes2(props) {
           <div>
             <label htmlFor="sport">Sport : </label>
             <select
-              name="sport"
-              id="sport"
+              name={props.questions[14].resName}
+              id={props.questions[14].resName}
               value={resultatContext.resultat.sport}
               onChange={props.handleFormInputChange}
             >
@@ -342,10 +351,10 @@ function BoxRes2(props) {
               <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[1])}>
                 {props.questions[14].valeurs_possibles[1]}
               </option>
-              <option value="2">
+              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[2])}>
                 {props.questions[14].valeurs_possibles[2]}
               </option>
-              <option value="3">
+              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[3])}>
                 {props.questions[14].valeurs_possibles[3]}
               </option>
             </select>
@@ -354,24 +363,24 @@ function BoxRes2(props) {
           <div>
             <label>Alcool : </label>
             <select
-              name="alcool"
-              id="alcool"
+              name={props.questions[15].resName}
+              id={props.questions[15].resName}
               value={resultatContext.resultat.alcool}
               onChange={props.handleFormInputChange}
             >
-              <option value="0">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[0])}>
                 {props.questions[15].valeurs_possibles[0]}
               </option>
-              <option value="1">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[1])}>
                 {props.questions[15].valeurs_possibles[1]}
               </option>
-              <option value="2">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[2])}>
                 {props.questions[15].valeurs_possibles[2]}
               </option>
-              <option value="3">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[3])}>
                 {props.questions[15].valeurs_possibles[3]}
               </option>
-              <option value="4">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[4])}>
                 {props.questions[15].valeurs_possibles[4]}
               </option>
             </select>
@@ -384,7 +393,6 @@ function BoxRes2(props) {
 function BoxResultat(props) {
   let resultatContext = useContext(ResultatContext);
   console.log("Resultat : ", resultatContext.resultat);
-
   console.log("Maladies : ", resultatContext.maladies);
 
   return (
@@ -463,7 +471,7 @@ function FormInput({
   placeholder,
   min,
   max,
-  range,
+  
 }) {
   return (
     <>

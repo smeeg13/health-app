@@ -37,6 +37,8 @@ class AppWrapper extends React.Component {
     const value = target.value;
     const name = target.name;
 
+
+
     this.setState((prevState) => ({
       resultat: { ...prevState.resultat, [name]: parseInt(value) },
     }));
@@ -50,7 +52,7 @@ class AppWrapper extends React.Component {
     let newMaladies = new Maladies();
     newMaladies = calculate(newResult);
     this.setState(() => ({
-      maladies: {cancer:newMaladies.cancer, diabete: newMaladies.diabete, infarctus: newMaladies.infarctus, nonInfarctus: newMaladies.nonInfarctus,  },
+      maladies: {cancer:newMaladies.cancer, diabete: newMaladies.diabete, infarctus: newMaladies.infarctus, nonInfarctus: newMaladies.nonInfarctus  }
     }));
   };
 
