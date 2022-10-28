@@ -85,7 +85,7 @@ export default function Resultats(props) {
         </div>
         {/* Box for Resultat  */}
         <div className="container result3">
-          <TitleBox title="Vos Risques" my_avatar={props.currentUser.avatar} />
+          <TitleBox title="Vos Risques"  />
           <BoxResultat maladies={resultatContext.maladies} />
         </div>
       </div>
@@ -108,7 +108,7 @@ function TitleBox(props) {
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
-        <img className="my_avatar" src={my_avatar} alt="AvatarUser" />
+        <img className="my_avatar" src={this.currentUser.avatar} alt="AvatarUser" />
       </div>
     </div>
   );

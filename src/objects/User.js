@@ -2,12 +2,11 @@ export class User {
   id_user;
   nom = "";
   age = 0;
-  sexe = 0; //1 si masculin, 0 si feminin
+  sexe = 0; //0 si masculin, 1 si feminin
   poids = 0;
   taille = 0;
   nom_role = "";
-  avatarM = "avatar1.png";
-  avatarF = "avatar5.png";
+  avatar="avatar1.png";
 
   constructor(id_user, mail, nom, age, sexe, poids, taille,id_role, isAdmin) {
     this.setId(id_user);
@@ -17,15 +16,18 @@ export class User {
     this.setSexe(sexe);
     this.setPoids(poids);
     this.setTaille(taille);
-    this.setIdRole(id_role, isAdmin);    //+ collections Questionnaires
+    this.setIdRole(id_role, isAdmin); 
+    this.setAvatar(sexe);   //+ collections Questionnaires
   }
+  
 
-  setAvatar(avatar) {
+  setAvatar() {
     if (this.sexe=0){
-      this.avatar = this.avatarM;
-    } else {
-      this.avatar = this.avatarF;
+      this.avatar = "/img/avatar1.png";
+    } else{
+      this.avatar = "/img/avatar6.png";
     }
+
   }
 
   setId(id) {
@@ -80,7 +82,9 @@ export class User {
       ", " +
       this.poids +
       ", " +
-      this.taille
+      this.taille +
+      ", " +
+      this.avatar
     );
   }
 }

@@ -1,41 +1,58 @@
 
 import styled from 'styled-components';
-import avatar1 from './img/avatar1.png';
-import avatarr from './img/avatar_roux.png';
-import avatar2 from './img/avatar2.png';
-import avatar3 from './img/avatar3.png';
-import avatar4 from './img/avatar4.png';
-import avatar5 from './img/avatar5.png';
-import avatar6 from './img/avatar6.png';
-import { Link } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
+import {useNavigate} from "react-router-dom"
 import { ThemeContext, themes } from "../Context";
 import React, { useContext } from "react";
 import { setNestedObjectValues } from 'formik';
 
-function Registration() {
+import _ from "lodash";
+
+function Registration(props) {
+
+  const avatar1 = '/img/avatar1.png';
+  const avatarr = '/img/avatar_roux.png';
+  const avatar3 = '/img/avatar3.png';
+  const avatar4 = '/img/avatar4.png';
+  const avatar5 = '/img/avatar5.png';
+  const avatar6 = '/img/avatar6.png';
 
   let themeContext = useContext(ThemeContext);
 
-  const [avatar, setAvatar] = React.useState({
-    avatar1: false,
-    avatar2: false,
-    avatar3: false,
-    avatar4: false,
-    avatar5: false,
-    avatar6: false,
-  });
+  const [avatarSelected, setAvatar] = React.useState(props.currentUser.avatar);
+
 
   const onClickHandler = (order) => {
-    setAvatar((prevState) => ({
-      ...prevState,
-      [order]: !prevState[order]
-    }));
+    setAvatar(order.target.src);
+    console.log(avatarSelected)
+    // props.setUser((prevState) => 
+    // {props.currentUser.avatar=order.target.src} 
+    // );
   };
 
-  // const handleClick = (e) => {
-  //  setAvatar(e.target.avatar);
-  //  alert("clicked!" + avatar);
-  // };
+  const handleInput = (event) => {
+    // props.setUser((prevState) => 
+    // {props.currentUser.name=event.target.value} 
+    // );
+  }
+
+  const navigate = useNavigate();
+
+  const HandleSubmit = (event)=>{
+    props.setUser((prevState) => {
+        const clonedUser = _.clone(prevState);
+        clonedUser.avatar = avatarSelected;
+
+        return clonedUser;
+    });
+ 
+
+     navigate("/");
+
+  }
+
+  console.log(props.currentUser.avatar);
+  // console.log(props.currentUser.name)
 
   return (
     <Container2>
@@ -52,16 +69,18 @@ function Registration() {
           }}>Name</label>
           <br />
           <input
+            name='nom'
             className="text_input"
             type="text"
             maxLength={30}
             // value={email}
             // onChange={handleEmailChange}
             required
+            // onChange={handleInput}
           />
 
           <br></br>
-
+          {/* 
           <label className="label" style={{
             color: themes[themeContext.theme].textcolor,
           }}>Firstname</label>
@@ -74,12 +93,10 @@ function Registration() {
             // value={email}
             // onChange={handleEmailChange}
             required
-          />
+          /> */}
 
           <h1>Avatar selected </h1>
-          {avatar.avatar1 && <img src={avatar1} alt="ground" />}
-          {avatar.avatar2 && <img src={avatar2} alt="first" />}
-          {avatar.avatar3 && <img src={avatar3} alt="second" />}
+          <img className="avatar1" src={avatarSelected} defaultValue={avatar1} alt="avatar"></img>
 
           {/* <label className="label">Age</label>
                     <br />
@@ -143,12 +160,11 @@ function Registration() {
             <img className="avatar1" src={avatar6} onClick={onClickHandler}></img>
           </div>
         </div>
-        <Link to="/">
           <button className="btn" style={{
             backgroundColor: themes[themeContext.theme].button,
             color: themes[themeContext.theme].textcolorbtn,
-          }}>Submit</button>
-        </Link>
+          }} onClick={HandleSubmit}>Submit
+          </button>
       </div>
     </Container2>
   )
