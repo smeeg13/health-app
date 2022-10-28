@@ -7,7 +7,7 @@ export class User {
   taille = 0;
   nom_role = "";
   avatarM = "avatar1.png";
-  avatarF = "avatar2.png";
+  avatarF = "avatar5.png";
 
   constructor(id_user, mail, nom, age, sexe, poids, taille,id_role, isAdmin) {
     this.setId(id_user);
