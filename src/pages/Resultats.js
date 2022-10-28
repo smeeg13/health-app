@@ -2,9 +2,9 @@ import "../App.css";
 import { db } from "../initFirebase";
 import React, { useContext, useState, useEffect } from "react";
 import { ResultatContext } from "../Context";
-import my_avatar from "./img/avatar5.png";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
+import Account from './Account';
 import { Loader } from "../components/QuestionForm";
 
 export default function Resultats(props) {
@@ -12,6 +12,8 @@ export default function Resultats(props) {
 
   let [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true);
+
+  {props.currentUser.avatar === "avatar" && <Account />}
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
@@ -115,7 +117,8 @@ function BoxRes1(props) {
 
   //Need type - min - max from Questionnaire into props.questions
   //TODO :: for each input, take back the type corresponding to the question characteristics
-  console.log("QuestionList in resultat : ", props.questions);
+  //console.log("QuestionList in resultat : ", props.questions);
+  console.log('boxquestionnaire1_2',props.resultat)
   return (
     <div>
       {props.isBusy ? (

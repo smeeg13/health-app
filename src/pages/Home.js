@@ -6,6 +6,7 @@ import { useContext } from "react";
 import home_pic from "./img/home.png";
 import { ThemeContext, ResultatContext, themes } from "../Context";
 import Resultats from "./Resultats";
+import survey_pic from "./img/survey_pic.png";
 
 export default function Home(props) {
   return (
@@ -153,6 +154,7 @@ function HomeUser(props) {
               {" "}
               Please complete a survey to see some results
             </h4>
+            <img src={survey_pic} style={{height:"300px"}}></img>
           </div>
         )}
       </div>
