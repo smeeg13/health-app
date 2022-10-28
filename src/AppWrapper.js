@@ -2,13 +2,25 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import React from "react";
 import { ThemeContext, ResultatContext } from "./Context";
-import {Resultats,calculate,setBmi, setChol, setGlyc, setSyst} from "./objects/Resultats"
+import {
+  Resultats,
+  calculate,
+  setBmi,
+  setChol,
+  setGlyc,
+  setSyst,
+} from "./objects/Resultats";
+import { Maladies } from "./objects/Maladies";
 
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
   constructor() {
     super();
-    this.state = { theme: "light", resultat: new Resultats('', 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ) };
+    this.state = {
+      theme: "light",
+      resultat: new Resultats("",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
+      maladies: new Maladies(),
+    };
   }
 
   /* Toggle theme method */
@@ -25,28 +37,26 @@ class AppWrapper extends React.Component {
     const value = target.value;
     const name = target.name;
 
-
     this.setState((prevState) => ({
       resultat: { ...prevState.resultat, [name]: parseInt(value) },
     }));
-  //  let newResult =calculate(this.state.resultat);
-  //   this.setState(this.state.resultat);
-
   };
 
-  calculateRes = (resultat) =>{
-    let newResult =  setBmi(resultat);
-    newResult =  setSyst(newResult);
-    newResult =  setGlyc(newResult);
-    newResult =  setChol(newResult);
-    let finalRes = calculate(newResult);
-    this.setState(finalRes);
-  }
+  calculateMaladies = (resultat) => {
+    let newResult = setBmi(resultat);
+    newResult = setSyst(newResult);
+    newResult = setGlyc(newResult);
+    newResult = setChol(newResult);
+    let newMaladies = new Maladies();
+    newMaladies = calculate(newResult);
+    this.setState(() => ({
+      maladies: {cancer:newMaladies.cancer, diabete: newMaladies.diabete, infarctus: newMaladies.infarctus, nonInfarctus: newMaladies.nonInfarctus,  },
+    }));
+  };
 
   updateResultatAll = (resultat) => {
     this.setState(resultat);
   };
-
 
   render() {
     return (
@@ -56,9 +66,10 @@ class AppWrapper extends React.Component {
         <ResultatContext.Provider
           value={{
             resultat: this.state.resultat,
+            maladies: this.state.maladies,
             updateResultatField: this.updateResultatField,
             updateResultatAll: this.updateResultatAll,
-            calculateRes: this.calculateRes,
+            calculateMaladies: this.calculateMaladies,
           }}
         >
           <BrowserRouter>

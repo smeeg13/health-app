@@ -2,7 +2,6 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
-import my_avatar from "./img/avatar5.png";
 import { useContext } from "react";
 import home_pic from "./img/home.png";
 import { ThemeContext, ResultatContext, themes } from "../Context";
@@ -96,6 +95,7 @@ function HomeGuest() {
       <br />
       <img
         src={home_pic}
+        alt="HomePics"
         style={{ height: "300px", marginTop: "-100px", float: "right" }}
       ></img>
     </div>
@@ -140,8 +140,8 @@ function HomeUser(props) {
       <br />
       <div className="center">
         {/* Show nothing if the result in context is "null" */}
-        {resultatContext.resultat.diabete !== 0 ||
-        resultatContext.resultat.cancer !== 0 ? (
+        {resultatContext.resultat.age !== 0 && resultatContext.resultat.taille !== 0 &&
+        resultatContext.resultat.poids !== 0 ? (
           <Resultats currentUser={props.currentUser} />
         ) : (
           <div>

@@ -3,15 +3,17 @@ import riskDiabete from "../algo/Diabete";
 import riskCancer from "../algo/Cancer";
 import riskInfarctus from "../algo/Infarctus";
 import correctionAFINF from "../algo/NonInfarctus";
+import { Maladies } from "./Maladies";
 
-export function calculate(props) {
+export function calculate(resultat) {
   //Arondir *100
   //% returned risk
- let res = props;
+ let res = resultat;
+ let maladies = new Maladies();
   let sumDiab = sumPointDiabete(res);
-  res.diabete = 100 *  riskDiabete(sumDiab, res.sexe);
+  maladies.diabete =   riskDiabete(sumDiab, res.sexe);
 
-  res.cancer = 100 *riskCancer(
+  maladies.cancer = 100 *riskCancer(
     res.afcancer,
     res.fume,
     res.bmi,
@@ -19,7 +21,7 @@ export function calculate(props) {
     res.alcool,
     res.alim
   );
-  res.infarctus =
+  maladies.infarctus =
     100 *
     riskInfarctus(
       res.age,
@@ -31,7 +33,7 @@ export function calculate(props) {
       res.chol,
       res.hdl
     );
-    res.nonInfarctus = 100 *correctionAFINF(
+    maladies.nonInfarctus = 100 *correctionAFINF(
       res.age,
       res.fume,
       res.syst,
@@ -40,43 +42,43 @@ export function calculate(props) {
       res.sexe,
       res.afinf
   );
-  return res;
+  return maladies;
 }
 
-export function sumPointDiabete(props) {
+export function sumPointDiabete(resultat) {
   let pts = 0;
-  if (props.age < 45) {
+  if (resultat.age < 45) {
     pts = pts + 1;
-  } else if (props.age > 55) {
+  } else if (resultat.age > 55) {
     pts = pts + 3;
   } else {
     pts = pts + 2;
   }
 
-  if (props.bmi > 20 && props.bmi < 27) {
+  if (resultat.bmi > 20 && resultat.bmi < 27) {
     pts = pts + 1;
-  } else if (props.bmi < 30) {
+  } else if (resultat.bmi < 30) {
     pts = pts + 2;
-  } else if (props.bmi > 30) {
+  } else if (resultat.bmi > 30) {
     pts = pts + 3;
   }
 
-  if (props.syst === 1) {
+  if (resultat.syst === 1) {
     pts = pts + 2;
   }
 
-  if (props.glyc === 1) {
+  if (resultat.glyc === 1) {
     pts = pts + 5;
   }
 
-  pts = pts + props.sport;
-  pts = pts + props.alim;
+  pts = pts + resultat.sport;
+  pts = pts + resultat.alim;
 
   return pts;
 }
 
-export function setBmi(props) {
-  let res = props;
+export function setBmi(resultat) {
+  let res = resultat;
   if (res.poids !== 0 && res.taille !== 0) {
     res.bmi = res.poids / ((res.taille / 100) * (res.taille / 100));
   } else {
@@ -86,8 +88,8 @@ export function setBmi(props) {
 
 }
 
-export function setSyst(props) {
-  let res = props;
+export function setSyst(resultat) {
+  let res = resultat;
 
   if (res.yesSyst === 1) {
     res.syst = 150;
@@ -98,8 +100,8 @@ export function setSyst(props) {
 
 }
 
-export function setGlyc(props) {
-  let res = props;
+export function setGlyc(resultat) {
+  let res = resultat;
 
   if (res.yesGlyc === 1) {
     res.glyc = 5.6;
@@ -108,8 +110,8 @@ export function setGlyc(props) {
   }
   return res;
 }
-export function setChol(props) {
-  let res = props;
+export function setChol(resultat) {
+  let res = resultat;
 
   if (res.yesChol === 1) {
     res.chol = 5.9;
@@ -128,10 +130,7 @@ export class Resultats {
   chol = 0;
   hdl = 0;
   glyc = 0;
-  diabete = 0;
-  cancer = 0;
-  infarctus = 0;
-  nonInfarctus = 0;
+  
 
   constructor(
     id,
@@ -169,41 +168,7 @@ export class Resultats {
     this.alcool = alcool; //score
     this.taille = taille;
     this.poids = poids;
-    this.setBmi(this.poids, this.taille);
-    //this.calculate();
-  }
 
-  setBmi() {
-    if (this.poids !== 0 && this.taille !== 0) {
-      this.bmi = this.poids / ((this.taille / 100) * (this.taille / 100));
-    } else {
-      this.bmi = 0;
-    }
-  }
-
-  setSyst(yesSyst) {
-    if (yesSyst === 1) {
-      this.syst = 150;
-    } else {
-      this.syst = 110; //TODO : check si c'est val normale si pas de tension elevée
-    }
-  }
-
-  setGlyc(yesGlyc) {
-    if (yesGlyc === 1) {
-      this.glyc = 5.6;
-    } else {
-      this.glyc = 5;
-    }
-  }
-  setChol(yesChol) {
-    if (yesChol === 1) {
-      this.chol = 5.9;
-      this.hdl = 0.9;
-    } else {
-      this.chol = 3;
-      this.hdl = 2;
-    }
   }
 
   setIdResultats(id) {

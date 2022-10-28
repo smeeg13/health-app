@@ -1,4 +1,5 @@
 import React from "react";
+import { Maladies } from "./objects/Maladies";
 import {Resultats} from "./objects/Resultats";
 
 
@@ -9,9 +10,11 @@ export const ThemeContext = React.createContext({
 
 export const ResultatContext = React.createContext({
     resultat: new Resultats(),
+    maladies: new Maladies(),
     updateResultatField: () => {},
     updateResultatAll: () => {},
-    calculateRes: () => {}}
+    calculateMaladies: () => {}
+}
 );
 
 /* Themes to use in the App */
