@@ -33,7 +33,7 @@ export default function RegisterDocteur() {
 
           setmessage("REGISTER_SUCCESS");
           console.log("User id : " + docuser.uid + ", created successfully!");
-      let doc = new Docteur(docuser.uid, values.nom, values.email, []);
+      let doc = new Docteur(docuser.uid,values.email, values.nom,  []);
 
        CreateDocDocteur(doc).then((val) => {
         console.log("Document Docteur created : ", val.uid);

@@ -7,15 +7,20 @@ import home_pic from "./img/home.png";
 import { ThemeContext, ResultatContext, themes } from "../Context";
 import Resultats from "./Resultats";
 import survey_pic from "./img/survey_pic.png";
+import {ListPatient} from "../components/ListPatients"
 
 export default function Home(props) {
   return (
     <React.Fragment>
       <div className="container">
         {props.currentUser.nom_role === "Invite" && <HomeGuest />}
-        {props.currentUser.nom_role === "Patient" && (<HomeUser currentUser={props.currentUser} />)}
+        {props.currentUser.nom_role === "Patient" && (
+          <HomeUser currentUser={props.currentUser} />
+        )}
         {props.currentUser.nom_role === "Admin" && <HomeAdmin />}
-        {props.currentUser.nom_role === "Docteur" && <HomeDocteur currentUser={props.currentUser}/>}
+        {props.currentUser.nom_role === "Docteur" && (
+          <HomeDocteur currentUser={props.currentUser} />
+        )}
       </div>
     </React.Fragment>
   );
@@ -208,28 +213,29 @@ function HomeAdmin() {
 
       <br />
       <br />
-            {/* Button to Add a New doctor */}
-      
-
+      {/* Button to Add a New doctor */}
       <Link to="/registerDocteur">
-    <button
-      className="btn"
-      style={{
-        backgroundColor: themes[themeContext.theme].button,
-        color: themes[themeContext.theme].textcolorbtn,
-      }}
-    >
-      Add a New Doctor
-    </button>
-  </Link>
+        <button
+          className="btn"
+          style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}
+        >
+          Add a New Doctor
+        </button>
+      </Link>
     </div>
   );
 }
 
 function HomeDocteur(props) {
-  return <>
-    <h2> Welcome Back Dr. {props.currentUser.nom}</h2>
+  return (
+    <>
+      <h2> Welcome Back Dr. {props.currentUser.nom}</h2>
 
-    <h4> List of Patients</h4>
-  </>;
+      <h4> List of Patients</h4>
+      <ListPatient currentUser={props.currentUser}/>
+    </>
+  );
 }

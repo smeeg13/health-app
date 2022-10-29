@@ -1,13 +1,12 @@
 export class Docteur {
-  id;
+  id_user;
   nom_role ="";
 
-  constructor(id, nom,email, list_patient) {
+  constructor(id,email, nom, list_patient) {
     this.setId(id);
-    this.nom = nom;
     this.email = email;
+    this.nom = nom;
     this.id_role = "jFC8Tuw87Ic3my6SyOU0";
-
     this.list_patient = list_patient;
   }
   setNomRole(nom_role) {
@@ -15,7 +14,7 @@ export class Docteur {
   }
 
   setId(id) {
-    this.id = id;
+    this.id_user = id;
   }
 
   toString() {
@@ -25,6 +24,7 @@ export class Docteur {
 export const docteurConverter = {
   toFirestore: (docteur) => {
     return {
+      email: docteur.email,
       nom: docteur.nom,
       id_role: docteur.id_role,
       list_patient: docteur.list_patient,
@@ -32,6 +32,6 @@ export const docteurConverter = {
   },
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
-    return new Docteur(snapshot.id, data.nom, data.list_patient);
+    return new Docteur(snapshot.id,data.email, data.nom, data.list_patient);
   },
 };
