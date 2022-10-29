@@ -137,7 +137,3 @@ function hdlCholAgeTransformed(AGE, SEXE, NHDL) {
     : calculHDL(NHDL) * ageTransformed(AGE) * coefHdlCholAgeTransWmn;
 }
 
-// console.log(
-//   "coorection pour AFINF",
-//   NonInfarctus.correctionAFINF(12, 1, 120, 6.3, 1.4, 0, 1)
-// );

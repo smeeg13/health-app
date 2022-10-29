@@ -28,9 +28,8 @@ function Survey(props) {
     getQuestionnaireById(props.quesId);
   }, []);
 
-  const handleFormInputChangeQues = (event) => {
-    resultatContext.updateResultatField(event, resultatContext.resultat);
-    console.log("Survey",resultatContext.resultat);
+  const handleFormInputChange = (event) => {
+    resultatContext.updateResultatField(event);
   };
 
   const handleSubmit = (event) => {
@@ -40,18 +39,16 @@ function Survey(props) {
   return (
     <div className="box1">
       {/* Box for data questionnaire 1-2  */}
-      <div className="container result1" >
         {/* <TitleBox title="Vous" my_avatar={props.currentUser.avatar} /> */}
         {isBusy ? <Loader /> : 
         <BoxQuestion
           resultat={resultatContext.resultat}
-          handleFormInputChangeQues={handleFormInputChangeQues}
+          handleFormInputChange={handleFormInputChange}
           handleFormSubmit={handleSubmit}
           questions={questions}
           isBusy={isBusy}
         />
         }
-      </div>
   </div>
   )
 }
