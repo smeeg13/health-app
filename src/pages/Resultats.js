@@ -52,10 +52,12 @@ export default function Resultats(props) {
     resultatContext.updateResultatField(event, resultatContext.resultat);
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log("Save modif clicked !, current user id : ", props.currentUser.id_user)
+
     //TODO :: save into db
-    // resultatContext.updateResultatAll(event);
+    resultatContext.updateInDb(props.currentUser.id_user);
   };
   return (
     <div className="wrapper">
@@ -85,12 +87,13 @@ export default function Resultats(props) {
         </div>
         {/* Box for Resultat  */}
         <div className="container result3">
-          <TitleBox title="Vos Risques"  />
+          <TitleBox title="Vos Risques"  my_avatar={props.currentUser.avatar}/>
           <BoxResultat maladies={resultatContext.maladies} />
         </div>
       </div>
 
       <br />
+  
       <div className="box2">
         {/* Button for saving into db changes */}
         <button className="btn" type="submit" onClick={handleFormSubmit}>
@@ -108,7 +111,7 @@ function TitleBox(props) {
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
-        <img className="my_avatar" src={this.currentUser.avatar} alt="AvatarUser" />
+        <img className="my_avatar" src={props.my_avatar} alt="AvatarUser" />
       </div>
     </div>
   );

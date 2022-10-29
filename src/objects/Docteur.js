@@ -1,11 +1,17 @@
 export class Docteur {
   id;
+  nom_role ="";
 
-  constructor(id, nom, list_patient) {
+  constructor(id, nom,email, list_patient) {
     this.setId(id);
     this.nom = nom;
+    this.email = email;
     this.id_role = "jFC8Tuw87Ic3my6SyOU0";
+
     this.list_patient = list_patient;
+  }
+  setNomRole(nom_role) {
+    this.nom_role = nom_role;
   }
 
   setId(id) {

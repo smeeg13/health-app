@@ -1,6 +1,7 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Register from "./pages/Register";
+import RegisterDocteur from "./pages/RegisterDocteur";
 import Login, { CheckRole } from "./pages/Login";
 import Home from "./pages/Home";
 import Navbar from "./pages/Navbar";
@@ -12,6 +13,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./initFirebase";
 import Logout from "./pages/Logout";
 import { GetUserById } from "./objects_managers/UserManager";
+import { GetDocteurById } from "./objects_managers/DocteurManager";
+
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
 import Historic from "./pages/Historic";
@@ -30,7 +33,11 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentAuthUser(user);
       if (user != null) {
-        const myUser = await GetUserById(user.uid);
+        let myUser ;
+        myUser =  await GetUserById(user.uid);
+        if(myUser === null || myUser === undefined){
+          myUser =  await GetDocteurById(user.uid);
+        }
         myUser.setNomRole(await CheckRole(myUser));
         setCurrentUser(myUser);
       } else {
@@ -60,6 +67,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home currentUser={currentUser} />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/registerDocteur" element={<RegisterDocteur />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/settings" element={<Settings currentUser={currentUser} />}/>
