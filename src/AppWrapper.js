@@ -25,13 +25,28 @@ class AppWrapper extends React.Component {
     const value = target.value;
     const name = target.name;
 
+    if(target.type === 'checkbox'){
+      let checkedInt = target.checked === true ? 1 : 0;
+      
+      this.setState((prevState) => ({
+        resultat: { ...prevState.resultat, [name]: checkedInt},
+      }));
+    }   
 
-    this.setState((prevState) => ({
-      resultat: { ...prevState.resultat, [name]: parseInt(value) },
-    }));
-  //  let newResult =calculate(this.state.resultat);
-  //   this.setState(this.state.resultat);
-
+    if(target.type === 'dropdown'){
+      this.setState((prevState) => ({
+        resultat: { ...prevState.resultat, [name]: value},
+      }));
+    }
+    if(target.type === 'slider'){
+      this.setState((prevState) => ({
+        resultat: { ...prevState.resultat, [name]: value},
+      }));
+    }else{
+      this.setState((prevState) => ({
+        resultat: { ...prevState.resultat, [name]: parseInt(value) },
+      }));
+    }
   };
 
   calculateRes = (resultat) =>{
