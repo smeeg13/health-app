@@ -28,12 +28,18 @@ function Survey(props) {
     getQuestionnaireById(props.quesId);
   }, []);
 
+  useEffect(() => {
+    resultatContext.calculateMaladies(resultatContext.resultat);
+  }, [resultatContext.resultat]);
+
   const handleFormInputChange = (event) => {
     resultatContext.updateResultatField(event);
   };
 
-  const handleSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log("Save modif clicked !, current user id : ", props.currentUser.id_user)
+    resultatContext.updateInDb(props.currentUser.id_user);
   };
 
   return (
@@ -44,7 +50,7 @@ function Survey(props) {
         <BoxQuestion
           resultat={resultatContext.resultat}
           handleFormInputChange={handleFormInputChange}
-          handleFormSubmit={handleSubmit}
+          handleFormSubmit={handleFormSubmit}
           questions={questions}
           isBusy={isBusy}
         />

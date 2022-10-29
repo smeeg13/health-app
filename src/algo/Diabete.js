@@ -4,11 +4,6 @@ let [coefWmnR1, coefWmnR2, coefWmnR3] = coefWmn;
 const coefMan = [0.0209, 0.1167, 0.1316];
 let [coefManR1, coefManR2, coefManR3] = coefMan;
 
-class Diabete {
-  static riskDiabete(sumDiabete, SEXE) {
-    return risk(sumDiabete, SEXE);
-  }
-}
 export default function riskDiabete(sumDiabete, SEXE) {
   return risk(sumDiabete, SEXE);
 }

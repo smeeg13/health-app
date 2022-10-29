@@ -73,9 +73,9 @@ export default function App() {
         <Route path="/settings" element={<Settings currentUser={currentUser} />}/>
         <Route path="/resultats" element={<Resultats currentUser={currentUser} />} />
         <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser}/>} />
-        <Route path="/survey1" element={<Survey quesId="1" />} />
-        <Route path="/survey2" element={<Survey quesId="2" />} />
-        <Route path="/survey3" element={<Survey quesId="3" />} />
+        <Route path="/survey1" element={<Survey quesId="1" currentUser={currentUser} />} />
+        <Route path="/survey2" element={<Survey quesId="2" currentUser={currentUser}/>} />
+        <Route path="/survey3" element={<Survey quesId="3" currentUser={currentUser}/>} />
         <Route path="/historic" element={<Historic currentUser={currentUser}/>}/>
       </Routes>
     </div>

@@ -1,6 +1,4 @@
 import React from "react";
-// import Slider from "../components/Slider"
-import ReactSlider from "react-slider";
 import { useState } from "react";
 
 
@@ -34,33 +32,49 @@ export function BoxQuestion(props) {
                 handleFormInputChange={props.handleFormInputChange}
               />}
               {q.typeAnswer === 'slider' &&
-                <Range 
-                  id={q.id}
-                  name={q.resName}
-                  question={q}
-                  value={q.value}
-                  handleFormInputChange={props.handleFormInputChange}
-                />
+                <div>
+                  <Range
+                    id={q.id}
+                    name={q.resName}
+                    question={q}
+                    value={q.value}
+                    handleFormInputChange={props.handleFormInputChange}
+                  />
+                </div>
+
               }
             </li>
           )}
         </div>
+        <button className="btn" type="submit" onClick={props.handleFormSubmit}>
+          Save Modifications
+        </button>
       </form>
     </div>
   );
 }
 
 function Range(props) {
-    
+
+  const [slideValue, setSlideValue] = useState(100);
+  const handleChange = (event) => {
+    setSlideValue(event.target.value);
+  };
+
   return (
     <div>
       <input
         type="range"
         name={props.question.resName}
-        min={props.question.min} max={props.question.max}
-        value={props.question}
+        min={props.question.min}
+        max={props.question.max}
+        value={props.value}
         onChange={props.handleFormInputChange}
-        step="1" />
+        onInput={handleChange}
+        step="1" 
+        />
+        <p>{slideValue}</p>
+        
     </div>
   )
 }
