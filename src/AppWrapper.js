@@ -15,7 +15,6 @@ import {
   CreateDocGuestInResultat,
   CreateDocResultats,
 } from "./objects_managers/ResultatsManager";
-import { Timestamp } from "firebase/firestore";
 
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
@@ -42,24 +41,24 @@ class AppWrapper extends React.Component {
     const value = target.value;
     const name = target.name;
 
-    if(target.type === 'checkbox'){
+    if (target.type === 'checkbox') {
       let checkedInt = target.checked === true ? 1 : 0;
-      
-      this.setState((prevState) => ({
-        resultat: { ...prevState.resultat, [name]: checkedInt},
-      }));
-    }   
 
-    if(target.type === 'dropdown'){
       this.setState((prevState) => ({
-        resultat: { ...prevState.resultat, [name]: value},
+        resultat: { ...prevState.resultat, [name]: checkedInt },
       }));
     }
-    if(target.type === 'slider'){
+    if (target.type === 'dropdown') {
       this.setState((prevState) => ({
-        resultat: { ...prevState.resultat, [name]: value},
+        resultat: { ...prevState.resultat, [name]: value },
       }));
-    }else{
+    }
+    if (target.type === 'slider') {
+      this.setState((prevState) => ({
+        resultat: { ...prevState.resultat, [name]: value },
+      }));
+    }
+    if (target.type === 'textbox') {
       this.setState((prevState) => ({
         resultat: { ...prevState.resultat, [name]: parseInt(value) },
       }));
@@ -128,7 +127,7 @@ class AppWrapper extends React.Component {
       //Should create a new doc with generated id into Resultat first
       let refDocId;
       refDocId = await CreateDocGuestInResultat();
-      //await CreateDocResultats(refDocId, resFinal);
+      await CreateDocResultats(refDocId, resFinal);
     } else {
       //is a user
       //Should retrieve the doc into Resultat with the id of user
