@@ -2,13 +2,25 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import React from "react";
 import { ThemeContext, ResultatContext } from "./Context";
-import {Resultats,calculate,setBmi, setChol, setGlyc, setSyst} from "./objects/Resultats"
+import {
+  Resultats,
+  calculate,
+  setBmi,
+  setChol,
+  setGlyc,
+  setSyst,
+} from "./objects/Resultats";
+import { Maladies } from "./objects/Maladies";
 
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
   constructor() {
     super();
-    this.state = { theme: "light", resultat: new Resultats('', 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ) };
+    this.state = {
+      theme: "light",
+      resultat: new Resultats("",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),
+      maladies: new Maladies(),
+    };
   }
 
   /* Toggle theme method */
@@ -49,19 +61,9 @@ class AppWrapper extends React.Component {
     }
   };
 
-  calculateRes = (resultat) =>{
-    let newResult =  setBmi(resultat);
-    newResult =  setSyst(newResult);
-    newResult =  setGlyc(newResult);
-    newResult =  setChol(newResult);
-    let finalRes = calculate(newResult);
-    this.setState(finalRes);
-  }
-
   updateResultatAll = (resultat) => {
     this.setState(resultat);
   };
-
 
   render() {
     return (
@@ -71,9 +73,10 @@ class AppWrapper extends React.Component {
         <ResultatContext.Provider
           value={{
             resultat: this.state.resultat,
+            maladies: this.state.maladies,
             updateResultatField: this.updateResultatField,
             updateResultatAll: this.updateResultatAll,
-            calculateRes: this.calculateRes,
+            calculateMaladies: this.calculateMaladies,
           }}
         >
           <BrowserRouter>

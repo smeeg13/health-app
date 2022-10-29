@@ -14,6 +14,7 @@ import Logout from "./pages/Logout";
 import { GetUserById } from "./objects_managers/UserManager";
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
+import Historic from "./pages/Historic";
 
 export default function App() {
   /* Base Invite User */
@@ -63,10 +64,11 @@ export default function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/settings" element={<Settings currentUser={currentUser} />}/>
         <Route path="/resultats" element={<Resultats currentUser={currentUser} />} />
-        <Route path="/account" element={<Account />} />
+        <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser}/>} />
         <Route path="/survey1" element={<Survey quesId="1" />} />
         <Route path="/survey2" element={<Survey quesId="2" />} />
         <Route path="/survey3" element={<Survey quesId="3" />} />
+        <Route path="/historic" element={<Historic currentUser={currentUser}/>}/>
       </Routes>
     </div>
   );

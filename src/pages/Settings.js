@@ -124,7 +124,7 @@ function VariablesForm({ data }) {
       <h4
         className="variable_text"
         style={{
-          color: themes[themeContext.theme].textcolor,
+          color: themes[themeContext.theme].textcolor, textDecoration:"none"
         }}
       >
         {data.nom}{" "}
@@ -146,7 +146,7 @@ function VariablesForm({ data }) {
                         ("")
                     }*/}
           <div>
-            <h3 className="settings_label">
+            <h3 className="settings_label" style={{textDecoration:"none"}}>
               {" "}
               Valeur normale {api_variable_normale}
             </h3>

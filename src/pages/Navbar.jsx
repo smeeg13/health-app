@@ -50,7 +50,7 @@ export default class Navbar extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/registration" style={{ textDecoration: "none" }}>
+                  <Link to="/historic" style={{ textDecoration: "none" }}>
                     Historic
                   </Link>
                 </li>

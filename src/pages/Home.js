@@ -2,11 +2,11 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 import "@fontsource/lexend-deca";
-import my_avatar from "./img/avatar5.png";
 import { useContext } from "react";
 import home_pic from "./img/home.png";
 import { ThemeContext, ResultatContext, themes } from "../Context";
 import Resultats from "./Resultats";
+import survey_pic from "./img/survey_pic.png";
 
 export default function Home(props) {
   return (
@@ -96,6 +96,7 @@ function HomeGuest() {
       <br />
       <img
         src={home_pic}
+        alt="HomePics"
         style={{ height: "300px", marginTop: "-100px", float: "right" }}
       ></img>
     </div>
@@ -140,8 +141,8 @@ function HomeUser(props) {
       <br />
       <div className="center">
         {/* Show nothing if the result in context is "null" */}
-        {resultatContext.resultat.diabete !== 0 ||
-        resultatContext.resultat.cancer !== 0 ? (
+        {resultatContext.resultat.age !== 0 && resultatContext.resultat.taille !== 0 &&
+        resultatContext.resultat.poids !== 0 ? (
           <Resultats currentUser={props.currentUser} />
         ) : (
           <div>
@@ -153,6 +154,7 @@ function HomeUser(props) {
               {" "}
               Please complete a survey to see some results
             </h4>
+            <img src={survey_pic} style={{height:"300px"}}></img>
           </div>
         )}
       </div>

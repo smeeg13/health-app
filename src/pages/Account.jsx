@@ -1,73 +1,104 @@
 
 import styled from 'styled-components';
-import avatar1 from './img/avatar1.png';
-import avatarr from './img/avatar_roux.png';
-import avatar2 from './img/avatar2.png';
-import avatar3 from './img/avatar3.png';
-import avatar4 from './img/avatar4.png';
-import avatar5 from './img/avatar5.png';
-import avatar6 from './img/avatar6.png';
-import logo from './img/logo.png';
-import { Link } from 'react-router-dom'
-import background from './img/background.png';
+import { Link, Navigate } from 'react-router-dom'
+import {useNavigate} from "react-router-dom"
 import { ThemeContext, themes } from "../Context";
 import React, { useContext } from "react";
+import { setNestedObjectValues } from 'formik';
 
-function Registration() {
+import _ from "lodash";
 
-    let themeContext = useContext(ThemeContext);
+function Registration(props) {
 
-    const handleClick = () => {
-        alert("Image clicked");
-    }
+  const avatar1 = '/img/avatar1.png';
+  const avatarr = '/img/avatar_roux.png';
+  const avatar3 = '/img/avatar3.png';
+  const avatar4 = '/img/avatar4.png';
+  const avatar5 = '/img/avatar5.png';
+  const avatar6 = '/img/avatar6.png';
 
-  const [value, setValue] = React.useState("homme");
+  let themeContext = useContext(ThemeContext);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const [avatarSelected, setAvatar] = React.useState(props.currentUser.avatar);
+
+
+  const onClickHandler = (order) => {
+    setAvatar(order.target.src);
+    console.log(avatarSelected)
+    // props.setUser((prevState) => 
+    // {props.currentUser.avatar=order.target.src} 
+    // );
   };
 
-    return (
-        <Container2>
-            <div className="container left" style={{
-                backgroundColor: themes[themeContext.theme].background,
-                color: themes[themeContext.theme].foreground,
-            }}>
-                <h1 className="choose_avatar" style={{
-                    color: themes[themeContext.theme].textcolor,
-                }}>Enter your personnal information</h1>
-                <form>
-                    <label className="label" style={{
-                        color: themes[themeContext.theme].textcolor,
-                    }}>Name</label>
-                    <br />
-                    <input
-                        className="text_input"
-                        type="text"
-                        maxLength={30}
-                        // value={email}
-                        // onChange={handleEmailChange}
-                        required
-                    />
+  const handleInput = (event) => {
+    // props.setUser((prevState) => 
+    // {props.currentUser.name=event.target.value} 
+    // );
+  }
+
+  const navigate = useNavigate();
+
+  const HandleSubmit = (event)=>{
+    props.setUser((prevState) => {
+        const clonedUser = _.clone(prevState);
+        clonedUser.avatar = avatarSelected;
+
+        return clonedUser;
+    });
+ 
+
+     navigate("/");
+
+  }
+
+  console.log(props.currentUser.avatar);
+  // console.log(props.currentUser.name)
+
+  return (
+    <Container2>
+      <div className="container left" style={{
+        backgroundColor: themes[themeContext.theme].background,
+        color: themes[themeContext.theme].foreground,
+      }}>
+        <h1 className="choose_avatar" style={{
+          color: themes[themeContext.theme].textcolor,
+        }}>Enter your personnal information</h1>
+        <form>
+          <label className="label" style={{
+            color: themes[themeContext.theme].textcolor,
+          }}>Name</label>
+          <br />
+          <input
+            name='nom'
+            className="text_input"
+            type="text"
+            maxLength={30}
+            // value={email}
+            // onChange={handleEmailChange}
+            required
+            // onChange={handleInput}
+          />
 
           <br></br>
+          {/* 
+          <label className="label" style={{
+            color: themes[themeContext.theme].textcolor,
+          }}>Firstname</label>
+          <br />
+          <input
+            style={{ marginTop: "-15px" }}
+            className="text_input"
+            type="text"
+            maxLength={30}
+            // value={email}
+            // onChange={handleEmailChange}
+            required
+          /> */}
 
-                    <label className="label" style={{
-                        color: themes[themeContext.theme].textcolor,
-                    }}>Firstname</label>
-                    <br />
-                    <input
-                        style={{ marginTop: "-15px" }}
-                        className="text_input"
-                        type="text"
-                        maxLength={30}
-                        // value={email}
-                        // onChange={handleEmailChange}
-                        required
-                    />
+          <h1>Avatar selected </h1>
+          <img className="avatar1" src={avatarSelected} defaultValue={avatar1} alt="avatar"></img>
 
-
-                    {/* <label className="label">Age</label>
+          {/* <label className="label">Age</label>
                     <br />
                     <input
                         className="nb_input"
@@ -79,7 +110,7 @@ function Registration() {
                     />
                     <br></br> */}
 
-                    {/* <label className="label">Weight</label>
+          {/* <label className="label">Weight</label>
                     <br />
                     <input
                         className="nb_input"
@@ -100,44 +131,43 @@ function Registration() {
                         // onChange={handleEmailChange}
                         required
                     /> */}
-                    <br></br>
-                    {/* <label className="label">Sex</label>
+          <br></br>
+          {/* <label className="label">Sex</label>
                     <br />
                     <select value={value} onChange={handleChange}>
                         <option value="woman">Woman</option>
                         <option value="man">Man</option>
                     </select> */}
-                </form>
-            </div>
+        </form>
+      </div>
 
-            <div className="container rightt" style={{
-                backgroundColor: themes[themeContext.theme].background_right,
-                color: themes[themeContext.theme].foreground,
-            }}>
-                <div className="flex-container">
-                    <h1 className="choose_avatar" style={{
-                        color: themes[themeContext.theme].textcolor,
-                    }}>Choose an avatar </h1>
-                    <div className="avatar">
-                        <img className="avatar1" src={avatar1} onClick={handleClick}></img>
-                        <img className="avatar2" src={avatarr} onClick={handleClick}></img>
-                        <img className="avatar1" src={avatar3} onClick={handleClick}></img>
-                    </div>
-                    <div className="avatar">
-                        <img className="avatar1" src={avatar4} onClick={handleClick}></img>
-                        <img className="avatar1" src={avatar5} onClick={handleClick}></img>
-                        <img className="avatar1" src={avatar6} onClick={handleClick}></img>
-                    </div>
-                </div>
-                <Link to="/">
-                    <button className="btn" style={{
-                        backgroundColor: themes[themeContext.theme].button,
-                        color: themes[themeContext.theme].textcolorbtn,
-                    }}>Submit</button>
-                </Link>
-            </div>
-        </Container2>
-    )
+      <div className="container rightt" style={{
+        backgroundColor: themes[themeContext.theme].background_right,
+        color: themes[themeContext.theme].foreground,
+      }}>
+        <div className="flex-container">
+          <h1 className="choose_avatar" style={{
+            color: themes[themeContext.theme].textcolor,
+          }}>Choose an avatar </h1>
+          <div className="avatar">
+            <img className="avatar1" src={avatar1} onClick={onClickHandler}></img>
+            <img className="avatar2" src={avatarr} onClick={onClickHandler}></img>
+            <img className="avatar1" src={avatar3} onClick={onClickHandler}></img>
+          </div>
+          <div className="avatar">
+            <img className="avatar1" src={avatar4} onClick={onClickHandler}></img>
+            <img className="avatar1" src={avatar5} onClick={onClickHandler}></img>
+            <img className="avatar1" src={avatar6} onClick={onClickHandler}></img>
+          </div>
+        </div>
+          <button className="btn" style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }} onClick={HandleSubmit}>Submit
+          </button>
+      </div>
+    </Container2>
+  )
 }
 
 export default Registration;
@@ -162,6 +192,7 @@ const Container2 = styled.div`
     margin-right: auto;
     height: 100%;
     width: 100%;
+    
   }
 
   .left {
@@ -179,6 +210,8 @@ const Container2 = styled.div`
     width: 50%;
     right: 0;
     background-color: #eafaf1;
+    z-index: 1;
+    overflow-x: hidden;
   }
   .label {
     align-items: center;

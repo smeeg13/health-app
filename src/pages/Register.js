@@ -15,7 +15,6 @@ import {InformationMessage} from "./Login";
 
 export default function Register() {
     const navigate = useNavigate();
-    const [generalEror, setGeneralError] = useState("");
     let [message, setmessage] = useState("")
     let themeContext = useContext(ThemeContext);
 
@@ -33,10 +32,9 @@ export default function Register() {
             await CreateDocUser(user);
 
             await CreateDocUserInResultat(user);
-            navigate("/");
+            navigate("/account");
 
         } catch (e) {
-            setGeneralError(e.name);
             console.error(e);
         }
     };
@@ -62,9 +60,7 @@ export default function Register() {
                 </p>
                 {InformationMessage(message)}
                 <RegisterForm handleSubmit={handleRegister}/>
-                {generalEror !== "" ? (
-                    <div className="error">{generalEror}</div>
-                ) : null}
+                
                 <p className="click_here" style={{fontSize: 14, color: themes[themeContext.theme].textcolor}}>
                     Already Have an Account ? <Link to="/Login">Go to Login</Link>{" "}
                 </p>

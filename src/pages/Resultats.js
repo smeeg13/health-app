@@ -1,14 +1,18 @@
 import "../App.css";
+import my_avatar from './img/avatar1.png';
+
 import { db } from "../initFirebase";
 import React, { useContext, useState, useEffect } from "react";
 import { ResultatContext } from "../Context";
-import my_avatar from "./img/avatar5.png";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
+import Account from './Account';
 import { Loader } from "../components/QuestionForm";
+import { ToggleButton } from "../components/ToggleButton";
 
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
+
   let [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true);
 
@@ -20,19 +24,32 @@ export default function Resultats(props) {
       ).withConverter(questionConverter);
       const roleSnapshot = await getDocs(refQuestionnaire);
       const questionList = roleSnapshot.docs.map((doc) => doc.data());
-      if (questions.length < 16)
-        setQuestions((prevQuestions) => [...prevQuestions, ...questionList]);
+      return questionList;
+    }
+
+    async function fetchAllQuestionaires() {
+      let questions1 = await getQuestionnaireById(1);
+      let questions2 = await getQuestionnaireById(2);
+      let questions3 = await getQuestionnaireById(3);
+
+      setQuestions((prevQuestions) => [
+        ...prevQuestions,
+        ...questions1,
+        ...questions2,
+        ...questions3,
+      ]);
       setBusy(false);
     }
-    getQuestionnaireById(1);
-    getQuestionnaireById(2);
-    getQuestionnaireById(3);
+
+    fetchAllQuestionaires();
   }, []);
+
+  useEffect(() => {
+    resultatContext.calculateMaladies(resultatContext.resultat);
+  }, [resultatContext.resultat]);
 
   const handleFormInputChange = (event) => {
     resultatContext.updateResultatField(event, resultatContext.resultat);
-    resultatContext.calculateRes(resultatContext.resultat);
-    console.log('ResHandleForm', resultatContext.resultat)
   };
 
   const handleFormSubmit = (event) => {
@@ -41,15 +58,12 @@ export default function Resultats(props) {
     // resultatContext.updateResultatAll(event);
   };
   return (
-    //TODO :: display ok, but if tension 1 it update field yesSyst but don't update syst to 150 same for all yes fields */
     <div className="wrapper">
       <div className="box1">
-
         {/* Box for data questionnaire 1-2  */}
         <div className="container result1">
-          <TitleBox title="Vous" my_avatar={props.currentUser.avatar} />
-          <BoxQuestionnaire1_2
-            resultat={resultatContext.resultat}
+          <TitleBox title="Votre Situation" my_avatar={props.currentUser.avatar} />
+          <BoxRes1
             handleFormInputChange={handleFormInputChange}
             handleFormSubmit={handleFormSubmit}
             questions={questions}
@@ -59,11 +73,10 @@ export default function Resultats(props) {
         {/* Box for data questionnaire 3 */}
         <div className="container result2">
           <TitleBox
-            title="Famille - Habitudes "
+            title="Votre Rythme "
             my_avatar={props.currentUser.avatar}
           />
-          <BoxQuestionnaire3
-            resultat={resultatContext.resultat}
+          <BoxRes2
             handleFormInputChange={handleFormInputChange}
             handleFormSubmit={handleFormSubmit}
             questions={questions}
@@ -72,11 +85,11 @@ export default function Resultats(props) {
         </div>
         {/* Box for Resultat  */}
         <div className="container result3">
-          <TitleBox title="Vos Risques" my_avatar={props.currentUser.avatar} />
-          <BoxResultat resultat={resultatContext.resultat} />
+          <TitleBox title="Vos Risques"  />
+          <BoxResultat maladies={resultatContext.maladies} />
         </div>
       </div>
-      
+
       <br />
       <div className="box2">
         {/* Button for saving into db changes */}
@@ -95,16 +108,18 @@ function TitleBox(props) {
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
-        <img className="my_avatar" src={my_avatar} />
+        <img className="my_avatar" src={this.currentUser.avatar} alt="AvatarUser" />
       </div>
     </div>
   );
 }
-function BoxQuestionnaire1_2(props) {
+function BoxRes1(props) {
+  let resultatContext = useContext(ResultatContext);
+
   //Need type - min - max from Questionnaire into props.questions
   //TODO :: for each input, take back the type corresponding to the question characteristics
   //console.log("QuestionList in resultat : ", props.questions);
-  console.log('boxquestionnaire1_2',props.resultat)
+  console.log('boxquestionnaire1_2',props.questions)
   return (
     <div>
       {props.isBusy ? (
@@ -112,96 +127,149 @@ function BoxQuestionnaire1_2(props) {
       ) : (
         <form onSubmit={props.handleFormSubmit}>
           <div>
-            <label htmlFor="age">Age : </label>
-            <FormInput
-              id="age"
-              type="number"
-              name="age"
-              min={props.questions[2].min}
-              placeholder="Age"
-              value={props.resultat.age}
-              onChange={props.handleFormInputChange}
-            />
-          </div>
-          <div>
             <label htmlFor="sexe">Sexe : </label>
             <select
-              name="sexe"
-              id="sexe"
-              value={props.resultat.sexe}
+            disabled
+              name={props.questions[0].resName}
+              id={props.questions[0].resName}
+              value={resultatContext.resultat.sexe}
               onChange={props.handleFormInputChange}
             >
-              <option value="0">
+              <option value={getObjKey(props.questions[0].valeurs_possibles,props.questions[0].valeurs_possibles[0])}>
                 {props.questions[0].valeurs_possibles[0]}
               </option>
-              <option value="1">
+              <option value={getObjKey(props.questions[0].valeurs_possibles,props.questions[0].valeurs_possibles[1])}>
                 {props.questions[0].valeurs_possibles[1]}
               </option>
             </select>
           </div>
           <div>
-            <label htmlFor="poids">Poids : </label>
+            <label htmlFor="age">Age : </label>
             <FormInput
-              id="poids"
+            disabled
+              id={props.questions[2].resName}
               type="number"
-              name="poids"
-              placeholder="Poids"
-              value={props.resultat.poids}
+              name={props.questions[2].resName}
+              min={props.questions[2].min}
+              max={props.questions[2].max}
+              placeholder="Age"
+              value={resultatContext.resultat.age}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="taille">Taille : </label>
+            <FormInput
+              disabled 
+              id={props.questions[4].resName}
+              type="number"
+              name={props.questions[4].resName}
+              placeholder="Taille"
+              value={resultatContext.resultat.taille}
               onChange={props.handleFormInputChange}
             />
           </div>
           <div>
-            <label htmlFor="taille">Taille : </label>
-            <FormInput
-              id="taille"
-              type="number"
-              name="taille"
-              placeholder="Taille"
-              value={props.resultat.taille}
-              onChange={props.handleFormInputChange}
-            />
+            <ToggleButton name="yesSyst" checked={resultatContext.resultat.yesSyst} onChange={props.handleFormInputChange}
+/>
           </div>
           <div>
             <label htmlFor="yesSyst">Tension Elevée : </label>
             <FormInput
+            disabled
               id="yesSyst"
               type="number" //TODO:: Should be a toggle ; if yes put the predefined value
               name="yesSyst"
               placeholder="Tension"
-              value={props.resultat.yesSyst}
+              value={resultatContext.resultat.yesSyst}
               onChange={props.handleFormInputChange}
             />
           </div>
           <div>
             <label htmlFor="yesGlyc">Sucre Sanguin Elevée : </label>
             <FormInput
+            disabled
               id="yesGlyc"
               type="number" //TODO:: Should be a toggle ; if yes put the predefined value
               name="yesGlyc"
               placeholder="Glycolyc"
-              value={props.resultat.yesGlyc}
+              value={resultatContext.resultat.yesGlyc}
               onChange={props.handleFormInputChange}
             />
           </div>
           <div>
             <label htmlFor="yesChol">Cholesterol Elevée : </label>
             <FormInput
+            disabled
               id="yesChol"
               type="number" //TODO:: Should be a toggle ; if yes put the 2 predefined value
               name="yesChol"
               placeholder="Cholesterol"
-              value={props.resultat.yesChol}
+              value={resultatContext.resultat.yesChol}
               onChange={props.handleFormInputChange}
             />
           </div>
           <div>
             <label htmlFor="diab">Diabétique : </label>
             <FormInput
+            disabled
               id="diab"
               type="number" //TODO:: Should be a toggle ; if yes put the predefined value
               name="diab"
               placeholder="Diabète"
-              value={props.resultat.diab}
+              value={resultatContext.resultat.diab}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="inf">Déjà eu un Infarctus : </label>
+            <FormInput
+            disabled
+              id="inf"
+              type="text" //TODO:: Should be a toggle
+              name="inf"
+              placeholder="Inf"
+              value={resultatContext.resultat.inf}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="avc">Déjà eu une Attaque cérébrale : </label>
+            <FormInput
+            disabled
+              id="avc"
+              type="text" //TODO:: Should be a toggle
+              name="avc"
+              placeholder="AVC"
+              value={resultatContext.resultat.avc}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <hr />
+
+          <div>
+            <label htmlFor="afinf">Parent ayant eu un Infarctus : </label>
+            <FormInput
+            disabled
+              id="afinf"
+              type="text" //TODO:: Should be a toggle
+              name="afinf"
+              placeholder="AfInf"
+              value={resultatContext.resultat.afinf}
+              onChange={props.handleFormInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="afcancer">Parent ayant eu un Cancer : </label>
+            <FormInput
+            disabled
+              id="afcancer"
+              type="text" //TODO:: Should be a toggle
+              name="afcancer"
+              placeholder="AfCancer"
+              value={resultatContext.resultat.afcancer}
               onChange={props.handleFormInputChange}
             />
           </div>
@@ -210,7 +278,9 @@ function BoxQuestionnaire1_2(props) {
     </div>
   );
 }
-function BoxQuestionnaire3(props) {
+function BoxRes2(props) {
+  let resultatContext = useContext(ResultatContext);
+
   //Need type - min - max from Questionnaire into props.questions
   //for each input, take back the type corresponding to the question characteristics
   return (
@@ -219,29 +289,18 @@ function BoxQuestionnaire3(props) {
         <Loader />
       ) : (
         <form onSubmit={props.handleFormSubmit}>
-          <div>
-            <label htmlFor="afcancer">Parent ayant eu un Cancer : </label>
+                   <div>
+            <label htmlFor="poids">Poids : </label>
             <FormInput
-              id="afcancer"
-              type="text" //TODO:: Should be a toggle
-              name="afcancer"
-              placeholder="AfCancer"
-              value={props.resultat.afcancer}
+              id="poids"
+              type="number"
+              name="poids"
+              placeholder="Poids"
+              value={resultatContext.resultat.poids}
               onChange={props.handleFormInputChange}
             />
           </div>
-          <div>
-            <label htmlFor="afinf">Parent ayant eu un Infarctus : </label>
-            <FormInput
-              id="afinf"
-              type="text" //TODO:: Should be a toggle
-              name="afinf"
-              placeholder="AfInf"
-              value={props.resultat.afinf}
-              onChange={props.handleFormInputChange}
-            />
-          </div>
-          <hr />
+          <hr/>
 
           <br />
           <div>
@@ -252,28 +311,28 @@ function BoxQuestionnaire3(props) {
               name="fume"
               min={props.questions[1].min}
               placeholder="Fumeur"
-              value={props.resultat.fume}
+              value={resultatContext.resultat.fume}
               onChange={props.handleFormInputChange}
             />
           </div>
           <div>
             <label htmlFor="alim">Alimentation : </label>
             <select
-              name="alim"
-              id="alim"
-              value={props.resultat.alim}
+              name={props.questions[13].resName}
+              id={props.questions[13].resName}
+              value={resultatContext.resultat.alim}
               onChange={props.handleFormInputChange}
             >
-              <option value={0}>
+              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[0])}>
                 {props.questions[13].valeurs_possibles[0]}
               </option>
-              <option value={1}>
+              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[1])}>
                 {props.questions[13].valeurs_possibles[1]}
               </option>
-              <option value={2}>
+              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[2])}>
                 {props.questions[13].valeurs_possibles[2]}
               </option>
-              <option value={3}>
+              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[3])}>
                 {props.questions[13].valeurs_possibles[3]}
               </option>
             </select>
@@ -281,21 +340,21 @@ function BoxQuestionnaire3(props) {
           <div>
             <label htmlFor="sport">Sport : </label>
             <select
-              name="sport"
-              id="sport"
-              value={props.resultat.sport}
+              name={props.questions[14].resName}
+              id={props.questions[14].resName}
+              value={resultatContext.resultat.sport}
               onChange={props.handleFormInputChange}
             >
-              <option value="0">
+              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[0])}>
                 {props.questions[14].valeurs_possibles[0]}
               </option>
-              <option value="1">
+              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[1])}>
                 {props.questions[14].valeurs_possibles[1]}
               </option>
-              <option value="2">
+              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[2])}>
                 {props.questions[14].valeurs_possibles[2]}
               </option>
-              <option value="3">
+              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[3])}>
                 {props.questions[14].valeurs_possibles[3]}
               </option>
             </select>
@@ -304,24 +363,24 @@ function BoxQuestionnaire3(props) {
           <div>
             <label>Alcool : </label>
             <select
-              name="alcool"
-              id="alcool"
-              value={props.resultat.alcool}
+              name={props.questions[15].resName}
+              id={props.questions[15].resName}
+              value={resultatContext.resultat.alcool}
               onChange={props.handleFormInputChange}
             >
-              <option value="0">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[0])}>
                 {props.questions[15].valeurs_possibles[0]}
               </option>
-              <option value="1">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[1])}>
                 {props.questions[15].valeurs_possibles[1]}
               </option>
-              <option value="2">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[2])}>
                 {props.questions[15].valeurs_possibles[2]}
               </option>
-              <option value="3">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[3])}>
                 {props.questions[15].valeurs_possibles[3]}
               </option>
-              <option value="4">
+              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[4])}>
                 {props.questions[15].valeurs_possibles[4]}
               </option>
             </select>
@@ -332,59 +391,69 @@ function BoxQuestionnaire3(props) {
   );
 }
 function BoxResultat(props) {
-  console.log("in Box resultat : ", props.resultat);
+  let resultatContext = useContext(ResultatContext);
+  console.log("Resultat : ", resultatContext.resultat);
+  console.log("Maladies : ", resultatContext.maladies);
 
   return (
     <>
       <div>
         <span>Diabete : </span>
+        <br />
         <input
           disabled
           type="range"
-          min={1}
-          max={10}
+          min={0}
+          max={100}
           step={1}
-          value={props.resultat.diabete}
+          list="tickmarks"
+          value={props.maladies.diabete}
           className="custom-slider"
         />
+        <datalist id="tickmarks">
+          <option value="50"></option>
+        </datalist>
       </div>
       <br />
       <div>
         <label>Cancer : </label>
+        <br />
         <input
           disabled
           type="range"
-          min={1}
-          max={10}
+          min={0}
+          max={100}
           step={1}
-          value={props.resultat.cancer}
+          value={props.maladies.cancer}
           className="custom-slider"
         />
       </div>
       <br />
       <div>
         <label>Infarctus : </label>
+        <br />
         <input
           disabled
           type="range"
-          min={1}
-          max={10}
+          min={0}
+          max={100}
           step={1}
-          value={props.resultat.infarctus}
+          value={props.maladies.infarctus}
           className="custom-slider"
         />
-        <label>{props.resultat.infarctus} </label>
+        <label>{props.maladies.infarctus} </label>
       </div>
       <br />
       <div>
         <label>Non - Infarctus : </label>
+        <br />
         <input
           disabled
           type="range"
-          min={1}
-          max={10}
+          min={0}
+          max={100}
           step={1}
-          value={props.resultat.nonInfarctus}
+          value={props.maladies.nonInfarctus}
           className="custom-slider"
         />
       </div>
@@ -392,6 +461,7 @@ function BoxResultat(props) {
   );
 }
 function FormInput({
+  disabled,
   id,
   label,
   type,
@@ -401,12 +471,13 @@ function FormInput({
   placeholder,
   min,
   max,
-  range,
+  
 }) {
   return (
     <>
       <label>{label}</label>
       <input
+      disabled={disabled}
         id={id}
         type={type}
         name={name}
@@ -419,4 +490,8 @@ function FormInput({
       <br />
     </>
   );
+}
+
+export function getObjKey(obj, value) {
+  return Object.keys(obj).find(key => obj[key] === value);
 }
