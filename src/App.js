@@ -14,14 +14,13 @@ import { auth } from "./initFirebase";
 import Logout from "./pages/Logout";
 import { GetUserById } from "./objects_managers/UserManager";
 import { GetDocteurById } from "./objects_managers/DocteurManager";
-
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
 import Historic from "./pages/Historic";
 
 export default function App() {
   /* Base Invite User */
-  const guestUser = new User(null, "", "", 0, 0, 0, 0);
+  const guestUser = new User(null, "", "", 0, 0, 0, 0, null, null,null,'','');
   guestUser.setNomRole("Invite");
   guestUser.setIdRole("wfprGThk63ZrRRjRh1np");
 

@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Docteur } from "../objects/Docteur";
 import { firebaseConfig } from "../initFirebase";
 import NewDocteurForm from "../components/NewDocteurForm";
@@ -10,7 +10,7 @@ import "@fontsource/lexend-deca";
 import "./pages.css";
 import "../App.css";
 import docs from "./img/login2.png";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { ThemeContext, themes } from "../Context";
 import { useContext } from "react";
 import { InformationMessage } from "./Login";
@@ -33,7 +33,7 @@ export default function RegisterDocteur() {
 
           setmessage("REGISTER_SUCCESS");
           console.log("User id : " + docuser.uid + ", created successfully!");
-      let doc = new Docteur(docuser.uid,values.email, values.nom,  []);
+      let doc = new Docteur(docuser.uid,values.email, values.nom,  [], []);
 
        CreateDocDocteur(doc).then((val) => {
         console.log("Document Docteur created : ", val.uid);
@@ -83,6 +83,7 @@ export default function RegisterDocteur() {
           <Link to="/">Back to Home</Link>{" "}
         </p>
         <img
+        alt="docs_pics"
           className="docs_pics"
           src={docs}
           style={{

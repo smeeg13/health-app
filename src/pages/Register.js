@@ -28,7 +28,7 @@ export default function Register() {
             }).catch((error) => {
                 setmessage(error.message)
             });
-            let user = new User(auth.currentUser.uid, email, "", 0, 0, 0, 0, null, false);
+            let user = new User(auth.currentUser.uid, email, "", 0, 0, 0, 0, null, false,null, '','');
             //To create the user document in Firestore with the id created by Auth
             await CreateDocUser(user);
 
@@ -65,7 +65,7 @@ export default function Register() {
                 <p className="click_here" style={{fontSize: 14, color: themes[themeContext.theme].textcolor}}>
                     Already Have an Account ? <Link to="/Login">Go to Login</Link>{" "}
                 </p>
-                <img className="docs_pics" src={docs}
+                <img className="docs_pics" src={docs} alt="docs_pics"
                      style={{width: "200px", float: "right", marginTop: "-100px", position: "relative"}}></img>
             </div>
         </>

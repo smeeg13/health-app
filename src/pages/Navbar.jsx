@@ -6,8 +6,6 @@ import exit from "./img/exit.png";
 import night from "./img/night.png";
 import day from "./img/day.png";
 import { ThemeContext, themes } from "../Context";
-import Home from "./Home";
-import ReactSwitch from "react-switch";
 
 export default class Navbar extends React.Component {
 
@@ -16,29 +14,29 @@ export default class Navbar extends React.Component {
       <Container>
         <div className="navbar" style={{backgroundColor: themes[this.context.theme].background, color: themes[this.context.theme].textcolor}}>
           <Link to="/">
-            <img className="logo_app" src={logo} />
+            <img className="logo_app" src={logo} alt="logo_app" />
           </Link>
           <ul>
             {/* if user.nom_role != invite : USER CONNECTED */}
             {this.props.currentUser.nom_role !== "Invite" && (
               <Link to="/logout" style={{ textDecoration: "none" }}>
                 <button className="btn btn_logout" title="Logout">
-                  <img className="logo_logout" src={exit} />
+                  <img className="logo_logout" src={exit}  alt="logout"/>
                 </button>
               </Link>
             )}
 
             <button
-              className="btn btn_switch"
+              className="btn btn_logout"
               title="Switch Theme"
               onClick={this.context.toggleTheme}
             >
-           {/* {this.context.theme === "dark" ? (
-                <img className="logo_theme" src={night} />
+           {this.context.theme === "dark" ? (
+                <img className="logo_theme" src={night} alt="dark mode"/>
               ) : (
-                <img className="logo_theme" src={day} />
-              )}    */}
-               <span>💡</span>
+                <img className="logo_theme" src={day} alt="light mode" />
+              )}   
+               {/* <span>💡</span> */}
             </button>
 
             {/* if user.nom_role = Patient  */}

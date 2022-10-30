@@ -4,7 +4,6 @@ import React, { useContext, useState, useEffect } from "react";
 import { ResultatContext } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
-import { ToggleButton } from "../components/ToggleButton";
 import BoxRes1 from "../components/BoxRes1";
 import BoxRes2 from "../components/BoxRes2";
 import BoxResultat from "../components/BoxResultat";
@@ -12,8 +11,10 @@ import BoxResultat from "../components/BoxResultat";
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
 
+  let [resultatToDisplay, setResultatToDisplay] = useState(undefined);
   let [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true);
+  
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
