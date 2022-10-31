@@ -24,14 +24,15 @@ export function BoxQuestion(props) {
                 value={q.value}
                 handleFormInputChange={props.handleFormInputChange}
               />}
-              {q.typeAnswer === 'dropdown' && <Dropdown
+              {q.typeAnswer === 'select-one' && <Dropdown
                 id={q.id}
+                type="select-one"
                 name={q.resName}
                 question={q}
                 value={q.value}
                 handleFormInputChange={props.handleFormInputChange}
               />}
-              {q.typeAnswer === 'slider' &&
+              {q.typeAnswer === 'range' &&
                 <div>
                   <Range
                     id={q.id}
@@ -46,9 +47,9 @@ export function BoxQuestion(props) {
             </li>
           )}
         </div>
-        <button className="btn" type="submit" onClick={props.handleFormSubmit}>
+        {props.index === props.numberOfQues && <button className="btn" type="submit" onClick={props.handleFormSubmit}>
           Save Modifications
-        </button>
+        </button>}
       </form>
     </div>
   );
@@ -73,8 +74,7 @@ function Range(props) {
         onInput={handleChange}
         step="1" 
         />
-        <p>{slideValue}</p>
-        
+        <p>{slideValue}</p> 
     </div>
   )
 }
@@ -110,6 +110,7 @@ function CheckBoxForm(props) {
         checked={props.value}
         onChange={props.handleFormInputChange}
       />
+      <b/>
     </div>
   )
 }
