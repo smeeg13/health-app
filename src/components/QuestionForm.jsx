@@ -53,7 +53,7 @@ export function BoxQuestion(props) {
             </div>
           )}
         </div>
-        {props.index === props.numberOfQues && <button className="btn" type="submit" onClick={props.handleFormSubmit}>
+        {props.index === props.numberOfQues && <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
           Save Modifications
         </button>}
       </form>

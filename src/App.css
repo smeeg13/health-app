@@ -8,76 +8,38 @@
   align-items: center;
 }
 
-/* .survey_btn{
-  margin-left: 680px;
-} */
-
-/* #light{
-  background-color: #eafaf1;
-}
-
-#dark{
-  background-color: #030f27;
-  color: white;
-}
-
-#dark .survey_btn{
-  background-color:  #34495e;
-  box-shadow: 3px 3px 6px #5d6d7e,
-  -3px -3px 6px #5d6d7e;
-}
-
-#dark .register_btn{
-  background-color:  #34495e;
-  box-shadow: 3px 3px 6px #5d6d7e,
-  -3px -3px 6px #5d6d7e;
-}
-
-#dark .login_btn{
-  background-color:  #34495e;
-  box-shadow: 3px 3px 6px #5d6d7e,
-  -3px -3px 6px #5d6d7e;
-}
-
-#light .welcome{
-  color: #030f27;
-}
-
-#dark .welcome{
-  color: white;
-}
-
-#dark .container_quiz{
-  text-align: center;
-  background-color:  #34495e ;
-}
-
-
-#dark .navbar{
-  height: 50px;
-  width: 100%;
-  text-decoration: none !important;
-  margin-bottom: 20px;
-  background-color: #030f27;
-}
-
-#dark .container_navbar{
-  background-color: #030f27;
-}
-
-#dark .navbar ul li{
-  color: white;
-} */
-
-/* .App-header {
-  background-color:#61dafb ;
-  min-height: 100vh;
+.bouncing-loader {
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-} */
+  align-items: center;
+}
+
+.bouncing-loader>div {
+  width: 30px;
+  height: 30px;
+  margin: 3px 6px;
+  border-radius: 50%;
+  background-color: #a3a1a1;
+  opacity: 1;
+  animation: bouncing-loader 0.6s infinite alternate;
+}
+
+@keyframes bouncing-loader {
+  to {
+    opacity: 0.1;
+    transform: translateY(-16px);
+  }
+}
+
+.bouncing-loader>div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.bouncing-loader>div:nth-child(3) {
+  animation-delay: 0.4s;
+}
 
 .home_pic{
     margin-left: 150px;

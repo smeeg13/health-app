@@ -37,7 +37,7 @@ export default function HomeGuest() {
           provide you the result of your health condition.
         </p>
   
-        <Link to="/survey1">
+        <Link to="/survey">
           <button
             className="btn"
             style={{
