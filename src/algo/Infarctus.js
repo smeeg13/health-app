@@ -32,4 +32,3 @@ export default function riskInfarctus(AGE, SEXE, FUME, SYST, DM, INF, CHOL, HDL)
 
   return 1 - Math.pow(0.61785, Math.exp(res - 2.0869));
 }
- //console.log(riskInfarctus(70, 0, 0, 110, 0, 0, 3.5, 1.9));

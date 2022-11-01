@@ -4,8 +4,10 @@ import React, { useContext, useState, useEffect } from "react";
 import { ResultatContext } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
-import Account from './Account';
-import { Loader } from "../components/QuestionForm";
+import { ToggleButton } from "../components/ToggleButton";
+import BoxRes1 from "../components/BoxRes1";
+import BoxRes2 from "../components/BoxRes2";
+import BoxResultat from "../components/BoxResultat";
 
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
@@ -49,12 +51,16 @@ export default function Resultats(props) {
 
   const handleFormInputChange = (event) => {
     resultatContext.updateResultatField(event, resultatContext.resultat);
+    
   };
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
-    //TODO :: save into db
-    // resultatContext.updateResultatAll(event);
+    console.log(
+      "Save modif clicked !, current user id : ",
+      props.currentUser.id_user
+    );
+    resultatContext.updateInDb(props.currentUser.id_user);
   };
   return (
     <div className="wrapper">
@@ -84,12 +90,13 @@ export default function Resultats(props) {
         </div>
         {/* Box for Resultat  */}
         <div className="container result3">
-          <TitleBox title="Vos Risques"  />
+          <TitleBox title="Vos Risques" my_avatar={props.currentUser.avatar} />
           <BoxResultat maladies={resultatContext.maladies} />
         </div>
       </div>
 
       <br />
+
       <div className="box2">
         {/* Button for saving into db changes */}
         <button className="btn" type="submit" onClick={handleFormSubmit}>
@@ -99,6 +106,7 @@ export default function Resultats(props) {
     </div>
   );
 }
+
 function TitleBox(props) {
   return (
     <div>

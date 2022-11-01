@@ -3,29 +3,116 @@ import { useState } from "react";
 
 
 export function BoxQuestion(props) {
+  console.log("BoxQuestion", props.resultat);
 
   return (
     <div>
       <form onSubmit={props.handleFormSubmit}>
         <div>
-          <ul></ul>
           {props.questions.map(q =>
             <li key={q.id}>
               <label> {q.question} </label>
-              <FormInput
+              {q.typeAnswer === 'textbox' && <FormInput
                 id={q.id}
-                value={props.resultat[q.resName]}
-                onChange={props.handleFormInputChangeQues}
-              />
-              {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
-              {q.typeAnswer === 'slider' && <Range q={q.min} />}
-              {q.typeAnswer === 'dropdown' && <Dropdown />}
+                name={q.resName}
+                value={q.value}
+                onChange={props.handleFormInputChange}
+              />}
+              {q.typeAnswer === 'checkbox' && <CheckBoxForm
+                id={q.id}
+                name={q.resName}
+                value={q.value}
+                handleFormInputChange={props.handleFormInputChange}
+              />}
+              {q.typeAnswer === 'select-one' && <Dropdown
+                id={q.id}
+                type="select-one"
+                name={q.resName}
+                question={q}
+                value={q.value}
+                handleFormInputChange={props.handleFormInputChange}
+              />}
+              {q.typeAnswer === 'range' &&
+                <div>
+                  <Range
+                    id={q.id}
+                    name={q.resName}
+                    question={q}
+                    value={q.value}
+                    handleFormInputChange={props.handleFormInputChange}
+                  />
+                </div>
+
+              }
             </li>
           )}
         </div>
+        {props.index === props.numberOfQues && <button className="btn" type="submit" onClick={props.handleFormSubmit}>
+          Save Modifications
+        </button>}
       </form>
     </div>
   );
+}
+
+function Range(props) {
+
+  const [slideValue, setSlideValue] = useState(100);
+  const handleChange = (event) => {
+    setSlideValue(event.target.value);
+  };
+
+  return (
+    <div>
+      <input
+        type="range"
+        name={props.question.resName}
+        min={props.question.min}
+        max={props.question.max}
+        value={props.value}
+        onChange={props.handleFormInputChange}
+        onInput={handleChange}
+        step="1" 
+        />
+        <p>{slideValue}</p> 
+    </div>
+  )
+}
+
+function Dropdown(props) {
+  return (
+    <div>
+      <label className="label">Sex</label>
+      <br />
+      <select name={props.name} onChange={props.handleFormInputChange}>
+        <option value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[0])}>
+          {props.question.valeurs_possibles[0]}
+        </option>
+        <option value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[1])}>
+          {props.question.valeurs_possibles[1]}
+        </option>
+      </select>
+    </div>
+  );
+};
+
+export function getObjKey(obj, value) {
+  return Object.keys(obj).find(key => obj[key] === value);
+}
+
+function CheckBoxForm(props) {
+  return (
+    <div>
+      <input
+        id={props.id}
+        name={props.name}
+        type="checkbox"
+        checked={props.value}
+        onChange={props.handleFormInputChange}
+      />
+      <b/>
+    </div>
+  )
 }
 
 function FormInput({
@@ -55,155 +142,6 @@ function FormInput({
   );
 }
 
-// export default class QuestionForm extends React.Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       newQuestion: this.emptyQuestion,
-//     }
-//     this.myRef = React.createRef();
-//   }
-//   resultatContext = useContext(ResultatContext);
-//   emptyQuestion = { max: "", min: "", question: "", unites: "", val_predefined: "", val_predefined2: "" }
-
-//   render() {
-//     return (
-//       <>
-//         <FormInput
-//           fieldRef={this.myRef}
-//           type="text"
-//           name="max"
-//           placeholder="Max"
-//           value={this.state.newQuestion.max}
-//         //onChange={this.handleInputChange}
-//         />
-//         <FormInput
-//           fieldRef={this.myRef}
-//           type="text"
-//           name="min"
-//           placeholder="min"
-//           value={this.state.newQuestion.min}
-//         //onChange={this.handleInputChange}
-//         />
-//         <FormInput
-//           fieldRef={this.myRef}
-//           type="text"
-//           name="question"
-//           placeholder="question"
-//           value={this.state.newQuestion.question}
-//         //onChange={this.handleInputChange}
-//         />
-//       </>
-//     );
-//   }
-// }
-
-// export function FormInput({type, name, value, onChange, placeholder, fieldRef }) {
-//   /*
-//    Il est important de changer le nom ref en fieldRef lorsque l'on passe
-//    des informations dans une function, le nom "ref" est réservé
-//   */
-//   return (
-//     <>
-//       <input
-//         type={type}
-//         name={name}
-//         value={value}
-//         onChange={onChange}
-//         placeholder={placeholder}
-//         ref={fieldRef ? fieldRef : null}
-//       />
-//       <br />
-//     </>
-//   );
-// }
-
-
-
-
-// export function QuestionList( {ques} ) {
-//   console.log(ques);
-//   return (
-//     <>
-//       <ul>
-//         {ques.map(q =>
-//           <li key={q.id}>
-//             <p>
-//               {q.question}
-//               {q.typeAnswer === 'checkbox' && <CheckBoxForm />}
-//               {q.typeAnswer === 'slider' && <Range q={q.min}/>}
-//               {q.typeAnswer === 'dropdown' && <Dropdown />}
-//             </p>
-//           </li>
-//         )}
-//       </ul>
-//     </>
-//   );
-// }
-
-function Dropdown () {
-  const [value, setValue] = React.useState('homme');
-
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  }   
-
-  return (
-    <div>
-    <label className="label">Sex</label>
-              <br />
-              <select value={value} onChange={handleChange}>
-                  <option value="woman">Woman</option>
-                  <option value="man">Man</option>
-              </select>
-    </div>
-    
-  );
-};
-
-function Range (props) {
-  const [weight, setWeight] = useState(10);
-  
-  const changeWeight = (event) => {
-    setWeight(event.target.value);
-  };
-
-  return (
-    <div>
-      <h1>poids : {weight}</h1>
-      <input
-        style={{ backgroundColor: "blueviolet" }}
-        type="range"
-        onChange={changeWeight}
-        min={props.min}
-        max={props.max}
-        step={1}
-        value={props}
-        className="custom-slider"
-      />
-    </div>
-  );
-};
-
-function toggleCheckBox(value) {
-  return !value;
-}
-
-function CheckBoxForm() {
-  const [checked, setChecked] = useState(false);
-  return (
-    <div>
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={() => setChecked(toggleCheckBox)}
-      />
-    </div>
-  )
-}
-
-
 export function Loader() {
   return (
     <p>
@@ -211,46 +149,3 @@ export function Loader() {
     </p>
   );
 }
-
-
-
-
-// class Question extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-  
-
-//   render() {
-//     console.log('min',this.props.min);
-//     console.log('typeAnswer', this.props.typeAnswer);
-//     return (
-//       <>
-//         <p>
-//           {this.props.question}
-//           {this.props.typeAnswer === 'checkbox' && <CheckBoxForm />}
-//           {/* {this.props.typeAnswer === 'slider' &&
-//             //https://retool.com/blog/building-a-react-slider/
-//             <ReactSlider />
-//           } */}
-//         </p>
-//       </>
-//     );
-//   }
-// }
-
-// export function QuestionList({ questionList }) {
-//   return (
-//     <>
-//       <ul>
-//         {questionList.map(q =>
-//           <li key={q.id}>
-//             <p>
-//               <Question question={q.question} />
-//             </p>
-//           </li>
-//         )}
-//       </ul>
-//     </>
-//   );
-// }

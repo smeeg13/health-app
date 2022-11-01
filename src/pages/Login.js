@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import "@fontsource/lexend-deca";
 import LoginForm from "../components/LoginForm";
 import {getRoleById} from "../objects_managers/RoleManager";
-import {getDocteurById} from "../objects_managers/DocteurManager";
+import {GetDocteurById} from "../objects_managers/DocteurManager";
 import {GetUserById} from "../objects_managers/UserManager";
 import login from "./img/login2.png";
 import {ThemeContext, themes} from "../Context";
@@ -35,12 +35,12 @@ export default function Login() {
 
             if (roleOfUser === "Admin") {
                 console.log("Nav to Admin Portal");
-                //navigate("/admin");
+                return navigate("/");
             }
 
             if (roleOfUser === "Docteur") {
                 console.log("Nav to Docteur Portal");
-                // navigate("/registration");
+                return navigate("/");
             }
             if (roleOfUser === "Patient") {
                 console.log("Nav to Patient Portal (Home)");
@@ -121,13 +121,15 @@ export default function Login() {
 }
 
 export async function CheckRole(myUser) {
+            const userid = await getAuthCurrentUserId();
+
     if (myUser === null) {
-        const userid = await getAuthCurrentUserId();
         //Get the user
         myUser = await GetUserById(userid);
     }
     if (myUser === null) {
-        myUser = getDocteurById();
+        //Get the doctor if no user found
+        myUser = await GetDocteurById(userid);
     }
     if (myUser === null) {
         //By Default it is a Guest if no user nor doctor was found

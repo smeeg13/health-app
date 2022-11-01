@@ -15,7 +15,7 @@ export async function CreateDocDocteur(docteur) {
 }
 
 //Get one user by id
-export async function getDocteurById(Id) {
+export async function GetDocteurById(Id) {
   console.log("Docteur Id into function : ", Id);
 
   const ref = doc(db, "Docteur", Id).withConverter(docteurConverter);

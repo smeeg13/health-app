@@ -21,8 +21,9 @@ export default function Register() {
     const handleRegister = async (e, email, password) => {
 
         try {
-            await createUserWithEmailAndPassword(auth, email, password).then((response) => {
-                setmessage("REGISTER_SUCCESS")
+            await createUserWithEmailAndPassword(auth, email, password)
+                .then((response) => {
+                    setmessage("REGISTER_SUCCESS")
 
             }).catch((error) => {
                 setmessage(error.message)

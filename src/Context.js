@@ -12,7 +12,7 @@ export const ResultatContext = React.createContext({
     resultat: new Resultats(),
     maladies: new Maladies(),
     updateResultatField: () => {},
-    updateResultatAll: () => {},
+    updateInDb: () => {},
     calculateMaladies: () => {}
 }
 );

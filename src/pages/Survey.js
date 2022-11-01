@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { db } from "../initFirebase";
 import { ResultatContext } from "../Context";
-import { getDocs, collection } from "firebase/firestore";
+import { getDocs, collection, getCountFromServer } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
 import { BoxQuestion, Loader } from "../components/QuestionForm";
 
@@ -9,13 +9,14 @@ function Survey(props) {
   const [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true)
   const resultatContext = useContext(ResultatContext);
-
+  const [numberOfQues, setNumberOfQues] = useState(0);
+  const [index, setIndex] = useState(1);
 
   useEffect(() => {
-    async function getQuestionnaireById(quesId) {
+    async function getQuestionnaireById(index) {
       const refQuestionnaire = collection(
         db,
-        "Questionnaires/" + quesId + "/Questions"
+        "Questionnaires/" + index + "/Questions"
       ).withConverter(questionConverter);
 
       const roleSnapshot = await getDocs(refQuestionnaire);
@@ -24,35 +25,70 @@ function Survey(props) {
       setQuestions(questionList);
       setBusy(false);
     }
-    
-    getQuestionnaireById(props.quesId);
-  }, []);
 
-  const handleFormInputChangeQues = (event) => {
-    resultatContext.updateResultatField(event, resultatContext.resultat);
-    console.log("Survey",resultatContext.resultat);
+    getQuestionnaireById(index);
+  }, [index]);
+
+  useEffect(() => {
+    async function getNumberOfQuestionnaire() {
+      const coll = collection(db, "Questionnaires");
+      const snapshot = await getCountFromServer(coll);
+      const size = snapshot.data().count;
+      setNumberOfQues(size);
+    }
+    getNumberOfQuestionnaire()
+  },[])
+
+  useEffect(() => {
+    resultatContext.calculateMaladies(resultatContext.resultat);
+  }, [resultatContext.resultat]);
+
+  const handleNextQuestionnaire = () => {
+    if (index >= numberOfQues)
+      setIndex(1);
+    else
+      setIndex(index + 1);
+  }
+
+  const handlePreviousQuestionnaire = () => {
+    if (index <= 1)
+      setIndex(3);
+    else
+      setIndex(index -1);
+  }
+
+  const handleFormInputChange = (event) => {
+    resultatContext.updateResultatField(event);
   };
 
-  const handleSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log("Save modif clicked !, current user id : ", props.currentUser.id_user)
+    resultatContext.updateInDb(props.currentUser.id_user);
   };
 
   return (
     <div className="box1">
       {/* Box for data questionnaire 1-2  */}
-      <div className="container result1" >
-        {/* <TitleBox title="Vous" my_avatar={props.currentUser.avatar} /> */}
-        {isBusy ? <Loader /> : 
+      {/* <TitleBox title="Vous" my_avatar={props.currentUser.avatar} /> */}
+      {isBusy ? <Loader /> :
         <BoxQuestion
           resultat={resultatContext.resultat}
-          handleFormInputChangeQues={handleFormInputChangeQues}
-          handleFormSubmit={handleSubmit}
+          handleFormInputChange={handleFormInputChange}
+          handleFormSubmit={handleFormSubmit}
           questions={questions}
+          index={index}
+          numberOfQues={numberOfQues}
           isBusy={isBusy}
         />
-        }
-      </div>
-  </div>
+      }
+      <button className="btn" onClick={handlePreviousQuestionnaire}>
+        Previous
+      </button>
+      <button className="btn" onClick={handleNextQuestionnaire}>
+        Next
+      </button>
+    </div>
   )
 }
 

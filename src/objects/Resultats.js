@@ -90,7 +90,7 @@ export function setBmi(resultat) {
 
 export function setSyst(resultat) {
   let res = resultat;
-
+  
   if (res.yesSyst === 1) {
     res.syst = 150;
   } else {
@@ -121,11 +121,11 @@ export function setChol(resultat) {
     res.hdl = 2;
   }
   return res;
-
 }
 
+
 export class Resultats {
-  id_resultats;
+  id_resultats='';
   syst = 0;
   chol = 0;
   hdl = 0;
@@ -133,7 +133,6 @@ export class Resultats {
   
 
   constructor(
-    id,
     age,
     sexe,
     inf,
@@ -151,7 +150,6 @@ export class Resultats {
     taille,
     poids
   ) {
-    this.setIdResultats(id);
     this.age = age;
     this.sexe = sexe;
     this.inf = inf;

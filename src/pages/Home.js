@@ -7,6 +7,7 @@ import home_pic from "./img/home.png";
 import { ThemeContext, ResultatContext, themes } from "../Context";
 import Resultats from "./Resultats";
 import survey_pic from "./img/survey_pic.png";
+import {ListPatient} from "../components/ListPatients"
 
 export default function Home(props) {
   return (
@@ -17,14 +18,15 @@ export default function Home(props) {
           <HomeUser currentUser={props.currentUser} />
         )}
         {props.currentUser.nom_role === "Admin" && <HomeAdmin />}
-        {props.currentUser.nom_role === "Docteur" && <HomeDocteur />}
+        {props.currentUser.nom_role === "Docteur" && (
+          <HomeDocteur currentUser={props.currentUser} />
+        )}
       </div>
     </React.Fragment>
   );
 }
 
 function HomeGuest() {
-
   let themeContext = useContext(ThemeContext);
 
   return (
@@ -141,7 +143,8 @@ function HomeUser(props) {
       <br />
       <div className="center">
         {/* Show nothing if the result in context is "null" */}
-        {resultatContext.resultat.age !== 0 && resultatContext.resultat.taille !== 0 &&
+        {resultatContext.resultat.age !== 0 &&
+        resultatContext.resultat.taille !== 0 &&
         resultatContext.resultat.poids !== 0 ? (
           <Resultats currentUser={props.currentUser} />
         ) : (
@@ -154,7 +157,7 @@ function HomeUser(props) {
               {" "}
               Please complete a survey to see some results
             </h4>
-            <img src={survey_pic} style={{height:"300px"}}></img>
+            <img src={survey_pic} style={{ height: "300px" }}></img>
           </div>
         )}
       </div>
@@ -164,6 +167,14 @@ function HomeUser(props) {
 
 function HomeAdmin() {
   let themeContext = useContext(ThemeContext);
+
+  const openInNewTab = () => {
+    window.open(
+      "https://console.firebase.google.com/u/0/project/healthapp-23042/overview",
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
 
   return (
     <div
@@ -193,24 +204,38 @@ function HomeAdmin() {
         </button>
       </Link>
 
+      <br />
+      <br />
+      {/* 👇️ open link in new tab using a button */}
+      <button className="btn" onClick={() => openInNewTab()}>
+        Open FireBase Console
+      </button>
+
+      <br />
+      <br />
       {/* Button to Add a New doctor */}
-      {/* <Link to="/settings">
-    <button
-      className="btn"
-      style={{
-        backgroundColor: themes[themeContext.theme].button,
-        color: themes[themeContext.theme].textcolorbtn,
-      }}
-    >
-      Modify Variables
-    </button>
-  </Link> */}
-      <br />
-      <br />
+      <Link to="/registerDocteur">
+        <button
+          className="btn"
+          style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}
+        >
+          Add a New Doctor
+        </button>
+      </Link>
     </div>
   );
 }
 
-function HomeDocteur() {
-  return <></>;
+function HomeDocteur(props) {
+  return (
+    <>
+      <h2> Welcome Back Dr. {props.currentUser.nom}</h2>
+
+      <h4> List of Patients</h4>
+      <ListPatient currentUser={props.currentUser}/>
+    </>
+  );
 }

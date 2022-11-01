@@ -1,3 +1,7 @@
+import { db } from "../initFirebase";
+import { doc, getDoc } from "firebase/firestore";
+import { variableConverter } from "../objects/Variables";
+
 const coefCancer = [1, 1, 0.5, 0.5, 0.5, 0.5];
 const baseRisk = 0.09;
 let [coefAFCANCER, coefFUME, coefBMI, coefSPORT, coefALCOOL, coefALIM] =
@@ -7,11 +11,24 @@ const sumCoef = coefCancer.reduce(
   (previousValue, currentValue) => previousValue + currentValue
 );
 
-export default function riskCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) {
-  return sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) + baseRisk;
+async function getVariables(){
+  const ref = doc(db, "Maladies", "Diabete");
+  const docSnap = await getDoc(ref);
+
+  if (docSnap.exists()) {
+    // Convert to City object
+    const coefs = docSnap.data();
+    // Use a City instance method
+    console.log("coefs",coefs.toString());
+  } else {
+    console.log("No such document!");
+  }
 }
 
-// console.log(Cancer.riskCancer(0, 0, 28, 3, 3, 2));
+export default function riskCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) {
+  getVariables();
+  return sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) + baseRisk;
+}
 
 function sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) {
   return (
