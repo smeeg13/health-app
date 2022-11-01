@@ -186,17 +186,21 @@ function Account(props) {
             </div>
             <div className="center">
               <button
-                className="btn center"
+                className="btn"
                 style={{
                   margin: 0,
-                  marginTop: 20,
+                  width: 100,
                   backgroundColor: themes[themeContext.theme].button,
                   color: themes[themeContext.theme].textcolorbtn,
+                  fontSize: 14,
+                  margin:"auto"
                 }}
                 onClick={HandleSubmit}
               >
-                Save Modifidations
+                Save
               </button>
+
+
               <div>
                 {confirmSave === "Changes Saved" ? (
                   <span style={{ color: "#00A36C", marginRight: 3 }}>
@@ -210,23 +214,11 @@ function Account(props) {
               </div>
             </div>
             <br />
-            <div
-              style={{
-                margin: 0,
-                padding: 5,
-                backgroundColor: "#eafaf1",
-                color: themes[themeContext.theme].foreground,
-              }}
-            >
+            <div>
               {props.currentUser.docteur_assigned !== "" && (
                 <div className="center">
                   <h1
-                    className="choose_avatar"
-                    style={{
-                      margin: 15,
-                      color: themes[themeContext.theme].textcolor,
-                    }}
-                  >
+                    className="choose_avatar">
                     Doctor assigned to you
                   </h1>
                   <input
@@ -258,6 +250,7 @@ function Account(props) {
                         Select a doctor :{" "}
                       </label>
                       <select
+                      className="dropdown"
                         name="docteur_requested"
                         id="docteur_requested"
                         value={docteurSelectForRequest}
@@ -487,7 +480,6 @@ const Container2 = styled.div`
 
   .avatar1,
   .avatar2 {
-    padding-right: 20px;
     width: 110px;
     height: 130px;
   }

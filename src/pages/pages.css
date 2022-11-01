@@ -410,17 +410,6 @@ input{
   right: 0px;
 }
 
-/* SURVEY PAGES */
-/* .containerSurvey{
-text-align: center;
-justify-content: center;
-height: 100%;
-width: 100%;
-top: 10px;
-background-color: white;
-font-family: "Lexend Deca";
-} */
-
 .survey_title{
   padding-top: 20px;
   font-family: "Lexend Deca";
@@ -458,10 +447,18 @@ font-family: "Lexend Deca";
   color: #ffff;
   padding: 0.7em 1.7em;
   font-size: 0.8em;
-  border-radius: 50%; /*to round the corner of the shape */
+  border-radius: 20%; /*to round the corner of the shape */
   background: #77C5A6;
   border: 1px solid #77C5A6;
   background-color: #054A2F;
+}
+
+.btn_previous{
+  margin-right: 55px;
+}
+
+.btn_next{
+  margin-right: 10px;
 }
 
 input,
@@ -470,7 +467,7 @@ output {
   display: inline-block;
   vertical-align: middle;
   font-size: 1em;
-  font-family: Arial, sans-serif;
+  font-family: "Lexend Deca";
 }
 
 output {
@@ -526,6 +523,15 @@ input[type="range"]::-ms-thumb {
   padding: 5px 35px 5px 5px;
   font-size: 0.9em;
   border-radius: 5px;
+  color: #1A523C;
+  font-family: "Lexend Deca";
+  border: 2px solid #1A523C;
+}
+
+option{
+  background-color: #C1E1C1;
+  color: #1A523C;
+  font-family: "Lexend Deca";
   border: 2px solid #1A523C;
 }
 

@@ -89,10 +89,10 @@ function Survey(props) {
         />
       }
       <button className="btn_previous" onClick={handlePreviousQuestionnaire}>
-        Back
+        back
       </button>
       <button className="btn_next" onClick={handleNextQuestionnaire}>
-        Next
+        next
       </button>
     </div>
   )
