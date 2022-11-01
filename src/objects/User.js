@@ -1,33 +1,42 @@
 export class User {
   id_user;
   nom = "";
-  age = 0;
   sexe = 0; //0 si masculin, 1 si feminin
-  poids = 0;
-  taille = 0;
   nom_role = "";
-  avatar="avatar1.png";
+  avatar = "avatar1.png";
+  docteur_requested = "";
+  docteur_assigned = "";
 
-  constructor(id_user, mail, nom, age, sexe, poids, taille,id_role, isAdmin) {
+  constructor(
+    id_user,
+    mail,
+    nom,
+    sexe,
+    id_role,
+    isAdmin,avatar,
+    doc_ass,
+    doc_req
+  ) {
     this.setId(id_user);
     this.setEmail(mail);
     this.setNom(nom);
-    this.setAge(age);
     this.setSexe(sexe);
-    this.setPoids(poids);
-    this.setTaille(taille);
-    this.setIdRole(id_role, isAdmin); 
-    this.setAvatar(sexe);   //+ collections Questionnaires
+    this.setIdRole(id_role, isAdmin);
+    this.setAvatar(avatar);
+    this.docteur_assigned = doc_ass;
+    this.docteur_requested = doc_req; //+ collections Questionnaires
   }
-  
 
-  setAvatar() {
-    if (this.sexe=0){
-      this.avatar = "/img/avatar1.png";
-    } else{
-      this.avatar = "/img/avatar6.png";
+  setAvatar(avatar) {
+    if (avatar !== null) {
+      this.avatar = avatar;
+    } else {
+      if ((this.sexe = 0)) {
+        this.avatar = "/img/avatar1.png";
+      } else {
+        this.avatar = "/img/avatar6.png";
+      }
     }
-
   }
 
   setId(id) {
@@ -47,29 +56,17 @@ export class User {
   }
 
   setIdRole(id_role, isAdmin) {
-    if(id_role !== null){
+    if (id_role !== null) {
       this.id_role = id_role;
-    }else if(isAdmin===true && isAdmin!== null){
+    } else if (isAdmin === true && isAdmin !== null) {
       this.id_role = "Rok7J6Y8zqnKCAJf4U85";
-    }else{
-    this.id_role = "n5Gejr1pLJrcMagawHqp";
+    } else {
+      this.id_role = "n5Gejr1pLJrcMagawHqp";
     }
   }
 
-  setAge(age) {
-    this.age = age;
-  }
-
-  setPoids(poids) {
-    this.poids = poids;
-  }
-
-  setSexe(sexe) {
+   setSexe(sexe) {
     this.sexe = sexe;
-  }
-
-  setTaille(taille) {
-    this.taille = taille;
   }
 
   toString() {
@@ -96,11 +93,10 @@ export const userConverter = {
       nom: user.nom,
       email: user.email,
       id_role: user.id_role,
-      age: user.age,
       sexe: user.sexe,
-      poids: user.poids,
-      taille: user.taille,
       avatar: user.avatar,
+      docteur_requested: user.docteur_requested,
+      docteur_assigned: user.docteur_assigned,
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -109,11 +105,12 @@ export const userConverter = {
       snapshot.id,
       data.email,
       data.nom,
-      data.age,
       data.sexe,
-      data.poids,
-      data.taille,
-      data.id_role, null
+      data.id_role,
+      null,
+      data.avatar,
+      data.docteur_assigned,
+      data.docteur_requested
     );
   },
 };

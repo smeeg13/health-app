@@ -14,14 +14,13 @@ import { auth } from "./initFirebase";
 import Logout from "./pages/Logout";
 import { GetUserById } from "./objects_managers/UserManager";
 import { GetDocteurById } from "./objects_managers/DocteurManager";
-
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
 import Historic from "./pages/Historic";
 
 export default function App() {
   /* Base Invite User */
-  const guestUser = new User(null, "", "", 0, 0, 0, 0);
+  const guestUser = new User(null, "", "", 0, null,null,null, "", "");
   guestUser.setNomRole("Invite");
   guestUser.setIdRole("wfprGThk63ZrRRjRh1np");
 
@@ -33,10 +32,10 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentAuthUser(user);
       if (user != null) {
-        let myUser ;
-        myUser =  await GetUserById(user.uid);
-        if(myUser === null || myUser === undefined){
-          myUser =  await GetDocteurById(user.uid);
+        let myUser;
+        myUser = await GetUserById(user.uid);
+        if (myUser === null || myUser === undefined) {
+          myUser = await GetDocteurById(user.uid);
         }
         myUser.setNomRole(await CheckRole(myUser));
         setCurrentUser(myUser);
@@ -54,9 +53,14 @@ export default function App() {
   if (currentAuthUser === undefined) {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>Loading...</h1>
-        </header>
+        <header className="App-header"></header>
+        <body>
+          <div className="center">
+            {" "}
+          <h1 className="center">Loading...</h1>
+          </div>
+          
+        </body>
       </div>
     );
   }

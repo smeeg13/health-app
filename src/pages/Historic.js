@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { db } from "../initFirebase";
 import { getDocs, collection } from "firebase/firestore";
 import { Loader } from "../components/QuestionForm";
+import { ThemeContext, themes } from "../Context";
 
 export default function Historic(props) {
+  let themeContext = useContext(ThemeContext);
+
   const [resultats, setResultats] = useState([]);
   const [isBusy, setBusy] = useState(true);
+  // const [selectedResult, setSelectedResult] = useState(undefined);
 
   useEffect(() => {
     async function getResultats(userId) {
@@ -20,17 +24,23 @@ export default function Historic(props) {
 
     getResultats(props.currentUser.id_user);
   }, [props.currentUser.id_user]);
-    console.log("Resultats : ", resultats);
+  console.log("Resultats : ", resultats);
 
-  const HandleDetailsClick = (id) => {
+  const HandleDetailsClick = (event, res) => {
+    console.log("event : ", event.target.name);
 
-    console.log("Click sees details on res : ", id);
-
-  }
+    console.log("Click sees details on res : ", res.id);
+  };
 
   return (
-    <>
-      <h1>
+    <div style={{
+      backgroundColor: themes[themeContext.theme].background,
+      color: themes[themeContext.theme].foreground,
+    }}>
+      <h1 style={{
+              backgroundColor: themes[themeContext.theme].background,
+            color: themes[themeContext.theme].textcolor,
+          }}>
         {" "}
         {props.currentUser.nom !== ""
           ? props.currentUser.nom
@@ -38,30 +48,56 @@ export default function Historic(props) {
         's Historic
       </h1>
 
-      <div className="box1">
+      <div  style={{
+      backgroundColor: themes[themeContext.theme].background,
+      color: themes[themeContext.theme].foreground,
+    }}>
         {isBusy ? (
           <Loader />
         ) : (
-            <div className="container">
-            <ul style={{ listStyleType: "none", padding: 0 }}>
-              {resultats.map((res) => (
-                <li key={res.id}>
-                  <div>
-                    <p>
-                      Resultat du :{res.id}
-                      <button type="submit" className="btn" onClick={HandleDetailsClick(res.id)}>
-                        See Details
-                      </button>
-                    </p>
-                    <hr />
-                  </div>
-                </li>
-              ))}
-            </ul>
+          <div className="container_list_patient">
+            {resultats.length === 0 ? (
+              <div>
+                <span style={{ fontWeight: "bold" }}>
+                  No previous results found
+                </span>
+              </div>
+            ) : (
+              <ul style={{ listStyleType: "none", padding: 0 }}>
+                {resultats.map((res) => (
+                  <li key={res.id}>
+                    <hr className="my_hr" />
+
+                    <div className="row  center">
+                      <div className="column_list center">
+                        <p className="center"> Resultat du : {res.id}</p>
+                      </div>
+                      <div className="column_list center">
+                        <button
+                          name="Details"
+                          type="submit"
+                          className="btn"
+                          style={{
+                            backgroundColor: themes[themeContext.theme].button,
+                            color: themes[themeContext.theme].textcolorbtn,
+                            width: 170,
+                            marginTop: 0,
+                            marginBottom: 10,
+                          }}
+                          onClick={(event) => HandleDetailsClick(event, res)}
+                        >
+                          See Details
+                        </button>
+                      </div>
+                      <p></p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }
-

@@ -1,176 +1,375 @@
-
-import styled from 'styled-components';
-import { Link, Navigate } from 'react-router-dom'
-import {useNavigate} from "react-router-dom"
+import { db } from "../initFirebase";
+import { doc, updateDoc } from "firebase/firestore";
+import styled from "styled-components";
 import { ThemeContext, themes } from "../Context";
-import React, { useContext } from "react";
-import { setNestedObjectValues } from 'formik';
-
+import React, { useState, useContext, useEffect } from "react";
 import _ from "lodash";
+import { GetAllDocteurs, NewRequest } from "../objects_managers/DocteurManager";
+import { Loader } from "../components/QuestionForm";
 
-function Registration(props) {
-
-  const avatar1 = '/img/avatar1.png';
-  const avatarr = '/img/avatar_roux.png';
-  const avatar3 = '/img/avatar3.png';
-  const avatar4 = '/img/avatar4.png';
-  const avatar5 = '/img/avatar5.png';
-  const avatar6 = '/img/avatar6.png';
+function Account(props) {
+  const avatar1 = "/img/avatar1.png";
+  const avatarr = "/img/avatar_roux.png";
+  const avatar3 = "/img/avatar3.png";
+  const avatar4 = "/img/avatar4.png";
+  const avatar5 = "/img/avatar5.png";
+  const avatar6 = "/img/avatar6.png";
 
   let themeContext = useContext(ThemeContext);
 
-  const [avatarSelected, setAvatar] = React.useState(props.currentUser.avatar);
+  const [avatarSelected, setAvatar] = useState(props.currentUser.avatar);
+  const [nameEntered, setNameEntered] = useState(props.currentUser.nom);
+  const [docteurSelectForRequest, setDocteurSelectForRequest] = useState(undefined);
+  const [docteurAssigned, setDocteurAssigned] = useState("");
+  const [docteurs, setDocteurs] = useState([]);
+  const [isBusy, setBusy] = useState(true);
+  const [message, setMessage] = useState("");
+  const [confirmSave, setConfirmSave] = useState("");
 
+  useEffect(() => {
+    const fetchDocteurs = async () => {
+      const result = await GetAllDocteurs();
+      console.log("Docteurs retrived :", result);
+      setDocteurs(result);
+      setBusy(false);
+    };
+
+    fetchDocteurs();
+  }, []);
+
+  useEffect(() => {
+    const GetDocteurNameAssigned = () => {
+      if (props.currentUser.docteur_assigned === "") {
+        setDocteurAssigned("Please make a request to a doctor");
+      } else {
+        if (docteurs.length > 0) {
+          let filteredArray = docteurs.filter(
+            (item) => item.id_user === props.currentUser.docteur_assigned
+          );
+          setDocteurAssigned(filteredArray[0].nom);
+        }
+      }
+    };
+
+    GetDocteurNameAssigned();
+  }, [props.currentUser.docteur_assigned]);
+
+  useEffect(() => {
+    setAvatar(props.currentUser.avatar);
+  }, [props.currentUser.avatar]);
+
+  useEffect(() => {
+    setNameEntered(props.currentUser.nom);
+  }, [props.currentUser.nom]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setConfirmSave("");
+    }, 3000);
+  }, [confirmSave]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setMessage("");
+    }, 3000);
+  }, [message]);
 
   const onClickHandler = (order) => {
-    setAvatar(order.target.src);
-    console.log(avatarSelected)
-    // props.setUser((prevState) => 
-    // {props.currentUser.avatar=order.target.src} 
-    // );
+    const str = order.target.src;
+    const after_ = str.split("/").pop();
+    let newStrg = "/img/" + after_;
+
+    setAvatar(newStrg);
+    console.log("Avatar Selected string : ", newStrg);
   };
 
-  const handleInput = (event) => {
-    // props.setUser((prevState) => 
-    // {props.currentUser.name=event.target.value} 
-    // );
-  }
+  const HandleName = (event) => {
+    setNameEntered(event.target.value);
+  };
+  const HandleDocteurSelect = (event) => {
+    setDocteurSelectForRequest(event.target.value);
+    console.log("Docteur selected : ", event.target.value);
+  };
 
-  const navigate = useNavigate();
+  const SendRequest = () => {
+    if (docteurSelectForRequest !== "") {
+      let docteur = docteurs.filter(
+        (doc) => doc.id_user === docteurSelectForRequest
+      );
+      console.log("doc retrieved for request :", docteur[0]);
+      NewRequest(docteur[0], props.currentUser.id_user, setMessage);
+    }
+  };
 
-  const HandleSubmit = (event)=>{
+  const HandleSubmit = async (event) => {
     props.setUser((prevState) => {
-        const clonedUser = _.clone(prevState);
-        clonedUser.avatar = avatarSelected;
+      const clonedUser = _.clone(prevState);
+      clonedUser.avatar = avatarSelected;
+      clonedUser.nom = nameEntered;
 
-        return clonedUser;
+      return clonedUser;
     });
- 
+    //Save into DB
+    let Ref = doc(db, "User", props.currentUser.id_user);
 
-     navigate("/");
+    // Set the "fieldNameToChange" field of the city 'DC'
+    try {
+      await updateDoc(Ref, {
+        avatar: avatarSelected,
+        nom: nameEntered,
+      });
+      setConfirmSave("Changes Saved");
+    } catch (e) {
+      setConfirmSave("Error When saving modifications, please try later");
+    }
 
-  }
+    //navigate("/");
+  };
 
   console.log(props.currentUser.avatar);
   // console.log(props.currentUser.name)
 
   return (
     <Container2>
-      <div className="container left" style={{
-        backgroundColor: themes[themeContext.theme].background,
-        color: themes[themeContext.theme].foreground,
-      }}>
-        <h1 className="choose_avatar" style={{
-          color: themes[themeContext.theme].textcolor,
-        }}>Enter your personnal information</h1>
-        <form>
-          <label className="label" style={{
-            color: themes[themeContext.theme].textcolor,
-          }}>Name</label>
-          <br />
-          <input
-            name='nom'
-            className="text_input"
-            type="text"
-            maxLength={30}
-            // value={email}
-            // onChange={handleEmailChange}
-            required
-            // onChange={handleInput}
-          />
+      {isBusy ? (
+        <Loader />
+      ) : (
+        <>
+          <div
+            className="container left"
+            style={{
+              backgroundColor: themes[themeContext.theme].background,
+              color: themes[themeContext.theme].foreground,
+            }}
+          >
+            <div className=" center">
+              <h1
+                className="choose_avatar center"
+                style={{
+                  marginLeft: 20,
+                  color: themes[themeContext.theme].textcolor,
+                }}
+              >
+                Enter your personnal information
+              </h1>
+            </div>
 
-          <br></br>
-          {/* 
-          <label className="label" style={{
-            color: themes[themeContext.theme].textcolor,
-          }}>Firstname</label>
-          <br />
-          <input
-            style={{ marginTop: "-15px" }}
-            className="text_input"
-            type="text"
-            maxLength={30}
-            // value={email}
-            // onChange={handleEmailChange}
-            required
-          /> */}
+            <div className="center " style={{ marginBottom: -10 }}>
+              <label>Name : {"  "}</label>
+              <input
+                name="nom"
+                className="text_input"
+                type="text"
+                maxLength={30}
+                value={nameEntered}
+                required
+                onChange={HandleName}
+                style={{ margin: 0 }}
+              />
+            </div>
 
-          <h1>Avatar selected </h1>
-          <img className="avatar1" src={avatarSelected} defaultValue={avatar1} alt="avatar"></img>
+            <div className="center" style={{ marginTop: -30 }}>
+              <h3
+                className="choose_avatar"
+                style={{
+                  color: themes[themeContext.theme].textcolor,
+                }}
+              >
+                Avatar selected{" "}
+              </h3>
+              <img
+                className="avatar1"
+                src={avatarSelected}
+                defaultValue={avatar1}
+                alt="avatar"
+              ></img>
+            </div>
+            <div className="center">
+              <button
+                className="btn center"
+                style={{
+                  margin: 0,
+                  marginTop: 20,
+                  backgroundColor: themes[themeContext.theme].button,
+                  color: themes[themeContext.theme].textcolorbtn,
+                }}
+                onClick={HandleSubmit}
+              >
+                Save Modifidations
+              </button>
+              <div>
+                {confirmSave === "Changes Saved" ? (
+                  <span style={{ color: "#00A36C", marginRight: 3 }}>
+                    {confirmSave}
+                  </span>
+                ) : (
+                  <span style={{ color: "#FF2400", marginRight: 3 }}>
+                    {confirmSave}
+                  </span>
+                )}
+              </div>
+            </div>
+            <br />
+            <div
+              style={{
+                margin: 0,
+                padding: 5,
+                backgroundColor: "#eafaf1",
+                color: themes[themeContext.theme].foreground,
+              }}
+            >
+              {props.currentUser.docteur_assigned !== "" && (
+                <div className="center">
+                  <h1
+                    className="choose_avatar"
+                    style={{
+                      margin: 15,
+                      color: themes[themeContext.theme].textcolor,
+                    }}
+                  >
+                    Doctor assigned to you
+                  </h1>
+                  <input
+                    disabled
+                    name="docteur_assigned"
+                    className="text_input"
+                    type="text"
+                    maxLength={30}
+                    value={docteurAssigned} //TODO:: retrieve the name of Doc
+                  />
+                </div>
+              )}
 
-          {/* <label className="label">Age</label>
-                    <br />
-                    <input
-                        className="nb_input"
-                        type="text"
-                        maxLength={3}
-                        // value={email}
-                        // onChange={handleEmailChange}
-                        required
-                    />
-                    <br></br> */}
-
-          {/* <label className="label">Weight</label>
-                    <br />
-                    <input
-                        className="nb_input"
-                        type="text"
-                        maxLength={3}
-                        // value={email}
-                        // onChange={handleEmailChange}
-                        required
-                    />
-                    <br></br>
-                    <label className="label">Height</label>
-                    <br />
-                    <input
-                        className="nb_input"
-                        type="text"
-                        maxLength={3}
-                        // value={email}
-                        // onChange={handleEmailChange}
-                        required
-                    /> */}
-          <br></br>
-          {/* <label className="label">Sex</label>
-                    <br />
-                    <select value={value} onChange={handleChange}>
-                        <option value="woman">Woman</option>
-                        <option value="man">Man</option>
-                    </select> */}
-        </form>
-      </div>
-
-      <div className="container rightt" style={{
-        backgroundColor: themes[themeContext.theme].background_right,
-        color: themes[themeContext.theme].foreground,
-      }}>
-        <div className="flex-container">
-          <h1 className="choose_avatar" style={{
-            color: themes[themeContext.theme].textcolor,
-          }}>Choose an avatar </h1>
-          <div className="avatar">
-            <img className="avatar1" src={avatar1} onClick={onClickHandler}></img>
-            <img className="avatar2" src={avatarr} onClick={onClickHandler}></img>
-            <img className="avatar1" src={avatar3} onClick={onClickHandler}></img>
+              <div className=" center">
+                <h1
+                  className="choose_avatar"
+                  style={{
+                    margin: 15,
+                    color: themes[themeContext.theme].textcolor,
+                  }}
+                >
+                  Ask for a Doctor to take care of you
+                </h1>
+                <div className="row center" style={{ margin: 0 }}>
+                  <div className="column_list center" style={{ margin: 0 }}>
+                    <div>
+                      {" "}
+                      <label htmlFor="docteur_requested">
+                        Select a doctor :{" "}
+                      </label>
+                      <select
+                        name="docteur_requested"
+                        id="docteur_requested"
+                        value={docteurSelectForRequest}
+                        onChange={(event) => HandleDocteurSelect(event)}
+                        style={{ minWidth: 150 }}
+                      >
+                        {docteurs.map((value) => (
+                          <option key={value.id_user} value={value.id_user}>
+                            {value.nom}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <div className="column_list center">
+                    <div>
+                      <button
+                        className="btn"
+                        style={{
+                          margin: 0,
+                          width: 180,
+                          backgroundColor: themes[themeContext.theme].button,
+                          color: themes[themeContext.theme].textcolorbtn,
+                          fontSize: 14,
+                        }}
+                        onClick={SendRequest}
+                      >
+                        Send Request
+                      </button>
+                    </div>
+                    <div>
+                      {message === "Request Sent" ? (
+                        <span style={{ color: "#00A36C", marginRight: 3 }}>
+                          {message}
+                        </span>
+                      ) : (
+                        <span style={{ color: "#FF2400", marginRight: 3 }}>
+                          {message}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="avatar">
-            <img className="avatar1" src={avatar4} onClick={onClickHandler}></img>
-            <img className="avatar1" src={avatar5} onClick={onClickHandler}></img>
-            <img className="avatar1" src={avatar6} onClick={onClickHandler}></img>
+
+          <div
+            className="container rightt"
+            style={{
+              backgroundColor: themes[themeContext.theme].background_right,
+              color: themes[themeContext.theme].foreground,
+            }}
+          >
+            <div className="flex-container">
+              <h1
+                className="choose_avatar"
+                style={{
+                  color: themes[themeContext.theme].textcolor,
+                }}
+              >
+                Choose an avatar{" "}
+              </h1>
+              <div className="avatar">
+                <img
+                  className="avatar1"
+                  alt="avatar1"
+                  src={avatar1}
+                  onClick={onClickHandler}
+                ></img>
+                <img
+                  className="avatar2"
+                  alt="avatarr"
+                  src={avatarr}
+                  onClick={onClickHandler}
+                ></img>
+                <img
+                  className="avatar1"
+                  alt="avatar3"
+                  src={avatar3}
+                  onClick={onClickHandler}
+                ></img>
+              </div>
+              <div className="avatar">
+                <img
+                  className="avatar1"
+                  alt="avatar4"
+                  src={avatar4}
+                  onClick={onClickHandler}
+                ></img>
+                <img
+                  className="avatar1"
+                  alt="avatar5"
+                  src={avatar5}
+                  onClick={onClickHandler}
+                ></img>
+                <img
+                  className="avatar1"
+                  alt="avatar6"
+                  src={avatar6}
+                  onClick={onClickHandler}
+                ></img>
+              </div>
+            </div>
           </div>
-        </div>
-          <button className="btn" style={{
-            backgroundColor: themes[themeContext.theme].button,
-            color: themes[themeContext.theme].textcolorbtn,
-          }} onClick={HandleSubmit}>Submit
-          </button>
-      </div>
+        </>
+      )}
     </Container2>
-  )
+  );
 }
 
-export default Registration;
+export default Account;
 
 const Container2 = styled.div`
   body {
@@ -192,7 +391,6 @@ const Container2 = styled.div`
     margin-right: auto;
     height: 100%;
     width: 100%;
-    
   }
 
   .left {

@@ -524,3 +524,43 @@ input[type="range"]::-ms-thumb {
 
 
 
+.container_list_patient {
+  flex: 1;
+  margin-top: 8;
+  background-color: #F0F8FF  ;
+  min-height: 200;
+}
+.box_list {
+  width: 50;
+  height: 50;
+}
+.row {
+  display: flex;
+  width: 100%;
+  flex-direction: "row";
+  flex-wrap: "wrap";
+}
+
+.column_list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.my_hr {
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #c9c7c7;
+  width:80%
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
