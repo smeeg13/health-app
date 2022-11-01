@@ -28,7 +28,7 @@ export default function Register() {
             }).catch((error) => {
                 setmessage(error.message)
             });
-            let user = new User(auth.currentUser.uid, email, "", 0, 0, 0, 0, null, false,null, '','');
+            let user = new User(auth.currentUser.uid, email, "", 0, null, false,null, '','');
             //To create the user document in Firestore with the id created by Auth
             await CreateDocUser(user);
 

@@ -20,7 +20,7 @@ import Historic from "./pages/Historic";
 
 export default function App() {
   /* Base Invite User */
-  const guestUser = new User(null, "", "", 0, 0, 0, 0, null, null,null,'','');
+  const guestUser = new User(null, "", "", 0, null,null,null, "", "");
   guestUser.setNomRole("Invite");
   guestUser.setIdRole("wfprGThk63ZrRRjRh1np");
 
@@ -32,10 +32,10 @@ export default function App() {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setCurrentAuthUser(user);
       if (user != null) {
-        let myUser ;
-        myUser =  await GetUserById(user.uid);
-        if(myUser === null || myUser === undefined){
-          myUser =  await GetDocteurById(user.uid);
+        let myUser;
+        myUser = await GetUserById(user.uid);
+        if (myUser === null || myUser === undefined) {
+          myUser = await GetDocteurById(user.uid);
         }
         myUser.setNomRole(await CheckRole(myUser));
         setCurrentUser(myUser);
@@ -53,9 +53,14 @@ export default function App() {
   if (currentAuthUser === undefined) {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>Loading...</h1>
-        </header>
+        <header className="App-header"></header>
+        <body>
+          <div className="center">
+            {" "}
+          <h1 className="center">Loading...</h1>
+          </div>
+          
+        </body>
       </div>
     );
   }
@@ -69,13 +74,13 @@ export default function App() {
         <Route path="/registerDocteur" element={<RegisterDocteur />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/settings" element={<Settings currentUser={currentUser} />}/>
-        <Route path="/resultats" element={<Resultats currentUser={currentUser} />} />
-        <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser}/>} />
-        <Route path="/survey1" element={<Survey quesId="1" currentUser={currentUser} />} />
-        <Route path="/survey2" element={<Survey quesId="2" currentUser={currentUser}/>} />
-        <Route path="/survey3" element={<Survey quesId="3" currentUser={currentUser}/>} />
-        <Route path="/historic" element={<Historic currentUser={currentUser}/>}/>
+        <Route path="/settings" element={<Settings currentUser={currentUser} />} />
+        <Route path="/resultats" element={<Resultats currentUser={currentUser} />}/>
+        <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser} />}/>
+        <Route path="/survey1" element={<Survey quesId="1" currentUser={currentUser} />}/>
+        <Route path="/survey2" element={<Survey quesId="2" currentUser={currentUser} />}/>
+        <Route path="/survey3" element={<Survey quesId="3" currentUser={currentUser} />}/>
+        <Route path="/historic" element={<Historic currentUser={currentUser} />} />
       </Routes>
     </div>
   );

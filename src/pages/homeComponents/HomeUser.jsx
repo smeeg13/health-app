@@ -30,11 +30,8 @@ export default function HomeUser(props) {
         <Link to="/survey1">
           <button
             className="btn"
-            style={{
-              backgroundColor: themes[themeContext.theme].button,
-              color: themes[themeContext.theme].textcolorbtn,
-            }}
-          >
+            style={{backgroundColor: themes[themeContext.theme].button,
+              color: themes[themeContext.theme].textcolorbtn,}}>
             Take a survey
           </button>
         </Link>

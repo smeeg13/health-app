@@ -1,10 +1,7 @@
 export class User {
   id_user;
   nom = "";
-  age = 0;
   sexe = 0; //0 si masculin, 1 si feminin
-  poids = 0;
-  taille = 0;
   nom_role = "";
   avatar = "avatar1.png";
   docteur_requested = "";
@@ -14,10 +11,7 @@ export class User {
     id_user,
     mail,
     nom,
-    age,
     sexe,
-    poids,
-    taille,
     id_role,
     isAdmin,avatar,
     doc_ass,
@@ -26,10 +20,7 @@ export class User {
     this.setId(id_user);
     this.setEmail(mail);
     this.setNom(nom);
-    this.setAge(age);
     this.setSexe(sexe);
-    this.setPoids(poids);
-    this.setTaille(taille);
     this.setIdRole(id_role, isAdmin);
     this.setAvatar(avatar);
     this.docteur_assigned = doc_ass;
@@ -74,20 +65,8 @@ export class User {
     }
   }
 
-  setAge(age) {
-    this.age = age;
-  }
-
-  setPoids(poids) {
-    this.poids = poids;
-  }
-
-  setSexe(sexe) {
+   setSexe(sexe) {
     this.sexe = sexe;
-  }
-
-  setTaille(taille) {
-    this.taille = taille;
   }
 
   toString() {
@@ -114,10 +93,7 @@ export const userConverter = {
       nom: user.nom,
       email: user.email,
       id_role: user.id_role,
-      age: user.age,
       sexe: user.sexe,
-      poids: user.poids,
-      taille: user.taille,
       avatar: user.avatar,
       docteur_requested: user.docteur_requested,
       docteur_assigned: user.docteur_assigned,
@@ -129,10 +105,7 @@ export const userConverter = {
       snapshot.id,
       data.email,
       data.nom,
-      data.age,
       data.sexe,
-      data.poids,
-      data.taille,
       data.id_role,
       null,
       data.avatar,

@@ -33,8 +33,14 @@ export default function Historic(props) {
   };
 
   return (
-    <>
-      <h1>
+    <div style={{
+      backgroundColor: themes[themeContext.theme].background,
+      color: themes[themeContext.theme].foreground,
+    }}>
+      <h1 style={{
+              backgroundColor: themes[themeContext.theme].background,
+            color: themes[themeContext.theme].textcolor,
+          }}>
         {" "}
         {props.currentUser.nom !== ""
           ? props.currentUser.nom
@@ -42,7 +48,10 @@ export default function Historic(props) {
         's Historic
       </h1>
 
-      <>
+      <div  style={{
+      backgroundColor: themes[themeContext.theme].background,
+      color: themes[themeContext.theme].foreground,
+    }}>
         {isBusy ? (
           <Loader />
         ) : (
@@ -88,7 +97,7 @@ export default function Historic(props) {
             )}
           </div>
         )}
-      </>
-    </>
+      </div>
+    </div>
   );
 }

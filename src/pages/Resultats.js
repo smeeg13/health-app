@@ -112,8 +112,6 @@ export default function Resultats(props) {
 function TitleBox(props) {
   return (
     <div>
-      {/* Need the title of the questionnaire
-          Need the avatar of the user */}
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
