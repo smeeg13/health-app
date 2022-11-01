@@ -68,7 +68,7 @@ function Survey(props) {
   };
 
   return (
-    <div className="box1">
+    <div className="containerSurvey">
       {/* Box for data questionnaire 1-2  */}
       {/* <TitleBox title="Vous" my_avatar={props.currentUser.avatar} /> */}
       {isBusy ? <Loader /> :

@@ -6,28 +6,33 @@ export function BoxQuestion(props) {
   console.log("BoxQuestion", props.resultat);
 
   return (
-    <div>
+    <div className="containerSurvey">
       <form onSubmit={props.handleFormSubmit}>
-        <div>
+        <div className="boxQuiz">
+        <h2 className="survey_title">Title</h2>
           {props.questions.map(q =>
-            <li key={q.id}>
-              <label> {q.question} </label>
+            <div key={q.id}>
+              {/* <h3 className="questions">{q.question}</h3> */}
               {q.typeAnswer === 'textbox' && <FormInput
                 id={q.id}
                 name={q.resName}
                 value={q.value}
+                ques={q.question}
                 onChange={props.handleFormInputChange}
               />}
+
               {q.typeAnswer === 'checkbox' && <CheckBoxForm
                 id={q.id}
                 name={q.resName}
                 value={q.value}
                 handleFormInputChange={props.handleFormInputChange}
+                ques={q.question}
               />}
               {q.typeAnswer === 'select-one' && <Dropdown
                 id={q.id}
                 type="select-one"
                 name={q.resName}
+                ques={q.question}
                 question={q}
                 value={q.value}
                 handleFormInputChange={props.handleFormInputChange}
@@ -38,13 +43,14 @@ export function BoxQuestion(props) {
                     id={q.id}
                     name={q.resName}
                     question={q}
+                    ques={q.question}
                     value={q.value}
                     handleFormInputChange={props.handleFormInputChange}
                   />
                 </div>
 
               }
-            </li>
+            </div>
           )}
         </div>
         {props.index === props.numberOfQues && <button className="btn" type="submit" onClick={props.handleFormSubmit}>
@@ -64,7 +70,8 @@ function Range(props) {
 
   return (
     <div>
-      <input
+      <h3 className="questions">{props.ques}
+      <input className="answers_type"
         type="range"
         name={props.question.resName}
         min={props.question.min}
@@ -72,9 +79,11 @@ function Range(props) {
         value={props.value}
         onChange={props.handleFormInputChange}
         onInput={handleChange}
-        step="1" 
-        />
-        <p>{slideValue}</p> 
+        step="1"
+        
+      />
+      <output className="rangevalue">{slideValue}</output>
+      </h3>
     </div>
   )
 }
@@ -82,16 +91,16 @@ function Range(props) {
 function Dropdown(props) {
   return (
     <div>
-      <label className="label">Sex</label>
-      <br />
-      <select name={props.name} onChange={props.handleFormInputChange}>
-        <option value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[0])}>
+     <h3 className="questions">{props.ques}
+      <select className="dropdown" name={props.name} onChange={props.handleFormInputChange}>
+        <option className="options" value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[0])}>
           {props.question.valeurs_possibles[0]}
         </option>
-        <option value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[1])}>
+        <option className="options" value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[1])}>
           {props.question.valeurs_possibles[1]}
         </option>
       </select>
+      </h3>
     </div>
   );
 };
@@ -103,31 +112,32 @@ export function getObjKey(obj, value) {
 function CheckBoxForm(props) {
   return (
     <div>
-      <input
-        id={props.id}
-        name={props.name}
-        type="checkbox"
-        checked={props.value}
-        onChange={props.handleFormInputChange}
-      />
-      <b/>
+      <h3 className="questions">{props.ques}
+        <input className="answers_type"
+          id={props.id}
+          name={props.name}
+          type="checkbox"
+          checked={props.value}
+          onChange={props.handleFormInputChange}
+        />
+      </h3>
     </div>
   )
 }
 
 function FormInput({
   id,
-  label,
   name,
   value,
   onChange,
   placeholder,
   min,
   max,
-  range,
+  props,
 }) {
   return (
-    <>
+    <div>
+      <h3 className="questions">{props.ques}
       <input
         id={id}
         name={name}
@@ -137,8 +147,8 @@ function FormInput({
         min={min}
         max={max}
       />
-      <br />
-    </>
+      </h3>
+    </div>
   );
 }
 
