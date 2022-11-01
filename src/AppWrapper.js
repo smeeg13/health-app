@@ -41,6 +41,10 @@ class AppWrapper extends React.Component {
     const value = target.value;
     const name = target.name;
 
+    console.log('name', name);
+    console.log('value', value);
+    console.log('type', target.type);
+
     if (target.type === 'checkbox') {
       let checkedInt = target.checked === true ? 1 : 0;
 
@@ -48,12 +52,13 @@ class AppWrapper extends React.Component {
         resultat: { ...prevState.resultat, [name]: checkedInt },
       }));
     }
-    if (target.type === 'dropdown') {
+    if (target.type === 'select-one') {
+
       this.setState((prevState) => ({
-        resultat: { ...prevState.resultat, [name]: value },
+        resultat: { ...prevState.resultat, [name]: parseInt(value) },
       }));
     }
-    if (target.type === 'slider') {
+    if (target.type === 'range') {
       this.setState((prevState) => ({
         resultat: { ...prevState.resultat, [name]: value },
       }));
