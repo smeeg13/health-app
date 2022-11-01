@@ -13,7 +13,7 @@ export default function Resultats(props) {
   let [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true);
 
-  {props.currentUser.avatar === "avatar" && <Account />}
+  {props.currentUser.avatar === "avatarIcon" && <Account />}
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
@@ -61,7 +61,7 @@ export default function Resultats(props) {
       <div className="box1">
         {/* Box for data questionnaire 1-2  */}
         <div className="container result1">
-          <TitleBox title="Votre Situation" my_avatar={props.currentUser.avatar} />
+          <TitleBox title="Votre Situation"/>
           <BoxRes1
             handleFormInputChange={handleFormInputChange}
             handleFormSubmit={handleFormSubmit}
@@ -107,7 +107,7 @@ function TitleBox(props) {
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
-        <img className="my_avatar" src={this.currentUser.avatar} alt="AvatarUser" />
+        <img className="my_avatar" src={props.avatar} alt="AvatarUser" />
       </div>
     </div>
   );
