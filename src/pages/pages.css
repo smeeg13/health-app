@@ -411,7 +411,6 @@ input{
 }
 
 .survey_title{
-  padding-top: 20px;
   font-family: "Lexend Deca";
 }
 
@@ -419,8 +418,9 @@ input{
   position: relative;
   margin-right: 20px;
   display: inline-block;
-  margin-top: 60px;
-  width: 750px;
+  margin-top: 15px;
+  min-width: 700px;
+  width: fit-content;
   border: 1px solid grey;
   height: 550px;
   background-color: #eafaf1;
@@ -429,7 +429,7 @@ input{
 
 .questions{
   display:table;
-  margin-left: 150px;
+  margin-left: 80px;
   font-size: 0.9em;
   font-family: "Lexend Deca";
   
@@ -437,28 +437,54 @@ input{
 
 .btn_previous, .btn_next{
   position: relative;
-  margin-top: 20px;
+  margin-top: 5px;
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;
   overflow: hidden;
   z-index: 1;
   font-weight: bold;
-  color: #ffff;
+  color: #1A523C;
   padding: 0.7em 1.7em;
   font-size: 0.8em;
-  border-radius: 20%; /*to round the corner of the shape */
-  background: #77C5A6;
+  border-radius: 20px; /*to round the corner of the shape */
+  background-color: #e8e8e8;
   border: 1px solid #77C5A6;
-  background-color: #054A2F;
+}
+
+.btn_previous:active, .btn_next:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5,
+             inset -4px -4px 12px #ffffff;
+}
+
+
+.btn_next:hover, .btn_previous:hover {
+  color: white;
+  background-color: #1A523C;
+  border: 1px solid #1A523C;
+}
+
+.btn:hover:before {
+  top: -35%;
+  background-color: #e8e8e8;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.btn:hover:after {
+  top: -45%;
+  background-color: #e8e8e8;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
 .btn_previous{
-  margin-right: 55px;
+  float: left;
+  margin-left: 20px;
 }
 
 .btn_next{
-  margin-right: 10px;
+  float: right;
+  margin-right: 20px;
 }
 
 input,
@@ -517,6 +543,7 @@ input[type="range"]::-ms-thumb {
 
 .dropdown{
   margin-left: 20px;
+  margin-right: 10px;
   width: auto;
   height: auto;
   background-color: #C1E1C1;
