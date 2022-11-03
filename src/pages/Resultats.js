@@ -4,10 +4,12 @@ import React, { useContext, useState, useEffect } from "react";
 import { ResultatContext } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
+import { FormInput } from "../components/FormInput";
 import Account from "../pages/Account";
 import BoxRes1 from "../components/BoxRes1";
 import BoxRes2 from "../components/BoxRes2";
 import BoxResultat from "../components/BoxResultat";
+import Account from "./Account";
 
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
@@ -69,7 +71,7 @@ export default function Resultats(props) {
       <div className="box1">
         {/* Box for data questionnaire 1-2  */}
         <div className="container result1">
-          <TitleBox title="Votre Situation"/>
+          <TitleBox title="Votre Situation" my_avatar={props.currentUser.avatar}/>
           <BoxRes1
             handleFormInputChange={handleFormInputChange}
             handleFormSubmit={handleFormSubmit}
@@ -115,43 +117,12 @@ function TitleBox(props) {
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
-        <img className="my_avatar" src={props.avatar} alt="AvatarUser" />
+        <img className="my_avatar" src={props.my_avatar} alt="AvatarUser" />
       </div>
     </div>
   );
 }
 
-function FormInput({
-  disabled,
-  id,
-  label,
-  type,
-  name,
-  value,
-  onChange,
-  placeholder,
-  min,
-  max,
-  range,
-}) {
-  return (
-    <>
-      <label>{label}</label>
-      <input
-      disabled={disabled}
-        id={id}
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        min={min}
-        max={max}
-      />
-      <br />
-    </>
-  );
-}
 
 export function getObjKey(obj, value) {
   return Object.keys(obj).find(key => obj[key] === value);
