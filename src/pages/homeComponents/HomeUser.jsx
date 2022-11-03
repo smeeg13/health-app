@@ -27,7 +27,7 @@ export default function HomeUser(props) {
             ? props.currentUser.nom
             : props.currentUser.email}
         </h2>
-        <Link to="/survey1">
+        <Link to="/survey">
           <button
             className="btn"
             style={{backgroundColor: themes[themeContext.theme].button,

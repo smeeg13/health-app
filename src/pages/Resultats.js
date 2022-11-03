@@ -4,6 +4,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { ResultatContext } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
+import { FormInput } from "../components/FormInput";
+import Account from "../pages/Account";
 import BoxRes1 from "../components/BoxRes1";
 import BoxRes2 from "../components/BoxRes2";
 import BoxResultat from "../components/BoxResultat";

@@ -4,6 +4,7 @@ import { ResultatContext } from "../Context";
 import { getDocs, collection, getCountFromServer } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
 import { BoxQuestion, Loader } from "../components/QuestionForm";
+import { BouncingDotsLoader } from "../utils/tools";
 
 function Survey(props) {
   const [questions, setQuestions] = useState([]);
@@ -13,6 +14,11 @@ function Survey(props) {
   const [index, setIndex] = useState(1);
 
   useEffect(() => {
+    setTimeout(() => {
+      setBusy(false);
+      console.log('isBusy',isBusy)
+    }, 2000);
+
     async function getQuestionnaireById(index) {
       const refQuestionnaire = collection(
         db,
@@ -23,7 +29,7 @@ function Survey(props) {
 
       const questionList = roleSnapshot.docs.map((doc) => doc.data());
       setQuestions(questionList);
-      setBusy(false);
+      // setBusy(false);
     }
 
     getQuestionnaireById(index);
@@ -68,10 +74,10 @@ function Survey(props) {
   };
 
   return (
-    <div className="box1">
+    <div className="containerSurvey">
       {/* Box for data questionnaire 1-2  */}
       {/* <TitleBox title="Vous" my_avatar={props.currentUser.avatar} /> */}
-      {isBusy ? <Loader /> :
+      {isBusy ? <BouncingDotsLoader /> :
         <BoxQuestion
           resultat={resultatContext.resultat}
           handleFormInputChange={handleFormInputChange}
@@ -82,11 +88,11 @@ function Survey(props) {
           isBusy={isBusy}
         />
       }
-      <button className="btn" onClick={handlePreviousQuestionnaire}>
-        Previous
+      <button className="btn_previous" onClick={handlePreviousQuestionnaire}>
+        back
       </button>
-      <button className="btn" onClick={handleNextQuestionnaire}>
-        Next
+      <button className="btn_next" onClick={handleNextQuestionnaire}>
+        next
       </button>
     </div>
   )
