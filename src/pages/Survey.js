@@ -74,7 +74,7 @@ function Survey(props) {
   };
 
   return (
-    <div className="containerSurvey">
+    <div>
       {/* Box for data questionnaire 1-2  */}
       {/* <TitleBox title="Vous" my_avatar={props.currentUser.avatar} /> */}
       {isBusy ? <BouncingDotsLoader /> :
@@ -86,14 +86,12 @@ function Survey(props) {
           index={index}
           numberOfQues={numberOfQues}
           isBusy={isBusy}
+          handlePreviousQuestionnaire={handlePreviousQuestionnaire}
+          handleNextQuestionnaire={handleNextQuestionnaire}
+
         />
+        
       }
-      <button className="btn_previous" onClick={handlePreviousQuestionnaire}>
-        back
-      </button>
-      <button className="btn_next" onClick={handleNextQuestionnaire}>
-        next
-      </button>
     </div>
   )
 }

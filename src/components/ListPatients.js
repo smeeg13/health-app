@@ -5,6 +5,8 @@ import { ThemeContext, themes } from "../Context";
 import { DealWithPatientRequest } from "../objects_managers/DocteurManager";
 
 export function ListPatient(props) {
+
+  let themeContext = useContext(ThemeContext);
   const [patients, setPatients] = useState([]);
   const [isBusy, setBusy] = useState(true);
   const [requestPatients, setRequestPatients] = useState([]);
@@ -42,10 +44,16 @@ export function ListPatient(props) {
       {isBusy && isBusy2 ? (
         <Loader />
       ) : (
-        <div className="container_list_patient">
+        <div className="container">
           <div className="box_list">
-            <h3> Patients that asked us to be our doctor </h3>
-            <p>you can accepte them or refuse them</p>
+            <p className="center text" style={{
+            color: themes[themeContext.theme].textcolor,
+          }}>
+              {" "}
+              Here's a list of patients that asked you as their doctor.
+              <br></br> 
+              You can accepte them or refuse them.
+            </p>
 
             <UserList
               currentUser={props.currentUser}
@@ -53,9 +61,8 @@ export function ListPatient(props) {
               isRequest={true}
             />
           </div>
-          <hr />
-          <div className="box_list">
-            <h3> List of Patients</h3>
+          <div className="patient_list">
+            <h3> List of patients</h3>
 
             <UserList
               currentUser={props.currentUser}
@@ -88,7 +95,7 @@ function UserList(props) {
       //AND remove id into doctor_request
       //then save it all into DB
 
-      await DealWithPatientRequest(props.currentUser, res.id_user, true)
+      await DealWithPatientRequest(props.currentUser, res.id_user, true);
     }
     if (event.target.name === "Refuse") {
       console.log("Refuse Clicked on ", res.id_user);
@@ -97,12 +104,12 @@ function UserList(props) {
       //AND add into remarks field : that the doctor refuses, must choose another one
       //then save it all into DB
 
-      await DealWithPatientRequest(props.currentUser, res.id_user, false)
+      await DealWithPatientRequest(props.currentUser, res.id_user, false);
     }
   };
 
   return (
-    <div className="container_list_patient center">
+    <div className="container center">
       {props.patients.lenght === 0 ? (
         <div>
           {props.isRequest ? (
@@ -115,8 +122,6 @@ function UserList(props) {
         <ul style={{ listStyleType: "none", padding: 10 }}>
           {props.patients.map((res) => (
             <li key={res.id_user}>
-              <hr className="my_hr" />
-
               <div className="row  center">
                 <div className="column_list center">
                   <p className="center">
@@ -164,14 +169,15 @@ function UserList(props) {
                       style={{
                         backgroundColor: themes[themeContext.theme].button,
                         color: themes[themeContext.theme].textcolorbtn,
-                        width: 170,
+                        fontSize: "0.8em",
+                        width: 120,
                         marginTop: 0,
                         marginBottom: 10,
                         marginLeft: 280,
                       }}
                       onClick={(event) => HandleClick(event, res)}
                     >
-                      See Details
+                      Details
                     </button>
                   )}
                 </div>
