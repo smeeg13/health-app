@@ -1,6 +1,7 @@
 import { db } from "../initFirebase";
 import {Timestamp,collection,doc,setDoc,getDoc,getDocs,updateDoc,} from "firebase/firestore";
-import { resultatsConverter } from "../objects/Resultats";
+import {resultatsConverter } from "../objects/Resultats";
+
 
 export async function CreateDocGuestInResultat() {
   // Add a new document with a generated id
@@ -70,22 +71,23 @@ export async function GetResultatsByDate(id_user, id_resultats) {
 }
 
 export async function GetLastResultats(id_user) {
-  let resList = await GetAllResultatsByUser(id_user);
-  var diffdate = new Date();
+  let resList =  [];
+  resList = await GetAllResultatsByUser(id_user);
+  console.log("List result : ",resList )
+  if(resList !== []){
+    let sortedList = resList.sort((a, b) => new Date(...a.id_resultats.split('-').reverse()) - new Date(...b.id_resultats.split('-').reverse()));
+  console.log("Sorted list result : ",sortedList )
 
-  resList = resList.sort(function (a, b) {
-    var distancea = Math.abs(diffdate - a.id_resultats);
-    var distanceb = Math.abs(diffdate - b.id_resultats);
-    return distancea - distanceb; // sort a before b when the distance is smaller
-  });
-  console.log("resultat list sorted : ", resList);
+  let lastRes = sortedList.find(sortedList.length-1);
+  console.log("Last result : ",lastRes )
+  return lastRes;
+  }
+  else{
+return null;
+  }
 
-  var beforedates = resList.filter(function (d) {
-    return d - diffdate < 0;
-  });
-
-  console.log("resultat list filtered : ", beforedates);
-  return beforedates.findIndex(0);
+  
+  
 }
 
 //Update one specific Resultats Document

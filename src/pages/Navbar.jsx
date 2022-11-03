@@ -36,7 +36,6 @@ export default class Navbar extends React.Component {
               ) : (
                 <img className="logo_theme" src={day} alt="light mode" />
               )}   
-               {/* <span>💡</span> */}
             </button>
 
             {/* if user.nom_role = Patient  */}
@@ -53,7 +52,7 @@ export default class Navbar extends React.Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/survey1" style={{ textDecoration: "none" }}>
+                  <Link to="/survey" style={{ textDecoration: "none" }}>
                     Survey
                   </Link>
                 </li>

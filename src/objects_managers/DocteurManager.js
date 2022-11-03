@@ -3,11 +3,11 @@ import { doc, setDoc, getDoc,getDocs, updateDoc } from "firebase/firestore";
 import { docteurConverter } from "../objects/Docteur";
 
 export async function CreateDocDocteur(docteur) {
-  const docRef = await setDoc(doc(refDocteur, docteur.id), docteur);
+  const docRef = await setDoc(doc(refDocteur, docteur.id_user), docteur);
   console.log("Auth User ID: ", auth.currentUser.uid);
-  console.log("Docteur ID: ", docteur.id);
+  console.log("Docteur ID: ", docteur.id_user);
 
-  console.log("Document Docteur written with ID: ", docRef.id);
+  console.log("Document Docteur written with ID: ", docRef.uid);
 }
 
 export async function GetAllDocteurs() {

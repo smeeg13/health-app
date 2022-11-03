@@ -5,7 +5,7 @@ import { ThemeContext, themes } from "../Context";
 import React, { useState, useContext, useEffect } from "react";
 import _ from "lodash";
 import { GetAllDocteurs, NewRequest } from "../objects_managers/DocteurManager";
-import { Loader } from "../components/QuestionForm";
+import { BouncingDotsLoader } from "../utils/tools";
 
 function Account(props) {
   const avatar1 = "/img/avatar1.png";
@@ -19,17 +19,22 @@ function Account(props) {
 
   const [avatarSelected, setAvatar] = useState(props.currentUser.avatar);
   const [nameEntered, setNameEntered] = useState(props.currentUser.nom);
-  const [docteurSelectForRequest, setDocteurSelectForRequest] = useState(undefined);
-  const [docteurAssigned, setDocteurAssigned] = useState("");
-  const [docteurs, setDocteurs] = useState([]);
-  const [isBusy, setBusy] = useState(true);
-  const [message, setMessage] = useState("");
   const [confirmSave, setConfirmSave] = useState("");
 
+  const [docteurs, setDocteurs] = useState([]);
+  const [docteurSelectForRequest, setDocteurSelectForRequest] =
+    useState(undefined);
+  const [docteurAssigned, setDocteurAssigned] = useState(
+    props.currentUser.docteur_assigned
+  );
+
+  const [isBusy, setBusy] = useState(true);
+  const [message, setMessage] = useState("");
+
+  /** Get all docteurs available */
   useEffect(() => {
     const fetchDocteurs = async () => {
       const result = await GetAllDocteurs();
-      console.log("Docteurs retrived :", result);
       setDocteurs(result);
       setBusy(false);
     };
@@ -37,11 +42,10 @@ function Account(props) {
     fetchDocteurs();
   }, []);
 
+  /** Retrieve the name of the Doctor assigned to User */
   useEffect(() => {
     const GetDocteurNameAssigned = () => {
-      if (props.currentUser.docteur_assigned === "") {
-        setDocteurAssigned("Please make a request to a doctor");
-      } else {
+      if (props.currentUser.docteur_assigned !== "") {
         if (docteurs.length > 0) {
           let filteredArray = docteurs.filter(
             (item) => item.id_user === props.currentUser.docteur_assigned
@@ -52,7 +56,7 @@ function Account(props) {
     };
 
     GetDocteurNameAssigned();
-  }, [props.currentUser.docteur_assigned]);
+  }, [props.currentUser.docteur_assigned, docteurs]);
 
   useEffect(() => {
     setAvatar(props.currentUser.avatar);
@@ -65,16 +69,16 @@ function Account(props) {
   useEffect(() => {
     setTimeout(() => {
       setConfirmSave("");
-    }, 3000);
+    }, 4000);
   }, [confirmSave]);
 
   useEffect(() => {
     setTimeout(() => {
       setMessage("");
-    }, 3000);
+    }, 4000);
   }, [message]);
 
-  const onClickHandler = (order) => {
+  const HandleAvatar = (order) => {
     const str = order.target.src;
     const after_ = str.split("/").pop();
     let newStrg = "/img/" + after_;
@@ -86,6 +90,7 @@ function Account(props) {
   const HandleName = (event) => {
     setNameEntered(event.target.value);
   };
+
   const HandleDocteurSelect = (event) => {
     setDocteurSelectForRequest(event.target.value);
     console.log("Docteur selected : ", event.target.value);
@@ -112,7 +117,6 @@ function Account(props) {
     //Save into DB
     let Ref = doc(db, "User", props.currentUser.id_user);
 
-    // Set the "fieldNameToChange" field of the city 'DC'
     try {
       await updateDoc(Ref, {
         avatar: avatarSelected,
@@ -122,17 +126,12 @@ function Account(props) {
     } catch (e) {
       setConfirmSave("Error When saving modifications, please try later");
     }
-
-    //navigate("/");
   };
-
-  console.log(props.currentUser.avatar);
-  // console.log(props.currentUser.name)
 
   return (
     <Container2>
       {isBusy ? (
-        <Loader />
+        <BouncingDotsLoader />
       ) : (
         <>
           <div
@@ -193,13 +192,11 @@ function Account(props) {
                   backgroundColor: themes[themeContext.theme].button,
                   color: themes[themeContext.theme].textcolorbtn,
                   fontSize: 14,
-                  margin:"auto"
                 }}
                 onClick={HandleSubmit}
               >
                 Save
               </button>
-
 
               <div>
                 {confirmSave === "Changes Saved" ? (
@@ -215,24 +212,26 @@ function Account(props) {
             </div>
             <br />
             <div>
-              {props.currentUser.docteur_assigned !== "" && (
+              {props.currentUser.docteur_assigned !== "" ? (
                 <div className="center">
-                  <h1
-                    className="choose_avatar">
-                    Doctor assigned to you
-                  </h1>
+                  <h1 className="choose_avatar">Doctor assigned to you</h1>
                   <input
                     disabled
                     name="docteur_assigned"
                     className="text_input"
                     type="text"
                     maxLength={30}
-                    value={docteurAssigned} //TODO:: retrieve the name of Doc
+                    value={docteurAssigned}
                   />
                 </div>
+              ) : (
+                <p style={{ color: "#FF2400", fontWeight: 600 }}>
+                  You have no Doctor assigned to you for the moment
+                </p>
               )}
 
               <div className=" center">
+                {props.currentUser.docteur_assigned ==='' ?
                 <h1
                   className="choose_avatar"
                   style={{
@@ -242,26 +241,48 @@ function Account(props) {
                 >
                   Ask for a Doctor to take care of you
                 </h1>
+                :
+                <h1
+                  className="choose_avatar"
+                  style={{
+                    margin: 15,
+                    color: themes[themeContext.theme].textcolor,
+                  }}
+                >
+                  Ask for another a Doctor to take care of you
+                </h1>
+              }
+
+                
                 <div className="row center" style={{ margin: 0 }}>
                   <div className="column_list center" style={{ margin: 0 }}>
                     <div>
-                      {" "}
-                      <label htmlFor="docteur_requested">
-                        Select a doctor :{" "}
-                      </label>
                       <select
-                      className="dropdown"
+                        className="dropdown"
                         name="docteur_requested"
                         id="docteur_requested"
                         value={docteurSelectForRequest}
                         onChange={(event) => HandleDocteurSelect(event)}
                         style={{ minWidth: 150 }}
                       >
-                        {docteurs.map((value) => (
-                          <option key={value.id_user} value={value.id_user}>
-                            {value.nom}
-                          </option>
-                        ))}
+                        <option key={0} value={"Select a doctor"}>
+                          Select a doctor
+                        </option>
+                        {props.currentUser.docteur_assigned !== '' ?
+                          docteurs.filter(
+                            (item) => item.id_user !== props.currentUser.docteur_assigned
+                          ).map((value) => (
+                            <option key={value.id_user} value={value.id_user}>
+                              {value.nom}
+                            </option>
+                          ))
+                          : 
+                          docteurs.map((value) => (
+                            <option key={value.id_user} value={value.id_user}>
+                              {value.nom}
+                            </option>
+                          ))
+                        }
                       </select>
                     </div>
                   </div>
@@ -319,19 +340,19 @@ function Account(props) {
                   className="avatar1"
                   alt="avatar1"
                   src={avatar1}
-                  onClick={onClickHandler}
+                  onClick={HandleAvatar}
                 ></img>
                 <img
                   className="avatar2"
                   alt="avatarr"
                   src={avatarr}
-                  onClick={onClickHandler}
+                  onClick={HandleAvatar}
                 ></img>
                 <img
                   className="avatar1"
                   alt="avatar3"
                   src={avatar3}
-                  onClick={onClickHandler}
+                  onClick={HandleAvatar}
                 ></img>
               </div>
               <div className="avatar">
@@ -339,19 +360,19 @@ function Account(props) {
                   className="avatar1"
                   alt="avatar4"
                   src={avatar4}
-                  onClick={onClickHandler}
+                  onClick={HandleAvatar}
                 ></img>
                 <img
                   className="avatar1"
                   alt="avatar5"
                   src={avatar5}
-                  onClick={onClickHandler}
+                  onClick={HandleAvatar}
                 ></img>
                 <img
                   className="avatar1"
                   alt="avatar6"
                   src={avatar6}
-                  onClick={onClickHandler}
+                  onClick={HandleAvatar}
                 ></img>
               </div>
             </div>

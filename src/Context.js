@@ -11,6 +11,8 @@ export const ThemeContext = React.createContext({
 export const ResultatContext = React.createContext({
     resultat: new Resultats(),
     maladies: new Maladies(),
+    resetResultat:() => {},
+    setResultat: () => {},
     updateResultatField: () => {},
     updateInDb: () => {},
     calculateMaladies: () => {}

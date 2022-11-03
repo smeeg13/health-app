@@ -1,25 +1,24 @@
 import "../App.css";
 import { db } from "../initFirebase";
 import React, { useContext, useState, useEffect } from "react";
-import { ResultatContext } from "../Context";
+import { ResultatContext, ThemeContext, themes } from "../Context";
 import { getDocs, collection } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
-import { FormInput } from "../components/FormInput";
-import Account from "../pages/Account";
 import BoxRes1 from "../components/BoxRes1";
 import BoxRes2 from "../components/BoxRes2";
 import BoxResultat from "../components/BoxResultat";
-import Account from "./Account";
+import { Button } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
-
-  let [resultatToDisplay, setResultatToDisplay] = useState(undefined);
+  let themeContext = useContext(ThemeContext);
   let [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true);
-  
+  const [confirmSave, setConfirmSave] = useState("");
 
-  {props.currentUser.avatar === "avatarIcon" && <Account />}
+
+  // {props.currentUser.avatar === "avatarIcon" && <Account />}
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
@@ -53,9 +52,14 @@ export default function Resultats(props) {
     resultatContext.calculateMaladies(resultatContext.resultat);
   }, [resultatContext.resultat]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setConfirmSave("");
+    }, 4000);
+  }, [confirmSave]);
+
   const handleFormInputChange = (event) => {
     resultatContext.updateResultatField(event, resultatContext.resultat);
-    
   };
 
   const handleFormSubmit = async (event) => {
@@ -64,50 +68,106 @@ export default function Resultats(props) {
       "Save modif clicked !, current user id : ",
       props.currentUser.id_user
     );
-    resultatContext.updateInDb(props.currentUser.id_user);
+
+    try {
+         resultatContext.updateInDb(props.currentUser.id_user);
+      setConfirmSave("Changes Saved");
+    } catch (e) {
+      setConfirmSave("Error When saving modifications, please try later");
+    }
   };
   return (
-    <div className="wrapper">
-      <div className="box1">
-        {/* Box for data questionnaire 1-2  */}
-        <div className="container result1">
-          <TitleBox title="Votre Situation" my_avatar={props.currentUser.avatar}/>
-          <BoxRes1
-            handleFormInputChange={handleFormInputChange}
-            handleFormSubmit={handleFormSubmit}
-            questions={questions}
-            isBusy={isBusy}
-          />
+    //if vient de historic
+    <>
+      {props.last && (
+        <span>Your last Reponses of the {resultatContext.resultat.id_resultats}</span>
+      )}
+      {props.fromHistoric && (
+        <div>
+          <Button
+            startIcon={<ArrowBackIcon />}
+            name="BackToList"
+            type="submit"
+            className="btn"
+            style={{
+              backgroundColor: themes[themeContext.theme].button,
+              color: themes[themeContext.theme].textcolorbtn,
+            }}
+            onClick={props.closeDetails}
+          >
+            Close Details
+          </Button>{" "}
+          <br/>
+          <span>Reponses of the {resultatContext.resultat.id_resultats}</span>
         </div>
-        {/* Box for data questionnaire 3 */}
-        <div className="container result2">
-          <TitleBox
-            title="Votre Rythme "
-            my_avatar={props.currentUser.avatar}
-          />
-          <BoxRes2
-            handleFormInputChange={handleFormInputChange}
-            handleFormSubmit={handleFormSubmit}
-            questions={questions}
-            isBusy={isBusy}
-          />
+      )}
+      <div className="wrapper">
+        <div className="box1" style={{margin:-10}}>
+          {/* Box for data questionnaire 1-2  */}
+          <div className="container result1">
+            <TitleBox
+              title="Votre Situation"
+              my_avatar={props.currentUser.avatar}
+            />
+            <BoxRes1
+              handleFormInputChange={handleFormInputChange}
+              handleFormSubmit={handleFormSubmit}
+              questions={questions}
+              isBusy={isBusy}
+            />
+          </div>
+          {/* Box for data questionnaire 3 */}
+          <div className="container result2">
+            <TitleBox
+              title="Votre Rythme "
+              my_avatar={props.currentUser.avatar}
+            />
+            <BoxRes2
+              handleFormInputChange={handleFormInputChange}
+              handleFormSubmit={handleFormSubmit}
+              questions={questions}
+              isBusy={isBusy}
+            />
+          </div>
+          {/* Box for Resultat  */}
+          <div className="container result3">
+            <TitleBox
+              title="Vos Risques"
+              my_avatar={props.currentUser.avatar}
+            />
+            <BoxResultat maladies={resultatContext.maladies} />
+          </div>
         </div>
-        {/* Box for Resultat  */}
-        <div className="container result3">
-          <TitleBox title="Vos Risques" my_avatar={props.currentUser.avatar} />
-          <BoxResultat maladies={resultatContext.maladies} />
-        </div>
-      </div>
 
-      <br />
 
-      <div className="box2">
-        {/* Button for saving into db changes */}
-        <button className="btn" type="submit" onClick={handleFormSubmit}>
-          Save Modifications
-        </button>
+        {props.fromHistoric ===false &&
+        <div className="box2">
+          {/* Button for saving into db changes */}
+         {confirmSave === "Changes Saved" ? (
+                  <span style={{ color: "#00A36C", marginRight: 40 }}>
+                    {confirmSave}
+                  </span>
+                ) : (
+                  <span style={{ color: "#FF2400", marginRight: 40 }}>
+                    {confirmSave}
+                  </span>
+                )}
+                 <button
+          style={{
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+            margin:-30
+          }}
+           className="btn" type="submit" onClick={handleFormSubmit}>
+            Save Modifications
+          </button>
+          
+                
+              
+        </div>}
+        
       </div>
-    </div>
+    </>
   );
 }
 
@@ -124,6 +184,3 @@ function TitleBox(props) {
 }
 
 
-export function getObjKey(obj, value) {
-  return Object.keys(obj).find(key => obj[key] === value);
-}

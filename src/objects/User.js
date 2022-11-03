@@ -75,12 +75,6 @@ export class User {
       ", " +
       this.sexe +
       ", " +
-      this.age +
-      ", " +
-      this.poids +
-      ", " +
-      this.taille +
-      ", " +
       this.avatar
     );
   }
