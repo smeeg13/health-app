@@ -9,7 +9,6 @@ import Account from "../pages/Account";
 import BoxRes1 from "../components/BoxRes1";
 import BoxRes2 from "../components/BoxRes2";
 import BoxResultat from "../components/BoxResultat";
-import Account from "./Account";
 
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
