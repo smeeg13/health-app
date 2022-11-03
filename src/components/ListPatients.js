@@ -5,6 +5,8 @@ import { DealWithPatientRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
 
 export function ListPatient(props) {
+
+  let themeContext = useContext(ThemeContext);
   const [patients, setPatients] = useState([]);
   const [isBusy, setBusy] = useState(true);
   const [requestPatients, setRequestPatients] = useState([]);
@@ -44,10 +46,16 @@ export function ListPatient(props) {
       {isBusy && isBusy2 ? (
         <BouncingDotsLoader />
       ) : (
-        <div className="container_list_patient">
+        <div className="container">
           <div className="box_list">
-            <h3> Patients that asked us to be our doctor </h3>
-            <p>you can accepte them or refuse them</p>
+            <p className="center text" style={{
+            color: themes[themeContext.theme].textcolor,
+          }}>
+              {" "}
+              Here's a list of patients that asked you as their doctor.
+              <br></br> 
+              You can accepte them or refuse them.
+            </p>
 
             {requestPatients.length > 0 ? (
               <UserList

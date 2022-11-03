@@ -23,15 +23,21 @@ export const ResultatContext = React.createContext({
 export const themes = {
     light: {
         background: "#fefefe",
+        background_quiz:"#eafaf1"
         
     },
     dark: {
         background: "#030f27",
         background_right:" #34495e",
+        background_quiz:" #34495e",
         background_left:"#0e6655",
         textcolor:"#fff",
         textcolorbtn:"black",
         button:"#fff",
-        backgroundresult:"white"
+        backgroundresult:"white",
+        dropdown_border:"black",
+        rangeColor:"white",
+        rangeToggle:"#77c5a6"
+
     },
 };
