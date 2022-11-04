@@ -84,14 +84,14 @@ export default function Login() {
                   color: themes[themeContext.theme].textcolor,
               }}
           >
-            You're new here ?{" "}
+            Vous êtes nouveau ?{" "}
               <Link
                   to="/Register"
                   style={{
                       color: themes[themeContext.theme].textcolor,
                   }}
               >
-              Click here to register
+              clickez ici pour vous inscrire !
             </Link>{" "}
           </p>
                     {InformationMessage(message)}
@@ -112,7 +112,7 @@ export default function Login() {
                         color: themes[themeContext.theme].textcolor,
                     }}
                 >
-                    Welcome
+                    Bienvenue
                 </h2>
                 <img src={login} style={{width: "250px"}}></img>
             </div>
@@ -148,7 +148,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "red"}}>
-                            Wrong password
+                            Mauvais mot de passe
                         </b>
                     </p>
                 </div>
@@ -160,7 +160,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "lightgreen"}}>
-                            login correct
+                            Login correct
                         </b>
                     </p>
                 </div>
@@ -172,7 +172,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "lightgreen"}}>
-                            Account created
+                            Compte crée
                         </b>
                     </p>
                 </div>
@@ -184,7 +184,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "red"}}>
-                            Email already used
+                            Cet email est déjà utilisé
                         </b>
                     </p>
                 </div>
@@ -196,7 +196,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "orangered"}}>
-                            User not found please register
+                            L'utilisateur n'existe pas, inscrivez-vous svp
                         </b>
                     </p>
                 </div>

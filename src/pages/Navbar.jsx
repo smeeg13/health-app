@@ -43,17 +43,17 @@ export default class Navbar extends React.Component {
               <>
                 <li>
                   <Link to="/account" style={{ textDecoration: "none" }}>
-                    My Account
+                    Mon compte
                   </Link>
                 </li>
                 <li>
                   <Link to="/historic" style={{ textDecoration: "none" }}>
-                    Historic
+                    Historique
                   </Link>
                 </li>
                 <li>
                   <Link to="/survey" style={{ textDecoration: "none" }}>
-                    Survey
+                    Questionnaire
                   </Link>
                 </li>
                 <li>

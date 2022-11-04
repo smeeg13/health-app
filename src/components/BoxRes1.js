@@ -1,6 +1,6 @@
 import "../App.css";
 import React, { useContext } from "react";
-import { ResultatContext } from "../Context";
+import { ResultatContext, ThemeContext, themes  } from "../Context";
 import { ToggleButton } from "../components/ToggleButton";
 import { getObjKey } from "../utils/tools";
 import { BouncingDotsLoader, FormInput } from "../utils/tools";
@@ -8,6 +8,7 @@ import { width } from "@mui/system";
 
 export default function BoxRes1(props) {
   let resultatContext = useContext(ResultatContext);
+  let themeContext = useContext(ThemeContext);
 
   //Need type - min - max from Questionnaire into props.questions
   //TODO :: for each input, take back the type corresponding to the question characteristics
@@ -23,7 +24,7 @@ export default function BoxRes1(props) {
             <label className="label_results" htmlFor="sexe">
               Sexe :{" "}
            
-            <select className="dropdown_results"
+            <select className="dropdown_results" style={{ color: themes[themeContext.theme].textcolor}}
               name={props.questions[0].resName}
               id={props.questions[0].resName}
               value={resultatContext.resultat.sexe}

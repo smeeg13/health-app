@@ -29,7 +29,7 @@ export default function HomeAdmin() {
             color: themes[themeContext.theme].textcolor,
           }}
         >
-          Hi, welcome back Admin
+          Hey, re-bonjour Admin
         </h2>
         <Link to="/settings">
           <button
@@ -39,7 +39,7 @@ export default function HomeAdmin() {
               color: themes[themeContext.theme].textcolorbtn,
             }}
           >
-            Modify Variables
+            Modifier variables
           </button>
         </Link>
   
@@ -54,7 +54,7 @@ export default function HomeAdmin() {
             color: themes[themeContext.theme].textcolorbtn,
           }}
         >
-          Open FireBase Console
+          Console FireBase
         </button>
   
         <br />
@@ -68,7 +68,7 @@ export default function HomeAdmin() {
               color: themes[themeContext.theme].textcolorbtn,
             }}
           >
-            Add a New Doctor
+            Ajouter un docteur
           </button>
         </Link>
       </div>
