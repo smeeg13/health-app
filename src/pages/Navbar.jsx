@@ -56,11 +56,11 @@ export default class Navbar extends React.Component {
                     Historique
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/survey" style={{ textDecoration: "none" }}>
                     Questionnaire
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/" style={{ textDecoration: "none" }}>
                     Home

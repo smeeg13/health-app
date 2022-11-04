@@ -106,7 +106,7 @@ export default function Historic(props) {
                                 marginLeft: 280,
                               }}
                               onClick={(event) =>
-                                HandleDetailsClick(event, res)
+                                openDetails(event, res)
                               }
                             >
                               Détails

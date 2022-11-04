@@ -1,6 +1,5 @@
 import "../App.css";
-import React, { useContext } from "react";
-import { ResultatContext } from "../Context";
+import React from "react";
 import { Slider, Box } from "@mui/material";
 
 export default function BoxResultat(props) {

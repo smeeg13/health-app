@@ -10,16 +10,12 @@ import BoxResultat from "../components/BoxResultat";
 import { Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
   let themeContext = useContext(ThemeContext);
   let [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true);
   const [confirmSave, setConfirmSave] = useState("");
-
-
-  // {props.currentUser.avatar === "avatarIcon" && <Account />}
 
   useEffect(() => {
     async function getQuestionnaireById(quesId) {
@@ -78,7 +74,6 @@ export default function Resultats(props) {
     }
   };
   return (
-    //if vient de historic
     <>
       {props.last && (
         <h3 style={{marginTop:"1px", color: themes[themeContext.theme].textcolor}}>Vos dernières réponses du {resultatContext.resultat.id_resultats}</h3>

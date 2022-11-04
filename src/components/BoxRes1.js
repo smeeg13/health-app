@@ -4,7 +4,6 @@ import { ResultatContext, ThemeContext, themes  } from "../Context";
 import { ToggleButton } from "../components/ToggleButton";
 import { getObjKey } from "../utils/tools";
 import { BouncingDotsLoader, FormInput } from "../utils/tools";
-import { width } from "@mui/system";
 
 export default function BoxRes1(props) {
   let resultatContext = useContext(ResultatContext);
