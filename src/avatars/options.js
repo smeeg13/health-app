@@ -7,6 +7,7 @@ var options = [
     colorAttribute: "",
     colors: {},
   },
+  
   {
     label: "Head",
     type: "top",

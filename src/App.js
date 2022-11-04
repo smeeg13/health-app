@@ -17,7 +17,7 @@ import { GetDocteurById } from "./objects_managers/DocteurManager";
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
 import Historic from "./pages/Historic";
-import Avatar from "./avatars/avatar";
+import Avataaar from "./avatars/avatar";
 
 export default function App() {
   const [Attributes, setAttributes] = useState({
@@ -93,7 +93,7 @@ export default function App() {
         <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser}/>} />
         <Route path="/survey" element={<Survey currentUser={currentUser} />} />
         <Route path="/historic" element={<Historic currentUser={currentUser}/>}/>
-        <Route path="/avatar" element={<Avatar value={Attributes} onChange={setAttributes}/>}/>
+        <Route path="/avatar" element={<Avataaar value={Attributes} onChange={setAttributes}/>}/>
       </Routes>
     </div>
   );

@@ -1,13 +1,15 @@
-import React, { useState, useRef } from "react";
-import { ReactDOM } from "react";
+import React, { useState, useRef, useCallback } from "react";
+import * as ReactDOM from 'react-dom';
 import { DownloadIcon } from "./svg";
 import { Piece } from "avataaars";
-
 import map from "lodash/map";
 import FileSaver from "file-saver";
 import options from "./options";
+import Avatar from "avataaars";
+import format from 'date-fns/format';
+import { toPng, toJpeg } from 'html-to-image'
 import {
-  Button,
+  Button, 
   DownloadRow,
   Tabs,
   Tabpanes,
@@ -21,10 +23,14 @@ import {
   Tabpane,
 } from "./style";
 
-export default function Avatar(props) {
+
+export default function Avataaar(props) {
   const canvasRef = useRef(null);
   const avatarRef = useRef(null);
   const [selectedTab, setSelectedTab] = useState("top");
+  const ref = useRef<HTMLDivElement>(null);
+
+  const getFileName = (fileType) => `${format(new Date(), "'SomeName-'HH-mm-ss")}.${fileType}`
 
   const pieceClicked = (attr, val) => {
     var newAttributes = {
@@ -36,43 +42,75 @@ export default function Avatar(props) {
     }
   };
 
-  const triggerDownload = (imageBlob, fileName) => {
-    FileSaver.saveAs(imageBlob, fileName);
-  };
+  // const triggerDownload = (imageBlob, fileName) => {
+  //   FileSaver.saveAs(imageBlob, fileName);
+  // };
 
-  const onDownloadPNG = () => {
-    const svgNode = ReactDOM.findDOMNode(avatarRef.current);
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const downloadPng = useCallback(() => {
+    if (ref.current === null) {
+      return
+    }
+    toPng(ref.current, { cacheBust: true, })
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = `${getFileName('png')}`
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [ref]);
 
-    const anyWindow = window;
-    const DOMURL = anyWindow.URL || anyWindow.webkitURL || window;
+  const downloadJpg = useCallback(() => {
+    if (ref.current === null) {
+      return
+    }
+    toJpeg(ref.current, { cacheBust: true, })
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = `${getFileName('jpg')}`
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [ref]);
 
-    const data = svgNode.outerHTML;
-    const img = new Image();
-    const svg = new Blob([data], { type: "image/svg+xml" });
-    const url = DOMURL.createObjectURL(svg);
+  // const onDownloadPNG = () => {
+  //   const svgNode = ReactDOM.findDOMNode(avatarRef.current);
+  //   const canvas = canvasRef.current;
+  //   const ctx = canvas.getContext("2d");
+  //   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    img.onload = () => {
-      ctx.save();
-      ctx.scale(2, 2);
-      ctx.drawImage(img, 0, 0);
-      ctx.restore();
-      DOMURL.revokeObjectURL(url);
-      canvasRef.current.toBlob((imageBlob) => {
-        triggerDownload(imageBlob, "avatar.png");
-      });
-    };
-    img.src = url;
-  };
+  //   const anyWindow = window;
+  //   const DOMURL = anyWindow.URL || anyWindow.webkitURL || window;
 
-  const onDownloadSVG = () => {
-    const svgNode = ReactDOM.findDOMNode(avatarRef.current);
-    const data = svgNode.outerHTML;
-    const svg = new Blob([data], { type: "image/svg+xml" });
-    triggerDownload(svg, "avatar.svg");
-  };
+  //   const data = svgNode.outerHTML;
+  //   const img = new Image();
+  //   const svg = new Blob([data], { type: "image/svg+xml" });
+  //   const url = DOMURL.createObjectURL(svg);
+
+  //   img.onload = () => {
+  //     ctx.save();
+  //     ctx.scale(2, 2);
+  //     ctx.drawImage(img, 0, 0);
+  //     ctx.restore();
+  //     DOMURL.revokeObjectURL(url);
+  //     canvasRef.current.toBlob((imageBlob) => {
+  //       triggerDownload(imageBlob, "avatar.png");
+  //     });
+  //   };
+  //   img.src = url;
+  // };
+
+  // const onDownloadSVG = () => {
+  //   const svgNode = ReactDOM.findDOMNode(avatarRef.current);
+  //   const data = svgNode.outerHTML;
+  //   const svg = new Blob([data], { type: "image/svg+xml" });
+  //   triggerDownload(svg, "avatar.svg");
+  // };
 
   return (
     <Container>
@@ -119,7 +157,6 @@ export default function Avatar(props) {
                   </Pieces>
                 );
               })}
-
               <ColorContainer>
                 {option.colors &&
                   (option.type !== "top" ||
@@ -167,10 +204,10 @@ export default function Avatar(props) {
         })}
       </Tabpanes>
       <DownloadRow>
-        <Button onClick={onDownloadSVG}>
+        <Button onClick={downloadPng}>
           <DownloadIcon /> SVG
         </Button>{" "}
-        <Button onClick={onDownloadPNG}>
+        <Button onClick={downloadJpg}>
           <DownloadIcon /> PNG
         </Button>{" "}
       </DownloadRow>
