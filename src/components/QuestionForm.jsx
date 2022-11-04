@@ -26,11 +26,10 @@ export function BoxQuestion(props) {
           }}>Title</h2>
 
           {props.questions.map(q =>
-            <div key={q.id} style={{
+            <div key={q.resName} style={{
               color: themes[themeContext.theme].textcolor
             }}>
               {q.typeAnswer === 'textbox' && <FormInput
-                id={q.id}
                 name={q.resName}
                 value={resultatContext.resultat[q.resName]}
                 ques={q.question}
@@ -38,7 +37,6 @@ export function BoxQuestion(props) {
               />}
 
               {q.typeAnswer === 'checkbox' && <CheckBoxForm
-                id={q.id}
                 name={q.resName}
                 value={resultatContext.resultat[q.resName]}
                 handleFormInputChange={props.handleFormInputChange}
@@ -46,7 +44,6 @@ export function BoxQuestion(props) {
               />}
 
               {q.typeAnswer === 'select-one' && <Dropdown
-                id={q.id}
                 type="select-one"
                 name={q.resName}
                 ques={q.question}
@@ -58,7 +55,6 @@ export function BoxQuestion(props) {
               {q.typeAnswer === 'range' &&
                 <div>
                   <Range
-                    id={q.id}
                     name={q.resName}
                     question={q}
                     ques={q.question}
@@ -129,12 +125,15 @@ function Range(props) {
 function Dropdown(props) {
   const resultatContext = useContext(ResultatContext);
   let themeContext = useContext(ThemeContext);
-  console.log("props.question.valeurs_possibles[0] : ",props.question.valeurs_possibles[0]);
-  console.log("props.question.valeurs_possibles[1] : ",props.question.valeurs_possibles[1]);
-  console.log("props.question.valeurs_possibles[resultatContext.resultat[props.resName]] : ",props.question.valeurs_possibles[resultatContext.resultat[props.resName]]);
-  console.log("resultatContext.resultat[props.resName] : ",resultatContext.resultat[props.question.resName]);
-  console.log("resultat : ",resultatContext.resultat)
+  // console.log("props.question.valeurs_possibles[0] : ",props.question.valeurs_possibles[0]);
+  // console.log("props.question.valeurs_possibles[1] : ",props.question.valeurs_possibles[1]);
+  // console.log("props.question.valeurs_possibles[resultatContext.resultat[props.resName]] : ",props.question.valeurs_possibles[resultatContext.resultat[props.resName]]);
+  // console.log("resultatContext.resultat[props.question.resName] : ",resultatContext.resultat[props.question.resName]);
+  console.log("resultat : ", resultatContext.resultat)
+  let vp;
+  vp = props.question.valeurs_possibles;
 
+  console.log("vp ", vp);
   return (
     <div>
       <h3 className="questions">{props.ques}
@@ -146,13 +145,14 @@ function Dropdown(props) {
             {props.question.valeurs_possibles[1]}
           </option>
         </select> */}
-        <select className="dropdown" name={props.name} onChange={props.handleFormInputChange} style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }}>
-          <option className="options" value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[0])} style={{ backgroundColor: themes[themeContext.theme].rangeColor }}>
-            {props.question.valeurs_possibles[0]}
-          </option>
-          <option className="options" value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[1])} style={{ backgroundColor: themes[themeContext.theme].rangeColor }}>
-            {props.question.valeurs_possibles[1]}
-          </option>
+        <select value={resultatContext.resultat[props.question.resName]} className="dropdown" name={props.name} onChange={props.handleFormInputChange} style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }}>
+          {
+            vp.map((value, index) => (
+              <option key={index} value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[index])}>
+                {value}
+              </option>
+            ))
+          }
         </select>
       </h3>
     </div>
@@ -164,8 +164,6 @@ export function getObjKey(obj, value) {
 }
 
 function CheckBoxForm(props) {
-
-  let themeContext = useContext(ThemeContext);
   return (
     <div>
       <h3 className="questions">{props.ques}
@@ -212,13 +210,5 @@ function FormInput({
         />
       </h3>
     </div>
-  );
-}
-
-export function Loader() {
-  return (
-    <p>
-      ...
-    </p>
   );
 }
