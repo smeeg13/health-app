@@ -6,6 +6,10 @@ import { questionConverter } from "../objects/Question";
 import { BoxQuestion, Loader } from "../components/QuestionForm";
 import { BouncingDotsLoader } from "../utils/tools";
 
+/**
+ * function to render the box where the question are shown
+ * @param  {} props
+ */
 function Survey(props) {
   const [questions, setQuestions] = useState([]);
   const [isBusy, setBusy] = useState(true)
@@ -13,10 +17,13 @@ function Survey(props) {
   const [numberOfQues, setNumberOfQues] = useState(0);
   const [index, setIndex] = useState(1);
 
+
+  /* 
+    setTimeout to let the time to retrieve the question
+  */
   useEffect(() => {
     setTimeout(() => {
       setBusy(false);
-      console.log('isBusy',isBusy)
     }, 2000);
 
     async function getQuestionnaireById(index) {
@@ -26,10 +33,13 @@ function Survey(props) {
       ).withConverter(questionConverter);
 
       const roleSnapshot = await getDocs(refQuestionnaire);
-
       const questionList = roleSnapshot.docs.map((doc) => doc.data());
       setQuestions(questionList);
-      // setBusy(false);
+      /* 
+        setBusy is a trigger who help to wait until the promise arrived
+        from the async function getQuestionnaireById
+        setBusy(false);
+      */
     }
 
     getQuestionnaireById(index);
@@ -43,7 +53,7 @@ function Survey(props) {
       setNumberOfQues(size);
     }
     getNumberOfQuestionnaire()
-  },[])
+  }, [])
 
   useEffect(() => {
     resultatContext.calculateMaladies(resultatContext.resultat);
@@ -60,7 +70,7 @@ function Survey(props) {
     if (index <= 1)
       setIndex(3);
     else
-      setIndex(index -1);
+      setIndex(index - 1);
   }
 
   const handleFormInputChange = (event) => {
@@ -69,14 +79,12 @@ function Survey(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("Save modif clicked !, current user id : ", props.currentUser.id_user)
+
     resultatContext.updateInDb(props.currentUser.id_user);
   };
 
   return (
     <div>
-      {/* Box for data questionnaire 1-2  */}
-      {/* <TitleBox title="Vous" my_avatar={props.currentUser.avatar} /> */}
       {isBusy ? <BouncingDotsLoader /> :
         <BoxQuestion
           resultat={resultatContext.resultat}
@@ -84,13 +92,11 @@ function Survey(props) {
           handleFormSubmit={handleFormSubmit}
           questions={questions}
           index={index}
-          numberOfQues={numberOfQues}
+          totalQues={numberOfQues}
           isBusy={isBusy}
           handlePreviousQuestionnaire={handlePreviousQuestionnaire}
           handleNextQuestionnaire={handleNextQuestionnaire}
-
         />
-        
       }
     </div>
   )

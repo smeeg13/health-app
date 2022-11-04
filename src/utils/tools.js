@@ -1,4 +1,6 @@
-import React from "react"; 
+import React, { useContext } from "react";
+import {ThemeContext, themes  } from "../Context";
+
 import { db } from "../initFirebase";
 import { doc, updateDoc } from "firebase/firestore";
 
@@ -27,13 +29,16 @@ export function FormInput({
   onChange,
   placeholder,
   min,
-  max,
+  max,  
+})
+ {
+
+  let themeContext = useContext(ThemeContext);
   
-}) {
   return (
     <>
       <label>{label}</label>
-      <input
+      <input style={{width:"50px", marginRight:"10px", marginLeft:"5px",  color: themes[themeContext.theme].textcolor}}
       disabled={disabled}
         id={id}
         type={type}

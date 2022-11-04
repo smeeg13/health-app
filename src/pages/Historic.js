@@ -41,13 +41,12 @@ export default function Historic(props) {
   };
 
   return (
-    <div
+    <div className="container"
       style={{
-        backgroundColor: themes[themeContext.theme].background,
+        backgroundColor: themes[themeContext.theme].background_right,
         color: themes[themeContext.theme].foreground,
       }}
     >
-      <div>
         {showDetails ? (
           <Resultats
             currentUser={props.currentUser}
@@ -76,7 +75,7 @@ export default function Historic(props) {
             {isBusy ? (
               <BouncingDotsLoader />
             ) : (
-              <div className="container_list_patient">
+              <div>
                 {resultats.length === 0 ? (
                   <div>
                     <span style={{ fontWeight: "bold" }}>
@@ -87,11 +86,9 @@ export default function Historic(props) {
                   <ul style={{ listStyleType: "none", padding: 0 }}>
                     {resultats.map((res) => (
                       <li key={res.id}>
-                        <hr className="my_hr" />
-
                         <div className="row  center">
                           <div className="column_list center">
-                            <p className="center"> Resultat du : {res.id}</p>
+                            <h3 className="text"> Résultat du : {res.id}</h3>
                           </div>
                           <div className="column_list center">
                             <button
@@ -102,16 +99,19 @@ export default function Historic(props) {
                                 backgroundColor:
                                   themes[themeContext.theme].button,
                                 color: themes[themeContext.theme].textcolorbtn,
-                                width: 170,
-                                marginTop: 0,
+                                width: 120,
+                                fontSize: "0.8em",
+                                marginTop: "10px",
                                 marginBottom: 10,
+                                marginLeft: 280,
                               }}
-                              onClick={(event) => openDetails(event, res)}
+                              onClick={(event) =>
+                                HandleDetailsClick(event, res)
+                              }
                             >
-                              See Details
+                              Détails
                             </button>
                           </div>
-                          <p></p>
                         </div>
                       </li>
                     ))}
@@ -121,7 +121,6 @@ export default function Historic(props) {
             )}
           </div>
         )}
-      </div>
     </div>
   );
 }

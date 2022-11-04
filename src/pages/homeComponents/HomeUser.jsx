@@ -15,6 +15,22 @@ export default function HomeUser(props) {
   const [LastRes, setLastRes] = useState(undefined);
   const [isBusy, setBusy] = useState(false);
   const [isLastRetrieved, setIsLastRetrieved] = useState(false);
+  const [confirmSave, setConfirmSave] = useState("");
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(
+      "Save modif clicked !, current user id : ",
+      props.currentUser.id_user
+    );
+
+    try {
+         resultatContext.updateInDb(props.currentUser.id_user);
+      setConfirmSave("Changes Saved");
+    } catch (e) {
+      setConfirmSave("Error When saving modifications, please try later");
+    }
+  };
 
   useEffect(() => {
     async function getLastRes(userId) {
@@ -59,7 +75,7 @@ export default function HomeUser(props) {
     <div
       className="container"
       style={{
-        backgroundColor: themes[themeContext.theme].background,
+        backgroundColor: themes[themeContext.theme].background_quiz,
         color: themes[themeContext.theme].foreground,
       }}
     >
@@ -71,9 +87,10 @@ export default function HomeUser(props) {
             className="center hi"
             style={{
               color: themes[themeContext.theme].textcolor,
+              marginBottom:"0px",
             }}
           >
-            Hi, welcome back{" "}
+            Salut, re-bonjour{" "}
             {props.currentUser.nom !== ""
               ? props.currentUser.nom
               : props.currentUser.email}
@@ -88,8 +105,17 @@ export default function HomeUser(props) {
               color: themes[themeContext.theme].textcolorbtn,
             }}
           >
-            Take a survey
+            Nouveau questionnaire
           </button>
+          
+          <button
+          style={{ marginLeft:"15px",width:"200px",
+            backgroundColor: themes[themeContext.theme].button,
+            color: themes[themeContext.theme].textcolorbtn,
+          }}
+           className="btn" type="submit" onClick={handleFormSubmit}>
+            Sauvegarder
+          </button>   
           <br />
           <br />
           <div className="center">

@@ -1,16 +1,28 @@
 import "../App.css";
-import React from "react";
+import React, { useContext } from "react";
+import { ResultatContext } from "../Context";
 import { Slider, Box } from "@mui/material";
 
 export default function BoxResultat(props) {
+
   function valuetext(value) {
     return `${value}%`;
   }
 
   return (
-    <>
-      <Box sx={{ width: 150, marginLeft: 10 }}>
-        <span>Diabete : </span>
+    <div>
+      <div className="container_label3">
+        <label style={{marginTop:"10px"}}  className="label_results">Diabete : </label>
+        <br></br>
+        <label style={{marginTop:"30px"}}  className="label_results">Cancer : </label>
+        <br></br>
+        <label style={{marginTop:"30px"}}  className="label_results">Infarctus :</label>
+        <br></br>
+        <label style={{marginTop:"30px"}}  className="label_results">Non-infarctus :</label>
+      </div>
+
+      <div className="container_results">
+      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px"}}>
         <Slider
           min="0"
           max="100"
@@ -23,8 +35,8 @@ export default function BoxResultat(props) {
           size="medium"
         />
       </Box>
-      <Box sx={{ width: 150, marginLeft: 10, marginTop: 3 }}>
-        <span>Cancer : </span>
+
+      <Box  sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px"}}>
         <Slider
           min="0"
           max="100"
@@ -37,8 +49,8 @@ export default function BoxResultat(props) {
           size="medium"
         />
       </Box>
-      <Box sx={{ width: 150, marginLeft: 10, marginTop: 3 }}>
-        <span>Infarctus :</span>
+
+      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px" }}>
         <Slider
           min="0"
           max="100"
@@ -51,8 +63,8 @@ export default function BoxResultat(props) {
           size="medium"
         />
       </Box>
-      <Box sx={{ width: 150, marginLeft: 10, marginTop: 3 }}>
-        <label>Non - Infarctus :</label>
+
+      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px" }}>
         <Slider
           min="0"
           max="100"
@@ -65,6 +77,8 @@ export default function BoxResultat(props) {
           size="medium"
         />
       </Box>
-    </>
+
+      </div>
+    </div>
   );
 }

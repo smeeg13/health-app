@@ -10,6 +10,7 @@ import BoxResultat from "../components/BoxResultat";
 import { Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
   let themeContext = useContext(ThemeContext);
@@ -80,7 +81,7 @@ export default function Resultats(props) {
     //if vient de historic
     <>
       {props.last && (
-        <span>Your last Reponses of the {resultatContext.resultat.id_resultats}</span>
+        <h3 style={{marginTop:"1px", color: themes[themeContext.theme].textcolor}}>Vos dernières réponses du {resultatContext.resultat.id_resultats}</h3>
       )}
       {props.fromHistoric && (
         <div>
@@ -89,7 +90,7 @@ export default function Resultats(props) {
             name="BackToList"
             type="submit"
             className="btn"
-            style={{
+            style={{ marginTop:"15px",
               backgroundColor: themes[themeContext.theme].button,
               color: themes[themeContext.theme].textcolorbtn,
             }}
@@ -98,15 +99,18 @@ export default function Resultats(props) {
             Close Details
           </Button>{" "}
           <br/>
-          <span>Reponses of the {resultatContext.resultat.id_resultats}</span>
+          <h3 style={{ color: themes[themeContext.theme].textcolor}}>Responses of the {resultatContext.resultat.id_resultats}</h3>
         </div>
       )}
-      <div className="wrapper">
+      <div className="wrapper" style={{ color: themes[themeContext.theme].textcolor}} >
         <div className="box1" style={{margin:-10}}>
           {/* Box for data questionnaire 1-2  */}
-          <div className="container result1">
-            <TitleBox
-              title="Votre Situation"
+          <div className="container result1" style={{
+          backgroundColor: themes[themeContext.theme].background,
+          color: themes[themeContext.theme].foreground,
+        }}>
+            <TitleBox 
+              title="Your situation"
               my_avatar={props.currentUser.avatar}
             />
             <BoxRes1
@@ -117,9 +121,12 @@ export default function Resultats(props) {
             />
           </div>
           {/* Box for data questionnaire 3 */}
-          <div className="container result2">
+          <div className="container result2" style={{
+          backgroundColor: themes[themeContext.theme].background,
+          color: themes[themeContext.theme].foreground,
+        }}>
             <TitleBox
-              title="Votre Rythme "
+              title="Your rhythm "
               my_avatar={props.currentUser.avatar}
             />
             <BoxRes2
@@ -130,9 +137,12 @@ export default function Resultats(props) {
             />
           </div>
           {/* Box for Resultat  */}
-          <div className="container result3">
+          <div className="container result3" style={{
+        backgroundColor: themes[themeContext.theme].background,
+        color: themes[themeContext.theme].foreground,
+      }}>
             <TitleBox
-              title="Vos Risques"
+              title="Yours risks"
               my_avatar={props.currentUser.avatar}
             />
             <BoxResultat maladies={resultatContext.maladies} />
@@ -151,19 +161,7 @@ export default function Resultats(props) {
                   <span style={{ color: "#FF2400", marginRight: 40 }}>
                     {confirmSave}
                   </span>
-                )}
-                 <button
-          style={{
-            backgroundColor: themes[themeContext.theme].button,
-            color: themes[themeContext.theme].textcolorbtn,
-            margin:-30
-          }}
-           className="btn" type="submit" onClick={handleFormSubmit}>
-            Save Modifications
-          </button>
-          
-                
-              
+                )} 
         </div>}
         
       </div>
@@ -172,8 +170,9 @@ export default function Resultats(props) {
 }
 
 function TitleBox(props) {
+
   return (
-    <div>
+    <div className="results_upper">
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
