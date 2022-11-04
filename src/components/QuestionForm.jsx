@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import { ThemeContext, themes } from "../Context";
 import survey_pic from "../pages/img/survey_pic.png"
 import { ResultatContext } from "../Context";
+import { getObjKey } from "../utils/tools";
 
 /**
  * function to display all the informations about a question
@@ -11,7 +12,8 @@ import { ResultatContext } from "../Context";
  */
 export function BoxQuestion(props) {
   const themeContext = useContext(ThemeContext);
-  const resultatContext = useContext(ResultatContext)
+  const resultatContext = useContext(ResultatContext);
+
   return (
     <div className="container" style={{
       backgroundColor: themes[themeContext.theme].background
@@ -23,7 +25,7 @@ export function BoxQuestion(props) {
         }}>
           <h2 className="survey_title" style={{
             color: themes[themeContext.theme].textcolor
-          }}>Title</h2>
+          }}>{props.titles[props.index - 1]}</h2>
 
           {props.questions.map(q =>
             <div key={q.resName} style={{
@@ -66,23 +68,46 @@ export function BoxQuestion(props) {
             </div>
           )}
 
-          <>
-            <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
-              backgroundColor: themes[themeContext.theme].button,
-              color: themes[themeContext.theme].textcolorbtn,
-            }}>
-              retour
-            </button>
+            {/* Here, we manage when we display which button to
+                navigate between the different survey
+            */}
+          {props.index === 1 &&
             <button className="btn_next" onClick={props.handleNextQuestionnaire} style={{
               backgroundColor: themes[themeContext.theme].button,
               color: themes[themeContext.theme].textcolorbtn,
             }}>
               suivant
             </button>
-            <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
-              Save Modifications
-            </button>
-          </>
+          }
+          {props.index === props.totalQues &&
+            <>
+              <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
+                Save Modifications
+              </button>
+              <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
+                backgroundColor: themes[themeContext.theme].button,
+                color: themes[themeContext.theme].textcolorbtn,
+              }}>
+                retour
+              </button>
+            </>
+          }
+          {props.index !== 1 & props.index !== props.totalQues &&
+            <>
+              <button className="btn_next" onClick={props.handleNextQuestionnaire} style={{
+                backgroundColor: themes[themeContext.theme].button,
+                color: themes[themeContext.theme].textcolorbtn,
+              }}>
+                suivant
+              </button>
+              <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
+                backgroundColor: themes[themeContext.theme].button,
+                color: themes[themeContext.theme].textcolorbtn,
+              }}>
+                retour
+              </button>
+            </>
+          }
         </div>
         <img
           src={survey_pic}
@@ -94,14 +119,18 @@ export function BoxQuestion(props) {
   );
 }
 
+/**
+ * This function allow us to display a slider and show a live parameter change
+ * @param  {} props
+ */
 function Range(props) {
   const resultatContext = useContext(ResultatContext);
   const [slideValue, setSlideValue] = useState(resultatContext.resultat[props.question.resName]);
+  const themeContext = useContext(ThemeContext);
+  
   const handleChange = (event) => {
     setSlideValue(event.target.value);
   };
-
-  let themeContext = useContext(ThemeContext);
 
   return (
     <div>
@@ -122,29 +151,18 @@ function Range(props) {
   )
 }
 
+/**
+ * This function allow us to display a list where the user can choose between different answer
+ * @param  {} props
+ */
 function Dropdown(props) {
   const resultatContext = useContext(ResultatContext);
   let themeContext = useContext(ThemeContext);
-  // console.log("props.question.valeurs_possibles[0] : ",props.question.valeurs_possibles[0]);
-  // console.log("props.question.valeurs_possibles[1] : ",props.question.valeurs_possibles[1]);
-  // console.log("props.question.valeurs_possibles[resultatContext.resultat[props.resName]] : ",props.question.valeurs_possibles[resultatContext.resultat[props.resName]]);
-  // console.log("resultatContext.resultat[props.question.resName] : ",resultatContext.resultat[props.question.resName]);
-  console.log("resultat : ", resultatContext.resultat)
-  let vp;
-  vp = props.question.valeurs_possibles;
+  let vp = props.question.valeurs_possibles;
 
-  console.log("vp ", vp);
   return (
     <div>
       <h3 className="questions">{props.ques}
-        {/* <select onSelect={resultatContext.resultat[props.resName]} className="dropdown" name={props.name} onChange={props.handleFormInputChange} style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }}>
-          <option className="options" value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[0])} style={{ backgroundColor: themes[themeContext.theme].rangeColor }}>
-            {props.question.valeurs_possibles[0]}
-          </option>
-          <option className="options" value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[1])} style={{ backgroundColor: themes[themeContext.theme].rangeColor }}>
-            {props.question.valeurs_possibles[1]}
-          </option>
-        </select> */}
         <select value={resultatContext.resultat[props.question.resName]} className="dropdown" name={props.name} onChange={props.handleFormInputChange} style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }}>
           {
             vp.map((value, index) => (
@@ -159,10 +177,10 @@ function Dropdown(props) {
   );
 };
 
-export function getObjKey(obj, value) {
-  return Object.keys(obj).find(key => obj[key] === value);
-}
-
+/**
+ * This function allow us to display a checkbox and save the answer in the resultatContext
+ * @param  {} props
+ */
 function CheckBoxForm(props) {
   return (
     <div>
@@ -178,7 +196,10 @@ function CheckBoxForm(props) {
     </div>
   )
 }
-
+/**
+ * This function allow us to display a textbox and save the answer in the resultatContext
+ * @param  {} props
+ */
 function FormInput({
   id,
   name,
@@ -190,7 +211,7 @@ function FormInput({
   props,
 }) {
 
-  let themeContext = useContext(ThemeContext);
+  const themeContext = useContext(ThemeContext);
   return (
     <div>
       <h3 className="questions">{props.ques}
@@ -202,7 +223,6 @@ function FormInput({
           onChange={onChange}
           min={min}
           max={max}
-
           style={{
             color: themes[themeContext.theme].rangeColor,
             color: themes[themeContext.theme].rangeToggle,

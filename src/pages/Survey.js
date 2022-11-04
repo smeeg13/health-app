@@ -3,7 +3,7 @@ import { db } from "../initFirebase";
 import { ResultatContext } from "../Context";
 import { getDocs, collection, getCountFromServer } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
-import { BoxQuestion, Loader } from "../components/QuestionForm";
+import { BoxQuestion } from "../components/QuestionForm";
 import { BouncingDotsLoader } from "../utils/tools";
 
 /**
@@ -16,7 +16,7 @@ function Survey(props) {
   const resultatContext = useContext(ResultatContext);
   const [numberOfQues, setNumberOfQues] = useState(0);
   const [index, setIndex] = useState(1);
-
+  const [titles] = useState([]);
 
   /* 
     setTimeout to let the time to retrieve the question
@@ -50,6 +50,12 @@ function Survey(props) {
       const coll = collection(db, "Questionnaires");
       const snapshot = await getCountFromServer(coll);
       const size = snapshot.data().count;
+      
+      const snapshotColl = await getDocs(coll);
+      const titleList = snapshotColl.docs.map((doc) => doc.data());
+      titleList.forEach(element => {
+        titles.push(element.name);
+      });
       setNumberOfQues(size);
     }
     getNumberOfQuestionnaire()
@@ -79,7 +85,6 @@ function Survey(props) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     resultatContext.updateInDb(props.currentUser.id_user);
   };
 
@@ -87,13 +92,13 @@ function Survey(props) {
     <div>
       {isBusy ? <BouncingDotsLoader /> :
         <BoxQuestion
-          resultat={resultatContext.resultat}
           handleFormInputChange={handleFormInputChange}
           handleFormSubmit={handleFormSubmit}
           questions={questions}
           index={index}
           totalQues={numberOfQues}
           isBusy={isBusy}
+          titles={titles}
           handlePreviousQuestionnaire={handlePreviousQuestionnaire}
           handleNextQuestionnaire={handleNextQuestionnaire}
         />
