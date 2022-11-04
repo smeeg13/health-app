@@ -80,7 +80,7 @@ export default function Resultats(props) {
     //if vient de historic
     <>
       {props.last && (
-        <span>Your last Reponses of the {resultatContext.resultat.id_resultats}</span>
+        <h3 style={{marginTop:"1px"}}>Vos dernières réponses du {resultatContext.resultat.id_resultats}</h3>
       )}
       {props.fromHistoric && (
         <div>
@@ -151,19 +151,7 @@ export default function Resultats(props) {
                   <span style={{ color: "#FF2400", marginRight: 40 }}>
                     {confirmSave}
                   </span>
-                )}
-                 <button
-          style={{
-            backgroundColor: themes[themeContext.theme].button,
-            color: themes[themeContext.theme].textcolorbtn,
-            margin:-30
-          }}
-           className="btn" type="submit" onClick={handleFormSubmit}>
-            Save Modifications
-          </button>
-          
-                
-              
+                )} 
         </div>}
         
       </div>

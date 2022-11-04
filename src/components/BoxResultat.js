@@ -40,13 +40,13 @@ export default function BoxResultat(props) {
   return (
     <div>
       <div className="container_label3">
-        <label className="label_results">Diabete : </label>
+        <label style={{marginTop:"10px"}}  className="label_results">Diabete : </label>
         <br></br>
-        <label className="label_results">Cancer : </label>
+        <label style={{marginTop:"30px"}}  className="label_results">Cancer : </label>
         <br></br>
-        <label className="label_results">Infarctus :</label>
+        <label style={{marginTop:"30px"}}  className="label_results">Infarctus :</label>
         <br></br>
-        <label className="label_results">Non-infarctus :</label>
+        <label style={{marginTop:"30px"}}  className="label_results">Non-infarctus :</label>
       </div>
 
       <div className="container_results">
@@ -58,7 +58,7 @@ export default function BoxResultat(props) {
           value={props.maladies.diabete}
           getAriaValueText={valuetext}
           step={1}
-          // valueLabelDisplay="on"
+          valueLabelDisplay="on"
           marks={marksDiab}
           disabled
           size="medium"
@@ -73,7 +73,7 @@ export default function BoxResultat(props) {
           value={props.maladies.cancer}
           getAriaValueText={valuetext}
           step={1}
-          // valueLabelDisplay="on"
+          valueLabelDisplay="on"
           marks={marksCancer}
           disabled
           size="medium"
@@ -88,7 +88,7 @@ export default function BoxResultat(props) {
           value={props.maladies.infarctus}
           getAriaValueText={valuetext}
           step={1}
-          // valueLabelDisplay="on"
+          valueLabelDisplay="on"
           marks={marksInf}
           disabled
           size="medium"
@@ -103,7 +103,7 @@ export default function BoxResultat(props) {
           value={props.maladies.nonInfarctus}
           getAriaValueText={valuetext}
           step={1}
-          // valueLabelDisplay="on"
+          valueLabelDisplay="on"
           marks={marksNInf}
           disabled
           size="medium"
