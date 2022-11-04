@@ -1,49 +1,51 @@
 import "../App.css";
-import { FormInput } from "../components/FormInput";
-import React, { useContext} from "react";
+import React, { useContext, useState } from "react";
 import { ResultatContext } from "../Context";
-import { Loader } from "../components/QuestionForm";
 import { ToggleButton } from "../components/ToggleButton";
-import { getObjKey } from "../components/QuestionForm";
-
+import { getObjKey } from "../utils/tools";
+import { BouncingDotsLoader } from "../utils/tools";
 
 export default function BoxRes2(props) {
   let resultatContext = useContext(ResultatContext);
+  const [slideValue, setSlideValue] = useState(resultatContext.resultat.poids);
 
-  //Need type - min - max from Questionnaire into props.questions
-  //for each input, take back the type corresponding to the question characteristics
-  return (
+  const handleChange = (event) => {
+    setSlideValue(event.target.value);
+  };
+ return (
     <>
       {props.isBusy ? (
-        <Loader />
+        <BouncingDotsLoader />
       ) : (
         <form onSubmit={props.handleFormSubmit}>
-                   <div>
+          <div>
             <label htmlFor="poids">Poids : </label>
-            <FormInput
-              id="poids"
-              type="number"
-              name="poids"
-              placeholder="Poids"
+            <input
+              className="answers_type"
+              type="range"
+              id={props.questions[3].resName}
+              name={props.questions[3].resName}
+              min={props.questions[3].min}
+              max={props.questions[3].max}
               value={resultatContext.resultat.poids}
               onChange={props.handleFormInputChange}
+              onInput={handleChange}
+              step="1"
             />
+            <output className="rangevalue">{slideValue}</output>
           </div>
-          <hr/>
-
+          <hr />
           <br />
           <div>
             <label htmlFor="fume">Fumeur : </label>
-            <FormInput
-              id="fume"
-              type="number" //TODO:: Should be a toggle
+            <ToggleButton
               name="fume"
-              min={props.questions[1].min}
-              placeholder="Fumeur"
-              value={resultatContext.resultat.fume}
+              checked={resultatContext.resultat.fume}
               onChange={props.handleFormInputChange}
+              disabled={false}
             />
           </div>
+
           <div>
             <label htmlFor="alim">Alimentation : </label>
             <select
@@ -52,16 +54,36 @@ export default function BoxRes2(props) {
               value={resultatContext.resultat.alim}
               onChange={props.handleFormInputChange}
             >
-              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[0])}>
+              <option
+                value={getObjKey(
+                  props.questions[13].valeurs_possibles,
+                  props.questions[13].valeurs_possibles[0]
+                )}
+              >
                 {props.questions[13].valeurs_possibles[0]}
               </option>
-              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[1])}>
+              <option
+                value={getObjKey(
+                  props.questions[13].valeurs_possibles,
+                  props.questions[13].valeurs_possibles[1]
+                )}
+              >
                 {props.questions[13].valeurs_possibles[1]}
               </option>
-              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[2])}>
+              <option
+                value={getObjKey(
+                  props.questions[13].valeurs_possibles,
+                  props.questions[13].valeurs_possibles[2]
+                )}
+              >
                 {props.questions[13].valeurs_possibles[2]}
               </option>
-              <option value={getObjKey(props.questions[13].valeurs_possibles,props.questions[13].valeurs_possibles[3])}>
+              <option
+                value={getObjKey(
+                  props.questions[13].valeurs_possibles,
+                  props.questions[13].valeurs_possibles[3]
+                )}
+              >
                 {props.questions[13].valeurs_possibles[3]}
               </option>
             </select>
@@ -74,16 +96,36 @@ export default function BoxRes2(props) {
               value={resultatContext.resultat.sport}
               onChange={props.handleFormInputChange}
             >
-              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[0])}>
+              <option
+                value={getObjKey(
+                  props.questions[14].valeurs_possibles,
+                  props.questions[14].valeurs_possibles[0]
+                )}
+              >
                 {props.questions[14].valeurs_possibles[0]}
               </option>
-              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[1])}>
+              <option
+                value={getObjKey(
+                  props.questions[14].valeurs_possibles,
+                  props.questions[14].valeurs_possibles[1]
+                )}
+              >
                 {props.questions[14].valeurs_possibles[1]}
               </option>
-              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[2])}>
+              <option
+                value={getObjKey(
+                  props.questions[14].valeurs_possibles,
+                  props.questions[14].valeurs_possibles[2]
+                )}
+              >
                 {props.questions[14].valeurs_possibles[2]}
               </option>
-              <option value={getObjKey(props.questions[14].valeurs_possibles,props.questions[14].valeurs_possibles[3])}>
+              <option
+                value={getObjKey(
+                  props.questions[14].valeurs_possibles,
+                  props.questions[14].valeurs_possibles[3]
+                )}
+              >
                 {props.questions[14].valeurs_possibles[3]}
               </option>
             </select>
@@ -97,19 +139,44 @@ export default function BoxRes2(props) {
               value={resultatContext.resultat.alcool}
               onChange={props.handleFormInputChange}
             >
-              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[0])}>
+              <option
+                value={getObjKey(
+                  props.questions[15].valeurs_possibles,
+                  props.questions[15].valeurs_possibles[0]
+                )}
+              >
                 {props.questions[15].valeurs_possibles[0]}
               </option>
-              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[1])}>
+              <option
+                value={getObjKey(
+                  props.questions[15].valeurs_possibles,
+                  props.questions[15].valeurs_possibles[1]
+                )}
+              >
                 {props.questions[15].valeurs_possibles[1]}
               </option>
-              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[2])}>
+              <option
+                value={getObjKey(
+                  props.questions[15].valeurs_possibles,
+                  props.questions[15].valeurs_possibles[2]
+                )}
+              >
                 {props.questions[15].valeurs_possibles[2]}
               </option>
-              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[3])}>
+              <option
+                value={getObjKey(
+                  props.questions[15].valeurs_possibles,
+                  props.questions[15].valeurs_possibles[3]
+                )}
+              >
                 {props.questions[15].valeurs_possibles[3]}
               </option>
-              <option value={getObjKey(props.questions[15].valeurs_possibles,props.questions[15].valeurs_possibles[4])}>
+              <option
+                value={getObjKey(
+                  props.questions[15].valeurs_possibles,
+                  props.questions[15].valeurs_possibles[4]
+                )}
+              >
                 {props.questions[15].valeurs_possibles[4]}
               </option>
             </select>

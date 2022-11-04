@@ -36,7 +36,6 @@ export default class Navbar extends React.Component {
               ) : (
                 <img className="logo_theme" src={day} alt="light mode" />
               )}   
-               {/* <span>💡</span> */}
             </button>
 
             {/* if user.nom_role = Patient  */}

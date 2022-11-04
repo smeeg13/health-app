@@ -5,7 +5,6 @@ import {
   setDoc,
   getDoc,
   getDocs,
-  deleteDoc,
   updateDoc,
   query,
   where,
@@ -22,6 +21,14 @@ export async function CreateDocUserInResultat(user) {
   await setDoc(doc(db, "Resultat", user.id_user), {
     CreatedDate: Timestamp.fromDate(new Date()),
   });
+}
+
+export async function UpdateUserSexe(id_user, sexe) {
+  const userRef = doc(db, "User", id_user);
+await updateDoc(userRef, {
+  sexe: sexe
+});
+console.log("Update sexe for user : ", id_user, ", sexe : ", sexe)
 }
 
 //Get data once
@@ -61,22 +68,3 @@ export async function GetUserByEmail(userEmail) {
   return user;
 }
 
-//Update information for the user
-export async function UpdateUserData(user) {
-  const ref = doc(refUser, user.id_user);
-  await updateDoc(ref, {
-    nom: user.nom,
-    email: user.mail,
-    age: user.age,
-    poids: user.weight,
-    sexe: user.sex, //
-    taille: user.height,
-  });
-}
-
-//console.log(updateUserData('MPfBRXNkgmhJw24HihqsJILGVNS2',29,190,1,210));
-
-//Delete a User Document
-export async function DeleteUserDoc(id_user) {
-  await deleteDoc(doc(db, "User", id_user));
-}

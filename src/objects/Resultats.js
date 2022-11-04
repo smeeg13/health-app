@@ -133,6 +133,7 @@ export class Resultats {
   
 
   constructor(
+    id,
     age,
     sexe,
     inf,
@@ -142,6 +143,7 @@ export class Resultats {
     yesSyst,
     yesGlyc,
     yesChol,
+    hdl,
     diab,
     fume,
     alim,
@@ -150,6 +152,7 @@ export class Resultats {
     taille,
     poids
   ) {
+    this.id_resultats = id;
     this.age = age;
     this.sexe = sexe;
     this.inf = inf;
@@ -159,6 +162,7 @@ export class Resultats {
     this.yesSyst = yesSyst;
     this.yesGlyc = yesGlyc;
     this.yesChol = yesChol;
+    this.hdl = hdl;
     this.diab = diab; //DM dans excel
     this.fume = fume;
     this.alim = alim; //score

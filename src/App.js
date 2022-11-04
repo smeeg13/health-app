@@ -48,22 +48,20 @@ export default function App() {
       unsubscribe();
     };
   }, []);
-  console.log("User Connected : ", currentUser);
 
   if (currentAuthUser === undefined) {
     return (
       <div className="App">
         <header className="App-header"></header>
-        <body>
           <div className="center">
             {" "}
           <h1 className="center">Loading...</h1>
           </div>
           
-        </body>
       </div>
     );
   }
+      console.log("Current User : ", currentUser)
 
   return (
     <div className="container">
