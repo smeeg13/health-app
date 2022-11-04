@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.0.21",
     "classnames": "^2.3.2",
+    "file-saver": "^2.0.5",
     "firebase": "^9.10.0",
     "formik": "^2.2.9",
     "moment": "^2.29.4",

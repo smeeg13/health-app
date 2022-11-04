@@ -17,8 +17,23 @@ import { GetDocteurById } from "./objects_managers/DocteurManager";
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
 import Historic from "./pages/Historic";
+import Avatar from "./avatars/avatar";
 
 export default function App() {
+  const [Attributes, setAttributes] = useState({
+    topType: "ShortHairDreads02",
+    accessoriesType: "Prescription02",
+    hairColor: "BrownDark",
+    facialHairType: "Blank",
+    clotheType: "Hoodie",
+    clotheColor: "PastelBlue",
+    eyeType: "Happy",
+    eyebrowType: "Default",
+    mouthType: "Smile",
+    avatarStyle: "Circle",
+    skinColor: "Light",
+  });
+
   /* Base Invite User */
   const guestUser = new User(null, "", "", 0, null,null,null, "", "");
   guestUser.setNomRole("Invite");
@@ -50,20 +65,19 @@ export default function App() {
   }, []);
   console.log("User Connected : ", currentUser);
 
-  if (currentAuthUser === undefined) {
-    return (
-      <div className="App">
-        <header className="App-header"></header>
-        <body>
-          <div className="center">
-            {" "}
-          <h1 className="center">Loading...</h1>
-          </div>
-          
-        </body>
-      </div>
-    );
-  }
+  // if (currentAuthUser === undefined) {
+  //   return (
+  //     <div className="App">
+  //       <header className="App-header"></header>
+  //       <body>
+  //         <div className="center">
+  //           {" "}
+  //         <h1 className="center">Loading...</h1>
+  //         </div>  
+  //       </body>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="container">
@@ -79,6 +93,7 @@ export default function App() {
         <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser}/>} />
         <Route path="/survey" element={<Survey currentUser={currentUser} />} />
         <Route path="/historic" element={<Historic currentUser={currentUser}/>}/>
+        <Route path="/avatar" element={<Avatar value={Attributes} onChange={setAttributes}/>}/>
       </Routes>
     </div>
   );
