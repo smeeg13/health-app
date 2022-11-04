@@ -1,6 +1,7 @@
 .container {
   text-align: center;
   align-items: center;
+  /* background-color: #1A523C; */
   height: 100%;
   width: 100%;
   position: fixed;

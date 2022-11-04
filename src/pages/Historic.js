@@ -44,13 +44,12 @@ export default function Historic(props) {
   };
 
   return (
-    <div
+    <div className="container"
       style={{
         backgroundColor: themes[themeContext.theme].background_right,
         color: themes[themeContext.theme].foreground,
       }}
     >
-      <div>
         {showDetails ? (
           <Resultats
             currentUser={props.currentUser}
@@ -125,7 +124,6 @@ export default function Historic(props) {
             )}
           </div>
         )}
-      </div>
     </div>
   );
 }
