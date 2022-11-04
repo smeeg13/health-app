@@ -1,0 +1,651 @@
+.container {
+  text-align: center;
+  align-items: center;
+  /* background-color: #1A523C; */
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  overflow-x: hidden;
+}
+
+.login_left{
+  align-items: center;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  margin-left: 100px;
+  margin-top: 30px;
+  max-width: 450px;
+  max-height: 500px;
+  background-color: #a9cce3;
+  /* border: 2px solid white; */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.login_right{
+  align-items: center;
+  text-align: center;
+  position: relative;
+  margin-right: 100px;
+  display: inline-block;
+  margin-top: 30px;
+  max-width: 450px;
+  max-height: 500px;
+  background-color: #eafaf1;
+  /* border: 2px solid #eafaf1; */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+
+.container_login{
+  height: 400px;  
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+/* Doctor page */
+
+.patient_list{
+  color: #054A2F;
+  font-family: "Lexend Deca";
+  font-size: 1.2em;
+}
+
+.container_list_patient {
+  flex: 1;
+  margin-top: 8;
+  background-color: #F0F8FF  ;
+  min-height: 200;
+  }
+  .box_list {
+  width: 50;
+  height: 50;
+  }
+  .row {
+  display: flex;
+  width: 100%;
+  flex-direction: "row";
+  flex-wrap: "wrap";
+  }
+  
+  .column_list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  }
+  
+
+  .vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  }
+
+
+  /* QUIZ */
+
+.container_quiz{
+  position: relative;
+  text-align: center;
+  margin: auto;
+  margin-top: -20px;
+  height: 520px;
+  width: 50%;
+  background-color:  #a9cce3 ;
+}
+
+.container_left{
+  margin-top: 40px;
+  float: left;
+  height: 480px;
+  width: 50%;
+  font-family: "Lexend Deca";
+  font-size: 0.8em;
+}
+
+.container_right{
+  margin-top: 40px;
+  width: 50%;
+  height: 480px;
+  font-family: "Lexend Deca";
+  font-size: 0.8em;
+}
+
+.question{
+margin-top: 5px;
+text-align: left;
+margin-left: 20px;
+}
+
+.nb_input{
+text-align:center;
+width: 50px;
+}
+
+
+.next_btn {
+float: right;
+margin-top: 50px;
+margin-right: 50px;
+position: fixed;
+width: 80px;
+height: 40px;
+overflow: hidden;
+border: none;
+border-radius: 30px;
+background: #e8e8e8;
+font-family: "Lexend Deca";
+color: #3C3C3D;
+font-size: 1rem;
+font-weight: bold;
+letter-spacing: 2px;
+outline: none;
+cursor: pointer;
+
+}
+
+.next_btn:active {
+color: #666;
+box-shadow: inset 4px 4px 12px #fff,
+           inset -4px -4px 12px #ffffff;
+}
+
+.next_btn:before {
+display: flex;
+justify-content: center;
+align-items: center;
+position: absolute;
+top: 0;
+left: 0;
+background-color: rgba(0, 0, 0, 0.05);
+width: 100%;
+height: 100%;
+content: 'Next';
+transition: all .3s;
+
+}
+
+.next_btn:after {
+display: flex;
+justify-content: center;
+align-items: center;
+position: absolute;
+top: 60px;
+background-color: #e8e8e8;
+left: 0;
+width: 100%;
+height: 100%;
+content: 'Go';
+transition: all .3s;
+}
+
+.next_btn:hover {
+color: #3C3C3D;
+border: 1px solid #e8e8e8;
+}
+
+.next_btn:hover:before {
+top: -60px;
+}
+
+.next_btn:hover:after {
+top: 0;
+}
+
+.label_results{
+  margin-top: 22px;
+  margin-left: 5px;
+  font-family: "Lexend Deca";
+  font-size: 1em;
+  float: left;
+}
+
+.toggle_results{
+
+  justify-content: center;
+}
+
+
+.result1 {
+position: relative;
+margin-right: 20px;
+display: inline-block;
+max-width: 450px;
+border: 1px solid grey;
+max-height: 400px;
+background-color: #eafaf1;
+}
+
+.result2 {
+position: relative;
+display: inline-block;
+margin-right: 20px;
+max-width: 450px;
+border: 1px solid grey;
+max-height: 400px;
+background-color: #eafaf1;
+}
+
+.result3 {
+position: relative;
+display: inline-block;
+margin-right: 20px;
+max-width: 450px;
+border: 1px solid grey;
+max-height: 400px;
+background-color: #eafaf1;
+}
+
+
+
+/* .category{
+margin-top: 70px;
+float: left;
+text-align: left;
+margin-left: 30px;
+font-family: "Lexend Deca";
+font-size: 0.7em;
+}
+
+.response{
+margin-top: 70px;
+margin-right: 160px;
+float: right;
+font-family: "Lexend Deca";
+font-size: 0.7em;
+}
+
+.category2{
+margin-top: 55px;
+float: left;
+text-align: left;
+margin-left: 30px;
+font-family: "Lexend Deca";
+font-size: 0.7em;
+}
+
+.response2{
+margin-top: 70px;
+margin-right: 160px;
+float: right;
+font-family: "Lexend Deca";
+font-size: 0.7em;
+}
+
+.category3{
+margin-top: 55px;
+float: left;
+text-align: left;
+margin-left: 30px;
+font-family: "Lexend Deca";
+font-size: 0.7em;
+}
+
+.response3{
+margin-top: 60px;
+margin-right: 40px;
+float: right;
+font-family: "Lexend Deca";
+font-size: 0.7em;
+} */
+
+
+/* Style the custom slider */
+.custom-slider {
+color:"success";
+width: 100px;
+height: 20px;
+float: right;
+}
+
+/*Avatar results*/
+.my_avatar{
+margin-left: 10px;
+margin-top:5px ;
+margin: auto;
+height:150px;
+width:145;
+}
+
+.container_label{
+  float: left;
+  width: 250px;
+  height: 100%;
+}
+
+.container_label2{
+  float: left;
+  width: 115px;
+  height: 100%;
+}
+
+.container_label3{
+  float: left;
+  width: 120px;
+  height: 100%;
+}
+
+
+.container_results2{
+  float:right;
+  width: 335px;
+}
+
+.results_upper{
+  overflow: hidden;
+  scroll-behavior: none;
+}
+
+
+.dropdown_results{
+  width: 80px;
+  margin-right: 10px;
+  color: black;
+  font-family: "Lexend Deca";
+  
+}
+
+/* toggle switch results */
+.switch {
+  display: block;
+  width: 24px;
+  margin: 5px;
+  background: #fff;
+  position: absolute;
+  border: 0 solid #054A2F;
+  border-radius: 20px;
+  transition: all 0.3s ease-in 0s;
+  }
+
+
+.center {
+margin-bottom: 5px;
+text-align: center;
+}
+
+.hi{
+  font-family: "Lexend Deca";
+  font-size: 2em;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: #3C3C3D;
+}
+
+.welcome{
+  font-family: "Lexend Deca";
+  font-size: 2em;
+  color:#1A523C;
+}
+
+/* ------ SETTINGS PAGE --------- */
+
+
+.settings_page{
+text-align: left;
+padding-left: 40px;
+height: 100%;
+width: 100%;
+top: 10px;
+scroll-behavior: auto;
+background-color: #eafaf1;
+font-family: "Lexend Deca";
+z-index: 1;
+overflow-x: hidden;
+
+}
+
+.settings_input{
+font-family: "Lexend Deca";
+font-size: 18px;
+text-align: left;
+margin-left:10px;
+padding: 5px;
+margin-bottom: 15px;
+border: transparent;
+border-radius: 1em;
+border: 2px solid #054A2F;
+align-items:center;
+width: 50px;
+}
+
+.settings_save_btn{
+font-size: 0.8em;
+margin-top: 8px;
+margin-left: 5px;
+padding-left: 0.4em;
+padding-right: 0.4em;
+padding-top: 0.1em;
+padding-bottom: 0.1em;
+}
+
+.settings_title{
+padding-top: 40px;
+}
+
+.settings_label{
+padding: 70px 0;
+display: inline;
+font-family: "Lexend Deca";
+font-size: 0.9em;
+}
+
+.variable_text{
+color: #1A523C;
+}
+
+.container_toggle {
+text-align: center;
+}
+
+
+.toggle-switch {
+position: relative;
+width: 75px;
+display: inline-block;
+text-align: left;
+top: 8px;
+}
+.checkbox {
+display: none;
+}
+.label {
+display: block;
+overflow: hidden;
+cursor: pointer;
+border: 0 solid #bbb;
+border-radius: 20px;
+}
+.inner {
+display: block;
+width: 200%;
+margin-left: -100%;
+transition: margin 0.3s ease-in 0s;
+}
+.inner:before,
+.inner:after {
+float: left;
+width: 50%;
+height: 36px;
+padding: 0;
+line-height: 36px;
+color: #fff;
+font-weight: bold;
+box-sizing: border-box;
+}
+.inner:before {
+content: "YES";
+padding-left: 10px;
+background-color: #a9cce3;
+color: #fff;
+}
+.inner:after {
+content: "NO";
+padding-right: 10px;
+background-color: #bbb;
+color: #fff;
+text-align: right;
+}
+
+.checkbox:checked + .label .inner {
+margin-left: 0;
+}
+.checkbox:checked + .label .switch {
+right: 0px;
+}
+
+.survey_title{
+font-family: "Lexend Deca";
+}
+
+.boxQuiz{
+position: relative;
+margin-left: 350px;
+display: inline-block;
+margin-top: 15px;
+min-width: 700px;
+width: 500px;
+border: 1px solid grey;
+height: 550px;
+background-color: #eafaf1;
+padding-bottom: 5px;
+}
+
+
+.questions{
+display:table;
+margin-left: 80px;
+font-size: 0.9em;
+font-family: "Lexend Deca";
+
+}
+
+.btn_previous, .btn_next{
+position: relative;
+margin-bottom: 10px;
+display: inline-block;
+transition: all 0.2s ease-in;
+position: relative;
+overflow: hidden;
+z-index: 1;
+font-weight: bold;
+color: #1A523C;
+padding: 0.7em 1.7em;
+font-size: 0.8em;
+border-radius: 20px; /*to round the corner of the shape */
+background-color: #e8e8e8;
+border: 1px solid #77C5A6;
+}
+
+.btn_previous:active, .btn_next:active {
+color: #666;
+box-shadow: inset 4px 4px 12px #c5c5c5,
+           inset -4px -4px 12px #ffffff;
+}
+
+
+.btn_next:hover, .btn_previous:hover {
+color: white;
+background-color: #1A523C;
+border: 1px solid #1A523C;
+}
+
+.btn:hover:before {
+top: -35%;
+background-color: #e8e8e8;
+transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.btn:hover:after {
+top: -45%;
+background-color: #e8e8e8;
+transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+}
+
+.btn_previous{
+float: left;
+margin-left: 20px;
+}
+
+.btn_next{
+float: right;
+margin-right: 20px;
+}
+
+input,
+output {
+margin-left:30px;
+display: inline-block;
+font-size: 1em;
+font-family: "Lexend Deca";
+}
+
+output {
+padding: 2px 10px;
+border-radius: 3px;
+font-family: "Lexend Deca";
+color: black;
+}
+
+input[type="range"] {
+height: 7px;
+background: rgba(255, 255, 255, 0.6);
+border-radius: 5px;
+background-image: linear-gradient(#1A523C, #1A523C);
+background-size: 100%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+height: 20px;
+width: 20px;
+border-radius: 50%;
+background: #C1E1C1;
+cursor: ew-resize;
+box-shadow: 0 0 2px 0 #555;
+transition: background .3s ease-in-out;
+}
+
+input[type="range"]::-moz-range-thumb {
+height: 20px;
+width: 20px;
+border-radius: 50%;
+background: #C1E1C1;
+cursor: ew-resize;
+box-shadow: 0 0 2px 0 #555;
+transition: background .3s ease-in-out;
+}
+
+input[type="range"]::-ms-thumb {
+height: 20px;
+width: 20px;
+border-radius: 50%;
+background: #C1E1C1;
+cursor: ew-resize;
+box-shadow: 0 0 2px 0 #555;
+transition: background .3s ease-in-out;
+}
+
+.dropdown{
+margin-left: 20px;
+margin-right: 10px;
+width: auto;
+height: auto;
+background-color: #C1E1C1;
+padding: 5px 35px 5px 5px;
+font-size: 0.9em;
+border-radius: 5px;
+color: #1A523C;
+font-family: "Lexend Deca";
+border: 2px solid #1A523C;
+}
+
+option{
+background-color: #C1E1C1;
+color: #1A523C;
+font-family: "Lexend Deca";
+border: 2px solid #1A523C;
+}

@@ -1,51 +1,83 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Register from "./pages/Register";
-import Login from "./pages/Login";
+import RegisterDocteur from "./pages/RegisterDocteur";
+import Login, { CheckRole } from "./pages/Login";
 import Home from "./pages/Home";
-
+import Navbar from "./pages/Navbar";
+import Survey from "./pages/Survey";
+import Resultats from "./pages/Resultats";
+import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./initFirebase";
-import { useEffect, useState } from "react";
 import Logout from "./pages/Logout";
+import { GetUserById } from "./objects_managers/UserManager";
+import { GetDocteurById } from "./objects_managers/DocteurManager";
+import { User } from "./objects/User";
+import Settings from "./pages/Settings";
+import Historic from "./pages/Historic";
+import Account from "./pages/Account";
 
 export default function App() {
-  /* Current user state */
-  const [currentUser, setCurrentUser] = useState(undefined);
+  /* Base Invite User */
+  const guestUser = new User(null, "", "", 0, null,null,null, "", "", "");
+  guestUser.setNomRole("Invite");
+  guestUser.setIdRole("wfprGThk63ZrRRjRh1np");
 
-  /* Watch for authentication state changes */
+  /* Current user state */
+  const [currentAuthUser, setCurrentAuthUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(guestUser);
+
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log("User is", user);
-      setCurrentUser(user);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setCurrentAuthUser(user);
+      if (user != null) {
+        let myUser;
+        myUser = await GetUserById(user.uid);
+        if (myUser === null || myUser === undefined) {
+          myUser = await GetDocteurById(user.uid);
+        }
+        myUser.setNomRole(await CheckRole(myUser));
+        setCurrentUser(myUser);
+      } else {
+        setCurrentUser(guestUser);
+      }
     });
 
-    // Unsubscribe from changes when App is unmounted
     return () => {
       unsubscribe();
     };
   }, []);
 
-  if (currentUser === undefined) {
+  if (currentAuthUser === undefined) {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>Loading...</h1>
-        </header>
+        <header className="App-header"></header>
+          <div className="center">
+            {" "}
+          <h1 className="center">Loading...</h1>
+          </div>
+          
       </div>
     );
   }
+      console.log("Current User : ", currentUser)
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <Routes>
-          <Route path="/" element={<Home currentUser={currentUser} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-        </Routes>
-      </header>
+    <div className="container">
+      <Navbar currentUser={currentUser} />
+      <Routes>
+        <Route path="/" element={<Home currentUser={currentUser} />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/registerDocteur" element={<RegisterDocteur />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/settings" element={<Settings currentUser={currentUser} />}/>
+        <Route path="/resultats" element={<Resultats currentUser={currentUser} />} />
+        <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser}/>} />
+        <Route path="/survey" element={<Survey currentUser={currentUser} />} />
+        <Route path="/historic" element={<Historic currentUser={currentUser}/>}/>
+      </Routes>
     </div>
   );
 }
