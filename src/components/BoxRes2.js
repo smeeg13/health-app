@@ -12,7 +12,7 @@ export default function BoxRes2(props) {
   const handleChange = (event) => {
     setSlideValue(event.target.value);
   };
- return (
+  return (
     <>
       {props.isBusy ? (
         <BouncingDotsLoader />

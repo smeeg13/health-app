@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { ThemeContext, themes } from "../../Context";
-import { Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Historic from "../Historic";
 import { ListPatient } from "../../components/ListPatients";
@@ -62,3 +61,7 @@ export default function HomeDocteur(props) {
     );
   }
   
+
+  
+
+ 

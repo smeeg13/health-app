@@ -28,7 +28,6 @@ const validate = (values) => {
 };
 
 export default function LoginForm({ handleSubmit }) {
-
   let themeContext = useContext(ThemeContext);
 
   return (
@@ -39,8 +38,7 @@ export default function LoginForm({ handleSubmit }) {
         try {
           console.log("Value : ", values);
           handleSubmit(values, values.email, values.password);
-        } catch (e) {
-        }
+        } catch (e) {}
       }}
     >
       {(formik) => {
@@ -95,10 +93,11 @@ export default function LoginForm({ handleSubmit }) {
               )}
             </div>
 
-            <button style={{
-                        backgroundColor: themes[themeContext.theme].button,
-                        color: themes[themeContext.theme].textcolorbtn,
-                    }}
+            <button
+              style={{
+                backgroundColor: themes[themeContext.theme].button,
+                color: themes[themeContext.theme].textcolorbtn,
+              }}
               type="submit"
               className="btn btn_submit"
               disabled={!isValid}

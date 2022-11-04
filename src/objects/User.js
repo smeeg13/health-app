@@ -3,9 +3,10 @@ export class User {
   nom = "";
   sexe = 0; //0 si masculin, 1 si feminin
   nom_role = "";
-  avatar = "avatar1.png";
+  avatar = "";
   docteur_requested = "";
   docteur_assigned = "";
+  remarks = '';
 
   constructor(
     id_user,
@@ -15,7 +16,8 @@ export class User {
     id_role,
     isAdmin,avatar,
     doc_ass,
-    doc_req
+    doc_req,
+    remarks
   ) {
     this.setId(id_user);
     this.setEmail(mail);
@@ -24,7 +26,8 @@ export class User {
     this.setIdRole(id_role, isAdmin);
     this.setAvatar(avatar);
     this.docteur_assigned = doc_ass;
-    this.docteur_requested = doc_req; //+ collections Questionnaires
+    this.docteur_requested = doc_req;
+    this.remarks = remarks;
   }
 
   setAvatar(avatar) {
@@ -91,6 +94,7 @@ export const userConverter = {
       avatar: user.avatar,
       docteur_requested: user.docteur_requested,
       docteur_assigned: user.docteur_assigned,
+      remarks: user.remarks
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -104,7 +108,8 @@ export const userConverter = {
       null,
       data.avatar,
       data.docteur_assigned,
-      data.docteur_requested
+      data.docteur_requested,
+      data.remarks
     );
   },
 };

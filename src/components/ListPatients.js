@@ -3,9 +3,9 @@ import { GetUserById } from "../objects_managers/UserManager";
 import { ThemeContext, themes } from "../Context";
 import { DealWithPatientRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
+import RemarkDialog from "./RemarkDialog";
 
 export function ListPatient(props) {
-
   let themeContext = useContext(ThemeContext);
   const [patients, setPatients] = useState([]);
   const [isBusy, setBusy] = useState(true);
@@ -15,7 +15,6 @@ export function ListPatient(props) {
   useEffect(() => {
     const fetchUser = async (id) => {
       const result = await GetUserById(id);
-      console.log("User retrived :", result);
       setPatients((prevUsers) => [...prevUsers, result]);
     };
 
@@ -48,12 +47,15 @@ export function ListPatient(props) {
       ) : (
         <div className="container">
           <div className="box_list">
-            <p className="center text" style={{
-            color: themes[themeContext.theme].textcolor,
-          }}>
+            <p
+              className="center text"
+              style={{
+                color: themes[themeContext.theme].textcolor,
+              }}
+            >
               {" "}
               Here's a list of patients that asked you as their doctor.
-              <br></br> 
+              <br></br>
               You can accepte them or refuse them.
             </p>
 
@@ -64,7 +66,9 @@ export function ListPatient(props) {
                 isRequest={true}
               />
             ) : (
-              <p style={{ color: "#00A36C", fontStyle: 'italic'  }}>no request pending</p>
+              <p style={{ color: "#00A36C", fontStyle: "italic" }}>
+                no request pending
+              </p>
             )}
           </div>
           <hr />
@@ -79,7 +83,9 @@ export function ListPatient(props) {
                 setPatientToShow={props.setPatientToShow}
               />
             ) : (
-              <p style={{ color: "#00A36C", fontStyle: 'italic' }}>No patients for the moment</p>
+              <p style={{ color: "#00A36C", fontStyle: "italic" }}>
+                No patients for the moment
+              </p>
             )}
           </div>
         </div>
@@ -98,13 +104,9 @@ function UserList(props) {
       props.setShowHistoric(true);
     }
     if (event.target.name === "Accept") {
-      console.log("Accept Clicked on ", res.id_user);
-
       await DealWithPatientRequest(props.currentUser, res.id_user, true);
     }
     if (event.target.name === "Refuse") {
-      console.log("Refuse Clicked on ", res.id_user);
-
       await DealWithPatientRequest(props.currentUser, res.id_user, false);
     }
   };
@@ -153,22 +155,28 @@ function UserList(props) {
                     </button>
                   </div>
                 ) : (
-                  <button
-                    name="Details"
-                    type="submit"
-                    className="btn "
-                    style={{
-                      backgroundColor: themes[themeContext.theme].button,
-                      color: themes[themeContext.theme].textcolorbtn,
-                      width: 170,
-                      marginTop: 0,
-                      marginBottom: 10,
-                      marginLeft: 280,
-                    }}
-                    onClick={(event) => HandleClick(event, res)}
-                  >
-                    See Details
-                  </button>
+                  <>
+                    <RemarkDialog
+                      user={res}
+                      nomDocteur={props.currentUser.nom}
+                    />
+                    <button
+                      name="Details"
+                      type="submit"
+                      className="btn "
+                      style={{
+                        backgroundColor: themes[themeContext.theme].button,
+                        color: themes[themeContext.theme].textcolorbtn,
+                        width: 170,
+                        marginTop: 0,
+                        marginBottom: 10,
+                        marginLeft: 280,
+                      }}
+                      onClick={(event) => HandleClick(event, res)}
+                    >
+                      See Details
+                    </button>
+                  </>
                 )}
               </div>
             </div>

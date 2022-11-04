@@ -9,7 +9,7 @@ import {GetDocteurById} from "../objects_managers/DocteurManager";
 import {GetUserById} from "../objects_managers/UserManager";
 import login from "./img/login2.png";
 import {ThemeContext, themes} from "../Context";
-import {useContext, useEffect} from "react";
+import {useContext} from "react";
 import React, {useState} from "react";
 import "../App.css";
 
@@ -114,7 +114,7 @@ export default function Login() {
                 >
                     Welcome
                 </h2>
-                <img src={login} style={{width: "250px"}}></img>
+                <img src={login} alt="login" style={{width: "250px"}}></img>
             </div>
         </div>
     );

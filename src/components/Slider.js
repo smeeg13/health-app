@@ -1,22 +1,4 @@
-// const Slider = (props) => {
-//     return (
-//         <div>
-//             <input
-//                 type="range"
-//                 name={props.question.resName}
-//                 min={props.question.min}
-//                 max={props.question.max}
-//                 value={props.value}
-//                 onChange={props.handleFormInputChange}
-//                 step="1"
-//                 className="custom-slider"
-//             />
-//         </div>
 
-//     );
-// };
-
-// export default Slider;
 import ReactSlider from "react-slider";
 
 function Slider (props){

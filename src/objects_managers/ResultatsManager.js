@@ -11,7 +11,6 @@ export async function CreateDocGuestInResultat() {
     CreatedDate: Timestamp.fromDate(new Date()),
   });
 
-  console.log("New Doc For Guest in Resultat : ", refDoc.id);
   return refDoc.id;
 }
 

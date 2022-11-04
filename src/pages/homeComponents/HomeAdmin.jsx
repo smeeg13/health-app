@@ -45,7 +45,7 @@ export default function HomeAdmin() {
   
         <br />
         <br />
-        {/* 👇️ open link in new tab using a button */}
+        {/* open Firebase link in new tab using a button */}
         <button
           className="btn"
           onClick={() => openInNewTab()}

@@ -4,6 +4,7 @@ import "@fontsource/lexend-deca";
 import { useContext } from "react";
 import home_pic from "../img/home.png";
 import { ThemeContext, themes } from "../../Context";
+
 export default function HomeGuest() {
     let themeContext = useContext(ThemeContext);
   

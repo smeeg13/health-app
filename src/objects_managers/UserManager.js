@@ -28,7 +28,6 @@ export async function UpdateUserSexe(id_user, sexe) {
 await updateDoc(userRef, {
   sexe: sexe
 });
-console.log("Update sexe for user : ", id_user, ", sexe : ", sexe)
 }
 
 //Get data once

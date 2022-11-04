@@ -19,6 +19,7 @@ function Account(props) {
 
   const [avatarSelected, setAvatar] = useState(props.currentUser.avatar);
   const [nameEntered, setNameEntered] = useState(props.currentUser.nom);
+  const [remarks, setRemarks] = useState(props.currentUser.remarks);
   const [confirmSave, setConfirmSave] = useState("");
 
   const [docteurs, setDocteurs] = useState([]);
@@ -29,7 +30,7 @@ function Account(props) {
   );
 
   const [isBusy, setBusy] = useState(true);
-  const [message, setMessage] = useState("");
+  const [confirmRequest, setConfirmRequest] = useState("");
 
   /** Get all docteurs available */
   useEffect(() => {
@@ -38,13 +39,16 @@ function Account(props) {
       setDocteurs(result);
       setBusy(false);
     };
-
-    fetchDocteurs();
-  }, []);
+    if (props.currentUser.nom_role === "Patient") {
+      fetchDocteurs();
+    } else {
+      setBusy(false);
+    }
+  }, [props.currentUser.nom_role]);
 
   /** Retrieve the name of the Doctor assigned to User */
   useEffect(() => {
-    const GetDocteurNameAssigned = () => {
+    const GetNameDocteurAssigned = () => {
       if (props.currentUser.docteur_assigned !== "") {
         if (docteurs.length > 0) {
           let filteredArray = docteurs.filter(
@@ -54,9 +58,16 @@ function Account(props) {
         }
       }
     };
-
-    GetDocteurNameAssigned();
-  }, [props.currentUser.docteur_assigned, docteurs]);
+    if (props.currentUser.nom_role === "Patient") {
+      GetNameDocteurAssigned();
+    } else {
+      setBusy(false);
+    }
+  }, [
+    props.currentUser.docteur_assigned,
+    docteurs,
+    props.currentUser.nom_role,
+  ]);
 
   useEffect(() => {
     setAvatar(props.currentUser.avatar);
@@ -67,6 +78,10 @@ function Account(props) {
   }, [props.currentUser.nom]);
 
   useEffect(() => {
+    setRemarks(props.currentUser.remarks);
+  }, [props.currentUser.remarks]);
+
+  useEffect(() => {
     setTimeout(() => {
       setConfirmSave("");
     }, 4000);
@@ -74,17 +89,15 @@ function Account(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      setMessage("");
+      setConfirmRequest("");
     }, 4000);
-  }, [message]);
+  }, [confirmRequest]);
 
   const HandleAvatar = (order) => {
     const str = order.target.src;
     const after_ = str.split("/").pop();
     let newStrg = "/img/" + after_;
-
     setAvatar(newStrg);
-    console.log("Avatar Selected string : ", newStrg);
   };
 
   const HandleName = (event) => {
@@ -93,16 +106,19 @@ function Account(props) {
 
   const HandleDocteurSelect = (event) => {
     setDocteurSelectForRequest(event.target.value);
-    console.log("Docteur selected : ", event.target.value);
   };
 
-  const SendRequest = () => {
+  const SendRequest = async () => {
     if (docteurSelectForRequest !== "") {
       let docteur = docteurs.filter(
         (doc) => doc.id_user === docteurSelectForRequest
       );
-      console.log("doc retrieved for request :", docteur[0]);
-      NewRequest(docteur[0], props.currentUser.id_user, setMessage);
+      await NewRequest(
+        docteur[0],
+        props.currentUser.id_user,
+        setConfirmRequest,
+        setRemarks
+      );
     }
   };
 
@@ -114,17 +130,22 @@ function Account(props) {
 
       return clonedUser;
     });
-    //Save into DB
-    let Ref = doc(db, "User", props.currentUser.id_user);
 
     try {
+      let Ref;
+      if (props.currentUser.nom_role === "Patient") {
+        //Save into DB
+        Ref = doc(db, "User", props.currentUser.id_user);
+      } else {
+        Ref = doc(db, "Docteur", props.currentUser.id_user);
+      }
       await updateDoc(Ref, {
         avatar: avatarSelected,
         nom: nameEntered,
       });
-      setConfirmSave("Changes Saved");
+      setConfirmSave("Changements Sauvegardés");
     } catch (e) {
-      setConfirmSave("Error When saving modifications, please try later");
+      setConfirmSave("Erreur, merci de réessayer plus tard");
     }
   };
 
@@ -149,12 +170,12 @@ function Account(props) {
                   color: themes[themeContext.theme].textcolor,
                 }}
               >
-                Enter your personnal information
+                Entrer vos informations personnelles
               </h1>
             </div>
 
             <div className="center " style={{ marginBottom: -10 }}>
-              <label>Name : {"  "}</label>
+              <label>Nom Complet : {"  "}</label>
               <input
                 name="nom"
                 className="text_input"
@@ -174,7 +195,7 @@ function Account(props) {
                   color: themes[themeContext.theme].textcolor,
                 }}
               >
-                Avatar selected{" "}
+                Avatar Choisi{" "}
               </h3>
               <img
                 className="avatar1"
@@ -188,18 +209,18 @@ function Account(props) {
                 className="btn"
                 style={{
                   margin: 0,
-                  width: 100,
+                  width: 120,
                   backgroundColor: themes[themeContext.theme].button,
                   color: themes[themeContext.theme].textcolorbtn,
                   fontSize: 14,
                 }}
                 onClick={HandleSubmit}
               >
-                Save
+                Enregistrer
               </button>
 
               <div>
-                {confirmSave === "Changes Saved" ? (
+                {confirmSave === "Changements Sauvegardés" ? (
                   <span style={{ color: "#00A36C", marginRight: 3 }}>
                     {confirmSave}
                   </span>
@@ -211,112 +232,133 @@ function Account(props) {
               </div>
             </div>
             <br />
-            <div>
-              {props.currentUser.docteur_assigned !== "" ? (
-                <div className="center">
-                  <h1 className="choose_avatar">Doctor assigned to you</h1>
-                  <input
-                    disabled
-                    name="docteur_assigned"
-                    className="text_input"
-                    type="text"
-                    maxLength={30}
-                    value={docteurAssigned}
-                  />
-                </div>
-              ) : (
-                <p style={{ color: "#FF2400", fontWeight: 600 }}>
-                  You have no Doctor assigned to you for the moment
-                </p>
-              )}
 
-              <div className=" center">
-                {props.currentUser.docteur_assigned ==='' ?
-                <h1
-                  className="choose_avatar"
-                  style={{
-                    margin: 15,
-                    color: themes[themeContext.theme].textcolor,
-                  }}
-                >
-                  Ask for a Doctor to take care of you
-                </h1>
-                :
-                <h1
-                  className="choose_avatar"
-                  style={{
-                    margin: 15,
-                    color: themes[themeContext.theme].textcolor,
-                  }}
-                >
-                  Ask for another a Doctor to take care of you
-                </h1>
-              }
-
-                
-                <div className="row center" style={{ margin: 0 }}>
-                  <div className="column_list center" style={{ margin: 0 }}>
-                    <div>
-                      <select
-                        className="dropdown"
-                        name="docteur_requested"
-                        id="docteur_requested"
-                        value={docteurSelectForRequest}
-                        onChange={(event) => HandleDocteurSelect(event)}
-                        style={{ minWidth: 150 }}
-                      >
-                        <option key={0} value={"Select a doctor"}>
-                          Select a doctor
-                        </option>
-                        {props.currentUser.docteur_assigned !== '' ?
-                          docteurs.filter(
-                            (item) => item.id_user !== props.currentUser.docteur_assigned
-                          ).map((value) => (
-                            <option key={value.id_user} value={value.id_user}>
-                              {value.nom}
-                            </option>
-                          ))
-                          : 
-                          docteurs.map((value) => (
-                            <option key={value.id_user} value={value.id_user}>
-                              {value.nom}
-                            </option>
-                          ))
-                        }
-                      </select>
-                    </div>
+            {props.currentUser.nom_role === "Patient" && (
+              <div>
+                {props.currentUser.docteur_assigned !== "" ? (
+                  <div className="center" style={{ margin: 0, marginTop: -50 }}>
+                    <h1 className="choose_avatar">Votre docteur </h1>
+                    <input
+                      disabled
+                      name="docteur_assigned"
+                      className="text_input"
+                      type="text"
+                      maxLength={30}
+                      value={docteurAssigned}
+                    />
                   </div>
-                  <div className="column_list center">
-                    <div>
-                      <button
-                        className="btn"
-                        style={{
-                          margin: 0,
-                          width: 180,
-                          backgroundColor: themes[themeContext.theme].button,
-                          color: themes[themeContext.theme].textcolorbtn,
-                          fontSize: 14,
-                        }}
-                        onClick={SendRequest}
-                      >
-                        Send Request
-                      </button>
+                ) : (
+                  <p style={{ color: "#FF2400", fontWeight: 600 }}>
+                    Vous n'avez aucun docteur assigné pour le moment
+                  </p>
+                )}
+                {remarks !== "" && (
+                  <p
+                    style={{
+                      color: themes[themeContext.theme].textcolor,
+                      fontWeight: 400,
+                      fontStyle: "italic",
+                    }}
+                  >
+                    Remarques : {remarks}
+                  </p>
+                )}
+
+                <div className=" center">
+                  {props.currentUser.docteur_assigned === "" ? (
+                    <h1
+                      className="choose_avatar"
+                      style={{
+                        margin: 15,
+                        color: themes[themeContext.theme].textcolor,
+                      }}
+                    >
+                      Faire une demande au près d'un docteur
+                    </h1>
+                  ) : (
+                    <h1
+                      className="choose_avatar"
+                      style={{
+                        margin: 15,
+                        color: themes[themeContext.theme].textcolor,
+                      }}
+                    >
+                      Faire une demande au près d'un autre docteur
+                    </h1>
+                  )}
+
+                  <div className="row center" style={{ margin: 0 }}>
+                    <div className="column_list center" style={{ margin: 0 }}>
+                      <div>
+                        <select
+                          className="dropdown"
+                          name="docteur_requested"
+                          id="docteur_requested"
+                          value={docteurSelectForRequest}
+                          onChange={(event) => HandleDocteurSelect(event)}
+                          style={{ minWidth: 200 }}
+                        >
+                          <option key={0} value={"Select a doctor"}>
+                            Choisir un docteur
+                          </option>
+                          {props.currentUser.docteur_assigned !== ""
+                            ? docteurs
+                                .filter(
+                                  (item) =>
+                                    item.id_user !==
+                                    props.currentUser.docteur_assigned
+                                )
+                                .map((value) => (
+                                  <option
+                                    key={value.id_user}
+                                    value={value.id_user}
+                                  >
+                                    {value.nom}
+                                  </option>
+                                ))
+                            : docteurs.map((value) => (
+                                <option
+                                  key={value.id_user}
+                                  value={value.id_user}
+                                >
+                                  {value.nom}
+                                </option>
+                              ))}
+                        </select>
+                      </div>
                     </div>
-                    <div>
-                      {message === "Request Sent" ? (
-                        <span style={{ color: "#00A36C", marginRight: 3 }}>
-                          {message}
-                        </span>
-                      ) : (
-                        <span style={{ color: "#FF2400", marginRight: 3 }}>
-                          {message}
-                        </span>
-                      )}
+                    <div className="column_list center">
+                      <div>
+                        <button
+                          className="btn"
+                          style={{
+                            margin: 0,
+                            width: 180,
+                            backgroundColor: themes[themeContext.theme].button,
+                            color: themes[themeContext.theme].textcolorbtn,
+                            fontSize: 14,
+                          }}
+                          onClick={SendRequest}
+                        >
+                          Envoyer une demande
+                        </button>
+                      </div>
+                      <div>
+                        {confirmRequest === "Demande Envoyée" ? (
+                          <span style={{ color: "#00A36C", marginRight: 3 }}>
+                            {confirmRequest}
+                          </span>
+                        ) : (
+                          <span style={{ color: "#FF2400", marginRight: 3 }}>
+                            {confirmRequest}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div
@@ -333,7 +375,7 @@ function Account(props) {
                   color: themes[themeContext.theme].textcolor,
                 }}
               >
-                Choose an avatar{" "}
+                Choisissez votre avatar{" "}
               </h1>
               <div className="avatar">
                 <img
