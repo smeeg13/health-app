@@ -75,7 +75,7 @@ export default function HomeUser(props) {
     <div
       className="container"
       style={{
-        backgroundColor: themes[themeContext.theme].background,
+        backgroundColor: themes[themeContext.theme].background_quiz,
         color: themes[themeContext.theme].foreground,
       }}
     >

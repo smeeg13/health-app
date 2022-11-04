@@ -1,4 +1,6 @@
-import React from "react"; 
+import React, { useContext } from "react";
+import { ResultatContext, ThemeContext, themes  } from "../Context";
+
 export const BouncingDotsLoader = (props) => {
     return (
         <div className="bouncing-loader">
@@ -24,13 +26,16 @@ export function FormInput({
   onChange,
   placeholder,
   min,
-  max,
+  max,  
+})
+ {
+
+  let themeContext = useContext(ThemeContext);
   
-}) {
   return (
     <>
       <label>{label}</label>
-      <input style={{width:"50px", marginRight:"10px", marginLeft:"5px"}}
+      <input style={{width:"50px", marginRight:"10px", marginLeft:"5px",  color: themes[themeContext.theme].textcolor}}
       disabled={disabled}
         id={id}
         type={type}

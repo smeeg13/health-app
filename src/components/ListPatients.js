@@ -52,9 +52,9 @@ export function ListPatient(props) {
             color: themes[themeContext.theme].textcolor,
           }}>
               {" "}
-              Here's a list of patients that asked you as their doctor.
+              Voici la liste des nouveaux patients.
               <br></br> 
-              You can accepte them or refuse them.
+              Vous pouvez les acceptez ou les refuser.
             </p>
 
             {requestPatients.length > 0 ? (
@@ -64,14 +64,14 @@ export function ListPatient(props) {
                 isRequest={true}
               />
             ) : (
-              <p style={{ color: "#00A36C", fontStyle: 'italic'  }}>no request pending</p>
+              <p style={{ color: "#00A36C", fontStyle: 'italic'  }}>Aucune demande en attente</p>
             )}
           </div>
     
           <div className="box_list">
             <h3 style={{
           color: themes[themeContext.theme].textcolor, textAlign:"center"
-        }}> List of Patients</h3>
+        }}> Liste des patients</h3>
             {patients.length > 0 ? (
               <UserList
                 currentUser={props.currentUser}
@@ -138,7 +138,7 @@ function UserList(props) {
                       }}
                       onClick={(event) => HandleClick(event, res)}
                     >
-                      Accept{" "}
+                      Accepter{" "}
                     </button>
                     <button
                       name="Refuse"
@@ -152,7 +152,7 @@ function UserList(props) {
                       }}
                       onClick={(event) => HandleClick(event, res)}
                     >
-                      Refuse{" "}
+                      Refuser{" "}
                     </button>
                   </div>
                 ) : (
@@ -171,7 +171,7 @@ function UserList(props) {
                     }}
                     onClick={(event) => HandleClick(event, res)}
                   >
-                    Details
+                    Détails
                   </button>
                 )}
               </div>

@@ -36,6 +36,7 @@ export const themes = {
         button:"#fff",
         backgroundresult:"white",
         dropdown_border:"black",
+        dropdown_results:"#1A523C",
         rangeColor:"white",
         rangeToggle:"#77c5a6"
 

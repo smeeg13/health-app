@@ -1,6 +1,6 @@
 import "../App.css";
 import React, { useContext, useState } from "react";
-import { ResultatContext } from "../Context";
+import { ResultatContext, ThemeContext, themes  } from "../Context";
 import { ToggleButton } from "../components/ToggleButton";
 import { getObjKey } from "../utils/tools";
 import { BouncingDotsLoader } from "../utils/tools";
@@ -8,6 +8,7 @@ import { BouncingDotsLoader } from "../utils/tools";
 export default function BoxRes2(props) {
   let resultatContext = useContext(ResultatContext);
   const [slideValue, setSlideValue] = useState(resultatContext.resultat.poids);
+  let themeContext = useContext(ThemeContext);
 
   const handleChange = (event) => {
     setSlideValue(event.target.value);
@@ -35,7 +36,7 @@ export default function BoxRes2(props) {
 
           <div className="container_results2"> 
 
-          <input className="slider_results" style={{marginTop:"30px", float:"right", marginRight:"70px"}}
+          <input className="answers_type" style={{marginTop:"30px", float:"right", marginRight:"70px", background: themes[themeContext.theme].rangeColor }}
               type="range"
               id={props.questions[3].resName}
               name={props.questions[3].resName}
@@ -55,7 +56,7 @@ export default function BoxRes2(props) {
               disabled={false}
             />
 
-            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px"}}
+            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px", color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
               name={props.questions[13].resName}
               id={props.questions[13].resName}
               value={resultatContext.resultat.alim}
@@ -95,7 +96,7 @@ export default function BoxRes2(props) {
               </option>
             </select>
         
-            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px"}}
+            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px", color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
               name={props.questions[14].resName}
               id={props.questions[14].resName}
               value={resultatContext.resultat.sport}
@@ -135,7 +136,7 @@ export default function BoxRes2(props) {
               </option>
             </select>
         
-            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px"}}
+            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px", color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
               name={props.questions[15].resName}
               id={props.questions[15].resName}
               value={resultatContext.resultat.alcool}

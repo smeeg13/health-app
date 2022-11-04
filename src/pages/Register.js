@@ -51,19 +51,19 @@ export default function Register() {
                         color: themes[themeContext.theme].textcolor,
                     }}
                 >
-                    Register</h2>
+                    S'inscrire</h2>
                 <p className="click_here"
                    style={{
                        color: themes[themeContext.theme].textcolor,
                    }}
                 >
-                    Register yourself to keep track on your health{" "}
+                    Enregistrez-vous pour en savoir plus sur votre santé!{" "}
                 </p>
                 {InformationMessage(message)}
                 <RegisterForm handleSubmit={handleRegister}/>
                 
                 <p className="click_here" style={{fontSize: 14, color: themes[themeContext.theme].textcolor}}>
-                    Already Have an Account ? <Link to="/Login">Go to Login</Link>{" "}
+                    Vous avez déjà un compte ? <Link to="/Login">Aller au login</Link>{" "}
                 </p>
                 <img className="docs_pics" src={docs} alt="docs_pics"
                      style={{width: "200px", float: "right", marginTop: "-100px", position: "relative"}}></img>
