@@ -173,7 +173,7 @@ export default function Resultats(props) {
 
 function TitleBox(props) {
   return (
-    <div>
+    <div className="results_upper">
       <h2>{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}

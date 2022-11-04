@@ -30,7 +30,7 @@ export function FormInput({
   return (
     <>
       <label>{label}</label>
-      <input
+      <input style={{width:"50px", marginRight:"10px", marginLeft:"5px"}}
       disabled={disabled}
         id={id}
         type={type}

@@ -67,9 +67,11 @@ export function ListPatient(props) {
               <p style={{ color: "#00A36C", fontStyle: 'italic'  }}>no request pending</p>
             )}
           </div>
-          <hr />
+    
           <div className="box_list">
-            <h3> List of Patients</h3>
+            <h3 style={{
+          color: themes[themeContext.theme].textcolor, textAlign:"center"
+        }}> List of Patients</h3>
             {patients.length > 0 ? (
               <UserList
                 currentUser={props.currentUser}
@@ -109,11 +111,12 @@ function UserList(props) {
     }
   };
   return (
-    <div className="container_list_patient center">
+    <div>
       <ul style={{ listStyleType: "none", padding: 10 }}>
         {props.patients.map((res) => (
-          <li key={res.id_user}>
-            <hr className="my_hr" />
+          <li className="text"  style={{
+            color: themes[themeContext.theme].textcolor
+          }} key={res.id_user}>
 
             <div className="row  center">
               <div className="column_list center">
@@ -156,18 +159,19 @@ function UserList(props) {
                   <button
                     name="Details"
                     type="submit"
-                    className="btn "
+                    className="btn"
                     style={{
                       backgroundColor: themes[themeContext.theme].button,
                       color: themes[themeContext.theme].textcolorbtn,
-                      width: 170,
+                      width: 120,
+                      fontSize:"0.8em",
                       marginTop: 0,
                       marginBottom: 10,
                       marginLeft: 280,
                     }}
                     onClick={(event) => HandleClick(event, res)}
                   >
-                    See Details
+                    Details
                   </button>
                 )}
               </div>

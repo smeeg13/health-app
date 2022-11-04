@@ -127,10 +127,6 @@ width: 50px;
 }
 
 
-input{
-margin-bottom: 16px;
-}
-
 .next_btn {
 float: right;
 margin-top: 50px;
@@ -200,6 +196,20 @@ top: -60px;
 top: 0;
 }
 
+.label_results{
+  margin-top: 22px;
+  margin-left: 5px;
+  font-family: "Lexend Deca";
+  font-size: 1em;
+  float: left;
+}
+
+.toggle_results{
+
+  justify-content: center;
+}
+
+
 .result1 {
 position: relative;
 margin-right: 20px;
@@ -235,7 +245,7 @@ background-color: #eafaf1;
 
 
 
-.category{
+/* .category{
 margin-top: 70px;
 float: left;
 text-align: left;
@@ -284,7 +294,7 @@ margin-right: 40px;
 float: right;
 font-family: "Lexend Deca";
 font-size: 0.7em;
-}
+} */
 
 
 /* Style the custom slider */
@@ -295,13 +305,65 @@ height: 20px;
 float: right;
 }
 
+/*Avatar results*/
 .my_avatar{
 margin-left: 10px;
-margin-top:50px ;
-float:left;
+margin-top:5px ;
+margin: auto;
 height:150px;
 width:145;
 }
+
+.container_label{
+  float: left;
+  width: 250px;
+  height: 100%;
+}
+
+.container_label2{
+  float: left;
+  width: 115px;
+  height: 100%;
+}
+
+.container_label3{
+  float: left;
+  width: 120px;
+  height: 100%;
+}
+
+
+.container_results2{
+  float:right;
+  width: 335px;
+}
+
+.results_upper{
+  overflow: hidden;
+  scroll-behavior: none;
+}
+
+
+.dropdown_results{
+  width: 80px;
+  margin-right: 10px;
+  color: black;
+  font-family: "Lexend Deca";
+  
+}
+
+/* toggle switch results */
+.switch {
+  display: block;
+  width: 24px;
+  margin: 5px;
+  background: #fff;
+  position: absolute;
+  border: 0 solid #054A2F;
+  border-radius: 20px;
+  transition: all 0.3s ease-in 0s;
+  }
+
 
 .center {
 margin-bottom: 5px;
@@ -382,6 +444,7 @@ color: #1A523C;
 text-align: center;
 }
 
+
 .toggle-switch {
 position: relative;
 width: 75px;
@@ -429,19 +492,7 @@ background-color: #bbb;
 color: #fff;
 text-align: right;
 }
-.switch {
-display: block;
-width: 24px;
-margin: 5px;
-background: #fff;
-position: absolute;
-top: 0;
-bottom: 0;
-right: 40px;
-border: 0 solid #bbb;
-border-radius: 20px;
-transition: all 0.3s ease-in 0s;
-}
+
 .checkbox:checked + .label .inner {
 margin-left: 0;
 }
@@ -531,16 +582,15 @@ input,
 output {
 margin-left:30px;
 display: inline-block;
-vertical-align: middle;
 font-size: 1em;
 font-family: "Lexend Deca";
 }
 
 output {
-background: #1A523C;
 padding: 2px 10px;
 border-radius: 3px;
-color: #fff;
+font-family: "Lexend Deca";
+color: black;
 }
 
 input[type="range"] {
