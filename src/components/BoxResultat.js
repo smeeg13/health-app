@@ -21,7 +21,7 @@ export default function BoxResultat(props) {
       </div>
 
       <div className="container_results">
-      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px"}}>
+      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px", marginTop:"10px"}}>
         <Slider
           min="0"
           max="100"
@@ -35,7 +35,7 @@ export default function BoxResultat(props) {
         />
       </Box>
 
-      <Box  sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px"}}>
+      <Box  sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px", marginTop:"10px"}}>
         <Slider
           min="0"
           max="100"
@@ -49,7 +49,7 @@ export default function BoxResultat(props) {
         />
       </Box>
 
-      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px" }}>
+      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px", marginTop:"20px" }}>
         <Slider
           min="0"
           max="100"
@@ -63,7 +63,7 @@ export default function BoxResultat(props) {
         />
       </Box>
 
-      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px" }}>
+      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px", marginTop:"15px" }}>
         <Slider
           min="0"
           max="100"

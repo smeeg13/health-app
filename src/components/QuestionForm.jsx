@@ -76,7 +76,7 @@ export function BoxQuestion(props) {
               backgroundColor: themes[themeContext.theme].button,
               color: themes[themeContext.theme].textcolorbtn,
             }}>
-              suivant
+              next
             </button>
           }
           {props.index === props.totalQues &&
@@ -88,7 +88,7 @@ export function BoxQuestion(props) {
                 backgroundColor: themes[themeContext.theme].button,
                 color: themes[themeContext.theme].textcolorbtn,
               }}>
-                retour
+                back
               </button>
             </>
           }
@@ -98,13 +98,13 @@ export function BoxQuestion(props) {
                 backgroundColor: themes[themeContext.theme].button,
                 color: themes[themeContext.theme].textcolorbtn,
               }}>
-                suivant
+                next
               </button>
               <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
                 backgroundColor: themes[themeContext.theme].button,
                 color: themes[themeContext.theme].textcolorbtn,
               }}>
-                retour
+                back
               </button>
             </>
           }
