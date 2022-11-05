@@ -35,7 +35,7 @@ export default function HomeDocteur(props) {
               }}
               onClick={(event) => backToList()}
             >
-              Retour
+              Back
             </button>
             <Historic currentUser={patientToShow} />
           </div>
@@ -48,7 +48,7 @@ export default function HomeDocteur(props) {
               }}
             >
               {" "}
-              Hey, re-bonjour Dr. {props.currentUser.nom}
+              Welcome back Dr. {props.currentUser.nom}
             </h2>
             <ListPatient
               currentUser={props.currentUser}

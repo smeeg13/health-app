@@ -75,7 +75,7 @@ export default function HomeUser(props) {
     <div
       className="container"
       style={{
-        backgroundColor: themes[themeContext.theme].background_quiz,
+        backgroundColor: themes[themeContext.theme].background,
         color: themes[themeContext.theme].foreground,
       }}
     >
@@ -90,7 +90,7 @@ export default function HomeUser(props) {
               marginBottom: "0px",
             }}
           >
-            Salut, re-bonjour{" "}
+            Welcome back {" "}
             {props.currentUser.nom !== ""
               ? props.currentUser.nom
               : props.currentUser.email}
@@ -105,13 +105,12 @@ export default function HomeUser(props) {
               color: themes[themeContext.theme].textcolorbtn,
             }}
           >
-            Nouveau questionnaire
+            New survey
           </button>
           {resultatContext.resultat.id_resultats !== "" && (
             <button
               style={{
                 marginLeft: "15px",
-                width: "200px",
                 backgroundColor: themes[themeContext.theme].button,
                 color: themes[themeContext.theme].textcolorbtn,
               }}
@@ -119,7 +118,7 @@ export default function HomeUser(props) {
               type="submit"
               onClick={handleFormSubmit}
             >
-              Sauvegarder
+              Save
             </button>
           )}
           <br />

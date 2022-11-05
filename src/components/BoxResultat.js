@@ -15,9 +15,9 @@ export default function BoxResultat(props) {
         <br></br>
         <label style={{marginTop:"30px"}}  className="label_results">Cancer : </label>
         <br></br>
-        <label style={{marginTop:"30px"}}  className="label_results">Infarctus :</label>
+        <label style={{marginTop:"30px"}}  className="label_results">Heart attack :</label>
         <br></br>
-        <label style={{marginTop:"30px"}}  className="label_results">Non-infarctus :</label>
+        <label style={{marginTop:"30px"}}  className="label_results">No heart attack :</label>
       </div>
 
       <div className="container_results">

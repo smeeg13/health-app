@@ -101,7 +101,7 @@ export default function Resultats(props) {
         <div className="box1" style={{margin:-10}}>
           {/* Box for data questionnaire 1-2  */}
           <div className="container result1" style={{
-          backgroundColor: themes[themeContext.theme].background,
+          backgroundColor: themes[themeContext.theme].background_quiz,
           color: themes[themeContext.theme].foreground,
         }}>
             <TitleBox 
@@ -117,7 +117,7 @@ export default function Resultats(props) {
           </div>
           {/* Box for data questionnaire 3 */}
           <div className="container result2" style={{
-          backgroundColor: themes[themeContext.theme].background,
+          backgroundColor: themes[themeContext.theme].background_quiz,
           color: themes[themeContext.theme].foreground,
         }}>
             <TitleBox
@@ -133,7 +133,7 @@ export default function Resultats(props) {
           </div>
           {/* Box for Resultat  */}
           <div className="container result3" style={{
-        backgroundColor: themes[themeContext.theme].background,
+        backgroundColor: themes[themeContext.theme].background_quiz,
         color: themes[themeContext.theme].foreground,
       }}>
             <TitleBox
