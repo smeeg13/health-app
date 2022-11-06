@@ -463,6 +463,7 @@ function Account(props) {
     </Container2>
   );
 }
+export default Account;
 
 const Container2 = styled.div`
   body {

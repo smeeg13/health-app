@@ -240,59 +240,6 @@ background-color: #eafaf1;
 }
 
 
-
-/* .category{
-margin-top: 70px;
-float: left;
-text-align: left;
-margin-left: 30px;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.response{
-margin-top: 70px;
-margin-right: 160px;
-float: right;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.category2{
-margin-top: 55px;
-float: left;
-text-align: left;
-margin-left: 30px;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.response2{
-margin-top: 70px;
-margin-right: 160px;
-float: right;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.category3{
-margin-top: 55px;
-float: left;
-text-align: left;
-margin-left: 30px;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.response3{
-margin-top: 60px;
-margin-right: 40px;
-float: right;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-} */
-
-
 /* Style the custom slider */
 .custom-slider {
 color:"success";
@@ -374,6 +321,18 @@ text-align: center;
   font-family: "Lexend Deca";
   font-size: 2em;
   color:#1A523C;
+}
+
+
+/* Error 404 page */
+
+.error_redirection{
+  margin-top: 20px;
+  margin: auto;
+  color: #054A2F;
+  text-decoration: none;
+  font-family: "Lexend Deca";
+  font-size: 1em;
 }
 
 /* ------ SETTINGS PAGE --------- */
