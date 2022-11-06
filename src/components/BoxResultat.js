@@ -18,13 +18,9 @@ export default function BoxResultat(props) {
           Cancer :{" "}
         </label>
         <br></br>
-        <label style={{ marginTop: "30px" }} className="label_results">
-          Infarctus :
-        </label>
+        <label style={{marginTop:"30px"}}  className="label_results">Heart attack :</label>
         <br></br>
-        <label style={{ marginTop: "30px" }} className="label_results">
-          Non-infarctus :
-        </label>
+        <label style={{marginTop:"30px"}}  className="label_results">No heart attack :</label>
       </div>
 
       <div className="container_results">
@@ -33,22 +29,12 @@ export default function BoxResultat(props) {
             width: 150,
             marginLeft: 10,
             float: "right",
-            marginRight: "30px",
+            marginRight: "30px", marginTop:"10px",
           }}
         >
           <CircularProgressBar progress={props.maladies.diabete} />
 
-          {/* <Slider
-          min="0"
-          max="100"
-          aria-label="Custom marks"
-          value={props.maladies.diabete}
-          getAriaValueText={valuetext}
-          step={1}
-          valueLabelDisplay="on"
-          disabled
-          size="medium"
-        /> */}
+          
         </Box>
 
         <Box
@@ -56,22 +42,12 @@ export default function BoxResultat(props) {
             width: 150,
             marginLeft: 10,
             float: "right",
-            marginRight: "30px",
+            marginRight: "30px", marginTop:"10px",
           }}
         >
           <CircularProgressBar progress={props.maladies.cancer} />
 
-          {/* <Slider
-          min="0"
-          max="100"
-          aria-label="Custom marks"
-          value={props.maladies.cancer}
-          getAriaValueText={valuetext}
-          step={1}
-          valueLabelDisplay="on"
-          disabled
-          size="medium"
-        /> */}
+         
         </Box>
 
         <Box
@@ -79,22 +55,12 @@ export default function BoxResultat(props) {
             width: 150,
             marginLeft: 10,
             float: "right",
-            marginRight: "30px",
+            marginRight: "30px", marginTop:"20px",
           }}
         >
           <CircularProgressBar progress={props.maladies.infarctus} />
 
-          {/* <Slider
-          min="0"
-          max="100"
-          aria-label="Custom marks"
-          value={props.maladies.infarctus}
-          getAriaValueText={valuetext}
-          step={1}
-          valueLabelDisplay="on"
-          disabled
-          size="medium"
-        /> */}
+         
         </Box>
 
         <Box
@@ -102,21 +68,11 @@ export default function BoxResultat(props) {
             width: 150,
             marginLeft: 10,
             float: "right",
-            marginRight: "30px",
+            marginRight: "30px", marginTop:"15px",
           }}
         >
           <CircularProgressBar progress={props.maladies.nonInfarctus} />
-          {/* <Slider
-          min="0"
-          max="100"
-          aria-label="Custom marks"
-          value={props.maladies.nonInfarctus}
-          getAriaValueText={valuetext}
-          step={1}
-          valueLabelDisplay="on"
-          disabled
-          size="medium"
-        /> */}
+      
         </Box>
       </div>
     </div>

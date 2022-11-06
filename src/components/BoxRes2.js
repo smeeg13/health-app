@@ -20,18 +20,18 @@ export default function BoxRes2(props) {
       ) : (
         <form onSubmit={props.handleFormSubmit}>
           <div className="container_label2">
-            <label className="label_results" htmlFor="poids">Poids : 
+            <label className="label_results" htmlFor="poids">Weight : 
 
             {/* <output className="rangevalue">{slideValue}</output> */}
             </label>
             <br />
-            <label className="label_results" htmlFor="fume">Fumeur : </label>
+            <label className="label_results" htmlFor="fume">Smoker : </label>
             <br />
             <label className="label_results" htmlFor="alim">Alimentation : </label>
             <br />
             <label className="label_results" htmlFor="sport">Sport : </label>
             <br />
-            <label className="label_results">Alcool : </label>
+            <label className="label_results">Alcohol : </label>
           </div>
 
           <div className="container_results2"> 

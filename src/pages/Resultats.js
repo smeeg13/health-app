@@ -76,7 +76,7 @@ export default function Resultats(props) {
   return (
     <>
       {props.last && (
-        <h3 style={{marginTop:"1px", color: themes[themeContext.theme].textcolor}}>Vos dernières réponses du {resultatContext.resultat.id_resultats}</h3>
+        <h3 style={{marginTop:"1px", color: themes[themeContext.theme].textcolor}}>Your lasts responses of {resultatContext.resultat.id_resultats}</h3>
       )}
       {props.fromHistoric && (
         <div>
@@ -91,7 +91,7 @@ export default function Resultats(props) {
             }}
             onClick={props.closeDetails}
           >
-            Close Details
+            Close d etails
           </Button>{" "}
           <br/>
           <h3 style={{ color: themes[themeContext.theme].textcolor}}>Responses of the {resultatContext.resultat.id_resultats}</h3>
@@ -101,7 +101,7 @@ export default function Resultats(props) {
         <div className="box1" style={{margin:-10}}>
           {/* Box for data questionnaire 1-2  */}
           <div className="container result1" style={{
-          backgroundColor: themes[themeContext.theme].background,
+          backgroundColor: themes[themeContext.theme].background_quiz,
           color: themes[themeContext.theme].foreground,
         }}>
             <TitleBox 
@@ -117,7 +117,7 @@ export default function Resultats(props) {
           </div>
           {/* Box for data questionnaire 3 */}
           <div className="container result2" style={{
-          backgroundColor: themes[themeContext.theme].background,
+          backgroundColor: themes[themeContext.theme].background_quiz,
           color: themes[themeContext.theme].foreground,
         }}>
             <TitleBox
@@ -133,7 +133,7 @@ export default function Resultats(props) {
           </div>
           {/* Box for Resultat  */}
           <div className="container result3" style={{
-        backgroundColor: themes[themeContext.theme].background,
+        backgroundColor: themes[themeContext.theme].background_quiz,
         color: themes[themeContext.theme].foreground,
       }}>
             <TitleBox

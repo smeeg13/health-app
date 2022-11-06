@@ -1,7 +1,6 @@
 .container {
   text-align: center;
   align-items: center;
-  /* background-color: #1A523C; */
   height: 100%;
   width: 100%;
   position: fixed;
@@ -199,7 +198,7 @@ top: 0;
 
 .label_results{
   margin-top: 22px;
-  margin-left: 5px;
+  margin-left: 2px;
   font-family: "Lexend Deca";
   font-size: 1em;
   float: left;
@@ -326,7 +325,7 @@ width:145;
 
 .container_label3{
   float: left;
-  width: 120px;
+  width: 135px;
   height: 100%;
 }
 
