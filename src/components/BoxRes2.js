@@ -47,6 +47,7 @@ export default function BoxRes2(props) {
               onInput={handleChange}
               step="1"
             />
+            
             <br></br>
             <br></br>
             <ToggleButton

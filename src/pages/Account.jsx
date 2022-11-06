@@ -208,9 +208,10 @@ function Account(props) {
                 className="choose_avatar"
                 style={{
                   color: themes[themeContext.theme].textcolor,
+                  marginTop:"50px",
                 }}
               >
-                Avatar Choisi{" "}
+                Chosen avatar{" "}
               </h3>
               <img
                 className="avatar1"
@@ -343,7 +344,6 @@ function Account(props) {
                       </div>
                     </div>
                     <div className="column_list center">
-                      <div>
                         <button
                           className="btn"
                           style={{
@@ -357,7 +357,6 @@ function Account(props) {
                         >
                           Envoyer une demande
                         </button>
-                      </div>
                       <div>
                         {confirmRequest === "Demande Envoyée" ? (
                           <span style={{ color: "#00A36C", marginRight: 3 }}>
@@ -505,6 +504,8 @@ const Container2 = styled.div`
     width: 200px;
 } */
 
+
+
   select {
     position: relative;
     display: inline-block;
@@ -549,7 +550,7 @@ const Container2 = styled.div`
   }
 
   .choose_avatar {
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 20px;
     text-align: center;
     color: #224957;
@@ -558,8 +559,8 @@ const Container2 = styled.div`
 
   .avatar1,
   .avatar2 {
-    width: 110px;
-    height: 130px;
+    width: 90px;
+    height: 110px;
   }
 
   .btn {

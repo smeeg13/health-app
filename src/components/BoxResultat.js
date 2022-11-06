@@ -14,13 +14,13 @@ export default function BoxResultat(props) {
           Diabete :{" "}
         </label>
         <br></br>
-        <label style={{ marginTop: "30px" }} className="label_results">
+        <label style={{ marginTop: "35px" }} className="label_results">
           Cancer :{" "}
         </label>
         <br></br>
-        <label style={{marginTop:"30px"}}  className="label_results">Heart attack :</label>
+        <label style={{marginTop:"45px"}}  className="label_results">Heart attack :</label>
         <br></br>
-        <label style={{marginTop:"30px"}}  className="label_results">No heart attack :</label>
+        <label style={{marginTop:"50px"}}  className="label_results">No heart attack :</label>
       </div>
 
       <div className="container_results">

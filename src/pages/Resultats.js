@@ -168,7 +168,7 @@ function TitleBox(props) {
 
   return (
     <div className="results_upper">
-      <h2>{props.title}</h2>
+      <h2 className="survey_title">{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
         <img className="my_avatar" src={props.my_avatar} alt="AvatarUser" />
