@@ -227,8 +227,8 @@ function Account(props) {
                     className="choose_avatar"
                     style={{
                       color: themes[themeContext.theme].textcolor,
-                      marginTop:"50px",
-                }}
+                      marginTop: "50px",
+                    }}
                   >
                     Chosen avatar{" "}
                   </h3>
@@ -239,6 +239,7 @@ function Account(props) {
                     alt="avatar"
                   ></img>
                 </div>
+
                 <div className="center">
                   <button
                     className="btn"
@@ -251,7 +252,7 @@ function Account(props) {
                     }}
                     onClick={HandleSubmit}
                   >
-                    Enregistrer
+                    Save
                   </button>
 
                   <div>
@@ -325,70 +326,72 @@ function Account(props) {
                         </h1>
                       )}
 
-                  <div className="row center" style={{ margin: 0 }}>
-                    <div className="column_list center" style={{ margin: 0 }}>
-                      <div>
-                        <select
-                          className="dropdown"
-                          name="docteur_requested"
-                          id="docteur_requested"
-                          value={docteurSelectForRequest}
-                          onChange={(event) => HandleDocteurSelect(event)}
-                          style={{ minWidth: 200 }}
-                        >
-                          <option key={0} value={"Select a doctor"}>
-                            Choisir un docteur
-                          </option>
-                          {props.currentUser.docteur_assigned !== ""
-                            ? docteurs
-                                .filter(
-                                  (item) =>
-                                    item.id_user !==
-                                    props.currentUser.docteur_assigned
-                                )
-                                .map((value) => (
+                      <div className="row center" style={{ margin: 0 }}>
+                        <div className="column_list center" style={{ margin: 0 }}>
+                          <div>
+                            <select
+                              className="dropdown"
+                              name="docteur_requested"
+                              id="docteur_requested"
+                              value={docteurSelectForRequest}
+                              onChange={(event) => HandleDocteurSelect(event)}
+                              style={{ minWidth: 200 }}
+                            >
+                              <option key={0} value={"Select a doctor"}>
+                                Choisir un docteur
+                              </option>
+                              {props.currentUser.docteur_assigned !== ""
+                                ? docteurs
+                                  .filter(
+                                    (item) =>
+                                      item.id_user !==
+                                      props.currentUser.docteur_assigned
+                                  )
+                                  .map((value) => (
+                                    <option
+                                      key={value.id_user}
+                                      value={value.id_user}
+                                    >
+                                      {value.nom}
+                                    </option>
+                                  ))
+                                : docteurs.map((value) => (
                                   <option
                                     key={value.id_user}
                                     value={value.id_user}
                                   >
                                     {value.nom}
                                   </option>
-                                ))
-                            : docteurs.map((value) => (
-                                <option
-                                  key={value.id_user}
-                                  value={value.id_user}
-                                >
-                                  {value.nom}
-                                </option>
-                              ))}
-                        </select>
-                      </div>
-                    </div>
-                    <div className="column_list center">
-                        <button
-                          className="btn"
-                          style={{
-                            margin: 0,
-                            width: 180,
-                            backgroundColor: themes[themeContext.theme].button,
-                            color: themes[themeContext.theme].textcolorbtn,
-                            fontSize: 14,
-                          }}
-                          onClick={SendRequest}
-                        >
-                          Envoyer une demande
-                        </button>
-                      <div>
-                        {confirmRequest === "Demande Envoyée" ? (
-                          <span style={{ color: "#00A36C", marginRight: 3 }}>
-                            {confirmRequest}
-                          </span>
-                        ) : (
-                          <span style={{ color: "#FF2400", marginRight: 3 }}>
-                            {confirmRequest}
-                          </span>
-                        )}
+                                ))}
+                            </select>
+                          </div>
+                        </div>
+                        <div className="column_list center">
+                          <button
+                            className="btn"
+                            style={{
+                              margin: 0,
+                              width: 180,
+                              backgroundColor: themes[themeContext.theme].button,
+                              color: themes[themeContext.theme].textcolorbtn,
+                              fontSize: 14,
+                            }}
+                            onClick={SendRequest}
+                          >
+                            Envoyer une demande
+                          </button>
+                          <div>
+                            {confirmRequest === "Demande Envoyée" ? (
+                              <span style={{ color: "#00A36C", marginRight: 3 }}>
+                                {confirmRequest}
+                              </span>
+                            ) : (
+                              <span style={{ color: "#FF2400", marginRight: 3 }}>
+                                {confirmRequest}
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -461,8 +464,6 @@ function Account(props) {
   );
 }
 
-export default Account;
-
 const Container2 = styled.div`
   body {
     background: #bdc3c7; /* fallback for old browsers */
@@ -515,17 +516,6 @@ const Container2 = styled.div`
   .logo {
     margin-top: 10px;
   }
-
-  /* .nb_input{
-    text-align:center;
-    width: 50px;
-}
-
-.text_input{
-    align-items:center;
-    width: 200px;
-} */
-
 
 
   select {
