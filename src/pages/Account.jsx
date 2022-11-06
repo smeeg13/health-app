@@ -3,10 +3,12 @@ import { doc, updateDoc } from "firebase/firestore";
 import styled from "styled-components";
 import { ThemeContext, themes } from "../Context";
 import React, { useState, useContext, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 import _ from "lodash";
 import { GetAllDocteurs, NewRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
-
+import Alert from "@mui/material/Alert";
+import { AlertTitle } from "@mui/material";
 function Account(props) {
   const avatar1 = "/img/avatar1.png";
   const avatarr = "/img/avatar_roux.png";
@@ -16,7 +18,7 @@ function Account(props) {
   const avatar6 = "/img/avatar6.png";
 
   let themeContext = useContext(ThemeContext);
-
+  const navigate = useNavigate();
   const [avatarSelected, setAvatar] = useState(props.currentUser.avatar);
   const [nameEntered, setNameEntered] = useState(props.currentUser.nom);
   const [remarks, setRemarks] = useState(props.currentUser.remarks);
@@ -148,6 +150,19 @@ function Account(props) {
       setConfirmSave("Erreur, merci de réessayer plus tard");
     }
   };
+
+    
+
+  if (props.currentUser.nom_role === "Invite") {
+    
+    return (
+    <Alert severity="warning">
+      <AlertTitle>Warning</AlertTitle>
+      This is a warning alert — <strong>check it out!</strong>
+    </Alert>
+      //  navigate("/")
+      );
+  }
 
   return (
     <Container2>
