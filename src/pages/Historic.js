@@ -4,14 +4,20 @@ import { getDocs, collection } from "firebase/firestore";
 import { ResultatContext, ThemeContext, themes } from "../Context";
 import { BouncingDotsLoader } from "../utils/tools";
 import Resultats from "./Resultats";
+import Alert from "@mui/material/Alert";
+import { AlertTitle } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 
 export default function Historic(props) {
   let themeContext = useContext(ThemeContext);
   let resultatContext = useContext(ResultatContext);
+  const navigate = useNavigate();
 
   const [resultats, setResultats] = useState([]);
   const [isBusy, setBusy] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
+  const [isInvite, setIsInvite] = useState(undefined);
 
   /** Get All Resultats Save for one user */
   useEffect(() => {
@@ -40,6 +46,21 @@ export default function Historic(props) {
     setShowDetails(true);
   };
 
+  
+  useEffect(() => {
+    if (props.currentUser.nom_role === "Invite") {
+      setIsInvite(true);
+    } else {
+      setIsInvite(false);
+    }
+  }, [props.currentUser.nom_role]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      return navigate("/");
+    }, 5000);
+  }, [isInvite]);
+
   return (
     <div className="container"
       style={{
@@ -47,7 +68,21 @@ export default function Historic(props) {
         color: themes[themeContext.theme].foreground,
       }}
     >
-        {showDetails ? (
+{props.currentUser.nom_role === "Invite" ? 
+            <div className="center">
+              <Stack sx={{ width: "100%" }} spacing={2} padding={1}>
+                <Alert severity="warning">
+                  <AlertTitle>
+                    <strong>You aren't logged in</strong>
+                  </AlertTitle>
+                  Please log in before acessing this page, —
+                  <strong>You will be redirected in 5 seconds</strong>
+                </Alert>
+              </Stack>
+            </div>
+           : 
+           <>
+           {showDetails ? (
           <Resultats
             currentUser={props.currentUser}
             fromHistoric={true}
@@ -121,6 +156,11 @@ export default function Historic(props) {
             )}
           </div>
         )}
+        </>
+           }
+
+
+        
     </div>
   );
 }
