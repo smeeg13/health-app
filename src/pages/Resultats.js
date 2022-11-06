@@ -91,7 +91,7 @@ export default function Resultats(props) {
             }}
             onClick={props.closeDetails}
           >
-            Close d etails
+            Close details
           </Button>{" "}
           <br/>
           <h3 style={{ color: themes[themeContext.theme].textcolor}}>Responses of the {resultatContext.resultat.id_resultats}</h3>
@@ -136,11 +136,7 @@ export default function Resultats(props) {
         backgroundColor: themes[themeContext.theme].background_quiz,
         color: themes[themeContext.theme].foreground,
       }}>
-            <TitleBox
-              title="Yours risks"
-              my_avatar={props.currentUser.avatar}
-            />
-            <BoxResultat maladies={resultatContext.maladies} />
+            <BoxResultat maladies={resultatContext.maladies} resultat={resultatContext.resultat} />
           </div>
         </div>
 

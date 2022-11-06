@@ -6,9 +6,14 @@ export default function BoxResultat(props) {
   function valuetext(value) {
     return `${value}%`;
   }
+  console.log("Value inside resultat : ", props.resultat);
+
   console.log("Value inside maladie : ", props.maladies);
   return (
     <div>
+      <h2>Vos Resultats</h2>
+    {/* Avataaar ici */}
+
       <div className="container_label3">
         <label style={{ marginTop: "10px" }} className="label_results">
           Diabete :{" "}
