@@ -507,7 +507,7 @@ margin-left: 350px;
 display: inline-block;
 margin-top: 15px;
 min-width: 700px;
-width: 500px;
+width: 600px;
 border: 1px solid grey;
 height: 550px;
 background-color: #eafaf1;
@@ -517,10 +517,15 @@ padding-bottom: 5px;
 
 .questions{
 display:table;
-margin-left: 80px;
+margin-top: 20px;
+margin-bottom: 5px;
+margin-left: 30px;
 font-size: 0.9em;
 font-family: "Lexend Deca";
+}
 
+.container_answers{
+  background-color: #054A2F;
 }
 
 .btn_previous, .btn_next{

@@ -16,7 +16,7 @@ export function BoxQuestion(props) {
 
   return (
     <div className="container" style={{
-      backgroundColor: themes[themeContext.theme].background
+      backgroundColor: themes[themeContext.theme].background,
     }}>
       <div>
         <div className="boxQuiz" style={{
@@ -24,12 +24,12 @@ export function BoxQuestion(props) {
           color: themes[themeContext.theme].foreground,
         }}>
           <h2 className="survey_title" style={{
-            color: themes[themeContext.theme].textcolor
+            color: themes[themeContext.theme].textcolor,
           }}>{props.titles[props.index - 1]}</h2>
 
           {props.questions.map(q =>
             <div key={q.resName} style={{
-              color: themes[themeContext.theme].textcolor
+              color: themes[themeContext.theme].textcolor,
             }}>
               {q.typeAnswer === 'textbox' && <FormInput
                 name={q.resName}
@@ -134,8 +134,9 @@ function Range(props) {
 
   return (
     <div>
-      <h3 className="questions">{props.ques}
-        <input className="answers_type" style={{ background: themes[themeContext.theme].rangeColor }}
+      <h3 className="questions" style={{marginTop:"30px"}}>{props.ques}</h3>
+      <div className="container_answers" style={{float:"right"}}>
+        <input style={{ background: themes[themeContext.theme].rangeColor }}
           type="range"
           name={props.question.resName}
           min={props.question.min}
@@ -146,7 +147,7 @@ function Range(props) {
           step="1"
         />
         <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{slideValue} {props.question.unites}</output>
-      </h3>
+        </div>
     </div>
   )
 }
@@ -162,7 +163,8 @@ function Dropdown(props) {
 
   return (
     <div>
-      <h3 className="questions">{props.ques}
+      <h3 className="questions">{props.ques}</h3>
+      <div className="container_answers" style={{float:"right"}}>
         <select value={resultatContext.resultat[props.question.resName]} className="dropdown" name={props.name} onChange={props.handleFormInputChange} style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }}>
           {
             vp.map((value, index) => (
@@ -172,7 +174,7 @@ function Dropdown(props) {
             ))
           }
         </select>
-      </h3>
+        </div>
     </div>
   );
 };
@@ -184,7 +186,8 @@ function Dropdown(props) {
 function CheckBoxForm(props) {
   return (
     <div>
-      <h3 className="questions">{props.ques}
+      <h3 className="questions">{props.ques}</h3>
+      <div className="container_answers" style={{float:"right"}}>
         <input className="answers_type"
           id={props.id}
           name={props.name}
@@ -192,7 +195,7 @@ function CheckBoxForm(props) {
           checked={props.value}
           onChange={props.handleFormInputChange}
         />
-      </h3>
+    </div>
     </div>
   )
 }
@@ -214,7 +217,8 @@ function FormInput({
   const themeContext = useContext(ThemeContext);
   return (
     <div>
-      <h3 className="questions">{props.ques}
+      <h3 className="questions">{props.ques}</h3>
+      <div className="container_answers" style={{float:"right"}}>
         <input
           id={id}
           name={name}
@@ -228,7 +232,7 @@ function FormInput({
             color: themes[themeContext.theme].rangeToggle,
           }}
         />
-      </h3>
+        </div>
     </div>
   );
 }
