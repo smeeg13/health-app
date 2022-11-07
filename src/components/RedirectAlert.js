@@ -9,20 +9,20 @@ export default function RedirectAlert(props) {
         <Alert severity="warning">
           {props.IsAdmin ? (
             <>
-              <AlertTitle>
-                <strong>You are not an Administrator</strong>
+              <AlertTitle> 
+                <strong style={{color:"#054A2F"}}>You are not an Administrator</strong>
               </AlertTitle>
               Please log in as and Administrator before acessing this page, —
-              <strong>You will be redirected in 5 seconds</strong>
+              <strong style={{color:"#054A2F"}}>You will be redirected in 5 seconds</strong>
             </>
           ) : (
-            <>
+            <>  
               {" "}
               <AlertTitle>
-                <strong>You are not Logged in</strong>
+                <strong style={{color:"#054A2F"}}>You are not logged in</strong>
               </AlertTitle>
               Please log in before acessing this page, —
-              <strong>You will be redirected in 5 seconds</strong>
+              <strong style={{color:"#054A2F"}}>You will be redirected in 5 seconds</strong>
             </>
           )}
         </Alert>
