@@ -227,9 +227,10 @@ function Account(props) {
                     className="choose_avatar"
                     style={{
                       color: themes[themeContext.theme].textcolor,
+                      marginTop: "50px",
                     }}
                   >
-                    Avatar Choisi{" "}
+                    Chosen avatar{" "}
                   </h3>
                   <img
                     className="avatar1"
@@ -238,6 +239,7 @@ function Account(props) {
                     alt="avatar"
                   ></img>
                 </div>
+
                 <div className="center">
                   <button
                     className="btn"
@@ -250,7 +252,7 @@ function Account(props) {
                     }}
                     onClick={HandleSubmit}
                   >
-                    Enregistrer
+                    Save
                   </button>
 
                   <div>
@@ -325,10 +327,7 @@ function Account(props) {
                       )}
 
                       <div className="row center" style={{ margin: 0 }}>
-                        <div
-                          className="column_list center"
-                          style={{ margin: 0 }}
-                        >
+                        <div className="column_list center" style={{ margin: 0 }}>
                           <div>
                             <select
                               className="dropdown"
@@ -343,58 +342,51 @@ function Account(props) {
                               </option>
                               {props.currentUser.docteur_assigned !== ""
                                 ? docteurs
-                                    .filter(
-                                      (item) =>
-                                        item.id_user !==
-                                        props.currentUser.docteur_assigned
-                                    )
-                                    .map((value) => (
-                                      <option
-                                        key={value.id_user}
-                                        value={value.id_user}
-                                      >
-                                        {value.nom}
-                                      </option>
-                                    ))
-                                : docteurs.map((value) => (
+                                  .filter(
+                                    (item) =>
+                                      item.id_user !==
+                                      props.currentUser.docteur_assigned
+                                  )
+                                  .map((value) => (
                                     <option
                                       key={value.id_user}
                                       value={value.id_user}
                                     >
                                       {value.nom}
                                     </option>
-                                  ))}
+                                  ))
+                                : docteurs.map((value) => (
+                                  <option
+                                    key={value.id_user}
+                                    value={value.id_user}
+                                  >
+                                    {value.nom}
+                                  </option>
+                                ))}
                             </select>
                           </div>
                         </div>
                         <div className="column_list center">
-                          <div>
-                            <button
-                              className="btn"
-                              style={{
-                                margin: 0,
-                                width: 180,
-                                backgroundColor:
-                                  themes[themeContext.theme].button,
-                                color: themes[themeContext.theme].textcolorbtn,
-                                fontSize: 14,
-                              }}
-                              onClick={SendRequest}
-                            >
-                              Envoyer une demande
-                            </button>
-                          </div>
+                          <button
+                            className="btn"
+                            style={{
+                              margin: 0,
+                              width: 180,
+                              backgroundColor: themes[themeContext.theme].button,
+                              color: themes[themeContext.theme].textcolorbtn,
+                              fontSize: 14,
+                            }}
+                            onClick={SendRequest}
+                          >
+                            Envoyer une demande
+                          </button>
                           <div>
                             {confirmRequest === "Demande Envoyée" ? (
-                              <span
-                                style={{ color: "#00A36C", marginRight: 3 }}
-                              >
+                              <span style={{ color: "#00A36C", marginRight: 3 }}>
                                 {confirmRequest}
                               </span>
                             ) : (
-                              <span
-                                style={{ color: "#FF2400", marginRight: 3 }}
-                              >
+                              <span style={{ color: "#FF2400", marginRight: 3 }}>
                                 {confirmRequest}
                               </span>
                             )}
@@ -471,7 +463,6 @@ function Account(props) {
     </Container2>
   );
 }
-
 export default Account;
 
 const Container2 = styled.div`
@@ -527,15 +518,6 @@ const Container2 = styled.div`
     margin-top: 10px;
   }
 
-  /* .nb_input{
-    text-align:center;
-    width: 50px;
-}
-
-.text_input{
-    align-items:center;
-    width: 200px;
-} */
 
   select {
     position: relative;
@@ -581,7 +563,7 @@ const Container2 = styled.div`
   }
 
   .choose_avatar {
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 20px;
     text-align: center;
     color: #224957;
@@ -590,8 +572,8 @@ const Container2 = styled.div`
 
   .avatar1,
   .avatar2 {
-    width: 110px;
-    height: 130px;
+    width: 90px;
+    height: 110px;
   }
 
   .btn {

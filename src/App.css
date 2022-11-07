@@ -121,6 +121,13 @@
   transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
 }
 
+@media all and (max-width:30em){
+  .btn{
+  display:block;
+  margin:0.4em auto;
+  }
+  } 
+
 .btn_switch{
   margin-top: 8px;
   margin-right: 10px;
