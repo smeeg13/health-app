@@ -54,7 +54,9 @@ export default function Historic(props) {
 
   useEffect(() => {
     setTimeout(() => {
+      if(isInvite){
       return navigate("/");
+      }
     }, 5000);
   }, [isInvite, navigate]);
 

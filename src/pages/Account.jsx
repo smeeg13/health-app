@@ -164,7 +164,9 @@ function Account(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      return navigate("/");
+      if(isInvite){
+              return navigate("/");
+      }
     }, 5000);
   }, [isInvite, navigate]);
 
