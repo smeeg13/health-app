@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { ThemeContext, themes } from "../../Context";
-import { Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Historic from "../Historic";
 import { ListPatient } from "../../components/ListPatients";
@@ -36,7 +35,7 @@ export default function HomeDocteur(props) {
               }}
               onClick={(event) => backToList()}
             >
-              Retour
+              Back
             </button>
             <Historic currentUser={patientToShow} />
           </div>
@@ -49,7 +48,7 @@ export default function HomeDocteur(props) {
               }}
             >
               {" "}
-              Hey, re-bonjour Dr. {props.currentUser.nom}
+              Welcome back Dr. {props.currentUser.nom}
             </h2>
             <ListPatient
               currentUser={props.currentUser}
@@ -62,3 +61,7 @@ export default function HomeDocteur(props) {
     );
   }
   
+
+  
+
+ 

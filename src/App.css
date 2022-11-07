@@ -8,6 +8,8 @@
   align-items: center;
 }
 
+/* Loader */
+
 .bouncing-loader {
   width: 100vw;
   height: 100vh;
@@ -41,6 +43,8 @@
   animation-delay: 0.4s;
 }
 
+/*Home page*/
+
 .home_pic{
     margin-left: 150px;
     margin-top:120px ;
@@ -49,6 +53,7 @@
     width:360;
 }
 
+/*Button  and H elements */
 
 .btn {
   margin-top: 20px;
@@ -145,9 +150,10 @@
  margin-left: 650px;
 }
 
-.App-link {
+
+/* .App-link {
   color: #61dafb;
-}
+} */
 
 
 h1{
@@ -165,12 +171,15 @@ h3{
   font-family: "Lexend Deca";
 }
 
+/*Login page*/
+
 .login_page{
   margin-top: -50px;
   height: 89.7%;
 }
 
 .container_login{
+  
   background-color: #e0eaf5;
   width: 500px;
   height: 400px;
@@ -178,6 +187,54 @@ h3{
   text-align: center;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
+
+
+.email_input,
+.password_input{
+  position: relative;
+  font-family: "Lexend Deca";
+  font-size: 18px;
+  width : fit-content;
+  height: fit-content;
+  text-align: left;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: transparent;
+  border-radius: 1em;
+  border: 2px solid #054A2F
+}
+
+.email_input_error,
+.password_input_error{
+  font-size: 18px;
+  width : 300px;
+  height: 25px;
+  text-align: left;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: transparent;
+  border-radius: 1em;
+  border: 2px solid  rgb(122,12,22)
+}
+
+.email_input:hover{
+  background-color: #e8e8e8;
+}
+
+.password_input:hover{
+  background-color: #e8e8e8;
+}
+
+.error{
+  font-size: 12px;
+  font-weight:500;
+  color: rgb(122,12,22);
+  margin-top: -12px;
+  margin-bottom: -10px;
+  margin-left: 10px;
+}
+
 
 .page_name{
   padding-top: 50px;
@@ -193,6 +250,9 @@ h3{
   font-size: 17px;
   padding-bottom: 5px;
 }
+
+
+/*Welcome guest*/
 
 .welcome{
   font-family: "Lexend Deca";
@@ -234,49 +294,7 @@ h3{
   background-repeat:repeat; 
 }
 
-.email_input,
-.password_input{
-    font-family: "Lexend Deca";
-  font-size: 18px;
-  width : 300px;
-  height: 25px;
-  text-align: left;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: transparent;
-  border-radius: 1em;
-  border: 2px solid #054A2F
-}
-
-.email_input_error,
-.password_input_error{
-  font-size: 18px;
-  width : 300px;
-  height: 25px;
-  text-align: left;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: transparent;
-  border-radius: 1em;
-  border: 2px solid  rgb(122,12,22)
-}
-
-.email_input:hover{
-  background-color: #e8e8e8;
-}
-
-.password_input:hover{
-  background-color: #e8e8e8;
-}
-
-.error{
-  font-size: 12px;
-  font-weight:500;
-  color: rgb(122,12,22);
-  margin-top: -12px;
-  margin-bottom: -10px;
-  margin-left: 10px;
-}
+/*Result page*/
 
 .wrapper {
   display: grid;

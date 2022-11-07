@@ -6,7 +6,6 @@ import Login, { CheckRole } from "./pages/Login";
 import Home from "./pages/Home";
 import Navbar from "./pages/Navbar";
 import Survey from "./pages/Survey";
-import Account from "./pages/Account";
 import Resultats from "./pages/Resultats";
 import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -17,10 +16,12 @@ import { GetDocteurById } from "./objects_managers/DocteurManager";
 import { User } from "./objects/User";
 import Settings from "./pages/Settings";
 import Historic from "./pages/Historic";
+import Account from "./pages/Account";
+import NotFound from "./utils/NotFound";
 
 export default function App() {
   /* Base Invite User */
-  const guestUser = new User(null, "", "", 0, null,null,null, "", "");
+  const guestUser = new User(null, "", "", 0, null,null,null, "", "", "");
   guestUser.setNomRole("Invite");
   guestUser.setIdRole("wfprGThk63ZrRRjRh1np");
 
@@ -77,6 +78,7 @@ export default function App() {
         <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser}/>} />
         <Route path="/survey" element={<Survey currentUser={currentUser} />} />
         <Route path="/historic" element={<Historic currentUser={currentUser}/>}/>
+        <Route path='*' element={<NotFound />}/> 
       </Routes>
     </div>
   );

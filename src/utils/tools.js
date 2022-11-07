@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
-import { ResultatContext, ThemeContext, themes } from "../Context";
+import {ThemeContext, themes } from "../Context";
+
+import { db } from "../initFirebase";
+import { doc, updateDoc } from "firebase/firestore";
 
 export const BouncingDotsLoader = (props) => {
   return (
@@ -59,4 +62,24 @@ export function GetTodayDateString() {
     currentDayOfMonth + "-" + (currentMonth + 1) + "-" + currentYear;
 
   return dateString;
+}
+
+
+export async function SaveOneFieldInDB(
+  id_user,
+  fieldNameToChange,
+  newValue,
+  saveInDocteur
+) {
+  let Ref;
+  if (saveInDocteur) {
+    Ref = doc(db, "Docteur", id_user);
+  } else {
+    Ref = doc(db, "User", id_user);
+  }
+
+  // Set the "fieldNameToChange" field of the city 'DC'
+  await updateDoc(Ref, {
+    [fieldNameToChange]: newValue,
+  });
 }

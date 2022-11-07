@@ -8,11 +8,16 @@ import day from "./img/day.png";
 import { ThemeContext, themes } from "../Context";
 
 export default class Navbar extends React.Component {
-
   render() {
     return (
       <Container>
-        <div className="navbar" style={{backgroundColor: themes[this.context.theme].background, color: themes[this.context.theme].textcolor}}>
+        <div
+          className="navbar"
+          style={{
+            backgroundColor: themes[this.context.theme].background,
+            color: themes[this.context.theme].textcolor,
+          }}
+        >
           <Link to="/">
             <img className="logo_app" src={logo} alt="logo_app" />
           </Link>
@@ -21,7 +26,7 @@ export default class Navbar extends React.Component {
             {this.props.currentUser.nom_role !== "Invite" && (
               <Link to="/logout" style={{ textDecoration: "none" }}>
                 <button className="btn btn_logout" title="Logout">
-                  <img className="logo_logout" src={exit}  alt="logout"/>
+                  <img className="logo_logout" src={exit} alt="logout" />
                 </button>
               </Link>
             )}
@@ -31,11 +36,11 @@ export default class Navbar extends React.Component {
               title="Switch Theme"
               onClick={this.context.toggleTheme}
             >
-           {this.context.theme === "dark" ? (
-                <img className="logo_theme" src={night} alt="dark mode"/>
+              {this.context.theme === "dark" ? (
+                <img className="logo_theme" src={night} alt="dark mode" />
               ) : (
                 <img className="logo_theme" src={day} alt="light mode" />
-              )}   
+              )}
             </button>
 
             {/* if user.nom_role = Patient  */}
@@ -51,11 +56,11 @@ export default class Navbar extends React.Component {
                     Historique
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/survey" style={{ textDecoration: "none" }}>
                     Questionnaire
                   </Link>
-                </li>
+                </li> */}
                 <li>
                   <Link to="/" style={{ textDecoration: "none" }}>
                     Home
@@ -88,6 +93,11 @@ export default class Navbar extends React.Component {
                     My Account
                   </Link>
                 </li>
+                <li>
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    Home
+                  </Link>
+                </li>
               </>
             )}
           </ul>
@@ -98,12 +108,10 @@ export default class Navbar extends React.Component {
 }
 Navbar.contextType = ThemeContext;
 
-
 const Container = styled.div`
   padding: 0;
   margin: 0;
   display: flex;
-
 
   .navbar {
     height: 70px;
@@ -132,6 +140,14 @@ const Container = styled.div`
     text-transform: uppercase;
     transition: 0.5s background-size;
   }
+
+  @media only screen and (max-width:900px ) {
+  .navbar ul li{
+    font-size:80%;
+  }
+
+}
+
 
   .navbar ul li:hover {
     background-size: 75% 0.1em;
@@ -170,6 +186,4 @@ const Container = styled.div`
     float: left;
     margin-below: 20px;
   }
-
-
 `;

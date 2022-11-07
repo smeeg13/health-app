@@ -4,16 +4,11 @@ import { ResultatContext, ThemeContext, themes  } from "../Context";
 import { ToggleButton } from "../components/ToggleButton";
 import { getObjKey } from "../utils/tools";
 import { BouncingDotsLoader, FormInput } from "../utils/tools";
-import { width } from "@mui/system";
 
 export default function BoxRes1(props) {
   let resultatContext = useContext(ResultatContext);
   let themeContext = useContext(ThemeContext);
 
-  //Need type - min - max from Questionnaire into props.questions
-  //TODO :: for each input, take back the type corresponding to the question characteristics
-  //console.log("QuestionList in resultat : ", props.questions);
-  console.log("boxquestionnaire1_2", props.questions);
   return (
     <div>
       {props.isBusy ? (
@@ -87,35 +82,35 @@ export default function BoxRes1(props) {
 
           <div className="container_label">
             <label className="label_results" htmlFor="yesSyst">
-              Tension élevée :{" "}
+              High tension :{" "}
               </label>
               <br></br>
               <label className="label_results" htmlFor="yesGlyc">
-              Sucre sanguin élevé :{" "}
+              High blood sugar :{" "}
               </label>
               <br></br>
               <label className="label_results" htmlFor="yesChol">
-              Cholésterol élevé :{" "}
+              High cholesterol:{" "}
             </label>
             <br></br>
             <label className="label_results" htmlFor="diab">
-              Diabétiques  :{" "}
+            High level of glucose  :{" "}
             </label>
             <br></br>
             <label className="label_results" htmlFor="inf">
-              Déjà eu un infarctus :{" "}
+            Ever had a heart attack :{" "}
             </label>
             <br></br>
             <label className="label_results" htmlFor="avc">
-              Déjà eu une attaque cérébrale :{" "}
+            Ever had a stroke :{" "}
             </label>
             <br></br>
             <label className="label_results" htmlFor="afinf">
-              Parent ayant eu un infarctus :{" "}
+            Parent who had a heart-attack :{" "}
             </label>
             <br></br>
             <label className="label_results" htmlFor="afcancer">
-              Parent ayant eu un cancer :{" "}
+              Parent who had cancer :{" "}
             </label>  
           </div>
 

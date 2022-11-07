@@ -1,8 +1,7 @@
 import "../App.css";
 import React from "react";
 import { Formik } from "formik";
-import { Docteur } from "../objects/Docteur";
-import { firebaseConfig } from "../initFirebase";
+
 
 const initialValues = {
   email: "",
@@ -37,9 +36,7 @@ const validate = (values) => {
   return errors;
 };
 
-export default function NewDocteurForm({handleSubmit}) {
-  
-
+export default function NewDocteurForm({ handleSubmit }) {
   return (
     <Formik
       initialValues={initialValues}
@@ -60,7 +57,6 @@ export default function NewDocteurForm({handleSubmit}) {
           touched,
           handleBlur,
           isValid,
-          dirty,
         } = formik;
         return (
           <form onSubmit={handleSubmit}>

@@ -8,7 +8,6 @@ export default function Logout() {
   const navigate = useNavigate();
   let resultatContext = useContext(ResultatContext);
 
-
   useEffect(() => {
     async function logout() {
       await signOut(auth);

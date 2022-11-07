@@ -94,7 +94,7 @@ export function setSyst(resultat) {
   if (res.yesSyst === 1) {
     res.syst = 150;
   } else {
-    res.syst = 110; //TODO : check si c'est val normale si pas de tension elevée
+    res.syst = 110;
   }
   return res;
 

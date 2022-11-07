@@ -1,115 +1,107 @@
 import "../App.css";
-import React, { useContext } from "react";
-import { ResultatContext } from "../Context";
 import { Slider, Box } from "@mui/material";
+import CircularProgressBar from "./CircularProgessBar";
+import { ResultatContext, ThemeContext, themes  } from "../Context";
+import React, { useState, useContext, useEffect } from "react";
+import avatar1 from "../pages/img/avatar1.png";
+import avatar5 from "../pages/img/avatar5.png";
 
 export default function BoxResultat(props) {
   let resultatContext = useContext(ResultatContext);
-  console.log("Resultat : ", resultatContext.resultat);
-  console.log("Maladies : ", resultatContext.maladies);
-
-  const marksDiab = [
-    {
-      value: 60,
-      label: "60",
-    },
-  ];
-  const marksCancer = [
-    {
-      value: 20,
-      label: "20",
-    },
-  ];
-  const marksInf = [
-    {
-      value: 3,
-      label: "3",
-    },
-  ];
-  const marksNInf = [
-    {
-      value: 10,
-      label: "10",
-    },
-  ];
 
   function valuetext(value) {
     return `${value}%`;
   }
+  console.log("Value inside resultat : ", props.resultat);
+  console.log("Value inside maladie : ", props.maladies);
 
+    const [resultsInfarctus, setImgInfarctus] = useState(props.maladies.infarctus);
+    const resultsSmoke = resultatContext.resultat.fume;
+    const [resultsAlim, setImgAlim] = useState(resultatContext.resultat.alim);
+    const [resultsAlco, setImgAlco] = useState(resultatContext.resultat.alcool);
+
+
+  // useEffect(() => {
+  //   setImgInfarctus(resultatContext.resultat.inf);
+  //     if(setImgInfarctus==0){
+  //      <img src={avatar1}></img>
+  //      console.log("ok bg");
+  //     }else{
+  //       <img src={avatar5}></img>
+  //       console.log("not ok bg");
+  //     }
+  // }, [resultatContext.resultat.inf]);
+  
   return (
     <div>
+      <h2 className="survey_title">Your results</h2>
+      <img className="avatar1"
+      src={resultsInfarctus}></img>
       <div className="container_label3">
-        <label style={{marginTop:"10px"}}  className="label_results">Diabete : </label>
+        <label style={{ marginTop: "10px" }} className="label_results">
+          Diabete :{" "}
+        </label>
         <br></br>
-        <label style={{marginTop:"30px"}}  className="label_results">Cancer : </label>
+        <label style={{ marginTop: "35px" }} className="label_results">
+          Cancer :{" "}
+        </label>
         <br></br>
-        <label style={{marginTop:"30px"}}  className="label_results">Infarctus :</label>
+        <label style={{marginTop:"45px"}}  className="label_results">Heart attack :</label>
         <br></br>
-        <label style={{marginTop:"30px"}}  className="label_results">Non-infarctus :</label>
+        <label style={{marginTop:"50px"}}  className="label_results">No heart attack :</label>
       </div>
 
       <div className="container_results">
-      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px"}}>
-        <Slider
-          min="0"
-          max="100"
-          aria-label="Custom marks"
-          value={props.maladies.diabete}
-          getAriaValueText={valuetext}
-          step={1}
-          valueLabelDisplay="on"
-          marks={marksDiab}
-          disabled
-          size="medium"
-        />
-      </Box>
+        <Box
+          sx={{
+            width: 150,
+            marginLeft: 10,
+            float: "right",
+            marginRight: "30px", marginTop:"10px",
+          }}
+        >
+          <CircularProgressBar progress={props.maladies.diabete} />
 
-      <Box  sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px"}}>
-        <Slider
-          min="0"
-          max="100"
-          aria-label="Custom marks"
-          value={props.maladies.cancer}
-          getAriaValueText={valuetext}
-          step={1}
-          valueLabelDisplay="on"
-          marks={marksCancer}
-          disabled
-          size="medium"
-        />
-      </Box>
+          
+        </Box>
 
-      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px" }}>
-        <Slider
-          min="0"
-          max="100"
-          aria-label="Custom marks"
-          value={props.maladies.infarctus}
-          getAriaValueText={valuetext}
-          step={1}
-          valueLabelDisplay="on"
-          marks={marksInf}
-          disabled
-          size="medium"
-        />
-      </Box>
+        <Box
+          sx={{
+            width: 150,
+            marginLeft: 10,
+            float: "right",
+            marginRight: "30px", marginTop:"10px",
+          }}
+        >
+          <CircularProgressBar progress={props.maladies.cancer} />
 
-      <Box sx={{ width: 150, marginLeft: 10, float:"right", marginRight:"30px" }}>
-        <Slider
-          min="0"
-          max="100"
-          aria-label="Custom marks"
-          value={props.maladies.nonInfarctus}
-          getAriaValueText={valuetext}
-          step={1}
-          valueLabelDisplay="on"
-          marks={marksNInf}
-          disabled
-          size="medium"
-        />
-      </Box>
+         
+        </Box>
 
+        <Box
+          sx={{
+            width: 150,
+            marginLeft: 10,
+            float: "right",
+            marginRight: "30px", marginTop:"20px",
+          }}
+        >
+          <CircularProgressBar progress={props.maladies.infarctus} />
+
+         
+        </Box>
+
+        <Box
+          sx={{
+            width: 150,
+            marginLeft: 10,
+            float: "right",
+            marginRight: "30px", marginTop:"15px",
+          }}
+        >
+          <CircularProgressBar progress={props.maladies.nonInfarctus} />
+      
+        </Box>
       </div>
     </div>
   );

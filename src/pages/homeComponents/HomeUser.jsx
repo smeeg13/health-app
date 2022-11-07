@@ -25,7 +25,7 @@ export default function HomeUser(props) {
     );
 
     try {
-         resultatContext.updateInDb(props.currentUser.id_user);
+      resultatContext.updateInDb(props.currentUser.id_user);
       setConfirmSave("Changes Saved");
     } catch (e) {
       setConfirmSave("Error When saving modifications, please try later");
@@ -75,7 +75,7 @@ export default function HomeUser(props) {
     <div
       className="container"
       style={{
-        backgroundColor: themes[themeContext.theme].background_quiz,
+        backgroundColor: themes[themeContext.theme].background,
         color: themes[themeContext.theme].foreground,
       }}
     >
@@ -87,15 +87,15 @@ export default function HomeUser(props) {
             className="center hi"
             style={{
               color: themes[themeContext.theme].textcolor,
-              marginBottom:"0px",
+              marginBottom: "0px",
             }}
           >
-            Salut, re-bonjour{" "}
+            Welcome back {" "}
             {props.currentUser.nom !== ""
               ? props.currentUser.nom
               : props.currentUser.email}
           </h2>
-
+            
           <button
             className="btn"
             onClick={GoToSurvey}
@@ -105,17 +105,23 @@ export default function HomeUser(props) {
               color: themes[themeContext.theme].textcolorbtn,
             }}
           >
-            Nouveau questionnaire
+            New survey
           </button>
-          
-          <button
-          style={{ marginLeft:"15px",width:"200px",
-            backgroundColor: themes[themeContext.theme].button,
-            color: themes[themeContext.theme].textcolorbtn,
-          }}
-           className="btn" type="submit" onClick={handleFormSubmit}>
-            Sauvegarder
-          </button>   
+          {resultatContext.resultat.id_resultats !== "" && (
+            <button
+              style={{
+                marginLeft: "15px",
+                backgroundColor: themes[themeContext.theme].button,
+                color: themes[themeContext.theme].textcolorbtn,
+              }}
+              className="btn"
+              type="submit"
+              onClick={handleFormSubmit}
+              
+            >
+              Save
+            </button>
+          )}
           <br />
           <br />
           <div className="center">

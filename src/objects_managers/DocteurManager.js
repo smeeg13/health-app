@@ -1,13 +1,9 @@
-import { db, auth, refDocteur } from "../initFirebase";
-import { doc, setDoc, getDoc,getDocs, updateDoc } from "firebase/firestore";
+import { db, refDocteur } from "../initFirebase";
+import { doc, setDoc, getDoc, getDocs } from "firebase/firestore";
 import { docteurConverter } from "../objects/Docteur";
-
+import { SaveOneFieldInDB } from "../utils/tools";
 export async function CreateDocDocteur(docteur) {
-  const docRef = await setDoc(doc(refDocteur, docteur.id_user), docteur);
-  console.log("Auth User ID: ", auth.currentUser.uid);
-  console.log("Docteur ID: ", docteur.id_user);
-
-  console.log("Document Docteur written with ID: ", docRef.uid);
+  await setDoc(doc(refDocteur, docteur.id_user), docteur);
 }
 
 export async function GetAllDocteurs() {
@@ -18,8 +14,6 @@ export async function GetAllDocteurs() {
 
 //Get one user by id
 export async function GetDocteurById(Id) {
-  console.log("Docteur Id into function : ", Id);
-
   const ref = doc(db, "Docteur", Id).withConverter(docteurConverter);
   const docSnap = await getDoc(ref);
   if (docSnap.exists()) {
@@ -27,77 +21,85 @@ export async function GetDocteurById(Id) {
     const docteur = docSnap.data();
     return docteur;
   } else {
-    console.log("No such document!");
     return null;
   }
 }
 
-async function SaveOneFieldInDB(id_user,fieldNameToChange, newValue, saveInDocteur) {
-  let Ref;
-  if (saveInDocteur) {
-    Ref = doc(db, "Docteur", id_user);
-  } else {
-    Ref = doc(db, "User", id_user);
-  }
+export async function NewRequest(docteur, id_user, setMessage, setRemarks) {
+  try {
+    //Add the id_user into list_request_patient of docteur
+    if (docteur.list_request_patient !== undefined) {
+      var newArray = docteur.list_request_patient.slice();
+      newArray.push(id_user);
 
-  // Set the "fieldNameToChange" field of the city 'DC'
-  await updateDoc(Ref, {
-    [fieldNameToChange]: newValue,
-  });
+      docteur.list_request_patient = newArray;
+    } else {
+      docteur.list_request_patient = new Array(id_user);
+    }
+
+    //Save into db the new state of Docteur's list
+    await SaveOneFieldInDB(
+      docteur.id_user,
+      "list_request_patient",
+      docteur.list_request_patient,
+      true
+    );
+
+    //Add the docteur id into docteur_requested of User
+    await SaveOneFieldInDB(
+      id_user,
+      "docteur_requested",
+      docteur.id_user,
+      false
+    );
+    let remarkstrg = "A request has been sent to " + docteur.nom;
+    await SaveOneFieldInDB(id_user, "remarks", remarkstrg, false);
+    setRemarks(remarkstrg);
+
+    setMessage("Resquest Sent");
+  } catch (e) {
+    setMessage("Error, please try again later");
+  }
 }
-
-export async function NewRequest(docteur, id_user, setMessage) {
-  try{
- //Add the id_user into list_request_patient of docteur
-  if(docteur.list_request_patient !== undefined){
-    var newArray = docteur.list_request_patient.slice();    
-  newArray.push(id_user);   
-
-  docteur.list_request_patient = newArray;
-  console.log("New list_request_patient : ", docteur.list_request_patient)
-
-  }else{
-    docteur.list_request_patient = new Array(id_user);
-  }
-  
-  //Save into db the new state of Docteur's list
-    await SaveOneFieldInDB(docteur.id_user, "list_request_patient", docteur.list_request_patient, true)
-
-  //Add the docteur id into docteur_requested of User
-    await SaveOneFieldInDB(id_user, "docteur_requested", docteur.id_user, false)
-    setMessage("Request Sent")
-  }catch(e){
-    setMessage("Error when sending request, please try later")
-  }
- }
 
 export async function DealWithPatientRequest(docteur, id_user, isAccepted) {
   //Remove the user from the request list
-    let filteredArray = docteur.list_request_patient.filter((item) => item !== id_user  );
-    docteur.list_request_patient = filteredArray;
-    console.log("New list_request_patient : ", docteur.list_request_patient)
-    
+  let filteredArray = docteur.list_request_patient.filter(
+    (item) => item !== id_user
+  );
+  docteur.list_request_patient = filteredArray;
+
   //Save into db the new state of  list_patient
-     await SaveOneFieldInDB(docteur.id_user, "list_request_patient", docteur.list_request_patient, true)
+  await SaveOneFieldInDB(
+    docteur.id_user,
+    "list_request_patient",
+    docteur.list_request_patient,
+    true
+  );
 
   //Remove Docteur_requested into User
-    await SaveOneFieldInDB(id_user, "docteur_requested", '', false)
-    //TODO:: Add into remarks field that the docteur xxx requested couldn't take care of you
+  await SaveOneFieldInDB(id_user, "docteur_requested", "", false);
 
   if (isAccepted) {
     //Add the user into the list_patient
-    var newArray = docteur.list_patient.slice();    
-    newArray.push(id_user);   
-
+    var newArray = docteur.list_patient.slice();
+    newArray.push(id_user);
     docteur.list_patient = newArray;
-    console.log("New list_patient : ", docteur.list_patient)
-
-
     //Save into db the new state of  list_patient
-      await SaveOneFieldInDB(docteur.id_user, "list_patient", docteur.list_patient, true)
+    await SaveOneFieldInDB(
+      docteur.id_user,
+      "list_patient",
+      docteur.list_patient,
+      true
+    );
 
     //Add the new Docteur into Docteur_assigned into User
-      await SaveOneFieldInDB(id_user, "docteur_assigned", docteur.id_user, false)
+    await SaveOneFieldInDB(id_user, "docteur_assigned", docteur.id_user, false);
+    let remarkstrg = "";
+    await SaveOneFieldInDB(id_user, "remarks", remarkstrg, false);
+  } else {
+    let remarkstrg =
+      "Demande refusée par " + docteur.nom + ", demandez à un autre docteur";
+    await SaveOneFieldInDB(id_user, "remarks", remarkstrg, false);
   }
 }
-

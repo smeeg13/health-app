@@ -1,13 +1,15 @@
 .container {
   text-align: center;
   align-items: center;
-  /* background-color: #1A523C; */
   height: 100%;
   width: 100%;
   position: fixed;
   z-index: 1;
   overflow-x: hidden;
 }
+
+
+/*Login page*/
 
 .login_left{
   align-items: center;
@@ -37,12 +39,24 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+@media only screen and (max-width:1100px ) {
+  .login_right{
+    display: none;
+  }
 
-.container_login{
-  height: 400px;  
-  margin-bottom: 5px;
-  text-align: center;
+  .login_left{
+    height: 70%;
+    width: 50%;
+  }
+
 }
+
+@media only screen and (max-width:600px){
+  .docs_pics{
+    display:none;
+  }
+}
+
 
 /* Doctor page */
 
@@ -87,7 +101,7 @@
   }
 
 
-  /* QUIZ */
+  /* Survey page */
 
 .container_quiz{
   position: relative;
@@ -199,14 +213,13 @@ top: 0;
 
 .label_results{
   margin-top: 22px;
-  margin-left: 5px;
+  margin-left: 2px;
   font-family: "Lexend Deca";
   font-size: 1em;
   float: left;
 }
 
-.toggle_results{
-
+.toggle_results{  
   justify-content: center;
 }
 
@@ -217,7 +230,7 @@ margin-right: 20px;
 display: inline-block;
 max-width: 450px;
 border: 1px solid grey;
-max-height: 400px;
+max-height: 410px;
 background-color: #eafaf1;
 }
 
@@ -227,7 +240,7 @@ display: inline-block;
 margin-right: 20px;
 max-width: 450px;
 border: 1px solid grey;
-max-height: 400px;
+max-height: 410px;
 background-color: #eafaf1;
 }
 
@@ -237,62 +250,9 @@ display: inline-block;
 margin-right: 20px;
 max-width: 450px;
 border: 1px solid grey;
-max-height: 400px;
+max-height: 410px;
 background-color: #eafaf1;
 }
-
-
-
-/* .category{
-margin-top: 70px;
-float: left;
-text-align: left;
-margin-left: 30px;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.response{
-margin-top: 70px;
-margin-right: 160px;
-float: right;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.category2{
-margin-top: 55px;
-float: left;
-text-align: left;
-margin-left: 30px;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.response2{
-margin-top: 70px;
-margin-right: 160px;
-float: right;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.category3{
-margin-top: 55px;
-float: left;
-text-align: left;
-margin-left: 30px;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-}
-
-.response3{
-margin-top: 60px;
-margin-right: 40px;
-float: right;
-font-family: "Lexend Deca";
-font-size: 0.7em;
-} */
 
 
 /* Style the custom slider */
@@ -308,7 +268,7 @@ float: right;
 margin-left: 10px;
 margin-top:5px ;
 margin: auto;
-height:150px;
+height:120px;
 width:145;
 }
 
@@ -326,7 +286,7 @@ width:145;
 
 .container_label3{
   float: left;
-  width: 120px;
+  width: 135px;
   height: 100%;
 }
 
@@ -336,10 +296,6 @@ width:145;
   width: 335px;
 }
 
-.results_upper{
-  overflow: hidden;
-  scroll-behavior: none;
-}
 
 
 .dropdown_results{
@@ -380,6 +336,18 @@ text-align: center;
   font-family: "Lexend Deca";
   font-size: 2em;
   color:#1A523C;
+}
+
+
+/* Error 404 page */
+
+.error_redirection{
+  margin-top: 20px;
+  margin: auto;
+  color: #054A2F;
+  text-decoration: none;
+  font-family: "Lexend Deca";
+  font-size: 1em;
 }
 
 /* ------ SETTINGS PAGE --------- */
@@ -500,6 +468,7 @@ right: 0px;
 
 .survey_title{
 font-family: "Lexend Deca";
+font-size: 1.2em;
 }
 
 .boxQuiz{
@@ -508,7 +477,7 @@ margin-left: 350px;
 display: inline-block;
 margin-top: 15px;
 min-width: 700px;
-width: 500px;
+width: 600px;
 border: 1px solid grey;
 height: 550px;
 background-color: #eafaf1;
@@ -518,15 +487,18 @@ padding-bottom: 5px;
 
 .questions{
 display:table;
-margin-left: 80px;
+margin-top: 20px;
+margin-bottom: 5px;
+margin-left: 30px;
 font-size: 0.9em;
 font-family: "Lexend Deca";
-
 }
+
 
 .btn_previous, .btn_next{
 position: relative;
 margin-bottom: 10px;
+margin-top: 30px;
 display: inline-block;
 transition: all 0.2s ease-in;
 position: relative;
