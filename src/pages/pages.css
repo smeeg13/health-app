@@ -8,6 +8,9 @@
   overflow-x: hidden;
 }
 
+
+/*Login page*/
+
 .login_left{
   align-items: center;
   text-align: center;
@@ -36,12 +39,24 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+@media only screen and (max-width:1100px ) {
+  .login_right{
+    display: none;
+  }
 
-.container_login{
-  height: 400px;  
-  margin-bottom: 5px;
-  text-align: center;
+  .login_left{
+    height: 70%;
+    width: 50%;
+  }
+
 }
+
+@media only screen and (max-width:600px){
+  .docs_pics{
+    display:none;
+  }
+}
+
 
 /* Doctor page */
 
@@ -86,7 +101,7 @@
   }
 
 
-  /* QUIZ */
+  /* Survey page */
 
 .container_quiz{
   position: relative;

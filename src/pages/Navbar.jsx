@@ -141,6 +141,14 @@ const Container = styled.div`
     transition: 0.5s background-size;
   }
 
+  @media only screen and (max-width:900px ) {
+  .navbar ul li{
+    font-size:80%;
+  }
+
+}
+
+
   .navbar ul li:hover {
     background-size: 75% 0.1em;
     color: #444;

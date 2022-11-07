@@ -1,19 +1,42 @@
 import "../App.css";
-import React from "react";
 import { Slider, Box } from "@mui/material";
 import CircularProgressBar from "./CircularProgessBar";
+import { ResultatContext, ThemeContext, themes  } from "../Context";
+import React, { useState, useContext, useEffect } from "react";
+import avatar1 from "../pages/img/avatar1.png";
+import avatar5 from "../pages/img/avatar5.png";
+
 export default function BoxResultat(props) {
+  let resultatContext = useContext(ResultatContext);
+
   function valuetext(value) {
     return `${value}%`;
   }
   console.log("Value inside resultat : ", props.resultat);
-
   console.log("Value inside maladie : ", props.maladies);
+
+    const [resultsInfarctus, setImgInfarctus] = useState(props.maladies.infarctus);
+    const resultsSmoke = resultatContext.resultat.fume;
+    const [resultsAlim, setImgAlim] = useState(resultatContext.resultat.alim);
+    const [resultsAlco, setImgAlco] = useState(resultatContext.resultat.alcool);
+
+
+  // useEffect(() => {
+  //   setImgInfarctus(resultatContext.resultat.inf);
+  //     if(setImgInfarctus==0){
+  //      <img src={avatar1}></img>
+  //      console.log("ok bg");
+  //     }else{
+  //       <img src={avatar5}></img>
+  //       console.log("not ok bg");
+  //     }
+  // }, [resultatContext.resultat.inf]);
+  
   return (
     <div>
-      <h2>Vos Resultats</h2>
-    {/* Avataaar ici */}
-
+      <h2 className="survey_title">Your results</h2>
+      <img className="avatar1"
+      src={resultsInfarctus}></img>
       <div className="container_label3">
         <label style={{ marginTop: "10px" }} className="label_results">
           Diabete :{" "}

@@ -1,5 +1,7 @@
-import * as React from "react";
+
 import PropTypes from "prop-types";
+import { ThemeContext, themes } from "../Context";
+import React, { useContext } from "react";
 import CircularProgress, {
   circularProgressClasses,
 } from "@mui/material/CircularProgress";
@@ -7,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 function CircularProgressWithLabel(props) {
+  let themeContext = useContext(ThemeContext);
+
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
       <CircularProgress
@@ -20,6 +24,8 @@ function CircularProgressWithLabel(props) {
         value={100}
       />
       <CircularProgress
+      style={{color: themes[themeContext.theme].background_left,
+        }}
         variant="determinate"
         sx={{
           color: (theme) =>
@@ -35,7 +41,7 @@ function CircularProgressWithLabel(props) {
         thickness={4}
         {...props}
       />
-      <Box
+      <Box 
         sx={{
           top: 0,
           left: 0,
@@ -47,7 +53,7 @@ function CircularProgressWithLabel(props) {
           justifyContent: "center",
         }}
       >
-        <Typography variant="caption" component="div" color="text.secondary">
+        <Typography variant="caption" component="div" color="text.secondary"  style={{color: themes[themeContext.theme].backgroundresult}}>
           {`${Math.round(props.value)}%`}
         </Typography>
       </Box>
