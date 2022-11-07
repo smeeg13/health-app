@@ -58,15 +58,7 @@ export default function RemarkDialog(props) {
 
   return (
     <>
-      <button
-        style={{
-          backgroundColor: themes[themeContext.theme].button,
-          color: themes[themeContext.theme].textcolorbtn,
-          width: 170,
-          marginTop: 0,
-          marginBottom: 10,
-          marginLeft: 280,
-        }}
+      <button className="remark_btn" style={{backgroundColor:"#77C5A6", borderRadius:"20px", height:"30px"}}
         onClick={handleClickOpen}
       >
         Faire une remarque

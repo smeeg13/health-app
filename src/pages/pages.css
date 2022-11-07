@@ -39,6 +39,14 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
+@media screen and (max-width:100px) {
+  .boxQuiz{
+    width: 800px;
+    margin: auto;
+  }
+  
+}
+
 @media only screen and (max-width:1100px ) {
   .login_right{
     display: none;
@@ -56,8 +64,10 @@
   }
 
   .boxQuiz{
+    width: 70%;
     margin: auto;
   }
+
 
   .survey_pic{
     display: none;
@@ -69,6 +79,7 @@
   .docs_pics{
     display:none;
   }
+  
 }
 
 
@@ -100,7 +111,7 @@
   .column_list {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-basis: 100%;
   flex: 1;
   }
@@ -113,6 +124,23 @@
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
   }
+
+  .remark_btn{
+    width: 170px;
+    margin-bottom: 10px;
+    margin-left: 100px;
+    border: 2px solid black;
+}
+
+
+.details_btn{
+  width: 170px;
+  margin-top: 10px;
+  margin-right: 50px;
+  margin-bottom: 10px;
+  background-color:"blue";
+  border: 2px solid black;
+}
 
 
   /* Survey page */
@@ -491,17 +519,30 @@ font-size: 1.2em;
 }
 
 .boxQuiz{
+  align-items: center;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  margin-left: 100px;
+  margin-top: 30px;
+  min-width: 700px;
+  max-width: 1000px;
+  max-height: 550px;
+  background-color: #a9cce3;
+  /* border: 2px solid white; */
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
 position: relative;
 margin: auto;
 display: inline-block;
 margin-top: 15px;
-min-width: 700px;
-width: 600px;
-border: 1px solid grey;
+max-width: 1000px;
 height: 550px;
 background-color: #eafaf1;
 padding-bottom: 5px;
+box-shadow: #054A2F -5px 5px, #1A523C -10px 10px, #77C5A6 -15px 15px, #C1E1C1 -20px 20px, #bbb -25px 25px;
 }
+
 
 
 .questions{
@@ -521,9 +562,8 @@ font-family: "Lexend Deca";
 .btn_previous, .btn_next{
 position: relative;
 margin-bottom: 10px;
-margin-top: 30px;
+margin-top: 20px;
 display: inline-block;
-transition: all 0.2s ease-in;
 position: relative;
 overflow: hidden;
 z-index: 1;
@@ -535,13 +575,6 @@ border-radius: 20px; /*to round the corner of the shape */
 background-color: #e8e8e8;
 border: 1px solid #77C5A6;
 }
-
-.btn_previous:active, .btn_next:active {
-color: #666;
-box-shadow: inset 4px 4px 12px #c5c5c5,
-           inset -4px -4px 12px #ffffff;
-}
-
 
 .btn_next:hover, .btn_previous:hover {
 color: white;

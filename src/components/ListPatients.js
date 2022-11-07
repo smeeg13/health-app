@@ -121,7 +121,7 @@ function UserList(props) {
           }} key={res.id_user}>
 
             <div className="row  center">
-              <div className="column_list center">
+              <div className="column_list">
                 <p className="center">{res.nom !== "" ? res.nom : res.email}</p>
               </div>
               <div className="column_list center">
@@ -166,7 +166,7 @@ function UserList(props) {
                     <button
                       name="Details"
                       type="submit"
-                      className="btn"
+                      className="details_btn"
                       style={{
                         backgroundColor: themes[themeContext.theme].button,
                         color: themes[themeContext.theme].textcolorbtn,
