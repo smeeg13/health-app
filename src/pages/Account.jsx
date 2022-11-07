@@ -570,8 +570,8 @@ const Container2 = styled.div`
 
   .avatar1,
   .avatar2 {
-    width: 90px;
-    height: 110px;
+    width: 110px;
+    height: 130px;
   }
 
   .btn {

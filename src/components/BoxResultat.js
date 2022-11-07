@@ -1,10 +1,15 @@
 import "../App.css";
 import { Slider, Box } from "@mui/material";
 import CircularProgressBar from "./CircularProgessBar";
-import { ResultatContext, ThemeContext, themes  } from "../Context";
+import { ResultatContext, ThemeContext, themes } from "../Context";
 import React, { useState, useContext, useEffect } from "react";
 import avatar1 from "../pages/img/avatar1.png";
 import avatar5 from "../pages/img/avatar5.png";
+import cancer from "../pages/img/smoky_lungs.png";
+import infarctus from "../pages/img/heart_attack.png";
+import diabete from "../pages/img/diabete.png";
+import nonInf from "../pages/img/heart_happy.png";
+//Import cancer....
 
 export default function BoxResultat(props) {
   let resultatContext = useContext(ResultatContext);
@@ -15,40 +20,99 @@ export default function BoxResultat(props) {
   console.log("Value inside resultat : ", props.resultat);
   console.log("Value inside maladie : ", props.maladies);
 
-    const [resultsInfarctus, setImgInfarctus] = useState(props.maladies.infarctus);
-    const resultsSmoke = resultatContext.resultat.fume;
-    const [resultsAlim, setImgAlim] = useState(resultatContext.resultat.alim);
-    const [resultsAlco, setImgAlco] = useState(resultatContext.resultat.alcool);
+  const [Isgood, setIsGood] = useState(true);
+  const [resultsInfarctus, setInfarctus] = useState(false);
+  const [resultsNonInf, setNonInf] = useState(false);
+  const [resultsDiab, setDiab] = useState(false);
+  const [resultscancer, setcancer] = useState(false);
 
+  useEffect(() => {
+    if (resultatContext.maladies.infarctus > 2) {
+      setIsGood(false);
+    }
+    if (resultatContext.maladies.nonInfarctus > 0) {
+      setIsGood(false);
+    }
+    if (resultatContext.maladies.diabete > 0) {
+      setIsGood(false);
+    }
+    if (resultatContext.maladies.cancer > 0) {
+      setIsGood(false);
+    }
 
-  // useEffect(() => {
-  //   setImgInfarctus(resultatContext.resultat.inf);
-  //     if(setImgInfarctus==0){
-  //      <img src={avatar1}></img>
-  //      console.log("ok bg");
-  //     }else{
-  //       <img src={avatar5}></img>
-  //       console.log("not ok bg");
-  //     }
-  // }, [resultatContext.resultat.inf]);
-  
+    if (
+      resultatContext.maladies.cancer > resultatContext.maladies.diabete &&
+      resultatContext.maladies.cancer > resultatContext.maladies.infarctus &&
+      resultatContext.maladies.cancer > resultatContext.maladies.nonInfarctus
+    ) {
+      setcancer(true);
+    }
+
+    if (
+      resultatContext.maladies.diabete > resultatContext.maladies.cancer &&
+      resultatContext.maladies.diabete > resultatContext.maladies.infarctus &&
+      resultatContext.maladies.diabete > resultatContext.maladies.nonInfarctus
+    ) {
+      setDiab(true);
+    }
+
+    if (
+      resultatContext.maladies.infarctus > resultatContext.maladies.cancer &&
+      resultatContext.maladies.infarctus > resultatContext.maladies.diabete &&
+      resultatContext.maladies.infarctus > resultatContext.maladies.nonInfarctus
+    ) {
+      setInfarctus(true);
+    }
+
+    if (
+      resultatContext.maladies.nonInfarctus > resultatContext.maladies.cancer &&
+      resultatContext.maladies.nonInfarctus > resultatContext.maladies.diabete &&
+      resultatContext.maladies.nonInfarctus > resultatContext.maladies.infarctus
+    ) {
+      setNonInf(true);
+    }
+    //check lequel plus grand
+    //set
+  }, [
+    resultatContext.maladies.infarctus,
+    resultatContext.maladies.diabete,
+    resultatContext.maladies.cancer,
+    resultatContext.maladies.nonInfarctus,
+  ]);
+
   return (
     <div>
       <h2 className="survey_title">Your results</h2>
-      <img className="avatar1"
-      src={resultsInfarctus}></img>
+      <div>
+      {Isgood && (
+        <img
+          className="avatar1" //alt
+          src={props.currentUser.avatar}
+        ></img>
+      )}
+      {resultsInfarctus && 
+      <img className="risk_img" src={infarctus}></img>}
+      {resultscancer && <img className="risk_img" src={cancer}></img>}
+      {resultsDiab && <img className="risk_img" src={diabete}></img>}
+      {resultsNonInf && <img className="risk_img" src={nonInf}></img>}
+      </div>
+
       <div className="container_label3">
         <label style={{ marginTop: "10px" }} className="label_results">
           Diabete :{" "}
         </label>
         <br></br>
-        <label style={{ marginTop: "35px" }} className="label_results">
+        <label style={{ marginTop: "40px" }} className="label_results">
           Cancer :{" "}
         </label>
         <br></br>
-        <label style={{marginTop:"45px"}}  className="label_results">Heart attack :</label>
+        <label style={{ marginTop: "40px" }} className="label_results">
+          Heart attack :
+        </label>
         <br></br>
-        <label style={{marginTop:"50px"}}  className="label_results">No heart attack :</label>
+        <label style={{ marginTop: "40px" }} className="label_results">
+          No heart attack :
+        </label>
       </div>
 
       <div className="container_results">
@@ -57,12 +121,11 @@ export default function BoxResultat(props) {
             width: 150,
             marginLeft: 10,
             float: "right",
-            marginRight: "30px", marginTop:"10px",
+            marginRight: "30px",
+            marginTop: "10px",
           }}
         >
           <CircularProgressBar progress={props.maladies.diabete} />
-
-          
         </Box>
 
         <Box
@@ -70,12 +133,11 @@ export default function BoxResultat(props) {
             width: 150,
             marginLeft: 10,
             float: "right",
-            marginRight: "30px", marginTop:"10px",
+            marginRight: "30px",
+            marginTop: "10px",
           }}
         >
           <CircularProgressBar progress={props.maladies.cancer} />
-
-         
         </Box>
 
         <Box
@@ -83,12 +145,11 @@ export default function BoxResultat(props) {
             width: 150,
             marginLeft: 10,
             float: "right",
-            marginRight: "30px", marginTop:"20px",
+            marginRight: "30px",
+            marginTop: "20px",
           }}
         >
           <CircularProgressBar progress={props.maladies.infarctus} />
-
-         
         </Box>
 
         <Box
@@ -96,11 +157,11 @@ export default function BoxResultat(props) {
             width: 150,
             marginLeft: 10,
             float: "right",
-            marginRight: "30px", marginTop:"15px",
+            marginRight: "30px",
+            marginTop: "15px",
           }}
         >
           <CircularProgressBar progress={props.maladies.nonInfarctus} />
-      
         </Box>
       </div>
     </div>

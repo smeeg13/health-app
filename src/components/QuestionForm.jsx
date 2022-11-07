@@ -68,7 +68,7 @@ export function BoxQuestion(props) {
             </div>
           )}
 
-            {/* Here, we manage when we display which button to
+          {/* Here, we manage when we display which button to
                 navigate between the different survey
             */}
           {props.index === 1 &&
@@ -109,11 +109,6 @@ export function BoxQuestion(props) {
             </>
           }
         </div>
-        <img
-          src={survey_pic}
-          alt="survey_pic"
-          style={{ height: "300px", float: "right", marginTop: "280px" }}
-        />
       </div>
     </div>
   );
@@ -127,15 +122,15 @@ function Range(props) {
   const resultatContext = useContext(ResultatContext);
   const [slideValue, setSlideValue] = useState(resultatContext.resultat[props.question.resName]);
   const themeContext = useContext(ThemeContext);
-  
+
   const handleChange = (event) => {
     setSlideValue(event.target.value);
   };
 
   return (
     <div>
-      <h3 className="questions" style={{marginTop:"30px"}}>{props.ques}</h3>
-      <div className="container_answers" style={{float:"right"}}>
+      <h3 className="questions" style={{ marginTop: "30px" }}>{props.ques}
+
         <input style={{ background: themes[themeContext.theme].rangeColor }}
           type="range"
           name={props.question.resName}
@@ -147,7 +142,7 @@ function Range(props) {
           step="1"
         />
         <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{slideValue} {props.question.unites}</output>
-        </div>
+      </h3>
     </div>
   )
 }
@@ -163,8 +158,7 @@ function Dropdown(props) {
 
   return (
     <div>
-      <h3 className="questions">{props.ques}</h3>
-      <div className="container_answers" style={{float:"right"}}>
+      <h3 className="questions">{props.ques}
         <select value={resultatContext.resultat[props.question.resName]} className="dropdown" name={props.name} onChange={props.handleFormInputChange} style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }}>
           {
             vp.map((value, index) => (
@@ -174,7 +168,7 @@ function Dropdown(props) {
             ))
           }
         </select>
-        </div>
+      </h3>
     </div>
   );
 };
@@ -186,8 +180,7 @@ function Dropdown(props) {
 function CheckBoxForm(props) {
   return (
     <div>
-      <h3 className="questions">{props.ques}</h3>
-      <div className="container_answers" style={{float:"right"}}>
+      <h3 className="questions">{props.ques}
         <input className="answers_type"
           id={props.id}
           name={props.name}
@@ -195,7 +188,7 @@ function CheckBoxForm(props) {
           checked={props.value}
           onChange={props.handleFormInputChange}
         />
-    </div>
+        </h3>
     </div>
   )
 }
@@ -217,8 +210,7 @@ function FormInput({
   const themeContext = useContext(ThemeContext);
   return (
     <div>
-      <h3 className="questions">{props.ques}</h3>
-      <div className="container_answers" style={{float:"right"}}>
+      <h3 className="questions">{props.ques}
         <input
           id={id}
           name={name}
@@ -232,7 +224,7 @@ function FormInput({
             color: themes[themeContext.theme].rangeToggle,
           }}
         />
-        </div>
+        </h3>
     </div>
   );
 }

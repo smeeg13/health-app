@@ -77,6 +77,7 @@ export default function HomeGuest() {
         <br />
         <img
           src={home_pic}
+          className="img_home"
           alt="HomePics"
           style={{ height: "300px", marginTop: "-100px", float: "right" }}
         ></img>

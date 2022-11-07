@@ -136,7 +136,8 @@ export default function Resultats(props) {
         backgroundColor: themes[themeContext.theme].background_quiz,
         color: themes[themeContext.theme].foreground,
       }}>
-            <BoxResultat maladies={resultatContext.maladies} resultat={resultatContext.resultat} />
+        
+            <BoxResultat maladies={resultatContext.maladies} resultat={resultatContext.resultat} currentUser={props.currentUser.id_user} />
           </div>
         </div>
 

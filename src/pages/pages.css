@@ -45,8 +45,22 @@
   }
 
   .login_left{
+    margin: auto;
     height: 70%;
     width: 50%;
+  }
+
+  .img_home{
+    height: 30%;
+    width: 40%;
+  }
+
+  .boxQuiz{
+    margin: auto;
+  }
+
+  .survey_pic{
+    display: none;
   }
 
 }
@@ -252,6 +266,11 @@ max-width: 450px;
 border: 1px solid grey;
 max-height: 410px;
 background-color: #eafaf1;
+}
+
+.risk_img{
+  margin: auto;
+  height:100px;
 }
 
 
@@ -473,7 +492,7 @@ font-size: 1.2em;
 
 .boxQuiz{
 position: relative;
-margin-left: 350px;
+margin: auto;
 display: inline-block;
 margin-top: 15px;
 min-width: 700px;
@@ -492,6 +511,10 @@ margin-bottom: 5px;
 margin-left: 30px;
 font-size: 0.9em;
 font-family: "Lexend Deca";
+}
+
+.rangevalue{
+  margin-left: 5px;
 }
 
 
@@ -547,6 +570,7 @@ margin-left: 20px;
 float: right;
 margin-right: 20px;
 }
+
 
 input,
 output {
