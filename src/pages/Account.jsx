@@ -7,9 +7,8 @@ import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { GetAllDocteurs, NewRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
-import Alert from "@mui/material/Alert";
-import { AlertTitle } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import RedirectAlert from "../components/RedirectAlert";
+
 
 function Account(props) {
   const avatar1 = "/img/avatar1.png";
@@ -167,7 +166,7 @@ function Account(props) {
     setTimeout(() => {
       return navigate("/");
     }, 5000);
-  }, [isInvite]);
+  }, [isInvite, navigate]);
 
   return (
     <Container2>
@@ -176,17 +175,7 @@ function Account(props) {
       ) : (
         <>
           {props.currentUser.nom_role === "Invite" ? (
-            <div className="center">
-              <Stack sx={{ width: "100%" }} spacing={2} padding={1}>
-                <Alert severity="warning">
-                  <AlertTitle>
-                    <strong>You aren't logged in</strong>
-                  </AlertTitle>
-                  Please log in before accessing this page, —
-                  <strong>You will be redirected in 5 seconds</strong>
-                </Alert>
-              </Stack>
-            </div>
+            <RedirectAlert IsAdmin={false} />
           ) : (
             <>
               <div
@@ -322,12 +311,15 @@ function Account(props) {
                             color: themes[themeContext.theme].textcolor,
                           }}
                         >
-                        Make a request to another doctor                        
+                          Make a request to another doctor
                         </h1>
                       )}
 
                       <div className="row center" style={{ margin: 0 }}>
-                        <div className="column_list center" style={{ margin: 0 }}>
+                        <div
+                          className="column_list center"
+                          style={{ margin: 0 }}
+                        >
                           <div>
                             <select
                               className="dropdown"
@@ -342,27 +334,27 @@ function Account(props) {
                               </option>
                               {props.currentUser.docteur_assigned !== ""
                                 ? docteurs
-                                  .filter(
-                                    (item) =>
-                                      item.id_user !==
-                                      props.currentUser.docteur_assigned
-                                  )
-                                  .map((value) => (
+                                    .filter(
+                                      (item) =>
+                                        item.id_user !==
+                                        props.currentUser.docteur_assigned
+                                    )
+                                    .map((value) => (
+                                      <option
+                                        key={value.id_user}
+                                        value={value.id_user}
+                                      >
+                                        {value.nom}
+                                      </option>
+                                    ))
+                                : docteurs.map((value) => (
                                     <option
                                       key={value.id_user}
                                       value={value.id_user}
                                     >
                                       {value.nom}
                                     </option>
-                                  ))
-                                : docteurs.map((value) => (
-                                  <option
-                                    key={value.id_user}
-                                    value={value.id_user}
-                                  >
-                                    {value.nom}
-                                  </option>
-                                ))}
+                                  ))}
                             </select>
                           </div>
                         </div>
@@ -372,7 +364,8 @@ function Account(props) {
                             style={{
                               margin: 0,
                               width: 180,
-                              backgroundColor: themes[themeContext.theme].button,
+                              backgroundColor:
+                                themes[themeContext.theme].button,
                               color: themes[themeContext.theme].textcolorbtn,
                               fontSize: 14,
                             }}
@@ -382,11 +375,15 @@ function Account(props) {
                           </button>
                           <div>
                             {confirmRequest === "Resquest Sent" ? (
-                              <span style={{ color: "#00A36C", marginRight: 3 }}>
+                              <span
+                                style={{ color: "#00A36C", marginRight: 3 }}
+                              >
                                 {confirmRequest}
                               </span>
                             ) : (
-                              <span style={{ color: "#FF2400", marginRight: 3 }}>
+                              <span
+                                style={{ color: "#FF2400", marginRight: 3 }}
+                              >
                                 {confirmRequest}
                               </span>
                             )}
@@ -517,7 +514,6 @@ const Container2 = styled.div`
   .logo {
     margin-top: 10px;
   }
-
 
   select {
     position: relative;

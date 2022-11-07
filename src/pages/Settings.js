@@ -4,10 +4,8 @@ import { db } from "../initFirebase";
 import { useState, useContext } from "react";
 import { ThemeContext, themes } from "../Context";
 // import settings from "./img/settingss.png";
-import Alert from "@mui/material/Alert";
-import { AlertTitle } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
+import RedirectAlert from "../components/RedirectAlert";
 
 export default function Settings(props) {
   let themeContext = useContext(ThemeContext);
@@ -45,22 +43,12 @@ export default function Settings(props) {
     setTimeout(() => {
       return navigate("/");
     }, 5000);
-  }, [isInvite]);
+  }, [isInvite, navigate]);
 
   return (
     <>
       {isInvite ? (
-        <div className="center">
-          <Stack sx={{ width: "100%" }} spacing={2} padding={1}>
-            <Alert severity="warning">
-              <AlertTitle>
-                <strong>You aren't an Administrator</strong>
-              </AlertTitle>
-              Please log in as and Administrator before acessing this page, —
-              <strong>You will be redirected in 5 seconds</strong>
-            </Alert>
-          </Stack>
-        </div>
+        <RedirectAlert IsAdmin={true}/>
       ) : (
         <div
           className="settings_page"
