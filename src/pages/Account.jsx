@@ -182,7 +182,7 @@ function Account(props) {
                   <AlertTitle>
                     <strong>You aren't logged in</strong>
                   </AlertTitle>
-                  Please log in before acessing this page, —
+                  Please log in before accessing this page, —
                   <strong>You will be redirected in 5 seconds</strong>
                 </Alert>
               </Stack>
