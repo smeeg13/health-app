@@ -149,9 +149,9 @@ function Account(props) {
         avatar: avatarSelected,
         nom: nameEntered,
       });
-      setConfirmSave("Changements Sauvegardés");
+      setConfirmSave("Changes Saved");
     } catch (e) {
-      setConfirmSave("Erreur, merci de réessayer plus tard");
+      setConfirmSave("Error, please try again later");
     }
   };
 
@@ -204,12 +204,12 @@ function Account(props) {
                       color: themes[themeContext.theme].textcolor,
                     }}
                   >
-                    Entrer vos informations personnelles
+                    Enter your personal information
                   </h1>
                 </div>
 
                 <div className="center " style={{ marginBottom: -10 }}>
-                  <label>Nom Complet : {"  "}</label>
+                  <label>Full Name : {"  "}</label>
                   <input
                     name="nom"
                     className="text_input"
@@ -256,7 +256,7 @@ function Account(props) {
                   </button>
 
                   <div>
-                    {confirmSave === "Changements Sauvegardés" ? (
+                    {confirmSave === "Changes Saved" ? (
                       <span style={{ color: "#00A36C", marginRight: 3 }}>
                         {confirmSave}
                       </span>
@@ -276,7 +276,7 @@ function Account(props) {
                         className="center"
                         style={{ margin: 0, marginTop: -50 }}
                       >
-                        <h1 className="choose_avatar">Votre docteur </h1>
+                        <h1 className="choose_avatar">Your doctor </h1>
                         <input
                           disabled
                           name="docteur_assigned"
@@ -288,7 +288,7 @@ function Account(props) {
                       </div>
                     ) : (
                       <p style={{ color: "#FF2400", fontWeight: 600 }}>
-                        Vous n'avez aucun docteur assigné pour le moment
+                        You don't have any assigned doctor for the moment
                       </p>
                     )}
                     {remarks !== "" && (
@@ -299,7 +299,7 @@ function Account(props) {
                           fontStyle: "italic",
                         }}
                       >
-                        Remarques : {remarks}
+                        Remarks : {remarks}
                       </p>
                     )}
 
@@ -312,7 +312,7 @@ function Account(props) {
                             color: themes[themeContext.theme].textcolor,
                           }}
                         >
-                          Faire une demande au près d'un docteur
+                          Make a request to a doctor
                         </h1>
                       ) : (
                         <h1
@@ -322,7 +322,7 @@ function Account(props) {
                             color: themes[themeContext.theme].textcolor,
                           }}
                         >
-                          Faire une demande au près d'un autre docteur
+                        Make a request to another doctor                        
                         </h1>
                       )}
 
@@ -338,7 +338,7 @@ function Account(props) {
                               style={{ minWidth: 200 }}
                             >
                               <option key={0} value={"Select a doctor"}>
-                                Choisir un docteur
+                                Choose a doctor
                               </option>
                               {props.currentUser.docteur_assigned !== ""
                                 ? docteurs
@@ -378,10 +378,10 @@ function Account(props) {
                             }}
                             onClick={SendRequest}
                           >
-                            Envoyer une demande
+                            Send Request
                           </button>
                           <div>
-                            {confirmRequest === "Demande Envoyée" ? (
+                            {confirmRequest === "Resquest Sent" ? (
                               <span style={{ color: "#00A36C", marginRight: 3 }}>
                                 {confirmRequest}
                               </span>
@@ -412,7 +412,7 @@ function Account(props) {
                       color: themes[themeContext.theme].textcolor,
                     }}
                   >
-                    Choisissez votre avatar{" "}
+                    Choose your avatar{" "}
                   </h1>
                   <div className="avatar">
                     <img
