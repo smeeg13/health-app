@@ -5,6 +5,7 @@ import { getDocs, collection, getCountFromServer } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
 import { BoxQuestion } from "../components/QuestionForm";
 import { BouncingDotsLoader } from "../utils/tools";
+import {useNavigate} from "react-router-dom";
 
 /**
  * function to render the box where the question are shown
@@ -17,6 +18,7 @@ function Survey(props) {
   const [numberOfQues, setNumberOfQues] = useState(0);
   const [index, setIndex] = useState(1);
   const [titles] = useState([]);
+  const navigate = useNavigate();
 
   /* 
     setTimeout to let the time to retrieve the question
@@ -86,8 +88,11 @@ function Survey(props) {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     resultatContext.updateInDb(props.currentUser.id_user);
+    props.currentUser.nom_role === "Invite" && navigate("/resultats");
+    props.currentUser.nom_role === "Patient" && navigate("/");
   };
 
+console.log("resultat: ", resultatContext.resultat);
   return (
     <div>
       {isBusy ? <BouncingDotsLoader /> :

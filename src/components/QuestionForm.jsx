@@ -5,6 +5,7 @@ import survey_pic from "../pages/img/survey_pic.png"
 import { ResultatContext } from "../Context";
 import { getObjKey } from "../utils/tools";
 
+
 /**
  * function to display all the informations about a question
  * the title of the question, how you can answer it
@@ -80,10 +81,16 @@ export function BoxQuestion(props) {
             </button>
           }
           {props.index === props.totalQues &&
-            <>
-              <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
-                Save Modifications
-              </button>
+            <>{
+
+            }
+              <div>
+                <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
+                  Save Modifications
+                </button>
+                
+              </div>
+
               <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
                 backgroundColor: themes[themeContext.theme].button,
                 color: themes[themeContext.theme].textcolorbtn,
@@ -92,7 +99,7 @@ export function BoxQuestion(props) {
               </button>
             </>
           }
-          {props.index !== 1 & props.index !== props.totalQues &&
+          {props.index !== 1 && props.index !== props.totalQues &&
             <>
               <button className="btn_next" onClick={props.handleNextQuestionnaire} style={{
                 backgroundColor: themes[themeContext.theme].button,
