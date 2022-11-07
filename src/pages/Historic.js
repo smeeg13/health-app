@@ -4,10 +4,8 @@ import { getDocs, collection } from "firebase/firestore";
 import { ResultatContext, ThemeContext, themes } from "../Context";
 import { BouncingDotsLoader } from "../utils/tools";
 import Resultats from "./Resultats";
-import Alert from "@mui/material/Alert";
-import { AlertTitle } from "@mui/material";
-import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
+import RedirectAlert from "../components/RedirectAlert";
 
 export default function Historic(props) {
   let themeContext = useContext(ThemeContext);
@@ -46,7 +44,6 @@ export default function Historic(props) {
     setShowDetails(true);
   };
 
-  
   useEffect(() => {
     if (props.currentUser.nom_role === "Invite") {
       setIsInvite(true);
@@ -57,110 +54,99 @@ export default function Historic(props) {
 
   useEffect(() => {
     setTimeout(() => {
+      if(isInvite){
       return navigate("/");
+      }
     }, 5000);
-  }, [isInvite]);
+  }, [isInvite, navigate]);
 
   return (
-    <div className="container"
+    <div
+      className="container"
       style={{
         backgroundColor: themes[themeContext.theme].background_right,
         color: themes[themeContext.theme].foreground,
       }}
     >
-{props.currentUser.nom_role === "Invite" ? 
-            <div className="center">
-              <Stack sx={{ width: "100%" }} spacing={2} padding={1}>
-                <Alert severity="warning">
-                  <AlertTitle>
-                    <strong>You aren't logged in</strong>
-                  </AlertTitle>
-                  Please log in before acessing this page, —
-                  <strong>You will be redirected in 5 seconds</strong>
-                </Alert>
-              </Stack>
-            </div>
-           : 
-           <>
-           {showDetails ? (
-          <Resultats
-            currentUser={props.currentUser}
-            fromHistoric={true}
-            closeDetails={closeDetails}
-          />
-        ) : (
-          <div
-            style={{
-              backgroundColor: themes[themeContext.theme].background,
-              color: themes[themeContext.theme].foreground,
-            }}
-          >
-            <h1
+      {props.currentUser.nom_role === "Invite" ? (
+        <RedirectAlert IsAdmin={false} />
+      ) : (
+        <>
+          {showDetails ? (
+            <Resultats
+              currentUser={props.currentUser}
+              fromHistoric={true}
+              closeDetails={closeDetails}
+            />
+          ) : (
+            <div
               style={{
                 backgroundColor: themes[themeContext.theme].background,
-                color: themes[themeContext.theme].textcolor,
+                color: themes[themeContext.theme].foreground,
               }}
             >
-              {" "}
-              {props.currentUser.nom !== ""
-                ? props.currentUser.nom
-                : props.currentUser.email}
-              's Historic
-            </h1>
-            {isBusy ? (
-              <BouncingDotsLoader />
-            ) : (
-              <div>
-                {resultats.length === 0 ? (
-                  <div>
-                    <span style={{ fontWeight: "bold" }}>
-                      No previous results found
-                    </span>
-                  </div>
-                ) : (
-                  <ul style={{ listStyleType: "none", padding: 0 }}>
-                    {resultats.map((res) => (
-                      <li key={res.id}>
-                        <div className="row  center">
-                          <div className="column_list center">
-                            <h3 className="text"> Résultat du : {res.id}</h3>
+              <h1
+                style={{
+                  backgroundColor: themes[themeContext.theme].background,
+                  color: themes[themeContext.theme].textcolor,
+                }}
+              >
+                {" "}
+                {props.currentUser.nom !== ""
+                  ? props.currentUser.nom
+                  : props.currentUser.email}
+                's Historic
+              </h1>
+              {isBusy ? (
+                <BouncingDotsLoader />
+              ) : (
+                <div>
+                  {resultats.length === 0 ? (
+                    <div>
+                      <span style={{ fontWeight: "bold" }}>
+                        No previous results found
+                      </span>
+                    </div>
+                  ) : (
+                    <ul style={{ listStyleType: "none", padding: 0 }}>
+                      {resultats.map((res) => (
+                        <li key={res.id}>
+                          <div className="row  center">
+                            <div className="column_list center">
+                              <h3 className="text"> Résultat du : {res.id}</h3>
+                            </div>
+                            <div className="column_list center">
+                              <button
+                                name="Details"
+                                type="submit"
+                                className="btn"
+                                style={{
+                                  backgroundColor:
+                                    themes[themeContext.theme].button,
+                                  color:
+                                    themes[themeContext.theme].textcolorbtn,
+                                  width: 120,
+                                  fontSize: "0.8em",
+                                  marginTop: "10px",
+                                  marginBottom: 10,
+                                  marginLeft: 280,
+                                }}
+                                onClick={(event) => openDetails(event, res)}
+                              >
+                                Détails
+                              </button>
+                            </div>
                           </div>
-                          <div className="column_list center">
-                            <button
-                              name="Details"
-                              type="submit"
-                              className="btn"
-                              style={{
-                                backgroundColor:
-                                  themes[themeContext.theme].button,
-                                color: themes[themeContext.theme].textcolorbtn,
-                                width: 120,
-                                fontSize: "0.8em",
-                                marginTop: "10px",
-                                marginBottom: 10,
-                                marginLeft: 280,
-                              }}
-                              onClick={(event) =>
-                                openDetails(event, res)
-                              }
-                            >
-                              Détails
-                            </button>
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            )}
-          </div>
-        )}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </>
-           }
-
-
-        
+      )}
     </div>
   );
 }

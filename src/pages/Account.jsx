@@ -7,9 +7,8 @@ import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { GetAllDocteurs, NewRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
-import Alert from "@mui/material/Alert";
-import { AlertTitle } from "@mui/material";
-import Stack from "@mui/material/Stack";
+import RedirectAlert from "../components/RedirectAlert";
+
 
 function Account(props) {
   const avatar1 = "/img/avatar1.png";
@@ -149,9 +148,9 @@ function Account(props) {
         avatar: avatarSelected,
         nom: nameEntered,
       });
-      setConfirmSave("Changements Sauvegardés");
+      setConfirmSave("Changes Saved");
     } catch (e) {
-      setConfirmSave("Erreur, merci de réessayer plus tard");
+      setConfirmSave("Error, please try again later");
     }
   };
 
@@ -165,9 +164,11 @@ function Account(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      return navigate("/");
+      if(isInvite){
+              return navigate("/");
+      }
     }, 5000);
-  }, [isInvite]);
+  }, [isInvite, navigate]);
 
   return (
     <Container2>
@@ -176,17 +177,7 @@ function Account(props) {
       ) : (
         <>
           {props.currentUser.nom_role === "Invite" ? (
-            <div className="center">
-              <Stack sx={{ width: "100%" }} spacing={2} padding={1}>
-                <Alert severity="warning">
-                  <AlertTitle>
-                    <strong>You aren't logged in</strong>
-                  </AlertTitle>
-                  Please log in before acessing this page, —
-                  <strong>You will be redirected in 5 seconds</strong>
-                </Alert>
-              </Stack>
-            </div>
+            <RedirectAlert IsAdmin={false} />
           ) : (
             <>
               <div
@@ -204,12 +195,12 @@ function Account(props) {
                       color: themes[themeContext.theme].textcolor,
                     }}
                   >
-                    Entrer vos informations personnelles
+                    Enter your personal information
                   </h1>
                 </div>
 
                 <div className="center " style={{ marginBottom: -10 }}>
-                  <label>Nom Complet : {"  "}</label>
+                  <label>Full Name : {"  "}</label>
                   <input
                     name="nom"
                     className="text_input"
@@ -256,7 +247,7 @@ function Account(props) {
                   </button>
 
                   <div>
-                    {confirmSave === "Changements Sauvegardés" ? (
+                    {confirmSave === "Changes Saved" ? (
                       <span style={{ color: "#00A36C", marginRight: 3 }}>
                         {confirmSave}
                       </span>
@@ -276,7 +267,7 @@ function Account(props) {
                         className="center"
                         style={{ margin: 0, marginTop: -50 }}
                       >
-                        <h1 className="choose_avatar">Votre docteur </h1>
+                        <h1 className="choose_avatar">Your doctor </h1>
                         <input
                           disabled
                           name="docteur_assigned"
@@ -288,7 +279,7 @@ function Account(props) {
                       </div>
                     ) : (
                       <p style={{ color: "#FF2400", fontWeight: 600 }}>
-                        Vous n'avez aucun docteur assigné pour le moment
+                        You don't have any assigned doctor for the moment
                       </p>
                     )}
                     {remarks !== "" && (
@@ -299,7 +290,7 @@ function Account(props) {
                           fontStyle: "italic",
                         }}
                       >
-                        Remarques : {remarks}
+                        Remarks : {remarks}
                       </p>
                     )}
 
@@ -312,7 +303,7 @@ function Account(props) {
                             color: themes[themeContext.theme].textcolor,
                           }}
                         >
-                          Faire une demande au près d'un docteur
+                          Make a request to a doctor
                         </h1>
                       ) : (
                         <h1
@@ -322,12 +313,15 @@ function Account(props) {
                             color: themes[themeContext.theme].textcolor,
                           }}
                         >
-                          Faire une demande au près d'un autre docteur
+                          Make a request to another doctor
                         </h1>
                       )}
 
                       <div className="row center" style={{ margin: 0 }}>
-                        <div className="column_list center" style={{ margin: 0 }}>
+                        <div
+                          className="column_list center"
+                          style={{ margin: 0 }}
+                        >
                           <div>
                             <select
                               className="dropdown"
@@ -338,31 +332,31 @@ function Account(props) {
                               style={{ minWidth: 200 }}
                             >
                               <option key={0} value={"Select a doctor"}>
-                                Choisir un docteur
+                                Choose a doctor
                               </option>
                               {props.currentUser.docteur_assigned !== ""
                                 ? docteurs
-                                  .filter(
-                                    (item) =>
-                                      item.id_user !==
-                                      props.currentUser.docteur_assigned
-                                  )
-                                  .map((value) => (
+                                    .filter(
+                                      (item) =>
+                                        item.id_user !==
+                                        props.currentUser.docteur_assigned
+                                    )
+                                    .map((value) => (
+                                      <option
+                                        key={value.id_user}
+                                        value={value.id_user}
+                                      >
+                                        {value.nom}
+                                      </option>
+                                    ))
+                                : docteurs.map((value) => (
                                     <option
                                       key={value.id_user}
                                       value={value.id_user}
                                     >
                                       {value.nom}
                                     </option>
-                                  ))
-                                : docteurs.map((value) => (
-                                  <option
-                                    key={value.id_user}
-                                    value={value.id_user}
-                                  >
-                                    {value.nom}
-                                  </option>
-                                ))}
+                                  ))}
                             </select>
                           </div>
                         </div>
@@ -372,21 +366,26 @@ function Account(props) {
                             style={{
                               margin: 0,
                               width: 180,
-                              backgroundColor: themes[themeContext.theme].button,
+                              backgroundColor:
+                                themes[themeContext.theme].button,
                               color: themes[themeContext.theme].textcolorbtn,
                               fontSize: 14,
                             }}
                             onClick={SendRequest}
                           >
-                            Envoyer une demande
+                            Send Request
                           </button>
                           <div>
-                            {confirmRequest === "Demande Envoyée" ? (
-                              <span style={{ color: "#00A36C", marginRight: 3 }}>
+                            {confirmRequest === "Resquest Sent" ? (
+                              <span
+                                style={{ color: "#00A36C", marginRight: 3 }}
+                              >
                                 {confirmRequest}
                               </span>
                             ) : (
-                              <span style={{ color: "#FF2400", marginRight: 3 }}>
+                              <span
+                                style={{ color: "#FF2400", marginRight: 3 }}
+                              >
                                 {confirmRequest}
                               </span>
                             )}
@@ -412,7 +411,7 @@ function Account(props) {
                       color: themes[themeContext.theme].textcolor,
                     }}
                   >
-                    Choisissez votre avatar{" "}
+                    Choose your avatar{" "}
                   </h1>
                   <div className="avatar">
                     <img
@@ -517,7 +516,6 @@ const Container2 = styled.div`
   .logo {
     margin-top: 10px;
   }
-
 
   select {
     position: relative;
