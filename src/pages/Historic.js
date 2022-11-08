@@ -64,7 +64,7 @@ export default function Historic(props) {
     <div
       className="container"
       style={{
-        backgroundColor: themes[themeContext.theme].background_right,
+        backgroundColor: themes[themeContext.theme].background,
         color: themes[themeContext.theme].foreground,
       }}
     >
@@ -113,9 +113,8 @@ export default function Historic(props) {
                         <li key={res.id}>
                           <div className="row  center">
                             <div className="column_list center">
-                              <h3 className="text"> Résultat du : {res.id}</h3>
+                              <h3 className="text" style={{ color: themes[themeContext.theme].textcolor, marginLeft:"50px"}}> Résultat du : {res.id}</h3>
                             </div>
-                            <div className="column_list center">
                               <button
                                 name="Details"
                                 type="submit"
@@ -129,13 +128,12 @@ export default function Historic(props) {
                                   fontSize: "0.8em",
                                   marginTop: "10px",
                                   marginBottom: 10,
-                                  marginLeft: 280,
+                                  marginRight:"100px",
                                 }}
                                 onClick={(event) => openDetails(event, res)}
                               >
                                 Détails
                               </button>
-                            </div>
                           </div>
                         </li>
                       ))}

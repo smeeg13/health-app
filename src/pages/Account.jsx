@@ -200,7 +200,7 @@ function Account(props) {
                 </div>
 
                 <div className="center " style={{ marginBottom: -10 }}>
-                  <label>Full Name : {"  "}</label>
+                  <label className="text" style={{color: themes[themeContext.theme].textcolor}}>Name : {"  "}</label>
                   <input
                     name="nom"
                     className="text_input"
@@ -267,9 +267,8 @@ function Account(props) {
                         className="center"
                         style={{ margin: 0, marginTop: -50 }}
                       >
-                        <h1 className="choose_avatar">Your doctor </h1>
+                        <h1 className="choose_avatar" style={{color: themes[themeContext.theme].textcolor}}>Your doctor </h1>
                         <input
-                          disabled
                           name="docteur_assigned"
                           className="text_input"
                           type="text"
@@ -329,7 +328,7 @@ function Account(props) {
                               id="docteur_requested"
                               value={docteurSelectForRequest}
                               onChange={(event) => HandleDocteurSelect(event)}
-                              style={{ minWidth: 200 }}
+                              style={{ minWidth: 200}}
                             >
                               <option key={0} value={"Select a doctor"}>
                                 Choose a doctor
@@ -365,7 +364,7 @@ function Account(props) {
                             className="btn"
                             style={{
                               margin: 0,
-                              width: 180,
+                              width: 170,
                               backgroundColor:
                                 themes[themeContext.theme].button,
                               color: themes[themeContext.theme].textcolorbtn,

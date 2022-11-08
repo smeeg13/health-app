@@ -13,7 +13,8 @@ function CircularProgressWithLabel(props) {
 
   return (
     <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress
+      <CircularProgress style={{color: themes[themeContext.theme].rangeToggle,
+        }}
         variant="determinate"
         sx={{
           color: (theme) =>
@@ -24,7 +25,7 @@ function CircularProgressWithLabel(props) {
         value={100}
       />
       <CircularProgress
-      style={{color: themes[themeContext.theme].background_left,
+      style={{color: themes[themeContext.theme].rangeColor,
         }}
         variant="determinate"
         sx={{

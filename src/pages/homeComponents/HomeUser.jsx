@@ -103,6 +103,7 @@ export default function HomeUser(props) {
               margin: -8,
               backgroundColor: themes[themeContext.theme].button,
               color: themes[themeContext.theme].textcolorbtn,
+              marginTop:"20px"
             }}
           >
             New survey
