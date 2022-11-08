@@ -5,7 +5,8 @@ import { DealWithPatientRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
 import RemarkDialog from "./RemarkDialog";
 
-export function ListPatient(props) {
+export function 
+ListPatient(props) {
   let themeContext = useContext(ThemeContext);
   const [patients, setPatients] = useState([]);
   const [isBusy, setBusy] = useState(true);
@@ -85,7 +86,7 @@ export function ListPatient(props) {
                 setPatientToShow={props.setPatientToShow}
               />
             ) : (
-              <p style={{ color: "#00A36C", fontStyle: "italic" }}>
+              <p style={{ color: "#00A36C", fontStyle: "italic"}}>
                 No patients for the moment
               </p>
             )}
@@ -122,7 +123,7 @@ function UserList(props) {
 
             <div className="row  center">
               <div className="column_list">
-                <p className="center">{res.nom !== "" ? res.nom : res.email}</p>
+                <p className="center" style={{marginLeft:"20px"}}>{res.nom !== "" ? res.nom : res.email}</p>
               </div>
               <div className="column_list center">
                 {props.isRequest ? (
@@ -140,7 +141,7 @@ function UserList(props) {
                       }}
                       onClick={(event) => HandleClick(event, res)}
                     >
-                      Accepter{" "}
+                      Accept{" "}
                     </button>
                     <button
                       name="Refuse"
@@ -154,7 +155,7 @@ function UserList(props) {
                       }}
                       onClick={(event) => HandleClick(event, res)}
                     >
-                      Refuser{" "}
+                      Refuse{" "}
                     </button>
                   </div>
                 ) : (
@@ -170,15 +171,15 @@ function UserList(props) {
                       style={{
                         backgroundColor: themes[themeContext.theme].button,
                         color: themes[themeContext.theme].textcolorbtn,
-                        width: 120,
-                        fontSize:"0.8em",
-                        marginTop: 0,
-                        marginBottom: 10,
-                        marginLeft: 280,
+                        // width: 120,
+                        // fontSize:"0.8em",
+                        // marginTop: 0,
+                        // marginBottom: 10,
+                        // marginLeft: 280,
                       }}
                       onClick={(event) => HandleClick(event, res)}
                     >
-                      See Details
+                      Details
                     </button>
                   </>
                 )}

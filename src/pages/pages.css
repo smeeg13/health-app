@@ -41,13 +41,6 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-@media screen and (max-width:100px) {
-  .boxQuiz{
-    width: 800px;
-    margin: auto;
-  }
-  
-}
 
 @media only screen and (max-width:1100px ) {
   .login_right{
@@ -56,8 +49,30 @@
 
   .login_left{
     margin: auto;
-    height: 70%;
-    width: 50%;
+    height: 100%;
+    width: 100%;
+  }
+
+  .logo_app {
+    padding-left: 10px;
+    padding-right: 10px;
+    float: left;
+    width: 50px;
+    margin-top: 13px;
+  }
+
+  .container_label2{
+    float: left;
+    width: 30%;
+    height: 100%;
+  }
+
+  .container_results2{
+    width: 40px;
+  }
+
+  .container_label3{
+    width: 30%;
   }
 
   .img_home{
@@ -66,14 +81,25 @@
   }
 
   .boxQuiz{
-    width: 70%;
+    width: 20px;
     margin: auto;
   }
-
 
   .survey_pic{
     display: none;
   }
+
+  .result1, .result2, .result3{
+    margin: auto;
+    width: 80%;
+  }
+
+  .dropdown{
+    margin-top: 10px;
+    width: 20px;
+  }
+
+
 
 }
 
@@ -111,6 +137,7 @@
   }
   
   .column_list {
+  margin-left: 2%;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -128,19 +155,19 @@
   }
 
   .remark_btn{
-    width: 170px;
+    width: 110px;
+    height: 40px;
+    margin-left: 10%;
     margin-bottom: 10px;
-    margin-left: 100px;
     border-radius:20px;
     border: 2px solid black;
 }
 
 
 .details_btn{
-  width: 170px;
-  margin-top: 10px;
-  margin-right: 50px;
-  margin-bottom: 10px;
+  width: 110px;
+  height: 40px;
+  margin-left: 10%;
   border-radius:20px;
   background-color:"blue";
   border: 2px solid black;
@@ -269,7 +296,6 @@ top: 0;
   justify-content: center;
 }
 
-
 .result1 {
 position: relative;
 margin-right: 20px;
@@ -343,9 +369,12 @@ width:145;
 
 
 .container_results2{
+  margin-bottom: 20px;
   float:right;
-  width: 335px;
+  width: 60%;
 }
+
+
 
 
 
@@ -452,6 +481,7 @@ padding-bottom: 0.1em;
 }
 
 .settings_title{
+  margin: auto;
 padding-top: 40px;
 }
 
@@ -674,7 +704,7 @@ transition: background .3s ease-in-out;
 .dropdown{
 margin-left: 20px;
 margin-right: 10px;
-width: auto;
+width: 35%;
 height: auto;
 background-color: #C1E1C1;
 padding: 5px 35px 5px 5px;
@@ -690,4 +720,11 @@ background-color: #C1E1C1;
 color: #1A523C;
 font-family: "Lexend Deca";
 border: 2px solid #1A523C;
+}
+
+.answers_type{
+  width: 60%;
+  margin-top:30px;
+  float:right; 
+  margin-right:50px;
 }

@@ -58,13 +58,13 @@ export default function RemarkDialog(props) {
 
   return (
     <>
-      <button className="remark_btn" style={{backgroundColor:"#77C5A6", height:"30px"}}
+      <button className="remark_btn" style={{backgroundColor:"#77C5A6",}}
         onClick={handleClickOpen}
       >
-        Faire une remarque
+        Send a remark
       </button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Remarque pour {props.user.nom}</DialogTitle>
+        <DialogTitle>Remark for {props.user.nom}</DialogTitle>
         <DialogContent>
           {/* <DialogContentText>Entrez vos remarques ci-dessous</DialogContentText> */}
           <TextField
@@ -73,7 +73,7 @@ export default function RemarkDialog(props) {
             autoFocus
             margin="dense"
             id="remarks"
-            label="Vos Remarques"
+            label="Your remarks"
             type="text"
             placeholder="Description ..."
             fullWidth
@@ -88,8 +88,8 @@ export default function RemarkDialog(props) {
           )}
         </div>
         <DialogActions>
-          <Button onClick={handleClose}>Annuler</Button>
-          <Button onClick={handleSubmitRemark}>Envoyer</Button>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleSubmitRemark}>Send</Button>
         </DialogActions>
       </Dialog>
     </>

@@ -12,7 +12,7 @@ function CircularProgressWithLabel(props) {
   let themeContext = useContext(ThemeContext);
 
   return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
+    <Box sx={{ position: "relative", display: "inline-flex"}}>
       <CircularProgress style={{color: themes[themeContext.theme].rangeToggle,
         }}
         variant="determinate"

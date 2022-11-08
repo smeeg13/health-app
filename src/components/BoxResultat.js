@@ -46,6 +46,9 @@ export default function BoxResultat(props) {
       resultatContext.maladies.cancer > resultatContext.maladies.nonInfarctus
     ) {
       setcancer(true);
+      setInfarctus(false);
+      setDiab(false);
+      setNonInf(false);
     }
 
     if (
@@ -54,6 +57,9 @@ export default function BoxResultat(props) {
       resultatContext.maladies.diabete > resultatContext.maladies.nonInfarctus
     ) {
       setDiab(true);
+      setcancer(false);
+      setInfarctus(false);
+      setNonInf(false);
     }
 
     if (
@@ -62,6 +68,9 @@ export default function BoxResultat(props) {
       resultatContext.maladies.infarctus > resultatContext.maladies.nonInfarctus
     ) {
       setInfarctus(true);
+      setDiab(false);
+      setcancer(false);
+      setNonInf(false);
     }
 
     if (
@@ -70,6 +79,9 @@ export default function BoxResultat(props) {
       resultatContext.maladies.nonInfarctus > resultatContext.maladies.infarctus
     ) {
       setNonInf(true);
+      setInfarctus(false);
+      setDiab(false);
+      setcancer(false);
     }
     //check lequel plus grand
     //set
