@@ -4,14 +4,9 @@
   height: 100%;
   width: 100%;
   position: fixed;
-  margin: 0;
-  padding: 0;
   z-index: 1;
   overflow-x: hidden;
 }
-
-
-/*Login page*/
 
 .login_left{
   align-items: center;
@@ -42,74 +37,11 @@
 }
 
 
-@media only screen and (max-width:1100px ) {
-  .login_right{
-    display: none;
-  }
-
-  .login_left{
-    margin: auto;
-    height: 100%;
-    width: 100%;
-  }
-
-  .logo_app {
-    padding-left: 10px;
-    padding-right: 10px;
-    float: left;
-    width: 50px;
-    margin-top: 13px;
-  }
-
-  .container_label2{
-    float: left;
-    width: 30%;
-    height: 100%;
-  }
-
-  .container_results2{
-    width: 40px;
-  }
-
-  .container_label3{
-    width: 30%;
-  }
-
-  .img_home{
-    height: 30%;
-    width: 40%;
-  }
-
-  .boxQuiz{
-    width: 20px;
-    margin: auto;
-  }
-
-  .survey_pic{
-    display: none;
-  }
-
-  .result1, .result2, .result3{
-    margin: auto;
-    width: 80%;
-  }
-
-  .dropdown{
-    margin-top: 10px;
-    width: 20px;
-  }
-
-
-
+.container_login{
+  height: 400px;  
+  margin-bottom: 5px;
+  text-align: center;
 }
-
-@media only screen and (max-width:600px){
-  .docs_pics{
-    display:none;
-  }
-  
-}
-
 
 /* Doctor page */
 
@@ -137,13 +69,12 @@
   }
   
   .column_list {
-  margin-left: 2%;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  flex-basis: 100%;
-  flex: 1;
-  }
+    position: relative;
+    display: flex;
+    margin-left: 120px;
+    flex-basis: 100%;
+    flex: 1;
+    }
   
 
   .vertical-center {
@@ -154,27 +85,8 @@
   transform: translateY(-50%);
   }
 
-  .remark_btn{
-    width: 110px;
-    height: 40px;
-    margin-left: 10%;
-    margin-bottom: 10px;
-    border-radius:20px;
-    border: 2px solid black;
-}
 
-
-.details_btn{
-  width: 110px;
-  height: 40px;
-  margin-left: 10%;
-  border-radius:20px;
-  background-color:"blue";
-  border: 2px solid black;
-}
-
-
-  /* Survey page */
+  /* QUIZ */
 
 .container_quiz{
   position: relative;
@@ -296,6 +208,7 @@ top: 0;
   justify-content: center;
 }
 
+
 .result1 {
 position: relative;
 margin-right: 20px;
@@ -324,11 +237,6 @@ max-width: 450px;
 border: 1px solid grey;
 max-height: 410px;
 background-color: #eafaf1;
-}
-
-.risk_img{
-  margin: auto;
-  height:100px;
 }
 
 
@@ -369,12 +277,14 @@ width:145;
 
 
 .container_results2{
-  margin-bottom: 20px;
+  margin-top: 20px;
   float:right;
-  width: 60%;
+  width: 335px;
 }
 
-
+.risk_img{
+  width: 120px;
+}
 
 
 
@@ -430,15 +340,6 @@ text-align: center;
   font-size: 1em;
 }
 
-
-/*Historic page */
-.text_results {
-  font-family: "Lexend Deca";
-  margin-bottom: 15px;
-  font-size: 1em; 
-}
-
-
 /* ------ SETTINGS PAGE --------- */
 
 
@@ -481,7 +382,6 @@ padding-bottom: 0.1em;
 }
 
 .settings_title{
-  margin: auto;
 padding-top: 40px;
 }
 
@@ -562,30 +462,19 @@ font-size: 1.2em;
 }
 
 .boxQuiz{
+  margin: auto;
   align-items: center;
   text-align: center;
   position: relative;
   display: inline-block;
   margin-left: 100px;
   margin-top: 30px;
+  height: 530px;
   min-width: 700px;
-  max-width: 1000px;
-  max-height: 550px;
   background-color: #a9cce3;
   /* border: 2px solid white; */
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
-position: relative;
-margin: auto;
-display: inline-block;
-margin-top: 15px;
-max-width: 1000px;
-height: 550px;
-background-color: #eafaf1;
-padding-bottom: 5px;
-box-shadow: #054A2F -5px 5px, #1A523C -10px 10px, #77C5A6 -15px 15px, #C1E1C1 -20px 20px, #bbb -25px 25px;
+  box-shadow: #054A2F -5px 5px, #1A523C -10px 10px, #77C5A6 -15px 15px, #C1E1C1 -20px 20px, #bbb -25px 25px;
 }
-
 
 
 .questions{
@@ -597,16 +486,13 @@ font-size: 0.9em;
 font-family: "Lexend Deca";
 }
 
-.rangevalue{
-  margin-left: 5px;
-}
-
 
 .btn_previous, .btn_next{
 position: relative;
 margin-bottom: 10px;
-margin-top: 20px;
+margin-top: 30px;
 display: inline-block;
+transition: all 0.2s ease-in;
 position: relative;
 overflow: hidden;
 z-index: 1;
@@ -618,6 +504,13 @@ border-radius: 20px; /*to round the corner of the shape */
 background-color: #e8e8e8;
 border: 1px solid #77C5A6;
 }
+
+.btn_previous:active, .btn_next:active {
+color: #666;
+box-shadow: inset 4px 4px 12px #c5c5c5,
+           inset -4px -4px 12px #ffffff;
+}
+
 
 .btn_next:hover, .btn_previous:hover {
 color: white;
@@ -646,7 +539,6 @@ margin-left: 20px;
 float: right;
 margin-right: 20px;
 }
-
 
 input,
 output {
@@ -704,7 +596,8 @@ transition: background .3s ease-in-out;
 .dropdown{
 margin-left: 20px;
 margin-right: 10px;
-width: 35%;
+width: 200px;
+margin-bottom: 10px;
 height: auto;
 background-color: #C1E1C1;
 padding: 5px 35px 5px 5px;
@@ -720,11 +613,4 @@ background-color: #C1E1C1;
 color: #1A523C;
 font-family: "Lexend Deca";
 border: 2px solid #1A523C;
-}
-
-.answers_type{
-  width: 60%;
-  margin-top:30px;
-  float:right; 
-  margin-right:50px;
 }

@@ -25,7 +25,7 @@ export default function BoxRes2(props) {
             {/* <output className="rangevalue">{slideValue}</output> */}
             </label>
             <br />
-            <label className="label_results" htmlFor="fume">Smoker : </label>
+            <label className="label_results" style={{marginTop:"30px"}} htmlFor="fume">Smoker : </label>
             <br />
             <label className="label_results" htmlFor="alim">Alimentation : </label>
             <br />
@@ -36,7 +36,7 @@ export default function BoxRes2(props) {
 
           <div className="container_results2"> 
 
-          <input className="answers_type" style={{ background: themes[themeContext.theme].rangeColor }}
+          <input className="answers_type" style={{ background: themes[themeContext.theme].rangeColor, }}
               type="range"
               id={props.questions[3].resName}
               name={props.questions[3].resName}

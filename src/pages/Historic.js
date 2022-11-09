@@ -113,7 +113,7 @@ export default function Historic(props) {
                         <li key={res.id}>
                           <div className="row  center">
                             <div className="column_list center">
-                              <h3 className="text" style={{ color: themes[themeContext.theme].textcolor, marginLeft:"50px"}}> Résultat du : {res.id}</h3>
+                              <h3 className="text" style={{ color: themes[themeContext.theme].textcolor}}> Résultat du : {res.id}</h3>
                             </div>
                               <button
                                 name="Details"
@@ -124,11 +124,12 @@ export default function Historic(props) {
                                     themes[themeContext.theme].button,
                                   color:
                                     themes[themeContext.theme].textcolorbtn,
-                                  width: 120,
+                                  width: "100px",
+                                  height:"40px",
                                   fontSize: "0.8em",
                                   marginTop: "10px",
                                   marginBottom: 10,
-                                  marginRight:"100px",
+                                  marginRight:"150px",
                                 }}
                                 onClick={(event) => openDetails(event, res)}
                               >

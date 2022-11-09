@@ -76,6 +76,7 @@ export function BoxQuestion(props) {
             <button className="btn_next" onClick={props.handleNextQuestionnaire} style={{
               backgroundColor: themes[themeContext.theme].button,
               color: themes[themeContext.theme].textcolorbtn,
+              marginTop:"-20px"
             }}>
               next
             </button>
@@ -86,7 +87,7 @@ export function BoxQuestion(props) {
             }
               <div>
                 <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
-                  Save Modifications
+                  Save survey
                 </button>
                 
               </div>
