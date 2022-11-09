@@ -58,7 +58,7 @@ export default function RemarkDialog(props) {
 
   return (
     <>
-      <button className="remark_btn" style={{backgroundColor:"#77C5A6",}}
+     <button className="remark_btn" style={{backgroundColor:"#77C5A6", borderRadius:"20px", height:"30px"}}
         onClick={handleClickOpen}
       >
         Send a remark
