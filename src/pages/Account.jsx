@@ -328,7 +328,7 @@ function Account(props) {
                               id="docteur_requested"
                               value={docteurSelectForRequest}
                               onChange={(event) => HandleDocteurSelect(event)}
-                              style={{ minWidth: 200}}
+                              style={{ minWidth: "150px", marginLeft:"100px"}}
                             >
                               <option key={0} value={"Select a doctor"}>
                                 Choose a doctor
@@ -361,10 +361,10 @@ function Account(props) {
                         </div>
                         <div className="column_list center">
                           <button
-                            className="btn"
+                            className="btn send"
                             style={{
-                              margin: 0,
-                              width: 170,
+                              margin: "auto",
+                              width: "100px",
                               backgroundColor:
                                 themes[themeContext.theme].button,
                               color: themes[themeContext.theme].textcolorbtn,
@@ -372,7 +372,7 @@ function Account(props) {
                             }}
                             onClick={SendRequest}
                           >
-                            Send Request
+                            Send 
                           </button>
                           <div>
                             {confirmRequest === "Resquest Sent" ? (
@@ -486,6 +486,7 @@ const Container2 = styled.div`
   }
 
   .left {
+    
     align-items: center;
     justify-content: center;
     text-align: center;
