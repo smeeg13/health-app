@@ -97,7 +97,7 @@ class AppWrapper extends React.Component {
     }
     if (target.type === "range") {
       this.setState((prevState) => ({
-        resultat: { ...prevState.resultat, [name]: value },
+        resultat: { ...prevState.resultat, [name]: parseInt(value) },
       }));
     }
     if (target.type === "textbox") {

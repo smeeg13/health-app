@@ -20,23 +20,23 @@ export default function BoxRes2(props) {
       ) : (
         <form onSubmit={props.handleFormSubmit}>
           <div className="container_label2">
-            <label className="label_results" htmlFor="poids">Poids : 
+            <label className="label_results" htmlFor="poids">Weight : {slideValue}kg
 
-            {/* <output className="rangevalue">{slideValue}</output> */}
+            {/* <output className="rangevalue" style={{float:"left"}}>{slideValue}kg</output> */}
             </label>
             <br />
-            <label className="label_results" htmlFor="fume">Fumeur : </label>
+            <label className="label_results" style={{marginTop:"30px"}} htmlFor="fume">Smoker : </label>
             <br />
             <label className="label_results" htmlFor="alim">Alimentation : </label>
             <br />
             <label className="label_results" htmlFor="sport">Sport : </label>
             <br />
-            <label className="label_results">Alcool : </label>
+            <label className="label_results">Alcohol : </label>
           </div>
 
           <div className="container_results2"> 
 
-          <input className="answers_type" style={{marginTop:"30px", float:"right", marginRight:"70px", background: themes[themeContext.theme].rangeColor }}
+          <input className="answers_type" style={{ background: themes[themeContext.theme].rangeColor, }}
               type="range"
               id={props.questions[3].resName}
               name={props.questions[3].resName}
@@ -47,6 +47,7 @@ export default function BoxRes2(props) {
               onInput={handleChange}
               step="1"
             />
+            
             <br></br>
             <br></br>
             <ToggleButton
@@ -56,11 +57,12 @@ export default function BoxRes2(props) {
               disabled={false}
             />
 
-            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px", color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
+            <select className="dropdown" style={{ color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
               name={props.questions[13].resName}
               id={props.questions[13].resName}
               value={resultatContext.resultat.alim}
               onChange={props.handleFormInputChange}
+              
             >
               <option
                 value={getObjKey(
@@ -96,7 +98,7 @@ export default function BoxRes2(props) {
               </option>
             </select>
         
-            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px", color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
+            <select className="dropdown" style={{color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
               name={props.questions[14].resName}
               id={props.questions[14].resName}
               value={resultatContext.resultat.sport}
@@ -136,7 +138,7 @@ export default function BoxRes2(props) {
               </option>
             </select>
         
-            <select className="dropdown" style={{width:"300px", height:"30px", marginTop:"10px", float:"right", marginRight:"10px", color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
+            <select className="dropdown" style={{ color: themes[themeContext.theme].textcolor, backgroundColor:themes[themeContext.theme].dropdown_results}}
               name={props.questions[15].resName}
               id={props.questions[15].resName}
               value={resultatContext.resultat.alcool}

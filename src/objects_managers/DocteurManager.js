@@ -52,13 +52,13 @@ export async function NewRequest(docteur, id_user, setMessage, setRemarks) {
       docteur.id_user,
       false
     );
-    let remarkstrg = "Demande envoyée à " + docteur.nom;
+    let remarkstrg = "A request has been sent to " + docteur.nom;
     await SaveOneFieldInDB(id_user, "remarks", remarkstrg, false);
     setRemarks(remarkstrg);
 
-    setMessage("Demande Envoyée");
+    setMessage("Resquest Sent");
   } catch (e) {
-    setMessage("Erreur, merci de réessayer plus tard");
+    setMessage("Error, please try again later");
   }
 }
 

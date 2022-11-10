@@ -84,14 +84,14 @@ export default function Login() {
                   color: themes[themeContext.theme].textcolor,
               }}
           >
-            Vous êtes nouveau ?{" "}
+            You are new here ?{" "}
               <Link
                   to="/Register"
                   style={{
                       color: themes[themeContext.theme].textcolor,
                   }}
               >
-              clickez ici pour vous inscrire !
+              Click here to register !
             </Link>{" "}
           </p>
                     {InformationMessage(message)}
@@ -112,7 +112,7 @@ export default function Login() {
                         color: themes[themeContext.theme].textcolor,
                     }}
                 >
-                    Bienvenue
+                    Welcome
                 </h2>
                 <img src={login} alt="login" style={{width: "250px"}}></img>
             </div>
@@ -148,7 +148,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "red"}}>
-                            Mauvais mot de passe
+                            Wrong password
                         </b>
                     </p>
                 </div>
@@ -172,7 +172,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "lightgreen"}}>
-                            Compte crée
+                            Account created
                         </b>
                     </p>
                 </div>
@@ -184,7 +184,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "red"}}>
-                            Cet email est déjà utilisé
+                            Email already used
                         </b>
                     </p>
                 </div>
@@ -196,7 +196,7 @@ export function InformationMessage(message) {
                 <div>
                     <p>
                         <b style={{backgroundColor: "orangered"}}>
-                            L'utilisateur n'existe pas, inscrivez-vous svp
+                            The user doesn't exist, please register!
                         </b>
                     </p>
                 </div>

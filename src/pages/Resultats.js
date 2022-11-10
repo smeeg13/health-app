@@ -76,7 +76,7 @@ export default function Resultats(props) {
   return (
     <>
       {props.last && (
-        <h3 style={{marginTop:"1px", color: themes[themeContext.theme].textcolor}}>Vos dernières réponses du {resultatContext.resultat.id_resultats}</h3>
+        <h3 style={{marginTop:"1px", color: themes[themeContext.theme].textcolor}}>Your lasts responses of {resultatContext.resultat.id_resultats}</h3>
       )}
       {props.fromHistoric && (
         <div>
@@ -91,7 +91,7 @@ export default function Resultats(props) {
             }}
             onClick={props.closeDetails}
           >
-            Close Details
+            Close details
           </Button>{" "}
           <br/>
           <h3 style={{ color: themes[themeContext.theme].textcolor}}>Responses of the {resultatContext.resultat.id_resultats}</h3>
@@ -101,7 +101,7 @@ export default function Resultats(props) {
         <div className="box1" style={{margin:-10}}>
           {/* Box for data questionnaire 1-2  */}
           <div className="container result1" style={{
-          backgroundColor: themes[themeContext.theme].background,
+          backgroundColor: themes[themeContext.theme].background_quiz,
           color: themes[themeContext.theme].foreground,
         }}>
             <TitleBox 
@@ -117,7 +117,7 @@ export default function Resultats(props) {
           </div>
           {/* Box for data questionnaire 3 */}
           <div className="container result2" style={{
-          backgroundColor: themes[themeContext.theme].background,
+          backgroundColor: themes[themeContext.theme].background_quiz,
           color: themes[themeContext.theme].foreground,
         }}>
             <TitleBox
@@ -133,14 +133,11 @@ export default function Resultats(props) {
           </div>
           {/* Box for Resultat  */}
           <div className="container result3" style={{
-        backgroundColor: themes[themeContext.theme].background,
+        backgroundColor: themes[themeContext.theme].background_quiz,
         color: themes[themeContext.theme].foreground,
       }}>
-            <TitleBox
-              title="Yours risks"
-              my_avatar={props.currentUser.avatar}
-            />
-            <BoxResultat maladies={resultatContext.maladies} />
+        
+            <BoxResultat maladies={resultatContext.maladies} resultat={resultatContext.resultat} currentUser={props.currentUser} />
           </div>
         </div>
 
@@ -168,7 +165,7 @@ function TitleBox(props) {
 
   return (
     <div className="results_upper">
-      <h2>{props.title}</h2>
+      <h2 className="survey_title">{props.title}</h2>
       <div>
         {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
         <img className="my_avatar" src={props.my_avatar} alt="AvatarUser" />

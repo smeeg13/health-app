@@ -48,19 +48,14 @@ export default class Navbar extends React.Component {
               <>
                 <li>
                   <Link to="/account" style={{ textDecoration: "none" }}>
-                    Mon compte
+                   My account
                   </Link>
                 </li>
                 <li>
                   <Link to="/historic" style={{ textDecoration: "none" }}>
-                    Historique
+                    Historic
                   </Link>
                 </li>
-                {/* <li>
-                  <Link to="/survey" style={{ textDecoration: "none" }}>
-                    Questionnaire
-                  </Link>
-                </li> */}
                 <li>
                   <Link to="/" style={{ textDecoration: "none" }}>
                     Home
@@ -140,6 +135,14 @@ const Container = styled.div`
     text-transform: uppercase;
     transition: 0.5s background-size;
   }
+
+  @media only screen and (max-width:900px ) {
+  .navbar ul li{
+    font-size:70%;
+  }
+
+}
+
 
   .navbar ul li:hover {
     background-size: 75% 0.1em;

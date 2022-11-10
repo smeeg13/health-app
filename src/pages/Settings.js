@@ -4,12 +4,16 @@ import { db } from "../initFirebase";
 import { useState, useContext } from "react";
 import { ThemeContext, themes } from "../Context";
 // import settings from "./img/settingss.png";
+import { useNavigate } from "react-router-dom";
+import RedirectAlert from "../components/RedirectAlert";
 
-export default function Settings() {
+export default function Settings(props) {
   let themeContext = useContext(ThemeContext);
+  const navigate = useNavigate();
 
   //get the collection of variables
   const [variables, setVariables] = useState([]);
+  const [isInvite, setIsInvite] = useState(undefined);
 
   useEffect(() => {
     const getVariables = async () => {
@@ -27,38 +31,61 @@ export default function Settings() {
     getVariables();
   }, []);
 
-  return (
-    <div
-      className="settings_page"
-      style={{
-        backgroundColor: themes[themeContext.theme].background_right,
-        color: themes[themeContext.theme].foreground,
-      }}
-    >
-      <h1
-        className="settings_title"
-        style={{
-          color: themes[themeContext.theme].textcolor, textAlign:"center"
-        }}
-      >
-        Settings
-      </h1>
+  useEffect(() => {
+    if (props.currentUser.nom_role !== "Admin") {
+      setIsInvite(true);
+    } else {
+      setIsInvite(false);
+    }
+  }, [props.currentUser.nom_role]);
 
-      {/* <img src={settings} style={{height:"350px", float:"right", paddingRight:"100px", position:"relative"}}></img> */}
-      {variables.map((variable) => {
-        return (
-          <div key={variable.id}>
-            <li
-              style={{
-                color: themes[themeContext.theme].textcolor,
-              }}
-            >
-              <VariablesForm data={variable}></VariablesForm>
-            </li>
-          </div>
-        );
-      })}
-    </div>
+  useEffect(() => {
+    setTimeout(() => {
+      if(isInvite){
+        return navigate("/");
+        }
+    }, 5000);
+  }, [isInvite, navigate]);
+
+  return (
+    <>
+      {isInvite ? (
+        <RedirectAlert IsAdmin={true}/>
+      ) : (
+        <div
+          className="settings_page"
+          style={{
+            backgroundColor: themes[themeContext.theme].background_right,
+            color: themes[themeContext.theme].foreground,
+          }}
+        >
+          <h1
+            className="settings_title"
+            style={{
+              color: themes[themeContext.theme].textcolor,
+              textAlign: "center",
+            }}
+          >
+            Settings
+          </h1>
+
+          {/* <img src={settings} style={{height:"350px", float:"right", paddingRight:"100px", position:"relative"}}></img> */}
+          {variables.map((variable) => {
+            return (
+              <div key={variable.id}>
+                <li
+                  style={{
+                    color: themes[themeContext.theme].textcolor,
+                  }}
+                >
+                  <VariablesForm data={variable}></VariablesForm>
+                </li>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 }
 
@@ -120,11 +147,12 @@ function VariablesForm({ data }) {
   };
 
   return (
-    <div className="settings_container" style={{alignItems:"center"}}>
+    <div className="settings_container" style={{ alignItems: "center" }}>
       <h4
         className="variable_text"
         style={{
-          color: themes[themeContext.theme].textcolor, textDecoration:"none"
+          color: themes[themeContext.theme].textcolor,
+          textDecoration: "none",
         }}
       >
         {data.nom}{" "}
@@ -146,7 +174,7 @@ function VariablesForm({ data }) {
                         ("")
                     }*/}
           <div>
-            <h3 className="settings_label" style={{textDecoration:"none"}}>
+            <h3 className="settings_label" style={{ textDecoration: "none" }}>
               {" "}
               Valeur normale {api_variable_normale}
             </h3>

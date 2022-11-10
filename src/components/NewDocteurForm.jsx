@@ -137,12 +137,12 @@ export default function NewDocteurForm({ handleSubmit }) {
                 <span className="error">{errors.repassword}</span>
               )}
             </div>
-            <button
+            <button style={{margin:"auto"}}
               type="submit"
               className="btn btn_submit"
               disabled={!isValid}
             >
-              Register New Doctor
+              Register
             </button>
           </form>
         );

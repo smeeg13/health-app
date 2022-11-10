@@ -22,7 +22,7 @@ export default function HomeGuest() {
             color: themes[themeContext.theme].textcolor,
           }}
         >
-          Bienvenue chez HealthApp
+          Welcome in HealthApp
         </h2>
         <p
           className="center text"
@@ -30,12 +30,12 @@ export default function HomeGuest() {
             color: themes[themeContext.theme].textcolor,
           }}
         >
-          Health Prevention est une application développée par <br></br>
-          Mégane, Emilie, Thomas et Abdullah.
+          Health Prevention is an application developped by <br></br>
+          Mégane, Emilie, Thomas and Abdullah.
           <br></br>
-          Vous devez remplir un questionnaire de santé et selon vos réponses 
+          You must fill a health survey and regarding your answers 
           <br></br>
-          nous vous fournirons le résultats de votre état de santé. 
+          we will provide you your health condition result. 
         </p>
   
         <Link to="/survey">
@@ -46,7 +46,7 @@ export default function HomeGuest() {
               color: themes[themeContext.theme].textcolorbtn,
             }}
           >
-            Remplir un questionnaire
+            Take a survey
           </button>
         </Link>
         <br />
@@ -59,7 +59,7 @@ export default function HomeGuest() {
               color: themes[themeContext.theme].textcolorbtn,
             }}
           >
-            S'inscrire
+            Register
           </button>
         </Link>
         <span> </span>
@@ -77,6 +77,7 @@ export default function HomeGuest() {
         <br />
         <img
           src={home_pic}
+          className="img_home"
           alt="HomePics"
           style={{ height: "300px", marginTop: "-100px", float: "right" }}
         ></img>

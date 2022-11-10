@@ -80,7 +80,7 @@ export default function RegisterDocteur() {
           className="click_here"
           style={{  color: themes[themeContext.theme].textcolor }}
         >
-          <Link to="/">Back to Home</Link>{" "}
+          <Link  style={{color: themes[themeContext.theme].textcolor }} to="/">Back to home</Link>{" "}
         </p>
         <img
         alt="docs_pics"
@@ -89,7 +89,7 @@ export default function RegisterDocteur() {
           style={{
             width: "200px",
             float: "right",
-            marginTop: "-100px",
+            marginTop: "-110px",
             position: "relative",
           }}
         ></img>

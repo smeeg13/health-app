@@ -22,7 +22,7 @@ export const ResultatContext = React.createContext({
 /* Themes to use in the App */
 export const themes = {
     light: {
-        background: "#fefefe",
+        background: "white",
         background_quiz:"#eafaf1"
         
     },

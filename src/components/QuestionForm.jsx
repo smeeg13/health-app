@@ -5,6 +5,7 @@ import survey_pic from "../pages/img/survey_pic.png"
 import { ResultatContext } from "../Context";
 import { getObjKey } from "../utils/tools";
 
+
 /**
  * function to display all the informations about a question
  * the title of the question, how you can answer it
@@ -16,7 +17,7 @@ export function BoxQuestion(props) {
 
   return (
     <div className="container" style={{
-      backgroundColor: themes[themeContext.theme].background
+      backgroundColor: themes[themeContext.theme].background,
     }}>
       <div>
         <div className="boxQuiz" style={{
@@ -24,12 +25,12 @@ export function BoxQuestion(props) {
           color: themes[themeContext.theme].foreground,
         }}>
           <h2 className="survey_title" style={{
-            color: themes[themeContext.theme].textcolor
+            color: themes[themeContext.theme].textcolor,
           }}>{props.titles[props.index - 1]}</h2>
 
           {props.questions.map(q =>
             <div key={q.resName} style={{
-              color: themes[themeContext.theme].textcolor
+              color: themes[themeContext.theme].textcolor,
             }}>
               {q.typeAnswer === 'textbox' && <FormInput
                 name={q.resName}
@@ -68,52 +69,54 @@ export function BoxQuestion(props) {
             </div>
           )}
 
-            {/* Here, we manage when we display which button to
+          {/* Here, we manage when we display which button to
                 navigate between the different survey
             */}
           {props.index === 1 &&
             <button className="btn_next" onClick={props.handleNextQuestionnaire} style={{
               backgroundColor: themes[themeContext.theme].button,
               color: themes[themeContext.theme].textcolorbtn,
+              marginTop:"-20px"
             }}>
-              suivant
+              next
             </button>
           }
           {props.index === props.totalQues &&
-            <>
-              <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
-                Save Modifications
-              </button>
+            <>{
+
+            }
+              <div>
+                <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
+                  Save survey
+                </button>
+                
+              </div>
+
               <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
                 backgroundColor: themes[themeContext.theme].button,
                 color: themes[themeContext.theme].textcolorbtn,
               }}>
-                retour
+                back
               </button>
             </>
           }
-          {props.index !== 1 & props.index !== props.totalQues &&
+          {props.index !== 1 && props.index !== props.totalQues &&
             <>
               <button className="btn_next" onClick={props.handleNextQuestionnaire} style={{
                 backgroundColor: themes[themeContext.theme].button,
                 color: themes[themeContext.theme].textcolorbtn,
               }}>
-                suivant
+                next
               </button>
               <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
                 backgroundColor: themes[themeContext.theme].button,
                 color: themes[themeContext.theme].textcolorbtn,
               }}>
-                retour
+                back
               </button>
             </>
           }
         </div>
-        <img
-          src={survey_pic}
-          alt="survey_pic"
-          style={{ height: "300px", float: "right", marginTop: "280px" }}
-        />
       </div>
     </div>
   );
@@ -127,15 +130,16 @@ function Range(props) {
   const resultatContext = useContext(ResultatContext);
   const [slideValue, setSlideValue] = useState(resultatContext.resultat[props.question.resName]);
   const themeContext = useContext(ThemeContext);
-  
+
   const handleChange = (event) => {
     setSlideValue(event.target.value);
   };
 
   return (
     <div>
-      <h3 className="questions">{props.ques}
-        <input className="answers_type" style={{ background: themes[themeContext.theme].rangeColor }}
+      <h3 className="questions" style={{ marginTop: "30px" }}>{props.ques}
+
+        <input style={{ background: themes[themeContext.theme].rangeColor }}
           type="range"
           name={props.question.resName}
           min={props.question.min}
@@ -192,7 +196,7 @@ function CheckBoxForm(props) {
           checked={props.value}
           onChange={props.handleFormInputChange}
         />
-      </h3>
+        </h3>
     </div>
   )
 }
@@ -228,7 +232,7 @@ function FormInput({
             color: themes[themeContext.theme].rangeToggle,
           }}
         />
-      </h3>
+        </h3>
     </div>
   );
 }
