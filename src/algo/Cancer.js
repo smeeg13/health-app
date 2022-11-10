@@ -27,7 +27,8 @@ async function getVariables(){
 
 export default function riskCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) {
   getVariables();
-  return sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) + baseRisk;
+  let sommeFinal =  sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) + baseRisk;
+  return sommeFinal<0 ? 0 : sommeFinal;
 }
 
 function sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) {

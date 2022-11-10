@@ -114,6 +114,7 @@ class AppWrapper extends React.Component {
     newResult = setChol(newResult);
     let newMaladies = new Maladies();
     newMaladies = calculate(newResult);
+    
     this.setState(() => ({
       maladies: {
         cancer: newMaladies.cancer,
