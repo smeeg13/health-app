@@ -20,6 +20,9 @@ export default function BoxResultat(props) {
   const [resultsDiab, setDiab] = useState(false);
   const [resultscancer, setcancer] = useState(false);
 
+  //to display an image of 
+  //the risks regarding the results
+
   useEffect(() => {
     if (resultatContext.maladies.infarctus > 2) {
       setIsGood(false);
@@ -77,8 +80,7 @@ export default function BoxResultat(props) {
       setDiab(false);
       setcancer(false);
     }
-    //check lequel plus grand
-    //set
+ 
   }, [
     resultatContext.maladies.infarctus,
     resultatContext.maladies.diabete,
