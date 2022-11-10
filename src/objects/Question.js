@@ -1,5 +1,5 @@
 export class Question {
-  constructor(quId, min, max, question, val_predefined, val_predefined2, valeurs_possibles, typeAnswer,resName, unites,step) {
+  constructor(quId, min, max, question, val_predefined, val_predefined2, valeurs_possibles, typeAnswer,resName, unites,step,resName2,min2,max2) {
     this.min = min;
     this.max = max;
     this.question = question;
@@ -10,6 +10,9 @@ export class Question {
     this.resName = resName;
     this.unites = unites;
     this.step = step;
+    this.resName2=resName2;
+    this.min2=min2;
+    this.max2=max2;
   }
 }
 
@@ -28,6 +31,9 @@ export const questionConverter = {
       resName: question.resName,
       unites: question.unites,
       step: question.step,
+      resName2: question.resName2,
+      min2: question.min2,
+      max2: question.max2,
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -44,6 +50,9 @@ export const questionConverter = {
       data.resName,
       data.unites,
       data.step,
+      data.resName2,
+      data.min2,
+      data.max2,
       );
   },
 };

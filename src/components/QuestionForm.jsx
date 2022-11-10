@@ -75,18 +75,18 @@ export function BoxQuestion(props) {
           }
           {props.index === props.totalQues &&
             <>
-             <div>
-             <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
-                backgroundColor: themes[themeContext.theme].button,
-                color: themes[themeContext.theme].textcolorbtn,
-              }}>
-                back
-              </button>
-             </div>
-             <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
+              <div>
+                <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
+                  backgroundColor: themes[themeContext.theme].button,
+                  color: themes[themeContext.theme].textcolorbtn,
+                }}>
+                  back
+                </button>
+              </div>
+              <button className="btn btnQuiz" type="submit" onClick={props.handleFormSubmit}>
                 Save survey
               </button>
-            
+
             </>
           }
           {props.index !== 1 && props.index !== props.totalQues &&
@@ -123,20 +123,46 @@ function Range(props) {
   return (
     <div >
       <h3 className="questions" >{props.ques}
-        <input style={{ background: themes[themeContext.theme].rangeColor }}
-          type="range"
-          name={props.question.resName}
-          min={props.question.min}
-          max={props.question.max}
-          value={props.value}
-          onChange={props.handleFormInputChange}
-          step={props.question.step}
-        />
-        <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{resultatContext.resultat[props.question.resName]} {props.question.unites}</output>
+        {props.question.resName !== 'yesChol' ?
+          <div>
+            <input style={{ background: themes[themeContext.theme].rangeColor }}
+              type="range"
+              name={props.question.resName}
+              min={props.question.min}
+              max={props.question.max}
+              value={props.value}
+              onChange={props.handleFormInputChange}
+              step={props.question.step}
+            />
+            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{resultatContext.resultat[props.question.resName]} {props.question.unites}</output>
+          </div>
+          :
+          <div>
+            <input style={{ background: themes[themeContext.theme].rangeColor }}
+              type="range"
+              name={props.question.resName}
+              min={props.question.min}
+              max={props.question.max}
+              value={props.value}
+              onChange={props.handleFormInputChange}
+              step={props.question.step}
+            />
+            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{resultatContext.resultat[props.question.resName]} Chol {props.question.unites}</output>
+            <input style={{ background: themes[themeContext.theme].rangeColor }}
+              type="range"
+              name={props.question.resName2}
+              min={props.question.min2}
+              max={props.question.max2}
+              value2={props.value2}
+              onChange={props.handleFormInputChange}
+              step={props.question.step}
+            />
+            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{resultatContext.resultat[props.question.resName2]} Hdl {props.question.unites}</output>
+           
+          </div>
+    }
 
       </h3>
-
-
     </div>
   )
 }
@@ -178,11 +204,11 @@ function CheckBoxForm(props) {
   const handleClick = () => {
     setIsShown(current => !current);
   };
-  
+
   return (
     <div>
       <h3 className="questions">{props.ques}
-      <input className="answers_type"
+        <input className="answers_type"
           id={props.id}
           name={props.name}
           type="checkbox"
@@ -191,14 +217,18 @@ function CheckBoxForm(props) {
           onClick={handleClick}
         />
         {((isShown && listSecondChoice.includes(props.name)) || resultatContext.resultat[props.question.resName] > 1) && (
-          <div>
-            <Range
-              question={props.question}
-              value={resultatContext.resultat[props.question.resName]}
-              handleFormInputChange={props.handleFormInputChange}
-            />
-          </div>)}
-       
+          <>
+            <div>
+              <Range
+                question={props.question}
+                value={resultatContext.resultat[props.question.resName]}
+                handleFormInputChange={props.handleFormInputChange}
+              />
+            </div>
+          </>
+        )
+        }
+
       </h3>
     </div>
   )

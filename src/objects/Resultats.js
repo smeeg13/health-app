@@ -5,18 +5,30 @@ import riskInfarctus from '../algo/Infarctus';
 import correctionAFINF from '../algo/NonInfarctus';
 import { Maladies } from './Maladies';
 
-export function calculate(resultat) {
-  //Arondir *100
-  //% returned risk
+
+export function calculate(resultat, variables) {
+  console.log("variables calculate: ", variables);
+
   let res = resultat;
+  const alcool = res.alcool === 0 ? variables[8].val_normale : res.alcool;
+  const afcancer = res.afcancer === 0 ? variables[13].val_normale : res.afcancer;
+  const fume = res.fume === 0 ? variables[1].val_normale : res.fume;
+  const bmi = res.bmi === 0 ? variables[3].val_normale : res.bmi;
+  const sport = res.sport === 0 ? variables[9].val_normale : res.sport;
+  const alim = res.alim === 0 ? variables[12].val_normale : res.alim;
+  const syst = res.syst === 0 ? variables[7].val_normale : res.syst;
+  const diab = res.diab === 0 ? variables[5].val_normale : res.diab;
+  const inf = res.inf === 0 ? variables[2].val_normale : res.inf;
+  const chol = res.chol === 0 ? variables[10].val_normale : res.inf;
+  const hdl = res.hdl === 0 ? variables[6].val_normale : res.hdl;
+  const afinf = res.afinf === 0 ? variables[4].val_normale : res.afinf;
   let maladies = new Maladies();
   let sumDiab = sumPointDiabete(res);
   maladies.diabete = riskDiabete(sumDiab, res.sexe);
+  maladies.cancer = 100 * riskCancer(afcancer,fume,bmi,sport,alcool,alim);
 
-  maladies.cancer = 100 * riskCancer(res.afcancer, res.fume, res.bmi, res.sport, res.alcool, res.alim);
-  maladies.infarctus =
-    100 * riskInfarctus(res.age, res.sexe, res.fume, res.syst, res.diab, res.inf, res.chol, res.hdl);
-  maladies.nonInfarctus = 100 * correctionAFINF(res.age, res.fume, res.syst, res.chol, res.hdl, res.sexe, res.afinf);
+  maladies.infarctus = 100 * riskInfarctus(res.age, res.sexe, fume, syst, diab, inf, chol, hdl);
+  maladies.nonInfarctus = 100 * correctionAFINF(res.age, fume, syst, chol, hdl, res.sexe, afinf);
   return maladies;
 }
 
@@ -52,63 +64,79 @@ export function sumPointDiabete(resultat) {
   return pts;
 }
 
-export function setBmi(resultat) {
-  let res = resultat;
+export function setBmi(resultat, variables) {
+  const res = resultat;
+
   if (res.poids !== 0 && res.taille !== 0) {
     res.bmi = res.poids / (res.taille / 100 * (res.taille / 100));
   } else {
-    res.bmi = 0;
+    res.bmi = variables[3].val_normale;
   }
   return res;
 }
 
-export function setSyst(resultat) {
-  let res = resultat;
+export function setSyst(resultat, variables) {
+  const res = resultat;
 
   if (res.yesSyst === 1) {
-    res.syst = 150;
-    res.yesSyst = 150;
+    res.syst = variables[7].val_predefinie;
+    res.yesSyst = variables[7].val_predefinie;
   } else {
-    res.syst = 110;
+    res.syst = variables[7].val_normale;
   }
 
-  if (res.yesSyst !== 1 && res.yesSyst !== 0){
+  if (res.yesSyst !== 1 && res.yesSyst !== 0) {
     res.syst = res.yesSyst;
   }
 
   return res;
 }
 
-export function setGlyc(resultat) {
-  let res = resultat;
+export function setGlyc(resultat, variables) {
+  const res = resultat;
 
   if (res.yesGlyc === 1) {
-    res.glyc = 5.6;
-    res.yesGlyc = 5.6;
+    res.glyc = variables[0].val_predefinie;
+    res.yesGlyc = variables[0].val_predefinie;
   } else {
-    res.glyc = 5;
+    res.glyc = variables[0].val_normale;
   }
 
-  if (res.yesGlyc !== 1 && res.yesGlyc !== 0){
+  if (res.yesGlyc !== 1 && res.yesGlyc !== 0) {
     res.glyc = res.yesGlyc;
   }
 
   return res;
 }
-export function setChol(resultat) {
+export function setChol(resultat, variables) {
   let res = resultat;
 
   if (res.yesChol === 1) {
-    res.chol = 5.9;
-    res.yesChol = 5.9;
-    res.hdl = 0.9;
+    res.chol = variables[10].val_predefinie;
+    res.yesChol = variables[10].val_predefinie;
   } else {
-    res.chol = 3;
-    res.hdl = 2;
+    res.chol = variables[10].val_normale;
   }
 
-  if (res.yesChol !== 1 && res.yesChol !== 0){
+  if (res.yesChol !== 1 && res.yesChol !== 0) {
     res.chol = res.yesChol;
+  }
+
+  return res;
+}
+
+export function setHdl(resultat, variables) {
+  let res = resultat;
+
+  if (res.yesChol === 1) {
+    res.hdl = variables[6].val_predefinie;
+    res.yesHdl = variables[6].val_predefinie;
+  } else {
+    res.hdl = variables[6].val_normale;
+  }
+
+  if (res.yesHdl !== 1 && res.yesHdl !== 0) {
+    res.hdl = res.yesHdl;
   }
 
   return res;
@@ -132,6 +160,7 @@ export class Resultats {
     yesSyst,
     yesGlyc,
     yesChol,
+    yesHdl,
     hdl,
     diab,
     fume,
@@ -151,6 +180,7 @@ export class Resultats {
     this.yesSyst = yesSyst;
     this.yesGlyc = yesGlyc;
     this.yesChol = yesChol;
+    this.yesHdl = yesHdl;
     this.hdl = hdl;
     this.diab = diab; //DM dans excel
     this.fume = fume;
@@ -200,6 +230,7 @@ export const resultatsConverter = {
       yesSyst: res.yesSyst,
       yesGlyc: res.yesGlyc,
       yesChol: res.yesChol,
+      yesHdl: res.yesHdl,
       syst: res.syst,
       glyc: res.glyc,
       chol: res.chol,
@@ -227,6 +258,7 @@ export const resultatsConverter = {
       data.yesSyst,
       data.yeyGlyc,
       data.yesChol,
+      data.yesHdl,
       data.hdl,
       data.diab,
       data.fume,

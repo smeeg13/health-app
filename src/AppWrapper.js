@@ -9,6 +9,7 @@ import {
   setChol,
   setGlyc,
   setSyst,
+  setHdl,
 } from "./objects/Resultats";
 import { Maladies } from "./objects/Maladies";
 import {
@@ -20,7 +21,7 @@ import { GetTodayDateString } from "./utils/tools";
 
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
-  emptyRes = new Resultats("",0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  emptyRes = new Resultats("",0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0);
 
   constructor() {
     super();
@@ -66,6 +67,7 @@ class AppWrapper extends React.Component {
         yesSyst: newRes.liste_reponses.yesSyst,
         yesGlyc: newRes.liste_reponses.yesGlyc,
         yesChol: newRes.liste_reponses.yesChol,
+        yesHdl: newRes.liste_reponses.yesHdl,
         diab: newRes.liste_reponses.diab,
         fume: newRes.liste_reponses.fume,
         alim: newRes.liste_reponses.alim,
@@ -82,6 +84,9 @@ class AppWrapper extends React.Component {
     const value = target.value;
     const name = target.name;
 
+    console.log("value", value);
+    console.log("name", name);
+
 
     if (target.type === "checkbox") {
       let checkedInt = target.checked === true ? 1 : 0;
@@ -97,7 +102,7 @@ class AppWrapper extends React.Component {
     }
     if (target.type === "range") {
       this.setState((prevState) => ({
-        resultat: { ...prevState.resultat, [name]: parseInt(value) },
+        resultat: { ...prevState.resultat, [name]: parseFloat(value) },
       }));
     }
     if (target.type === "textbox") {
@@ -107,13 +112,14 @@ class AppWrapper extends React.Component {
     }
   };
 
-  calculateMaladies = (resultat) => {
-    let newResult = setBmi(resultat);
-    newResult = setSyst(newResult);
-    newResult = setGlyc(newResult);
-    newResult = setChol(newResult);
+  calculateMaladies = (resultat,variables) => {
+    let newResult = setBmi(resultat,variables);
+    newResult = setSyst(newResult,variables);
+    newResult = setGlyc(newResult,variables);
+    newResult = setChol(newResult,variables);
+    newResult = setHdl(newResult,variables);
     let newMaladies = new Maladies();
-    newMaladies = calculate(newResult);
+    newMaladies = calculate(newResult,variables);
     this.setState(() => ({
       maladies: {
         cancer: newMaladies.cancer,

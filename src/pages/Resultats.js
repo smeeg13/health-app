@@ -46,8 +46,10 @@ export default function Resultats(props) {
   }, []);
 
   useEffect(() => {
-    resultatContext.calculateMaladies(resultatContext.resultat);
-  }, [resultatContext.resultat]);
+    if(props.variables.length > 0)
+      resultatContext.calculateMaladies(resultatContext.resultat,props.variables);
+
+  }, [resultatContext.resultat,props.variables]);
 
   useEffect(() => {
     setTimeout(() => {
