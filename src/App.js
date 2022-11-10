@@ -21,7 +21,7 @@ import NotFound from "./utils/NotFound";
 
 export default function App() {
   /* Base Invite User */
-  const guestUser = new User(null, "", "", 0, null,null,null, "", "", "");
+  const guestUser = new User(null, "", "", 0, null,null,"/img/avatar1.png", "", "", "");
   guestUser.setNomRole("Invite");
   guestUser.setIdRole("wfprGThk63ZrRRjRh1np");
 
