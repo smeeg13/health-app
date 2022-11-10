@@ -7,6 +7,12 @@ import { ThemeContext, themes } from "../Context";
 import { useNavigate } from "react-router-dom";
 import RedirectAlert from "../components/RedirectAlert";
 
+/**
+ *
+ * @param props - Take the current user as input, used to see if the user is allowed or not in the settings page
+ * @returns {JSX.Element} - Return a list of VariableForm component for each variable
+ */
+
 export default function Settings(props) {
   let themeContext = useContext(ThemeContext);
   const navigate = useNavigate();
@@ -88,6 +94,16 @@ export default function Settings(props) {
     </>
   );
 }
+
+/**
+ *
+ * @param data - Take one variable as an input, the variable is
+ * then split into 3 parts (variable_predifinie,variable_limites,variable_normale)
+ * The "api" ones are used to get the data from firebase during the loading of the page.
+ * The display is updated locally
+ * For the variable it is udpated with the API
+ * @returns {JSX.Element}
+ */
 
 function VariablesForm({ data }) {
   let [api_variable_predifinie, setApi_variable_predifinie] = useState("");
