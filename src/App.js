@@ -19,6 +19,10 @@ import Historic from "./pages/Historic";
 import Account from "./pages/Account";
 import NotFound from "./utils/NotFound";
 
+import { db } from "./initFirebase";
+import { getDocs, collection, getCountFromServer } from "firebase/firestore";
+import { variableConverter } from "./objects/Variables";
+
 export default function App() {
   /* Base Invite User */
   const guestUser = new User(null, "", "", 0, null,null,"/img/avatar1.png", "", "", "");
@@ -48,6 +52,21 @@ export default function App() {
     return () => {
       unsubscribe();
     };
+  }, []);
+
+  useEffect(() => {
+     async function getVariables() {
+      const refQuestionnaire = collection(
+        db,
+        "Variables/"
+      ).withConverter(variableConverter);
+
+      const roleSnapshot = await getDocs(refQuestionnaire);
+      const variablesList = roleSnapshot.docs.map((doc) => doc.data());
+      console.log("variablesList: ",variablesList)
+    }
+
+    getVariables();
   }, []);
 
   if (currentAuthUser === undefined) {

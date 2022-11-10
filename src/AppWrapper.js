@@ -20,7 +20,7 @@ import { GetTodayDateString } from "./utils/tools";
 
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
-  emptyRes = new Resultats("",0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  emptyRes = new Resultats("",0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
   constructor() {
     super();
@@ -114,6 +114,7 @@ class AppWrapper extends React.Component {
     newResult = setChol(newResult);
     let newMaladies = new Maladies();
     newMaladies = calculate(newResult);
+    
     this.setState(() => ({
       maladies: {
         cancer: newMaladies.cancer,

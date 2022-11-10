@@ -1,47 +1,22 @@
-import { Timestamp } from "firebase/firestore";
-import riskDiabete from "../algo/Diabete";
-import riskCancer from "../algo/Cancer";
-import riskInfarctus from "../algo/Infarctus";
-import correctionAFINF from "../algo/NonInfarctus";
-import { Maladies } from "./Maladies";
+import { Timestamp } from 'firebase/firestore';
+import riskDiabete from '../algo/Diabete';
+import riskCancer from '../algo/Cancer';
+import riskInfarctus from '../algo/Infarctus';
+import correctionAFINF from '../algo/NonInfarctus';
+import { Maladies } from './Maladies';
 
 export function calculate(resultat) {
   //Arondir *100
   //% returned risk
- let res = resultat;
- let maladies = new Maladies();
+  let res = resultat;
+  let maladies = new Maladies();
   let sumDiab = sumPointDiabete(res);
-  maladies.diabete =   riskDiabete(sumDiab, res.sexe);
+  maladies.diabete = riskDiabete(sumDiab, res.sexe);
 
-  maladies.cancer = 100 *riskCancer(
-    res.afcancer,
-    res.fume,
-    res.bmi,
-    res.sport,
-    res.alcool,
-    res.alim
-  );
+  maladies.cancer = 100 * riskCancer(res.afcancer, res.fume, res.bmi, res.sport, res.alcool, res.alim);
   maladies.infarctus =
-    100 *
-    riskInfarctus(
-      res.age,
-      res.sexe,
-      res.fume,
-      res.syst,
-      res.diab,
-      res.inf,
-      res.chol,
-      res.hdl
-    );
-    maladies.nonInfarctus = 100 *correctionAFINF(
-      res.age,
-      res.fume,
-      res.syst,
-      res.chol,
-      res.hdl,
-      res.sexe,
-      res.afinf
-  );
+    100 * riskInfarctus(res.age, res.sexe, res.fume, res.syst, res.diab, res.inf, res.chol, res.hdl);
+  maladies.nonInfarctus = 100 * correctionAFINF(res.age, res.fume, res.syst, res.chol, res.hdl, res.sexe, res.afinf);
   return maladies;
 }
 
@@ -80,24 +55,28 @@ export function sumPointDiabete(resultat) {
 export function setBmi(resultat) {
   let res = resultat;
   if (res.poids !== 0 && res.taille !== 0) {
-    res.bmi = res.poids / ((res.taille / 100) * (res.taille / 100));
+    res.bmi = res.poids / (res.taille / 100 * (res.taille / 100));
   } else {
     res.bmi = 0;
   }
   return res;
-
 }
 
 export function setSyst(resultat) {
   let res = resultat;
-  
+
   if (res.yesSyst === 1) {
     res.syst = 150;
+    res.yesSyst = 150;
   } else {
     res.syst = 110;
   }
-  return res;
 
+  if (res.yesSyst !== 1 && res.yesSyst !== 0){
+    res.syst = res.yesSyst;
+  }
+
+  return res;
 }
 
 export function setGlyc(resultat) {
@@ -105,9 +84,15 @@ export function setGlyc(resultat) {
 
   if (res.yesGlyc === 1) {
     res.glyc = 5.6;
+    res.yesGlyc = 5.6;
   } else {
     res.glyc = 5;
   }
+
+  if (res.yesGlyc !== 1 && res.yesGlyc !== 0){
+    res.glyc = res.yesGlyc;
+  }
+
   return res;
 }
 export function setChol(resultat) {
@@ -115,22 +100,26 @@ export function setChol(resultat) {
 
   if (res.yesChol === 1) {
     res.chol = 5.9;
+    res.yesChol = 5.9;
     res.hdl = 0.9;
   } else {
     res.chol = 3;
     res.hdl = 2;
   }
+
+  if (res.yesChol !== 1 && res.yesChol !== 0){
+    res.chol = res.yesChol;
+  }
+
   return res;
 }
 
-
 export class Resultats {
-  id_resultats='';
+  id_resultats = '';
   syst = 0;
   chol = 0;
   hdl = 0;
   glyc = 0;
-  
 
   constructor(
     id,
@@ -170,11 +159,10 @@ export class Resultats {
     this.alcool = alcool; //score
     this.taille = taille;
     this.poids = poids;
-
   }
 
   setIdResultats(id) {
-    if (id === null || id === "") {
+    if (id === null || id === '') {
       id = Timestamp.fromDate(new Date());
     } else {
       this.id_resultats = id;
@@ -184,13 +172,13 @@ export class Resultats {
   toString() {
     return (
       this.id_resultats +
-      ", Diabète : " +
+      ', Diabète : ' +
       this.diabete +
-      ", Cancer : " +
+      ', Cancer : ' +
       this.cancer +
-      ", Infarctus : " +
+      ', Infarctus : ' +
       this.infarctus +
-      ", Non-Infarctus : " +
+      ', Non-Infarctus : ' +
       this.nonInfarctus
     );
   }
@@ -223,7 +211,7 @@ export const resultatsConverter = {
       alcool: res.alcool,
       bmi: res.bmi,
       taille: res.taille,
-      poids: res.poids,
+      poids: res.poids
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -249,5 +237,5 @@ export const resultatsConverter = {
       data.taille,
       data.poids
     );
-  },
+  }
 };
