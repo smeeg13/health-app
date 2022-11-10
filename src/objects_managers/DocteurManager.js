@@ -56,7 +56,7 @@ export async function NewRequest(docteur, id_user, setMessage, setRemarks) {
     await SaveOneFieldInDB(id_user, "remarks", remarkstrg, false);
     setRemarks(remarkstrg);
 
-    setMessage("Resquest Sent");
+    setMessage("Request Sent");
   } catch (e) {
     setMessage("Error, please try again later");
   }
