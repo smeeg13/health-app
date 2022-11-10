@@ -8,6 +8,17 @@ const sumCoef = coefCancer.reduce(
   (previousValue, currentValue) => previousValue + currentValue
 );
 
+/**
+ * Function to calculate the risk of cancer
+ * @param {*} AFCANCER 
+ * @param {*} FUME 
+ * @param {*} BMI 
+ * @param {*} SPORT 
+ * @param {*} ALCOOL 
+ * @param {*} ALIM 
+ * @returns 
+ */
+
 export default function riskCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) {
   let sommeFinal =  sommeCancer(AFCANCER, FUME, BMI, SPORT, ALCOOL, ALIM) + baseRisk;
   return sommeFinal < 0 ? 0 : sommeFinal;

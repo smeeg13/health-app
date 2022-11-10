@@ -1,34 +1,23 @@
-const coefMan = [
-  0.3742, 0.6012, 0.2777, 0.1458, -0.2698, -0.0755, -0.0255, -0.0281, 0.0426,
-];
-let [
-  coefAge,
-  coefNfume,
-  coefSyst,
-  coefNchol,
-  coefNhdl,
-  coefSmokeAge,
-  coefSystAgeTrans,
-  coefTotCholAgeTrans,
-  coefHdlCholAgeTrans,
-] = coefMan;
+const coefMan = [0.3742, 0.6012, 0.2777, 0.1458, -0.2698, -0.0755, -0.0255, -0.0281, 0.0426,];
+let [coefAge, coefNfume, coefSyst, coefNchol, coefNhdl, coefSmokeAge, coefSystAgeTrans, coefTotCholAgeTrans, coefHdlCholAgeTrans,] = coefMan;
+const coefWmn = [0.4648, 0.7744, 0.3131, 0.1002, -0, 2606, -0.1088, -0.0277, -0.0226, 0.0613,];
+let [coefAgeWmn, coefNfumeWmn, coefSystWmn, coefNcholWmn, coefNhdlWmn, coefSmokeAgeWmn,
+  coefSystAgeTransWmn, coefTotCholAgeTransWmn, coefHdlCholAgeTransWmn,] = coefWmn;
 
-const coefWmn = [
-  0.4648, 0.7744, 0.3131, 0.1002, -0, 2606, -0.1088, -0.0277, -0.0226, 0.0613,
-];
-let [
-  coefAgeWmn,
-  coefNfumeWmn,
-  coefSystWmn,
-  coefNcholWmn,
-  coefNhdlWmn,
-  coefSmokeAgeWmn,
-  coefSystAgeTransWmn,
-  coefTotCholAgeTransWmn,
-  coefHdlCholAgeTransWmn,
-] = coefWmn;
 
-export default function  correctionAFINF(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE, AFINF) {
+/**
+ * Function to calculate the risk of non infarctus + add a correction AFINF to the calcul
+ * the function is based on an excel sheet
+ * @param {*} AGE 
+ * @param {*} NFUME 
+ * @param {*} NSYST 
+ * @param {*} NCHOL 
+ * @param {*} NHDL 
+ * @param {*} SEXE 
+ * @param {*} AFINF 
+ * @returns 
+ */
+export default function correctionAFINF(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE, AFINF) {
   return (
     (AFINF < 1 ? 1 : 1.3) *
     riskNonInfarctus(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE)
@@ -41,10 +30,10 @@ function riskNonInfarctus(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE) {
     Math.exp(
       -Math.exp(
         -0.5699 +
-          0.7476 *
-            Math.log(
-              -Math.log(1 - formule(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE))
-            )
+        0.7476 *
+        Math.log(
+          -Math.log(1 - formule(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE))
+        )
       )
     )
   );
@@ -70,9 +59,7 @@ function sommeNonInfarctus(AGE, NFUME, NSYST, NCHOL, NHDL, SEXE) {
 }
 
 function age(AGE, SEXE) {
-  return SEXE === 0
-    ? ageTransformed(AGE) * coefAge
-    : ageTransformed(AGE) * coefAgeWmn;
+  return SEXE === 0 ? ageTransformed(AGE) * coefAge : ageTransformed(AGE) * coefAgeWmn;
 }
 
 function nfume(NFUME, SEXE) {
@@ -86,15 +73,11 @@ function nSyst(NSYST, SEXE) {
 }
 
 function nChol(NCHOL, SEXE) {
-  return SEXE === 0
-    ? calculCHOL(NCHOL) * coefNchol
-    : ((NCHOL - 6) / 1) * coefNcholWmn;
+  return SEXE === 0 ? calculCHOL(NCHOL) * coefNchol : ((NCHOL - 6) / 1) * coefNcholWmn;
 }
 
 function nHdl(NHDL, SEXE) {
-  return SEXE === 0
-    ? calculHDL(NHDL) * coefNhdl
-    : calculHDL(NHDL) * coefNhdlWmn;
+  return SEXE === 0 ? calculHDL(NHDL) * coefNhdl : calculHDL(NHDL) * coefNhdlWmn;
 }
 
 function ageTransformed(AGE) {
@@ -114,26 +97,18 @@ function calculHDL(NHDL) {
 }
 
 function smokeAgeTransformed(AGE, SEXE, NFUME) {
-  return SEXE === 0
-    ? ageTransformed(AGE) * NFUME * coefSmokeAge
-    : ageTransformed(AGE) * NFUME * coefSmokeAgeWmn;
+  return SEXE === 0 ? ageTransformed(AGE) * NFUME * coefSmokeAge : ageTransformed(AGE) * NFUME * coefSmokeAgeWmn;
 }
 
 function systAgeTransformed(AGE, SEXE, NSYST) {
-  return SEXE === 0
-    ? systoliquemmHG(NSYST) * ageTransformed(AGE) * coefSystAgeTrans
-    : systoliquemmHG(NSYST) * ageTransformed(AGE) * coefSystAgeTransWmn;
+  return SEXE === 0 ? systoliquemmHG(NSYST) * ageTransformed(AGE) * coefSystAgeTrans : systoliquemmHG(NSYST) * ageTransformed(AGE) * coefSystAgeTransWmn;
 }
 
 function totalCholAgeTransformed(AGE, SEXE, NCHOL) {
-  return SEXE === 0
-    ? calculCHOL(NCHOL) * ageTransformed(AGE) * coefTotCholAgeTrans
-    : calculCHOL(NCHOL) * ageTransformed(AGE) * coefTotCholAgeTransWmn;
+  return SEXE === 0 ? calculCHOL(NCHOL) * ageTransformed(AGE) * coefTotCholAgeTrans : calculCHOL(NCHOL) * ageTransformed(AGE) * coefTotCholAgeTransWmn;
 }
 
 function hdlCholAgeTransformed(AGE, SEXE, NHDL) {
-  return SEXE === 0
-    ? calculHDL(NHDL) * ageTransformed(AGE) * coefHdlCholAgeTrans
-    : calculHDL(NHDL) * ageTransformed(AGE) * coefHdlCholAgeTransWmn;
+  return SEXE === 0 ? calculHDL(NHDL) * ageTransformed(AGE) * coefHdlCholAgeTrans : calculHDL(NHDL) * ageTransformed(AGE) * coefHdlCholAgeTransWmn;
 }
 

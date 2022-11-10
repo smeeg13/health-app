@@ -6,8 +6,8 @@ import { getObjKey } from "../utils/tools";
 
 
 /**
- * function to display all the informations about a question
- * the title of the question, how you can answer it
+ * Function to display all the informations about a question
+ * the title of the question and how you can answer to it
  * @param  {} props
  */
 export function BoxQuestion(props) {
@@ -62,9 +62,7 @@ export function BoxQuestion(props) {
             </div>
           )}
 
-          {/* Here, we manage when we display which button to
-                navigate between the different survey
-            */}
+          {/* Here, we manage when we display which button to navigate between the different survey*/}
           {props.index === 1 &&
             <button className="btn_next" onClick={props.handleNextQuestionnaire} style={{
               backgroundColor: themes[themeContext.theme].button,
@@ -73,6 +71,8 @@ export function BoxQuestion(props) {
               next
             </button>
           }
+
+          {/* Display when you are are at the end of the survey */}
           {props.index === props.totalQues &&
             <>
               <div>
@@ -89,6 +89,7 @@ export function BoxQuestion(props) {
 
             </>
           }
+          {/* Display when you stand in the middel of the survey */}
           {props.index !== 1 && props.index !== props.totalQues &&
             <>
               <button className="btn_previous" onClick={props.handlePreviousQuestionnaire} style={{
@@ -103,7 +104,6 @@ export function BoxQuestion(props) {
               }}>
                 next
               </button>
-
             </>
           }
         </div>
@@ -169,7 +169,6 @@ function Range(props) {
             </output>
           </div>
         }
-
       </h3>
     </div>
   )
@@ -187,9 +186,14 @@ function Dropdown(props) {
   return (
     <div>
       <h3 className="questions">{props.ques}
-        <select value={resultatContext.resultat[props.question.resName]} className="dropdown" name={props.name} onChange={props.handleFormInputChange} style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }}>
+        <select
+          value={resultatContext.resultat[props.question.resName]}
+          className="dropdown" name={props.name}
+          onChange={props.handleFormInputChange}
+          style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }}>
           {
             vp.map((value, index) => (
+              /*The getObjKey allows us to retrieve the value with a given key in a list on firestore */
               <option key={index} value={getObjKey(props.question.valeurs_possibles, props.question.valeurs_possibles[index])}>
                 {value}
               </option>
@@ -209,6 +213,7 @@ function CheckBoxForm(props) {
   const resultatContext = useContext(ResultatContext);
   const [isShown, setIsShown] = useState(props.value);
   const listSecondChoice = ['yesSyst', 'yesGlyc', 'yesChol']
+  
   const handleClick = () => {
     setIsShown(current => !current);
   };

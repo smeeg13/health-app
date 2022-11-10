@@ -19,10 +19,8 @@ import Historic from "./pages/Historic";
 import Account from "./pages/Account";
 import NotFound from "./utils/NotFound";
 import { ResultatContext } from "./Context";
-
-
 import { db } from "./initFirebase";
-import { getDocs, collection, getCountFromServer } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 import { variableConverter } from "./objects/Variables";
 
 export default function App() {
@@ -35,10 +33,7 @@ export default function App() {
   const [currentAuthUser, setCurrentAuthUser] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(guestUser);
   const [variables, setVariables] = useState([]);
-  const [isBusy, setBusy] = useState(true)
   const resultatContext = useContext(ResultatContext);
-
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -71,7 +66,6 @@ export default function App() {
       const roleSnapshot = await getDocs(refQuestionnaire);
       const variablesList = roleSnapshot.docs.map((doc) => doc.data());
       setVariables(variablesList);
-      setBusy(false);
     }
 
     getVariables();
@@ -91,7 +85,6 @@ export default function App() {
           {" "}
           <h1 className="center">Loading...</h1>
         </div>
-
       </div>
     );
   }

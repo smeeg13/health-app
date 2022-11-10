@@ -5,14 +5,18 @@ import riskInfarctus from '../algo/Infarctus';
 import correctionAFINF from '../algo/NonInfarctus';
 import { Maladies } from './Maladies';
 
-
+/**
+ * Function to calculte the 4 probabilities of having cancer, infarctus, non-infarctus and diabete
+ * @param {*} resultat 
+ * @param {*} variables 
+ * @returns 
+ */
 export function calculate(resultat, variables) {
-  console.log("variables calculate: ", variables);
-
   let res = resultat;
+  const fume = res.fume === 0 ? variables[1].val_normale : res.fume;
   const alcool = res.alcool === 0 ? variables[8].val_normale : res.alcool;
   const afcancer = res.afcancer === 0 ? variables[13].val_normale : res.afcancer;
-  const fume = res.fume === 0 ? variables[1].val_normale : res.fume;
+
   const bmi = res.bmi === 0 ? variables[3].val_normale : res.bmi;
   const sport = res.sport === 0 ? variables[9].val_normale : res.sport;
   const alim = res.alim === 0 ? variables[12].val_normale : res.alim;
@@ -22,12 +26,11 @@ export function calculate(resultat, variables) {
   const chol = res.chol === 0 ? variables[10].val_normale : res.inf;
   const hdl = res.hdl === 0 ? variables[6].val_normale : res.hdl;
   const afinf = res.afinf === 0 ? variables[4].val_normale : res.afinf;
-  
+
   let maladies = new Maladies();
   let sumDiab = sumPointDiabete(res);
   maladies.diabete = riskDiabete(sumDiab, res.sexe);
-  maladies.cancer = 100 * riskCancer(afcancer,fume,bmi,sport,alcool,alim);
-
+  maladies.cancer = 100 * riskCancer(afcancer, fume, bmi, sport, alcool, alim);
   maladies.infarctus = 100 * riskInfarctus(res.age, res.sexe, fume, syst, diab, inf, chol, hdl);
   maladies.nonInfarctus = 100 * correctionAFINF(res.age, fume, syst, chol, hdl, res.sexe, afinf);
   return maladies;
@@ -79,17 +82,13 @@ export function setBmi(resultat, variables) {
 export function setSyst(resultat, variables) {
   const res = resultat;
 
-  if (res.yesSyst === 1) {
-    console.log("variables[7].val_predefinie ", variables[7].val_predefinie)
-    res.syst = variables[7].val_predefinie;
-    res.yesSyst = variables[7].val_predefinie;
-  } else {
+  if (res.yesSyst === 1)
+    res.syst = res.yesSyst = variables[7].val_predefinie;
+  else
     res.syst = variables[7].val_normale;
-  }
 
-  if (res.yesSyst !== 1 && res.yesSyst !== 0) {
+  if (res.yesSyst !== 1 && res.yesSyst !== 0)
     res.syst = res.yesSyst;
-  }
 
   return res;
 }
@@ -97,50 +96,39 @@ export function setSyst(resultat, variables) {
 export function setGlyc(resultat, variables) {
   const res = resultat;
 
-  if (res.yesGlyc === 1) {
-    res.glyc = variables[0].val_predefinie;
-    res.yesGlyc = variables[0].val_predefinie;
-  } else {
+  if (res.yesGlyc === 1)
+    res.glyc = res.yesGlyc = variables[0].val_predefinie;
+  else
     res.glyc = variables[0].val_normale;
-  }
 
-  if (res.yesGlyc !== 1 && res.yesGlyc !== 0) {
+  if (res.yesGlyc !== 1 && res.yesGlyc !== 0)
     res.glyc = res.yesGlyc;
-  }
 
   return res;
 }
+
 export function setChol(resultat, variables) {
   let res = resultat;
 
-  if (res.yesChol === 1) {
-    res.chol = variables[10].val_predefinie;
-    res.yesChol = variables[10].val_predefinie;
-  } else {
+  if (res.yesChol === 1)
+    res.chol = res.yesChol = variables[10].val_predefinie;
+  else
     res.chol = variables[10].val_normale;
-  }
 
-  if (res.yesChol !== 1 && res.yesChol !== 0) {
+  if (res.yesChol !== 1 && res.yesChol !== 0)
     res.chol = res.yesChol;
-  }
 
   return res;
 }
 
 export function setHdl(resultat, variables) {
   let res = resultat;
-  console.log("avant res.hdl", res.hdl);
-  if (res.yesChol === 1) {
-    res.hdl = variables[6].val_predefinie;
-    res.yesHdl = variables[6].val_predefinie;
-  } 
+  if (res.yesChol === 1) 
+    res.hdl = res.yesHdl = variables[6].val_predefinie;
   
-  if(res.yesChol === 0){
+  if (res.yesChol === 0) 
     res.hdl = variables[6].val_normale;
-  }
 
-
-  console.log("après res.hdl", res.hdl);
   return res;
 }
 
@@ -171,7 +159,6 @@ export class Resultats {
     alcool,
     taille,
     poids,
-    val_predefinie,
   ) {
     this.id_resultats = id;
     this.age = age;
@@ -217,7 +204,9 @@ export class Resultats {
   }
 }
 
-// Firestore data converter
+/*
+ * Firestore data converter
+ */ 
 export const resultatsConverter = {
   toFirestore: (res) => {
     return {
