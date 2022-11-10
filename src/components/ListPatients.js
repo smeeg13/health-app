@@ -123,11 +123,11 @@ function UserList(props) {
 
             <div className="row  center">
               <div className="column_list">
-                <p className="center" style={{marginLeft:"20px"}}>{res.nom !== "" ? res.nom : res.email}</p>
+                <p className="center" style={{marginLeft:"120px", fontSize:"1.2em"}}>{res.nom !== "" ? res.nom : res.email}</p>
               </div>
               <div className="column_list center">
                 {props.isRequest ? (
-                  <div>
+                  <div style={{marginLeft:"100px"}}>
                     <button
                       name="Accept"
                       type="submit"
