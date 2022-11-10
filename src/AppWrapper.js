@@ -20,7 +20,7 @@ import { GetTodayDateString } from "./utils/tools";
 
 class AppWrapper extends React.Component {
   /* Initialize state with a default theme */
-  emptyRes = new Resultats("",0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+  emptyRes = new Resultats("",0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
   constructor() {
     super();
