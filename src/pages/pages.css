@@ -8,6 +8,28 @@
   overflow-x: hidden;
 }
 
+  
+.center {
+  margin-bottom: 5px;
+  text-align: center;
+  }
+  
+  .hi{
+    font-family: "Lexend Deca";
+    font-size: 2em;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #3C3C3D;
+  }
+  
+  .welcome{
+    font-family: "Lexend Deca";
+    font-size: 2em;
+    color:#1A523C;
+  }
+
+/*------------------------ LOGIN PAGE ---------------------*/ 
+
 .login_left{
   align-items: center;
   text-align: center;
@@ -18,7 +40,6 @@
   max-width: 450px;
   max-height: 500px;
   background-color: #a9cce3;
-  /* border: 2px solid white; */
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -32,7 +53,6 @@
   max-width: 450px;
   max-height: 500px;
   background-color: #eafaf1;
-  /* border: 2px solid #eafaf1; */
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -43,7 +63,7 @@
   text-align: center;
 }
 
-/* Doctor page */
+/*------------------------ DOCTOR PAGE ---------------------*/ 
 
 .patient_list{
   color: #054A2F;
@@ -105,7 +125,7 @@
   }
 
 
-  /* QUIZ */
+/*------------------------ SURVEY PAGE ---------------------*/ 
 
 .container_quiz{
   position: relative;
@@ -134,86 +154,156 @@
   font-size: 0.8em;
 }
 
-.question{
-margin-top: 5px;
-text-align: left;
-margin-left: 20px;
-}
+.survey_title{
+  font-family: "Lexend Deca";
+  font-size: 1.2em;
+  }
+  
+  .boxQuiz{
+    margin: auto;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    margin-left: 100px;
+    margin-top: 30px;
+    height: max-content;
+    min-width: max-content;
+    background-color: #a9cce3;
+    box-shadow: #054A2F -5px 5px, #1A523C -10px 10px, #77C5A6 -15px 15px, #C1E1C1 -20px 20px, #bbb -25px 25px;
+  }
+  
+  
+  .questions{
+  display:table;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  margin-left: 30px;
+  font-size: 0.9em;
+  font-family: "Lexend Deca";
+  }
+  
+  
+  .btn_previous, .btn_next{
+  position: relative;
+  margin-bottom: 2vh;
+  margin-top: 2vh;
+  margin-right: 2vh;
+  display: inline-block;
+  transition: all 0.2s ease-in;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  font-weight: bold;
+  color: #1A523C;
+  padding: 0.7em 1.7em;
+  font-size: 0.8em;
+  border-radius: 20px; /*to round the corner of the shape */
+  background-color: #e8e8e8;
+  border: 1px solid #77C5A6;
+  }
+  
+  .btn_previous:active, .btn_next:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5,
+             inset -4px -4px 12px #ffffff;
+  }
+  
+  
+  .btn_next:hover, .btn_previous:hover {
+  color: white;
+  background-color: #1A523C;
+  border: 1px solid #1A523C;
+  }
+  
+  .btn:hover:before {
+  top: -35%;
+  background-color: #e8e8e8;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+  }
+  
+  .btn:hover:after {
+  top: -45%;
+  background-color: #e8e8e8;
+  transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+  }
+  
+  input,
+  output {
+  margin-left:30px;
+  display: inline-block;
+  font-size: 1em;
+  font-family: "Lexend Deca";
+  }
+  
+  output {
+  padding: 2px 10px;
+  border-radius: 3px;
+  font-family: "Lexend Deca";
+  color: black;
+  }
+  
+  input[type="range"] {
+  height: 7px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  background-image: linear-gradient(#1A523C, #1A523C);
+  background-size: 100%;
+  }
+  
+  input[type="range"]::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #C1E1C1;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background .3s ease-in-out;
+  }
+  
+  input[type="range"]::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #C1E1C1;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background .3s ease-in-out;
+  }
+  
+  input[type="range"]::-ms-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #C1E1C1;
+  cursor: ew-resize;
+  box-shadow: 0 0 2px 0 #555;
+  transition: background .3s ease-in-out;
+  }
+  
+  .dropdown{
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 220px;
+  height: auto;
+  background-color: #C1E1C1;
+  padding: 5px 35px 5px 5px;
+  font-size: 0.9em;
+  border-radius: 5px;
+  color: #1A523C;
+  font-family: "Lexend Deca";
+  border: 2px solid #1A523C;
+  }
+  
+  option{
+  background-color: #C1E1C1;
+  color: #1A523C;
+  font-family: "Lexend Deca";
+  border: 2px solid #1A523C;
+  }
 
-.nb_input{
-text-align:center;
-width: 50px;
-}
-
-
-.next_btn {
-float: right;
-margin-top: 50px;
-margin-right: 50px;
-position: fixed;
-width: 80px;
-height: 40px;
-overflow: hidden;
-border: none;
-border-radius: 30px;
-background: #e8e8e8;
-font-family: "Lexend Deca";
-color: #3C3C3D;
-font-size: 1rem;
-font-weight: bold;
-letter-spacing: 2px;
-outline: none;
-cursor: pointer;
-
-}
-
-.next_btn:active {
-color: #666;
-box-shadow: inset 4px 4px 12px #fff,
-           inset -4px -4px 12px #ffffff;
-}
-
-.next_btn:before {
-display: flex;
-justify-content: center;
-align-items: center;
-position: absolute;
-top: 0;
-left: 0;
-background-color: rgba(0, 0, 0, 0.05);
-width: 100%;
-height: 100%;
-content: 'Next';
-transition: all .3s;
-
-}
-
-.next_btn:after {
-display: flex;
-justify-content: center;
-align-items: center;
-position: absolute;
-top: 60px;
-background-color: #e8e8e8;
-left: 0;
-width: 100%;
-height: 100%;
-content: 'Go';
-transition: all .3s;
-}
-
-.next_btn:hover {
-color: #3C3C3D;
-border: 1px solid #e8e8e8;
-}
-
-.next_btn:hover:before {
-top: -60px;
-}
-
-.next_btn:hover:after {
-top: 0;
-}
+/*------------------------ HOMEPAGE/RESULTS PAGE ---------------------*/ 
 
 .label_results{
   margin-top: 22px;
@@ -254,7 +344,7 @@ display: inline-block;
 margin-right: 20px;
 max-width: 450px;
 border: 1px solid grey;
-max-height: 410px;
+height: 410px;
 background-color: #eafaf1;
 }
 
@@ -306,7 +396,6 @@ width:145;
 }
 
 
-
 .dropdown_results{
   width: 80px;
   margin-right: 10px;
@@ -328,27 +417,7 @@ width:145;
   }
 
 
-.center {
-margin-bottom: 5px;
-text-align: center;
-}
-
-.hi{
-  font-family: "Lexend Deca";
-  font-size: 2em;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  color: #3C3C3D;
-}
-
-.welcome{
-  font-family: "Lexend Deca";
-  font-size: 2em;
-  color:#1A523C;
-}
-
-
-/* Error 404 page */
+/*------------------------ ERROR 404 PAGE ---------------------*/ 
 
 .error_redirection{
   margin-top: 20px;
@@ -359,7 +428,7 @@ text-align: center;
   font-size: 1em;
 }
 
-/* ------ SETTINGS PAGE --------- */
+/*------------------------ SETTINGS PAGE ---------------------*/ 
 
 
 .settings_page{
@@ -419,7 +488,6 @@ color: #1A523C;
 text-align: center;
 }
 
-
 .toggle-switch {
 position: relative;
 width: 75px;
@@ -427,9 +495,11 @@ display: inline-block;
 text-align: left;
 top: 8px;
 }
+
 .checkbox {
 display: none;
 }
+
 .label {
 display: block;
 overflow: hidden;
@@ -437,12 +507,14 @@ cursor: pointer;
 border: 0 solid #bbb;
 border-radius: 20px;
 }
+
 .inner {
 display: block;
 width: 200%;
 margin-left: -100%;
 transition: margin 0.3s ease-in 0s;
 }
+
 .inner:before,
 .inner:after {
 float: left;
@@ -454,12 +526,14 @@ color: #fff;
 font-weight: bold;
 box-sizing: border-box;
 }
+
 .inner:before {
 content: "YES";
 padding-left: 10px;
 background-color: #a9cce3;
 color: #fff;
 }
+
 .inner:after {
 content: "NO";
 padding-right: 10px;
@@ -475,164 +549,7 @@ margin-left: 0;
 right: 0px;
 }
 
-.survey_title{
-font-family: "Lexend Deca";
-font-size: 1.2em;
-}
 
-.boxQuiz{
-  margin: auto;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  display: inline-block;
-  margin-left: 100px;
-  margin-top: 30px;
-  height: max-content;
-  min-width: max-content;
-  background-color: #a9cce3;
-  /* border: 2px solid white; */
-  box-shadow: #054A2F -5px 5px, #1A523C -10px 10px, #77C5A6 -15px 15px, #C1E1C1 -20px 20px, #bbb -25px 25px;
-}
-
-
-.questions{
-display:table;
-margin-top: 20px;
-margin-bottom: 5px;
-margin-left: 30px;
-font-size: 0.9em;
-font-family: "Lexend Deca";
-}
-
-
-.btn_previous, .btn_next{
-position: relative;
-margin-bottom: 2vh;
-margin-top: 2vh;
-margin-right: 2vh;
-display: inline-block;
-transition: all 0.2s ease-in;
-position: relative;
-overflow: hidden;
-z-index: 1;
-font-weight: bold;
-color: #1A523C;
-padding: 0.7em 1.7em;
-font-size: 0.8em;
-border-radius: 20px; /*to round the corner of the shape */
-background-color: #e8e8e8;
-border: 1px solid #77C5A6;
-}
-
-.btn_previous:active, .btn_next:active {
-color: #666;
-box-shadow: inset 4px 4px 12px #c5c5c5,
-           inset -4px -4px 12px #ffffff;
-}
-
-
-.btn_next:hover, .btn_previous:hover {
-color: white;
-background-color: #1A523C;
-border: 1px solid #1A523C;
-}
-
-.btn:hover:before {
-top: -35%;
-background-color: #e8e8e8;
-transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
-}
-
-.btn:hover:after {
-top: -45%;
-background-color: #e8e8e8;
-transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
-}
-
-/* .btn_previous{
-float: center;
-margin-left: 2em;
-} */
-
-/* .btn_next{
-float: center;
-margin-right: 2em;
-} */
-
-input,
-output {
-margin-left:30px;
-display: inline-block;
-font-size: 1em;
-font-family: "Lexend Deca";
-}
-
-output {
-padding: 2px 10px;
-border-radius: 3px;
-font-family: "Lexend Deca";
-color: black;
-}
-
-input[type="range"] {
-height: 7px;
-background: rgba(255, 255, 255, 0.6);
-border-radius: 5px;
-background-image: linear-gradient(#1A523C, #1A523C);
-background-size: 100%;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-height: 20px;
-width: 20px;
-border-radius: 50%;
-background: #C1E1C1;
-cursor: ew-resize;
-box-shadow: 0 0 2px 0 #555;
-transition: background .3s ease-in-out;
-}
-
-input[type="range"]::-moz-range-thumb {
-height: 20px;
-width: 20px;
-border-radius: 50%;
-background: #C1E1C1;
-cursor: ew-resize;
-box-shadow: 0 0 2px 0 #555;
-transition: background .3s ease-in-out;
-}
-
-input[type="range"]::-ms-thumb {
-height: 20px;
-width: 20px;
-border-radius: 50%;
-background: #C1E1C1;
-cursor: ew-resize;
-box-shadow: 0 0 2px 0 #555;
-transition: background .3s ease-in-out;
-}
-
-.dropdown{
-margin-left: 20px;
-margin-right: 10px;
-margin-bottom: 10px;
-height: auto;
-background-color: #C1E1C1;
-padding: 5px 35px 5px 5px;
-font-size: 0.9em;
-border-radius: 5px;
-color: #1A523C;
-font-family: "Lexend Deca";
-border: 2px solid #1A523C;
-}
-
-option{
-background-color: #C1E1C1;
-color: #1A523C;
-font-family: "Lexend Deca";
-border: 2px solid #1A523C;
-}
 
 @media only screen and (max-width:1100px ) {
   .login_right{
