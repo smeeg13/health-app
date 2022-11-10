@@ -7,13 +7,11 @@ import { ThemeContext, themes } from "../Context";
 import { useNavigate } from "react-router-dom";
 import RedirectAlert from "../components/RedirectAlert";
 
-
 /**
  *
  * @param props - Take the current user as input, used to see if the user is allowed or not in the settings page
  * @returns {JSX.Element} - Return a list of VariableForm component for each variable
  */
-
 
 export default function Settings(props) {
   let themeContext = useContext(ThemeContext);
