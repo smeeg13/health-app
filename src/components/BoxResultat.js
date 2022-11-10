@@ -1,22 +1,16 @@
 import "../App.css";
-import { Slider, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import CircularProgressBar from "./CircularProgessBar";
-import { ResultatContext, ThemeContext, themes } from "../Context";
+import { ResultatContext } from "../Context";
 import React, { useState, useContext, useEffect } from "react";
-import avatar1 from "../pages/img/avatar1.png";
-import avatar5 from "../pages/img/avatar5.png";
 import cancer from "../pages/img/smoky_lungs.png";
 import infarctus from "../pages/img/heart_attack.png";
 import diabete from "../pages/img/diabete.png";
 import nonInf from "../pages/img/heart_happy.png";
-//Import cancer....
 
 export default function BoxResultat(props) {
   let resultatContext = useContext(ResultatContext);
 
-  function valuetext(value) {
-    return `${value}%`;
-  }
   console.log("Value inside resultat : ", props.resultat);
   console.log("Value inside maladie : ", props.maladies);
 
@@ -98,15 +92,16 @@ export default function BoxResultat(props) {
       <div>
       {Isgood && props.currentUser.nom_role==='Patient' &&(
         <img
-          className="avatar1" //alt
+          className="avatar1" 
+          alt="risk_img"
           src={props.currentUser.avatar}
         ></img>
       )}
       {resultsInfarctus && 
-      <img className="risk_img" src={infarctus}></img>}
-      {resultscancer && <img className="risk_img" src={cancer}></img>}
-      {resultsDiab && <img className="risk_img" src={diabete}></img>}
-      {resultsNonInf && <img className="risk_img" src={nonInf}></img>}
+      <img className="risk_img" src={infarctus} alt="risk_img"></img>}
+      {resultscancer && <img className="risk_img" src={cancer} alt="risk_img"></img>}
+      {resultsDiab && <img className="risk_img" src={diabete} alt="risk_img"></img>}
+      {resultsNonInf && <img className="risk_img" src={nonInf} alt="risk_img"></img>}
       </div>
 
       <div className="container_label3">
