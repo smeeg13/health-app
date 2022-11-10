@@ -63,12 +63,6 @@ function Survey(props) {
     getNumberOfQuestionnaire()
   }, [])
 
-  useEffect(() => {
-    if (props.variables.length > 0)
-      resultatContext.calculateMaladies(resultatContext.resultat, props.variables);
-
-  }, [resultatContext.resultat, props.variables]);
-
   const handleNextQuestionnaire = () => {
     if (index >= numberOfQues)
       setIndex(1);

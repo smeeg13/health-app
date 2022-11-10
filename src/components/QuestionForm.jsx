@@ -134,7 +134,10 @@ function Range(props) {
               onChange={props.handleFormInputChange}
               step={props.question.step}
             />
-            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{resultatContext.resultat[props.question.resName]} {props.question.unites}</output>
+            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >
+              {resultatContext.resultat[props.question.resName]}
+              {props.question.unites}
+            </output>
           </div>
           :
           <div>
@@ -147,20 +150,25 @@ function Range(props) {
               onChange={props.handleFormInputChange}
               step={props.question.step}
             />
-            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{resultatContext.resultat[props.question.resName]} Chol {props.question.unites}</output>
+            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >
+              {resultatContext.resultat[props.question.resName]}
+              Chol {props.question.unites}
+            </output>
             <input style={{ background: themes[themeContext.theme].rangeColor }}
               type="range"
               name={props.question.resName2}
               min={props.question.min2}
               max={props.question.max2}
-              value2={props.value2}
+              value={props.value2}
               onChange={props.handleFormInputChange}
               step={props.question.step}
             />
-            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >{resultatContext.resultat[props.question.resName2]} Hdl {props.question.unites}</output>
-           
+            <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >
+              {resultatContext.resultat[props.question.resName2]}
+              Hdl {props.question.unites}
+            </output>
           </div>
-    }
+        }
 
       </h3>
     </div>
@@ -221,14 +229,12 @@ function CheckBoxForm(props) {
             <div>
               <Range
                 question={props.question}
-                value={resultatContext.resultat[props.question.resName]}
                 handleFormInputChange={props.handleFormInputChange}
               />
             </div>
           </>
         )
         }
-
       </h3>
     </div>
   )

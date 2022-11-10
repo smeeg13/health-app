@@ -22,6 +22,7 @@ export function calculate(resultat, variables) {
   const chol = res.chol === 0 ? variables[10].val_normale : res.inf;
   const hdl = res.hdl === 0 ? variables[6].val_normale : res.hdl;
   const afinf = res.afinf === 0 ? variables[4].val_normale : res.afinf;
+  
   let maladies = new Maladies();
   let sumDiab = sumPointDiabete(res);
   maladies.diabete = riskDiabete(sumDiab, res.sexe);
@@ -79,6 +80,7 @@ export function setSyst(resultat, variables) {
   const res = resultat;
 
   if (res.yesSyst === 1) {
+    console.log("variables[7].val_predefinie ", variables[7].val_predefinie)
     res.syst = variables[7].val_predefinie;
     res.yesSyst = variables[7].val_predefinie;
   } else {
@@ -127,18 +129,18 @@ export function setChol(resultat, variables) {
 
 export function setHdl(resultat, variables) {
   let res = resultat;
-
+  console.log("avant res.hdl", res.hdl);
   if (res.yesChol === 1) {
     res.hdl = variables[6].val_predefinie;
     res.yesHdl = variables[6].val_predefinie;
-  } else {
+  } 
+  
+  if(res.yesChol === 0){
     res.hdl = variables[6].val_normale;
   }
 
-  if (res.yesHdl !== 1 && res.yesHdl !== 0) {
-    res.hdl = res.yesHdl;
-  }
 
+  console.log("après res.hdl", res.hdl);
   return res;
 }
 
@@ -168,7 +170,8 @@ export class Resultats {
     sport,
     alcool,
     taille,
-    poids
+    poids,
+    val_predefinie,
   ) {
     this.id_resultats = id;
     this.age = age;
@@ -242,7 +245,7 @@ export const resultatsConverter = {
       alcool: res.alcool,
       bmi: res.bmi,
       taille: res.taille,
-      poids: res.poids
+      poids: res.poids,
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -267,7 +270,7 @@ export const resultatsConverter = {
       data.alcool,
       data.bmi,
       data.taille,
-      data.poids
+      data.poids,
     );
   }
 };
