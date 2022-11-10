@@ -19,13 +19,13 @@ ListPatient(props) {
       setPatients((prevUsers) => [...prevUsers, result]);
     };
 
-    if (props.currentUser.list_patient.lenght !== 0) {
+    if (props.currentUser.list_patient.length !== 0) {
       props.currentUser.list_patient.forEach((project) => {
         fetchUser(project);
       });
       setBusy(false);
     }
-  }, [props.currentUser.list_patient]);
+  }, []);
 
   useEffect(() => {
     const fetchUser = async (id) => {
@@ -33,13 +33,13 @@ ListPatient(props) {
       setRequestPatients((prevUsers) => [...prevUsers, result]);
     };
 
-    if (props.currentUser.list_request_patient.lenght !== 0) {
+    if (props.currentUser.list_request_patient.length !== 0) {
       props.currentUser.list_request_patient.forEach((project) => {
         fetchUser(project);
       });
     }
     setBusy2(false);
-  }, [props.currentUser.list_request_patient]);
+  }, []);
 
   return (
     <>
@@ -64,6 +64,8 @@ ListPatient(props) {
               <UserList
                 currentUser={props.currentUser}
                 patients={requestPatients}
+                setPatients={setPatients}
+                setRequestPatients={setRequestPatients}
                 isRequest={true}
               />
             ) : (
@@ -81,6 +83,8 @@ ListPatient(props) {
               <UserList
                 currentUser={props.currentUser}
                 patients={patients}
+                setPatients={setPatients}
+                setRequestPatients={setRequestPatients}
                 isRequest={false}
                 setShowHistoric={props.setShowHistoric}
                 setPatientToShow={props.setPatientToShow}
@@ -98,6 +102,7 @@ ListPatient(props) {
 }
 
 function UserList(props) {
+
   let themeContext = useContext(ThemeContext);
 
   const HandleClick = async (event, res) => {
@@ -108,10 +113,22 @@ function UserList(props) {
     }
     if (event.target.name === "Accept") {
       await DealWithPatientRequest(props.currentUser, res.id_user, true);
+      //remove from request
+      props.setRequestPatients((current) =>
+      props.patients.filter((el) => el.id_user !== res.id_user)
+    );
+      //Add to patients
+      props.setPatients((prevUsers) => [...prevUsers, res]);
+
     }
     if (event.target.name === "Refuse") {
       await DealWithPatientRequest(props.currentUser, res.id_user, false);
+      //refuse from request
+      props.setRequestPatients((current) =>
+      props.patients.filter((el) => el.id_user !== res.id_user)
+    );
     }
+
   };
   return (
     <div>
@@ -171,11 +188,6 @@ function UserList(props) {
                       style={{
                         backgroundColor: themes[themeContext.theme].button,
                         color: themes[themeContext.theme].textcolorbtn,
-                        // width: 120,
-                        // fontSize:"0.8em",
-                        // marginTop: 0,
-                        // marginBottom: 10,
-                        // marginLeft: 280,
                       }}
                       onClick={(event) => HandleClick(event, res)}
                     >
