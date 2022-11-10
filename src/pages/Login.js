@@ -147,7 +147,7 @@ export function InformationMessage(message) {
             return (
                 <div>
                     <p>
-                        <b style={{backgroundColor: "red"}}>
+                        <b style={{color: "#A30000"}}>
                             Wrong password
                         </b>
                     </p>
@@ -159,7 +159,7 @@ export function InformationMessage(message) {
             return (
                 <div>
                     <p>
-                        <b style={{backgroundColor: "lightgreen"}}>
+                        <b style={{color:"#1A523C"}}>
                             Login correct
                         </b>
                     </p>
@@ -171,7 +171,7 @@ export function InformationMessage(message) {
             return (
                 <div>
                     <p>
-                        <b style={{backgroundColor: "lightgreen"}}>
+                        <b style={{color: "#1A523C"}}>
                             Account created
                         </b>
                     </p>

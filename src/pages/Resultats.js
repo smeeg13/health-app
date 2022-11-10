@@ -46,8 +46,10 @@ export default function Resultats(props) {
   }, []);
 
   useEffect(() => {
-    resultatContext.calculateMaladies(resultatContext.resultat);
-  }, [resultatContext.resultat]);
+    if(props.variables.length > 0)
+      resultatContext.calculateMaladies(resultatContext.resultat,props.variables);
+
+  }, [resultatContext.resultat,props.variables]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -76,7 +78,7 @@ export default function Resultats(props) {
   return (
     <>
       {props.last && (
-        <h3 style={{ marginTop: "1px", color: themes[themeContext.theme].textcolor }}>Your lasts responses of {resultatContext.resultat.id_resultats}</h3>
+        <h3 style={{ marginTop: "-5px", color: themes[themeContext.theme].textcolor }}>Your lasts responses of {resultatContext.resultat.id_resultats}</h3>
       )}
       {props.fromHistoric && (
         <div>

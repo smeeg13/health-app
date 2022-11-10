@@ -32,6 +32,9 @@ export default function App() {
   /* Current user state */
   const [currentAuthUser, setCurrentAuthUser] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(guestUser);
+  const [variables, setVariables] = useState([]);
+  const [isBusy, setBusy] = useState(true)
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -63,7 +66,8 @@ export default function App() {
 
       const roleSnapshot = await getDocs(refQuestionnaire);
       const variablesList = roleSnapshot.docs.map((doc) => doc.data());
-      console.log("variablesList: ",variablesList)
+      setVariables(variablesList);
+      setBusy(false);
     }
 
     getVariables();
@@ -81,7 +85,6 @@ export default function App() {
       </div>
     );
   }
-      console.log("Current User : ", currentUser)
 
   return (
     <div className="container">
@@ -93,9 +96,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/settings" element={<Settings currentUser={currentUser} />}/>
-        <Route path="/resultats" element={<Resultats currentUser={currentUser} />} />
+        <Route path="/resultats" element={<Resultats currentUser={currentUser} variables={variables}/>} />
         <Route path="/account" element={<Account currentUser={currentUser} setUser={setCurrentUser}/>} />
-        <Route path="/survey" element={<Survey currentUser={currentUser} />} />
+        <Route path="/survey" element={<Survey currentUser={currentUser} variables={variables}/>} />
         <Route path="/historic" element={<Historic currentUser={currentUser}/>}/>
         <Route path='*' element={<NotFound />}/> 
       </Routes>

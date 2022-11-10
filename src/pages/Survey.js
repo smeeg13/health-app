@@ -5,10 +5,10 @@ import { getDocs, collection, getCountFromServer } from "firebase/firestore";
 import { questionConverter } from "../objects/Question";
 import { BoxQuestion } from "../components/QuestionForm";
 import { BouncingDotsLoader } from "../utils/tools";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 /**
- * function to render the box where the question are shown
+ * Function to render the box where the question are shown
  * @param  {} props
  */
 function Survey(props) {
@@ -52,7 +52,7 @@ function Survey(props) {
       const coll = collection(db, "Questionnaires");
       const snapshot = await getCountFromServer(coll);
       const size = snapshot.data().count;
-      
+
       const snapshotColl = await getDocs(coll);
       const titleList = snapshotColl.docs.map((doc) => doc.data());
       titleList.forEach(element => {
@@ -64,8 +64,10 @@ function Survey(props) {
   }, [])
 
   useEffect(() => {
-    resultatContext.calculateMaladies(resultatContext.resultat);
-  }, [resultatContext.resultat]);
+    if (props.variables.length > 0)
+      resultatContext.calculateMaladies(resultatContext.resultat, props.variables);
+
+  }, [resultatContext.resultat, props.variables]);
 
   const handleNextQuestionnaire = () => {
     if (index >= numberOfQues)
@@ -93,7 +95,7 @@ function Survey(props) {
     console.log("Resultat : ", resultatContext.resetResultat)
   };
 
-console.log("resultat: ", resultatContext.resultat);
+  console.log("resultat: ", resultatContext.resultat);
   return (
     <div>
       {isBusy ? <BouncingDotsLoader /> :
