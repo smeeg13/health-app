@@ -22,7 +22,7 @@ export default function BoxRes2(props) {
           <div className="container_label2">
             <label className="label_results" htmlFor="poids">Weight : 
 
-            <output className="rangevalue">{slideValue}kg</output>
+            <output className="rangevalue" style={{float:"left"}}>{slideValue}kg</output>
             </label>
             <br />
             <label className="label_results" style={{marginTop:"30px"}} htmlFor="fume">Smoker : </label>
