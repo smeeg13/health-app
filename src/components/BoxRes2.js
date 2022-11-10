@@ -20,9 +20,7 @@ export default function BoxRes2(props) {
       ) : (
         <form onSubmit={props.handleFormSubmit}>
           <div className="container_label2">
-            <label className="label_results" htmlFor="poids">Weight : 
-
-            <output className="rangevalue" style={{float:"left"}}>{slideValue}kg</output>
+            <label className="label_results" htmlFor="poids">Weight :  {slideValue}kg
             </label>
             <br />
             <label className="label_results" style={{marginTop:"30px"}} htmlFor="fume">Smoker : </label>
