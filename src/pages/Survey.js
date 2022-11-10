@@ -90,6 +90,7 @@ function Survey(props) {
     resultatContext.updateInDb(props.currentUser.id_user);
     props.currentUser.nom_role === "Invite" && navigate("/resultats");
     props.currentUser.nom_role === "Patient" && navigate("/");
+    console.log("Resultat : ", resultatContext.resetResultat)
   };
 
 console.log("resultat: ", resultatContext.resultat);

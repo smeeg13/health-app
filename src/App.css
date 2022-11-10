@@ -56,7 +56,8 @@
 /*Button  and H elements */
 
 .btn {
-  margin-top: 20px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;

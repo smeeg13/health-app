@@ -96,7 +96,7 @@ export default function BoxResultat(props) {
     <div>
       <h2 className="survey_title">Your results</h2>
       <div>
-      {Isgood && (
+      {Isgood && props.currentUser.nom_role==='Patient' &&(
         <img
           className="avatar1" //alt
           src={props.currentUser.avatar}
