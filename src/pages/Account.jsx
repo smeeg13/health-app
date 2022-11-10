@@ -274,6 +274,7 @@ function Account(props) {
                           type="text"
                           maxLength={30}
                           value={docteurAssigned}
+                          readOnly
                         />
                       </div>
                     ) : (
@@ -328,7 +329,7 @@ function Account(props) {
                               id="docteur_requested"
                               value={docteurSelectForRequest}
                               onChange={(event) => HandleDocteurSelect(event)}
-                              style={{ minWidth: "150px", marginLeft:"100px"}}
+                              style={{ minWidth: "180px", marginLeft:"100px"}}
                             >
                               <option key={0} value={"Select a doctor"}>
                                 Choose a doctor
@@ -375,7 +376,7 @@ function Account(props) {
                             Send 
                           </button>
                           <div>
-                            {confirmRequest === "Resquest Sent" ? (
+                            {confirmRequest === "Request Sent" ? (
                               <span
                                 style={{ color: "#00A36C", marginRight: 3 }}
                               >
