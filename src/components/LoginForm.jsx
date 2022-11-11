@@ -27,6 +27,12 @@ const validate = (values) => {
   return errors;
 };
 
+/**
+ * This function allow us to display a login form using Formik library
+ * It check if and email and a password have been entered And if it correspond to one user in the Firebase authentication
+ * @param  {} props
+ */
+
 export default function LoginForm({ handleSubmit }) {
   let themeContext = useContext(ThemeContext);
 

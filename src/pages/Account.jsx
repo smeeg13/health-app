@@ -7,9 +7,13 @@ import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { GetAllDocteurs, NewRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
-import RedirectAlert from "../components/RedirectAlert";
+import RedirectAlert from "../utils/RedirectAlert";
 
-
+/**
+ * This function allow us to display the Account of a Doctor or a Patient according to the current User received in props
+ * And display of all his personal information
+ * @param  {} props
+ */
 function Account(props) {
   const avatar1 = "/img/avatar1.png";
   const avatarr = "/img/avatar_roux.png";

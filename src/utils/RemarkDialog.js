@@ -5,12 +5,13 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { useState, useEffect, useContext } from "react";
-import { SaveOneFieldInDB } from "../utils/tools";
-import { ThemeContext, themes } from "../Context";
+import { useState, useEffect } from "react";
+import { SaveOneFieldInDB } from "./tools";
 
+/**
+ * This Component allow us to an alert that allows the doctor to send a remark to one of his patient
+ */
 export default function RemarkDialog(props) {
-  let themeContext = useContext(ThemeContext);
 
   const [open, setOpen] = useState(false);
   const [remarkString, setRemarkString] = useState("");
@@ -18,7 +19,6 @@ export default function RemarkDialog(props) {
 
   useEffect(() => {
     setTimeout(() => {
-      //reset the remark & the confirm msg and close
       setConfirmSave("");
       setRemarkString("");
       setOpen(false);
@@ -41,17 +41,14 @@ export default function RemarkDialog(props) {
     try {
       console.log("Submit Clicked with value final : ", remarkString);
       let remarkToSave = remarkString + " - From Dr. " + props.nomDocteur;
-      //Save into user into DB
       await SaveOneFieldInDB(
         props.user.id_user,
         "remarks",
         remarkToSave,
         false
       );
-      //If ok then show ok msg for 3sec
       setConfirmSave("Changements Sauvegardés");
     } catch (e) {
-      //If nok, then show nok msg but stay open
       setConfirmSave("Erreur, merci de réessayer plus tard");
     }
   };
@@ -66,7 +63,6 @@ export default function RemarkDialog(props) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Remark for {props.user.nom}</DialogTitle>
         <DialogContent>
-          {/* <DialogContentText>Entrez vos remarques ci-dessous</DialogContentText> */}
           <TextField
             onChange={handleChanges}
             value={remarkString}

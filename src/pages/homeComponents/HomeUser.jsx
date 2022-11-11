@@ -7,6 +7,10 @@ import survey_pic from "../img/survey_pic.png";
 import Resultats from "../Resultats";
 import { BouncingDotsLoader } from "../../utils/tools";
 
+/**
+ * Display the Home of an Patient
+ * 
+ */
 export default function HomeUser(props) {
   let themeContext = useContext(ThemeContext);
   let resultatContext = useContext(ResultatContext);
@@ -61,13 +65,16 @@ export default function HomeUser(props) {
       setIsLastRetrieved(true);
       setBusy(false);
     }
-  }, [LastRes]);
+  }, [LastRes,resultatContext]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setConfirmSave("");
+    }, 4000);
+  }, [confirmSave]);
 
   const GoToSurvey = () => {
-    //Reset the result
     resultatContext.resetResultat();
-
-    //Navigate to page survey
     navigate("/survey");
   };
 
@@ -109,7 +116,7 @@ export default function HomeUser(props) {
             New survey
           </button>
           {resultatContext.resultat.id_resultats !== "" && (
-            <button
+            <><button
               style={{
                 marginLeft: "15px",
                 backgroundColor: themes[themeContext.theme].button,
@@ -122,11 +129,24 @@ export default function HomeUser(props) {
             >
               Save
             </button>
+            <div className="box2">
+            {confirmSave === "Changes Saved" ? (
+              <span style={{ color: "#00A36C", marginRight: 40 }}>
+                {confirmSave}
+              </span>
+            ) : (
+              <span style={{ color: "#FF2400", marginRight: 40 }}>
+                {confirmSave}
+              </span>
+            )}
+          </div>
+            </>
+            
+            
           )}
           <br />
           <br />
           <div className="center">
-            {/* Show nothing if the result in context is "null" */}
             {resultatContext.resultat.id_resultats === "" ? (
               <div>
                 <h4

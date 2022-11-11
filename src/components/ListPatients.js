@@ -3,10 +3,14 @@ import { GetUserById } from "../objects_managers/UserManager";
 import { ThemeContext, themes } from "../Context";
 import { DealWithPatientRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
-import RemarkDialog from "./RemarkDialog";
+import RemarkDialog from "../utils/RemarkDialog";
 
-export function 
-ListPatient(props) {
+/**
+ * This function allow us to display the lists of patients that want us to be their doctor
+ * And the list of our current patients
+ * @param  {} props
+ */
+export function ListPatient(props) {
   let themeContext = useContext(ThemeContext);
   const [patients, setPatients] = useState([]);
   const [isBusy, setBusy] = useState(true);
@@ -25,7 +29,7 @@ ListPatient(props) {
       });
       setBusy(false);
     }
-  }, []);
+  }, [props.currentUser.list_patient]);
 
   useEffect(() => {
     const fetchUser = async (id) => {
@@ -39,7 +43,7 @@ ListPatient(props) {
       });
     }
     setBusy2(false);
-  }, []);
+  }, [props.currentUser.list_request_patient]);
 
   return (
     <>
@@ -74,11 +78,17 @@ ListPatient(props) {
               </p>
             )}
           </div>
-    
+
           <div className="box_list">
-            <h3 style={{
-          color: themes[themeContext.theme].textcolor, textAlign:"center"
-        }}> Liste des patients</h3>
+            <h3
+              style={{
+                color: themes[themeContext.theme].textcolor,
+                textAlign: "center",
+              }}
+            >
+              {" "}
+              Liste des patients
+            </h3>
             {patients.length > 0 ? (
               <UserList
                 currentUser={props.currentUser}
@@ -90,7 +100,7 @@ ListPatient(props) {
                 setPatientToShow={props.setPatientToShow}
               />
             ) : (
-              <p style={{ color: "#00A36C", fontStyle: "italic"}}>
+              <p style={{ color: "#00A36C", fontStyle: "italic" }}>
                 No patients for the moment
               </p>
             )}
@@ -101,8 +111,11 @@ ListPatient(props) {
   );
 }
 
+/**
+ * This function allow us to actually display  one list
+ * @param  {} props
+ */
 function UserList(props) {
-
   let themeContext = useContext(ThemeContext);
 
   const HandleClick = async (event, res) => {
@@ -113,38 +126,41 @@ function UserList(props) {
     }
     if (event.target.name === "Accept") {
       await DealWithPatientRequest(props.currentUser, res.id_user, true);
-      //remove from request
       props.setRequestPatients((current) =>
-      props.patients.filter((el) => el.id_user !== res.id_user)
-    );
-      //Add to patients
+        props.patients.filter((el) => el.id_user !== res.id_user)
+      );
       props.setPatients((prevUsers) => [...prevUsers, res]);
-
     }
     if (event.target.name === "Refuse") {
       await DealWithPatientRequest(props.currentUser, res.id_user, false);
-      //refuse from request
       props.setRequestPatients((current) =>
-      props.patients.filter((el) => el.id_user !== res.id_user)
-    );
+        props.patients.filter((el) => el.id_user !== res.id_user)
+      );
     }
-
   };
   return (
     <div>
       <ul style={{ listStyleType: "none", padding: 10 }}>
         {props.patients.map((res) => (
-          <li className="text"  style={{
-            color: themes[themeContext.theme].textcolor
-          }} key={res.id_user}>
-
+          <li
+            className="text"
+            style={{
+              color: themes[themeContext.theme].textcolor,
+            }}
+            key={res.id_user}
+          >
             <div className="row  center">
               <div className="column_list">
-                <p className="center" style={{marginLeft:"120px", fontSize:"1.2em"}}>{res.nom !== "" ? res.nom : res.email}</p>
+                <p
+                  className="center"
+                  style={{ marginLeft: "120px", fontSize: "1.2em" }}
+                >
+                  {res.nom !== "" ? res.nom : res.email}
+                </p>
               </div>
               <div className="column_list center">
                 {props.isRequest ? (
-                  <div style={{marginLeft:"100px"}}>
+                  <div style={{ marginLeft: "100px" }}>
                     <button
                       name="Accept"
                       type="submit"

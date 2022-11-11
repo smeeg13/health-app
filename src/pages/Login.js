@@ -13,7 +13,10 @@ import {useContext} from "react";
 import React, {useState} from "react";
 import "../App.css";
 
-
+/**
+ * This function allow us to display the login form and to check where to redirect the user after its connection
+ * @param  {} props
+ */
 export default function Login() {
     const navigate = useNavigate();
     let themeContext = useContext(ThemeContext);

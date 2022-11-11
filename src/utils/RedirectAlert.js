@@ -2,6 +2,9 @@ import Alert from "@mui/material/Alert";
 import { AlertTitle } from "@mui/material";
 import Stack from "@mui/material/Stack";
 
+/**
+ * This Component allow us to display a the small warning if someone who don't have the right trie to go to a certain page via the url
+ */
 export default function RedirectAlert(props) {
   return (
     <div className="center">

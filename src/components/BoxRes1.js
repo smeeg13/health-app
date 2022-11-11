@@ -1,10 +1,13 @@
 import "../App.css";
 import React, { useContext } from "react";
 import { ResultatContext, ThemeContext, themes  } from "../Context";
-import { ToggleButton } from "../components/ToggleButton";
+import { ToggleButton } from "../utils/ToggleButton";
 import { getObjKey } from "../utils/tools";
 import { BouncingDotsLoader, FormInput } from "../utils/tools";
-
+/**
+ * This function allow us to display the response entered by the user those cannot be modified ( only questions 1-2 and 4-12)
+ * @param  {} props
+ */
 export default function BoxRes1(props) {
   let resultatContext = useContext(ResultatContext);
   let themeContext = useContext(ThemeContext);

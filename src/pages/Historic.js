@@ -5,8 +5,12 @@ import { ResultatContext, ThemeContext, themes } from "../Context";
 import { BouncingDotsLoader } from "../utils/tools";
 import Resultats from "./Resultats";
 import { useNavigate } from "react-router-dom";
-import RedirectAlert from "../components/RedirectAlert";
+import RedirectAlert from "../utils/RedirectAlert";
 
+/**
+ * This function allow us to display the Historic of on patient
+ * @param  {} props
+ */
 export default function Historic(props) {
   let themeContext = useContext(ThemeContext);
   let resultatContext = useContext(ResultatContext);

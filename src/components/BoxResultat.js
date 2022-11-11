@@ -1,6 +1,6 @@
 import "../App.css";
 import { Box } from "@mui/material";
-import CircularProgressBar from "./CircularProgessBar";
+import CircularProgressBar from "../utils/CircularProgessBar";
 import { ResultatContext } from "../Context";
 import React, { useState, useContext, useEffect } from "react";
 import cancer from "../pages/img/smoky_lungs.png";
@@ -8,20 +8,20 @@ import infarctus from "../pages/img/heart_attack.png";
 import diabete from "../pages/img/diabete.png";
 import nonInf from "../pages/img/heart_happy.png";
 
+
+/**
+ * This function allow us to display the result of algorithms according to response of the user 
+ * the result are recalculated every time there a changes in the BoxRes2 
+ * @param  {} props
+ */
+
 export default function BoxResultat(props) {
   let resultatContext = useContext(ResultatContext);
-
-  console.log("Value inside resultat : ", props.resultat);
-  console.log("Value inside maladie : ", props.maladies);
-
   const [Isgood, setIsGood] = useState(true);
   const [resultsInfarctus, setInfarctus] = useState(false);
   const [resultsNonInf, setNonInf] = useState(false);
   const [resultsDiab, setDiab] = useState(false);
   const [resultscancer, setcancer] = useState(false);
-
-  //to display an image of 
-  //the risks regarding the results
 
   useEffect(() => {
     if (resultatContext.maladies.infarctus > 2) {

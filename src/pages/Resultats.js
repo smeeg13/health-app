@@ -10,6 +10,10 @@ import BoxResultat from "../components/BoxResultat";
 import { Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+/**
+ * This Component allow us to display the overall result of a patient or a guest, where it can modifies it and save it again
+ * @param  {} props
+ */
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
   let themeContext = useContext(ThemeContext);
@@ -141,7 +145,6 @@ export default function Resultats(props) {
 
         {props.fromHistoric === false &&
           <div className="box2">
-            {/* Button for saving into db changes */}
             {confirmSave === "Changes Saved" ? (
               <span style={{ color: "#00A36C", marginRight: 40 }}>
                 {confirmSave}
@@ -164,7 +167,6 @@ function TitleBox(props) {
     <div className="results_upper">
       <h2 className="survey_title">{props.title}</h2>
       <div>
-        {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
         <img className="my_avatar" src={props.my_avatar} alt="AvatarUser" />
       </div>
     </div>

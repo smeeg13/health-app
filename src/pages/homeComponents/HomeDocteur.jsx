@@ -4,6 +4,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Historic from "../Historic";
 import { ListPatient } from "../../components/ListPatients";
 
+/**
+ * Display the Home of a Doctor
+ * 
+ */
 export default function HomeDocteur(props) {
     let themeContext = useContext(ThemeContext);
     const [showHistoric, setShowHistoric] = useState(false);

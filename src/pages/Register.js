@@ -16,6 +16,10 @@ import { ThemeContext, themes } from "../Context";
 import { useContext } from "react";
 import { InformationMessage } from "./Login";
 
+/**
+ * This function allow us to display the register form and to check where to redirect the user after its registration
+ * @param  {} props
+ */
 export default function Register() {
   const navigate = useNavigate();
   let [message, setmessage] = useState("");

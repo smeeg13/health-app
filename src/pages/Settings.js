@@ -3,9 +3,8 @@ import { collection, setDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../initFirebase";
 import { useState, useContext } from "react";
 import { ThemeContext, themes } from "../Context";
-// import settings from "./img/settingss.png";
 import { useNavigate } from "react-router-dom";
-import RedirectAlert from "../components/RedirectAlert";
+import RedirectAlert from "../utils/RedirectAlert";
 
 /**
  *
