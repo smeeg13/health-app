@@ -65,7 +65,7 @@ export default function HomeUser(props) {
       setIsLastRetrieved(true);
       setBusy(false);
     }
-  }, [LastRes,resultatContext]);
+  }, [LastRes]);
 
   useEffect(() => {
     setTimeout(() => {
