@@ -8,6 +8,10 @@ import CircularProgress, {
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+/**
+ * This function allow us to display our risks into a circular Progress bar
+ * @param  {} props
+ */
 function CircularProgressWithLabel(props) {
   let themeContext = useContext(ThemeContext);
 

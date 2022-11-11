@@ -1,5 +1,5 @@
 export class Question {
-  constructor(quId, min, max, question, val_predefined, val_predefined2, valeurs_possibles, typeAnswer,resName, unites) {
+  constructor(min, max, question, val_predefined, val_predefined2, valeurs_possibles, typeAnswer,resName, unites,step,resName2,min2,max2) {
     this.min = min;
     this.max = max;
     this.question = question;
@@ -9,6 +9,10 @@ export class Question {
     this.typeAnswer = typeAnswer;
     this.resName = resName;
     this.unites = unites;
+    this.step = step;
+    this.resName2=resName2;
+    this.min2=min2;
+    this.max2=max2;
   }
 }
 
@@ -16,7 +20,6 @@ export class Question {
 export const questionConverter = {
   toFirestore: (question) => {
     return {
-      id: question.id,
       min: question.min,
       max: question.max,
       question: question.question,
@@ -26,12 +29,15 @@ export const questionConverter = {
       typeAnswer: question.typeAnswer,
       resName: question.resName,
       unites: question.unites,
+      step: question.step,
+      resName2: question.resName2,
+      min2: question.min2,
+      max2: question.max2,
     };
   },
   fromFirestore: (snapshot, options) => {
     const data = snapshot.data(options);
     return new Question(
-      snapshot.id,
       data.min,
       data.max,
       data.question,
@@ -40,7 +46,11 @@ export const questionConverter = {
       data.valeurs_possibles,
       data.typeAnswer,
       data.resName,
-      data.unites
+      data.unites,
+      data.step,
+      data.resName2,
+      data.min2,
+      data.max2,
       );
   },
 };

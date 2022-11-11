@@ -31,6 +31,11 @@ const validate = (values) => {
   return errors;
 };
 
+/**
+ * This function allow us to display a register form for Patient using Formik library
+ * It check if and email and a password have been entered And create one user in the Firebase authentication
+ * @param  {} props
+ */
 export default function RegisterForm({ handleSubmit }) {
   return (
     <Formik

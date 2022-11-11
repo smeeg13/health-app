@@ -10,6 +10,10 @@ import BoxResultat from "../components/BoxResultat";
 import { Button } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+/**
+ * This Component allow us to display the overall result of a patient or a guest, where it can modifies it and save it again
+ * @param  {} props
+ */
 export default function Resultats(props) {
   let resultatContext = useContext(ResultatContext);
   let themeContext = useContext(ThemeContext);
@@ -46,10 +50,6 @@ export default function Resultats(props) {
   }, []);
 
   useEffect(() => {
-    resultatContext.calculateMaladies(resultatContext.resultat);
-  }, [resultatContext.resultat]);
-
-  useEffect(() => {
     setTimeout(() => {
       setConfirmSave("");
     }, 4000);
@@ -67,7 +67,7 @@ export default function Resultats(props) {
     );
 
     try {
-         resultatContext.updateInDb(props.currentUser.id_user);
+      resultatContext.updateInDb(props.currentUser.id_user);
       setConfirmSave("Changes Saved");
     } catch (e) {
       setConfirmSave("Error When saving modifications, please try later");
@@ -76,7 +76,7 @@ export default function Resultats(props) {
   return (
     <>
       {props.last && (
-        <h3 style={{marginTop:"1px", color: themes[themeContext.theme].textcolor}}>Your lasts responses of {resultatContext.resultat.id_resultats}</h3>
+        <h3 style={{ marginTop: "-5px", color: themes[themeContext.theme].textcolor }}>Your lasts responses of {resultatContext.resultat.id_resultats}</h3>
       )}
       {props.fromHistoric && (
         <div>
@@ -85,7 +85,8 @@ export default function Resultats(props) {
             name="BackToList"
             type="submit"
             className="btn"
-            style={{ marginTop:"15px",
+            style={{
+              marginTop: "15px",
               backgroundColor: themes[themeContext.theme].button,
               color: themes[themeContext.theme].textcolorbtn,
             }}
@@ -93,18 +94,18 @@ export default function Resultats(props) {
           >
             Close details
           </Button>{" "}
-          <br/>
-          <h3 style={{ color: themes[themeContext.theme].textcolor}}>Responses of the {resultatContext.resultat.id_resultats}</h3>
+          <br />
+          <h3 style={{ color: themes[themeContext.theme].textcolor }}>Responses of the {resultatContext.resultat.id_resultats}</h3>
         </div>
       )}
-      <div className="wrapper" style={{ color: themes[themeContext.theme].textcolor}} >
-        <div className="box1" style={{margin:-10}}>
+      <div className="wrapper" style={{ color: themes[themeContext.theme].textcolor }} >
+        <div className="box1" style={{ margin: -10 }}>
           {/* Box for data questionnaire 1-2  */}
           <div className="container result1" style={{
-          backgroundColor: themes[themeContext.theme].background_quiz,
-          color: themes[themeContext.theme].foreground,
-        }}>
-            <TitleBox 
+            backgroundColor: themes[themeContext.theme].background_quiz,
+            color: themes[themeContext.theme].foreground,
+          }}>
+            <TitleBox
               title="Your situation"
               my_avatar={props.currentUser.avatar}
             />
@@ -117,9 +118,9 @@ export default function Resultats(props) {
           </div>
           {/* Box for data questionnaire 3 */}
           <div className="container result2" style={{
-          backgroundColor: themes[themeContext.theme].background_quiz,
-          color: themes[themeContext.theme].foreground,
-        }}>
+            backgroundColor: themes[themeContext.theme].background_quiz,
+            color: themes[themeContext.theme].foreground,
+          }}>
             <TitleBox
               title="Your rhythm "
               my_avatar={props.currentUser.avatar}
@@ -133,29 +134,28 @@ export default function Resultats(props) {
           </div>
           {/* Box for Resultat  */}
           <div className="container result3" style={{
-        backgroundColor: themes[themeContext.theme].background_quiz,
-        color: themes[themeContext.theme].foreground,
-      }}>
-        
+            backgroundColor: themes[themeContext.theme].background_quiz,
+            color: themes[themeContext.theme].foreground,
+          }}>
+
             <BoxResultat maladies={resultatContext.maladies} resultat={resultatContext.resultat} currentUser={props.currentUser} />
           </div>
         </div>
 
 
-        {props.fromHistoric ===false &&
-        <div className="box2">
-          {/* Button for saving into db changes */}
-         {confirmSave === "Changes Saved" ? (
-                  <span style={{ color: "#00A36C", marginRight: 40 }}>
-                    {confirmSave}
-                  </span>
-                ) : (
-                  <span style={{ color: "#FF2400", marginRight: 40 }}>
-                    {confirmSave}
-                  </span>
-                )} 
-        </div>}
-        
+        {props.fromHistoric === false &&
+          <div className="box2">
+            {confirmSave === "Changes Saved" ? (
+              <span style={{ color: "#00A36C", marginRight: 40 }}>
+                {confirmSave}
+              </span>
+            ) : (
+              <span style={{ color: "#FF2400", marginRight: 40 }}>
+                {confirmSave}
+              </span>
+            )}
+          </div>}
+
       </div>
     </>
   );
@@ -167,7 +167,6 @@ function TitleBox(props) {
     <div className="results_upper">
       <h2 className="survey_title">{props.title}</h2>
       <div>
-        {/* //TODO :: Put the avatar of the current user or a default according to sexe */}
         <img className="my_avatar" src={props.my_avatar} alt="AvatarUser" />
       </div>
     </div>

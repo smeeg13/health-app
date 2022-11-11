@@ -4,6 +4,10 @@ import { auth } from "../initFirebase";
 import { useNavigate } from "react-router-dom";
 import { ResultatContext } from "../Context";
 
+/**
+ * This function allow us to display the logout
+ * @param  {} props
+ */
 export default function Logout() {
   const navigate = useNavigate();
   let resultatContext = useContext(ResultatContext);

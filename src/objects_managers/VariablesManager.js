@@ -42,7 +42,6 @@ export async function getVariableById(varId) {
   }
 }
 
-console.log("getvariable", getVariableById("0wLBCWipfVrOeV3anxPE"));
 
 //Get one Variable by name
 export async function getVariableByName(varName) {
@@ -50,7 +49,6 @@ export async function getVariableByName(varName) {
 
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
-    // doc.data() is never undefined for query doc snapshots
     console.log(doc.id, " => ", doc.data());
   });
 }
@@ -72,15 +70,4 @@ export async function updateVariableData(
   });
 }
 
-//Set multiples variables
-//Don't work for the moment
-export function writeVariablesData(listVariable) {
-  /* listVariable.forEach(v =>
-    set(ref(db,"Variables", v.varId),{
-    limites: v.limits,
-    nom: v.name,
-    val_normale: v.val_normal,
-    val_predefinie: v.val_predefined,
-  })
-  );*/
-}
+

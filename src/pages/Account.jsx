@@ -7,9 +7,13 @@ import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 import { GetAllDocteurs, NewRequest } from "../objects_managers/DocteurManager";
 import { BouncingDotsLoader } from "../utils/tools";
-import RedirectAlert from "../components/RedirectAlert";
+import RedirectAlert from "../utils/RedirectAlert";
 
-
+/**
+ * This function allow us to display the Account of a Doctor or a Patient according to the current User received in props
+ * And display of all his personal information
+ * @param  {} props
+ */
 function Account(props) {
   const avatar1 = "/img/avatar1.png";
   const avatarr = "/img/avatar_roux.png";
@@ -274,6 +278,7 @@ function Account(props) {
                           type="text"
                           maxLength={30}
                           value={docteurAssigned}
+                          readOnly
                         />
                       </div>
                     ) : (
@@ -328,7 +333,7 @@ function Account(props) {
                               id="docteur_requested"
                               value={docteurSelectForRequest}
                               onChange={(event) => HandleDocteurSelect(event)}
-                              style={{ minWidth: "150px", marginLeft:"100px"}}
+                              style={{ minWidth: "180px", marginLeft:"100px"}}
                             >
                               <option key={0} value={"Select a doctor"}>
                                 Choose a doctor
@@ -375,7 +380,7 @@ function Account(props) {
                             Send 
                           </button>
                           <div>
-                            {confirmRequest === "Resquest Sent" ? (
+                            {confirmRequest === "Request Sent" ? (
                               <span
                                 style={{ color: "#00A36C", marginRight: 3 }}
                               >

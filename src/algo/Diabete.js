@@ -4,6 +4,12 @@ let [coefWmnR1, coefWmnR2, coefWmnR3] = coefWmn;
 const coefMan = [0.0209, 0.1167, 0.1316];
 let [coefManR1, coefManR2, coefManR3] = coefMan;
 
+/**
+ * Function to calculate the risk of the diabete
+ * @param {*} sumDiabete 
+ * @param {*} SEXE 
+ * @returns 
+ */
 export default function riskDiabete(sumDiabete, SEXE) {
   return risk(sumDiabete, SEXE);
 }
@@ -27,6 +33,3 @@ function risk(sumDiabete, SEXE) {
       3 * Math.exp(-13)
   );
 }
-
-// console.log("man", Diabete.riskDiabete(14, 0));
-// console.log("woman", Diabete.riskDiabete(14, 1));

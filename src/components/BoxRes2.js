@@ -1,9 +1,14 @@
 import "../App.css";
 import React, { useContext, useState } from "react";
 import { ResultatContext, ThemeContext, themes  } from "../Context";
-import { ToggleButton } from "../components/ToggleButton";
+import { ToggleButton } from "../utils/ToggleButton";
 import { getObjKey } from "../utils/tools";
 import { BouncingDotsLoader } from "../utils/tools";
+
+/**
+ * This function allow us to display the response entered by the user those can be modified ( only questions 3 and 13-16 )
+ * @param  {} props
+ */
 
 export default function BoxRes2(props) {
   let resultatContext = useContext(ResultatContext);
@@ -22,7 +27,6 @@ export default function BoxRes2(props) {
           <div className="container_label2">
             <label className="label_results" htmlFor="poids">Weight : {slideValue}kg
 
-            {/* <output className="rangevalue" style={{float:"left"}}>{slideValue}kg</output> */}
             </label>
             <br />
             <label className="label_results" style={{marginTop:"30px"}} htmlFor="fume">Smoker : </label>

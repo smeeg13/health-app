@@ -1,5 +1,5 @@
 
-/* DARK N LIGHT THEME */
+/*------------------------ DARK N LIGHT THEME ---------------------*/ 
 .switch_mode{
   padding-top: 10px;
   padding-bottom: 10px;
@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-/* Loader */
+/*------------------------ LOADER ---------------------*/ 
 
 .bouncing-loader {
   width: 100vw;
@@ -43,7 +43,7 @@
   animation-delay: 0.4s;
 }
 
-/*Home page*/
+/*------------------------ CLASSIC HOMEPAGE ---------------------*/ 
 
 .home_pic{
     margin-left: 150px;
@@ -53,10 +53,11 @@
     width:360;
 }
 
-/*Button  and H elements */
+/*------------------------ BUTTONS AND TEXT ELEMENT TEMPLATE ---------------------*/ 
 
 .btn {
-  margin-top: 20px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   display: inline-block;
   transition: all 0.2s ease-in;
   position: relative;
@@ -66,11 +67,9 @@
   color: #ffff;
   padding: 0.7em 1.7em;
   font-size: 18px;
-  border-radius: 0.5em; /*to round the corner of the shape */
+  border-radius: 0.5em; 
   background: #77C5A6;
   border: 1px solid #77C5A6;
-  /* box-shadow: 6px 6px 12px #c5c5c5,
-             -6px -6px 12px #ffffff; */
 }
 
 .btn:active {
@@ -151,11 +150,6 @@
 }
 
 
-/* .App-link {
-  color: #61dafb;
-} */
-
-
 h1{
   padding-bottom: -20px;
   color: #054A2F;
@@ -171,7 +165,7 @@ h3{
   font-family: "Lexend Deca";
 }
 
-/*Login page*/
+/*------------------------ lOGIN PAGE  ---------------------*/ 
 
 .login_page{
   margin-top: -50px;
@@ -251,7 +245,7 @@ h3{
 }
 
 
-/*Welcome guest*/
+/*------------------------ GUEST HOMEPAGE ---------------------*/ 
 
 .welcome{
   font-family: "Lexend Deca";
@@ -293,24 +287,3 @@ h3{
   background-repeat:repeat; 
 }
 
-/*Result page*/
-
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 100px;
-}
-
-.box1 {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 6;
-}
-
-.box2 {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 6;
-  grid-row-end: 7;
-}

@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
 import error404 from "../pages/img/error404.png"
+
+/**
+ * This Component allow us to display a 404 page
+ */
 export default function NotFound() {
     return (
         <div>

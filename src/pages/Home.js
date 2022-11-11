@@ -5,6 +5,10 @@ import HomeUser from "./homeComponents/HomeUser";
 import HomeAdmin from "./homeComponents/HomeAdmin";
 import HomeDocteur from "./homeComponents/HomeDocteur";
 
+/**
+ * This function allow us to display the right Home according to the role of the current user
+ * @param  {} props
+ */
 export default function Home(props) {
   return (
     <React.Fragment>

@@ -3,14 +3,14 @@ import React from "react";
 import { Formik } from "formik";
 
 
-const initialValues = {
+ const initialValues = {
   email: "",
   nom: "",
   password: "",
   repassword: "",
 };
 
-const validate = (values) => {
+ const validate = (values) => {
   let errors = {};
 
   if (!values.nom) {
@@ -36,6 +36,11 @@ const validate = (values) => {
   return errors;
 };
 
+/**
+ * This function allow us to display a register form for Doctor using Formik library
+ * It check if and email and a password have been entered And create one user in the Firebase authentication
+ * @param  {} props
+ */
 export default function NewDocteurForm({ handleSubmit }) {
   return (
     <Formik

@@ -7,6 +7,10 @@ import night from "./img/night.png";
 import day from "./img/day.png";
 import { ThemeContext, themes } from "../Context";
 
+/**
+ * This function allow us to display the the Navigation Bar according to the role of the current user
+ * @param  {} props
+ */
 export default class Navbar extends React.Component {
   render() {
     return (

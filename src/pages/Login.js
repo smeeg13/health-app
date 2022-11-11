@@ -13,7 +13,10 @@ import {useContext} from "react";
 import React, {useState} from "react";
 import "../App.css";
 
-
+/**
+ * This function allow us to display the login form and to check where to redirect the user after its connection
+ * @param  {} props
+ */
 export default function Login() {
     const navigate = useNavigate();
     let themeContext = useContext(ThemeContext);
@@ -147,7 +150,7 @@ export function InformationMessage(message) {
             return (
                 <div>
                     <p>
-                        <b style={{backgroundColor: "red"}}>
+                        <b style={{color: "#A30000"}}>
                             Wrong password
                         </b>
                     </p>
@@ -159,7 +162,7 @@ export function InformationMessage(message) {
             return (
                 <div>
                     <p>
-                        <b style={{backgroundColor: "lightgreen"}}>
+                        <b style={{color:"#1A523C"}}>
                             Login correct
                         </b>
                     </p>
@@ -171,7 +174,7 @@ export function InformationMessage(message) {
             return (
                 <div>
                     <p>
-                        <b style={{backgroundColor: "lightgreen"}}>
+                        <b style={{color: "#1A523C"}}>
                             Account created
                         </b>
                     </p>

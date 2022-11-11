@@ -5,6 +5,10 @@ import { useContext } from "react";
 import home_pic from "../img/home.png";
 import { ThemeContext, themes } from "../../Context";
 
+/**
+ * Display the Home of an Guest
+ * 
+ */
 export default function HomeGuest() {
     let themeContext = useContext(ThemeContext);
   

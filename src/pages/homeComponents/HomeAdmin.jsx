@@ -3,7 +3,10 @@ import { ThemeContext, themes } from "../../Context";
 import { Link } from "react-router-dom";
 
 
-
+/**
+ * Display the Home of an Administrator
+ * 
+ */
 export default function HomeAdmin() {
     let themeContext = useContext(ThemeContext);
   

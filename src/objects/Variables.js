@@ -4,15 +4,13 @@ export class Variable {
     nom,
     limites,
     val_normale,
-    val_predefinie1,
-    val_predefinie2
+    val_predefinie,
   ) {
     this.id_var = id_var;
     this.nom = nom;
     this.limites = limites;
     this.val_normale = val_normale;
-    this.val_predefinie1 = val_predefinie1;
-    this.val_predefinie2 = val_predefinie2;
+    this.val_predefinie = val_predefinie;
   }
   toString() {
     return (
@@ -21,10 +19,8 @@ export class Variable {
       this.limites +
       ", val_normale = " +
       this.val_normale +
-      ", val_predefinie1 = " +
-      this.val_predefinie1 +
-      ", val_predefinie2 = " +
-      this.val_predefinie2
+      ", val_predefinie = " +
+      this.val_predefinie 
     );
   }
 }
@@ -36,8 +32,7 @@ export const variableConverter = {
       nom: variable.nom,
       limites: variable.limites,
       val_normale: variable.val_normale,
-      val_predefinie1: variable.val_predefinie1,
-      val_predefinie2: variable.val_predefinie2,
+      val_predefinie: variable.val_predefinie,
     };
   },
   fromFirestore: (snapshot, options) => {
@@ -47,8 +42,7 @@ export const variableConverter = {
       data.nom,
       data.limites,
       data.val_normale,
-      data.val_predefinie1,
-      data.val_predefinie2
+      data.val_predefinie,
     );
   },
 };
