@@ -124,33 +124,36 @@ function VariablesForm({data}) {
 
     useEffect(() => {
         setApi_variable_predifinie(data.val_predefinie);
-        //setApi_variable_limites(data.limites);
+
         setApi_variable_normale(data.val_normale);
         transformationminMax(data.limites)
 
     }, []);
 
+    /**
+     * const used to transform the variable "limite" into 2 variable
+     * the min and the max since it is stored in one variable ex : (1-3)
+     * they will be stored into api_variable_min and api_variable_max
+     * @param valeur_limite_input the input is the variable limite who contains the min and max
+     */
     const transformationminMax = (valeur_limite_input) => {
         if (valeur_limite_input == "" || valeur_limite_input == null) {
             setApi_Variable_min("");
             setApi_Variable_max("");
         } else {
-            //typical data (1-2) (0-12)
-            //Split into (1 and 2)
+
             setApi_Variable_min(valeur_limite_input.substring(0, valeur_limite_input.indexOf('-')));
             setApi_Variable_max(valeur_limite_input.substring(valeur_limite_input.indexOf('-') + 1));
         }
     }
-
+    /**
+     * const used to submit the modifed variables into firebase
+     * @param event - used to prevent the Event interface's preventDefault() method tells the user agent
+     * that if the event does not get explicitly handled, its default action should not be taken as it normally would be.
+     */
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        /*     if (api_variable_limites !== variable_limites && variable_limites !== "") {
-                 const variableRef = doc(db, "Variables", data.id);
-                 setDoc(variableRef, {limites: variable_limites}, {merge: true}).then(
-                     (r) => console.log("Update limites done")
-                 );
-                 setApi_variable_limites(variable_limites);*/
         if ((variable_min != api_variable_min && variable_min != "") && (variable_max != api_variable_max && variable_max != "")) {
             // if its different than the api variable then :
 
