@@ -152,8 +152,9 @@ function Range(props) {
             />
             <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >
               {resultatContext.resultat[props.question.resName]}
-              Chol {props.question.unites}
+               Chol {props.question.unites}
             </output>
+            <p/>
             <input style={{ background: themes[themeContext.theme].rangeColor }}
               type="range"
               name={props.question.resName2}
@@ -165,7 +166,7 @@ function Range(props) {
             />
             <output className="rangevalue" style={{ backgroundColor: themes[themeContext.theme].rangeColor, color: themes[themeContext.theme].textcolorbtn }} >
               {resultatContext.resultat[props.question.resName2]}
-              Hdl {props.question.unites}
+               Hdl {props.question.unites}
             </output>
           </div>
         }
