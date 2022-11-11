@@ -3,7 +3,6 @@ import {collection, setDoc, doc, getDocs} from "firebase/firestore";
 import {db} from "../initFirebase";
 import {useState, useContext} from "react";
 import {ThemeContext, themes} from "../Context";
-// import settings from "./img/settingss.png";
 import {useNavigate} from "react-router-dom";
 import RedirectAlert from "../utils/RedirectAlert";
 
@@ -28,10 +27,6 @@ export default function Settings(props) {
 
             setVariables(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
             console.log("Get api call");
-            /*   return new Promise((resolve, reject) => {
-                         resolve( setVariables(data.docs.map((doc) => ({...doc.data(), id: doc.id}))))
-                         console.log("Get api call")
-                     })*/
         };
 
         getVariables();
@@ -75,7 +70,6 @@ export default function Settings(props) {
                         Settings
                     </h1>
 
-                    {/* <img src={settings} style={{height:"350px", float:"right", paddingRight:"100px", position:"relative"}}></img> */}
                     {variables.map((variable) => {
                         return (
                             <div key={variable.id}>
@@ -107,7 +101,6 @@ export default function Settings(props) {
 
 function VariablesForm({data}) {
     let [api_variable_predifinie, setApi_variable_predifinie] = useState("");
-    let [api_variable_limites, setApi_variable_limites] = useState("");
     let [api_variable_normale, setApi_variable_normale] = useState("");
 
     let [variable_min, setVariable_min] = useState("");
@@ -118,7 +111,6 @@ function VariablesForm({data}) {
 
     let [variable_normale, setVariable_normale] = useState("");
     let [variable_predifinie, setVariable_predifinie] = useState("");
-    let [variable_limites, setVariable_limites] = useState("");
 
     let themeContext = useContext(ThemeContext);
 
@@ -127,7 +119,7 @@ function VariablesForm({data}) {
 
         setApi_variable_normale(data.val_normale);
         transformationminMax(data.limites)
-
+        // eslint-disable-next-line
     }, []);
 
     /**
@@ -137,11 +129,10 @@ function VariablesForm({data}) {
      * @param valeur_limite_input the input is the variable limite who contains the min and max
      */
     const transformationminMax = (valeur_limite_input) => {
-        if (valeur_limite_input == "" || valeur_limite_input == null) {
+        if (valeur_limite_input === "" || valeur_limite_input == null) {
             setApi_Variable_min("");
             setApi_Variable_max("");
         } else {
-
             setApi_Variable_min(valeur_limite_input.substring(0, valeur_limite_input.indexOf('-')));
             setApi_Variable_max(valeur_limite_input.substring(valeur_limite_input.indexOf('-') + 1));
         }
@@ -154,13 +145,11 @@ function VariablesForm({data}) {
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
-        if ((variable_min != api_variable_min && variable_min != "") && (variable_max != api_variable_max && variable_max != "")) {
+        if (( variable_min !== "" && variable_max !== "")) {
             // if its different than the api variable then :
 
             const variableRef = doc(db, "Variables", data.id);
-            setDoc(variableRef, {limites: variable_min + "-" + variable_max}, {merge: true}).then(
-                (r) => console.log("Update limites min max done")
-            );
+            setDoc(variableRef, {limites: variable_min + "-" + variable_max}, {merge: true}).then();
             setApi_Variable_min(variable_min);
             setApi_Variable_max(variable_max);
 
@@ -170,7 +159,7 @@ function VariablesForm({data}) {
                 variableRef,
                 {val_predefinie: variable_predifinie},
                 {merge: true}
-            ).then((r) => console.log("Update val predifinie done"));
+            ).then();
             setApi_variable_predifinie(variable_predifinie);
         } else if (
             api_variable_normale !== variable_normale &&
@@ -181,14 +170,10 @@ function VariablesForm({data}) {
                 variableRef,
                 {val_normale: variable_normale},
                 {merge: true}
-            ).then((r) => console.log("Update val predifinie done"));
+            ).then();
             setApi_variable_normale(variable_normale);
-        } else {
-            console.log("Settings info : Nothing to update.. ");
         }
-
         setVariable_normale("");
-        setVariable_limites("");
         setVariable_predifinie("");
         setVariable_min("");
         setVariable_max("")
